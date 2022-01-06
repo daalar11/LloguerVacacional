@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="plantilla/template :: head">
     <meta charset="UTF-8">
     <title>Title</title>
-    <link th:href="@{/css/custom.css}" rel="stylesheet">
 </head>
 <body>
-<button type="button" class="btn btn-primary">Hello world button</button>
-<h1>Hola desde spring Boot </h1>
-<script th:src="@{/js/bootstrap.bundle.js}"></script>
+    <header th:replace="plantilla/template :: header"></header>
+
+    <footer th:replace="plantilla/template :: footer"></footer>
 </body>
 </html>
