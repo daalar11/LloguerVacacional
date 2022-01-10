@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="plantilla/template :: head">
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<header th:replace="plantilla/template :: header"></header>
+<div class="container">
+  <h1 th:text="${titulo}"></h1>
+</div>
+<div class="container">
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">Habitacio</th>
+      <th scope="col">bany</th>
+      <th scope="col">llit doble</th>
+      <th scope="col">llit simple</th>
+      <th scope="col">id propietat</th>
+      <th scope="col">Editar</th>
+      <th scope="col">Eliminar</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="cl:${pelicules}" >
+      <th  th:text="${cl.idHABITACIONS}">1</th>
+      <td  th:text="${cl.bany}"></td>
+      <td  th:text="${cl.llit_Doble}"></td>
+      <td  th:text="${cl.llit_simple}"> </td>
+      <td  th:text="${cl.id_propietat}"></td>
+      <td>
+        <a class="btn btn-danger" th:href="@{/views/habitacions/delete/} + ${cl.idHABITACIONS}" th:text="'Eliminar'" title="Eliminar"></a>
+      </td>
+      <td>
+        <a class="btn btn-success" th:href="@{/views/habitacions/edit/} + ${cl.idHABITACIONS}" th:text="'Editar'" title="Editar"></a>
+      </td>
+
+    </tr>
+
+    </tbody>
+  </table>
+  <a class="btn btn-primary" th:href="@{/views/habitacions/afegir}" th:text="'Nuevo Cliente'" title="Crear nou registre"></a>
+</div>
+<footer th:replace="plantilla/template :: footer"></footer>
+</body>
+</html>
