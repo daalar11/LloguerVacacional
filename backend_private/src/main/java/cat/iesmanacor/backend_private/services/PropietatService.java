@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class PropietatServei implements PropietatServeiInterface{
+public class PropietatService implements iPropietatService {
 
     @Autowired
     private PropietatRepository propietatRepository;

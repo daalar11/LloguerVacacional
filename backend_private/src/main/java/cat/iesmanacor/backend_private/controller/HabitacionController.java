@@ -20,7 +20,7 @@ public class HabitacionController {
 
         model.addAttribute("titulo","Llista de habitacions");
         model.addAttribute("pelicules",llistaPelicula);
-        return "views/pelicules/mostraHabitacions";
+        return "/views/pelicules/mostraHabitacions";
     }
     @GetMapping("/afegir")
     public String afegir(Model model){

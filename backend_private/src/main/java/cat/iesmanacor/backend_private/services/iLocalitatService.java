@@ -4,7 +4,7 @@ import cat.iesmanacor.backend_private.entitats.Localitat;
 
 import java.util.List;
 
-public interface LocalitatServeiInterface {
+public interface iLocalitatService {
 
     List<Localitat> llistarLocalitats();
 

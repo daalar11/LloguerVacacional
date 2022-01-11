@@ -2,8 +2,8 @@ package cat.iesmanacor.backend_private.controller;
 
 import cat.iesmanacor.backend_private.entitats.Localitat;
 import cat.iesmanacor.backend_private.entitats.Propietat;
-import cat.iesmanacor.backend_private.services.LocalitatServeiInterface;
-import cat.iesmanacor.backend_private.services.PropietatServeiInterface;
+import cat.iesmanacor.backend_private.services.iLocalitatService;
+import cat.iesmanacor.backend_private.services.iPropietatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,13 +16,13 @@ import java.util.List;
 //NOTACIO OBLIGATORIA (PAQUET AL QUE PERTANY)
 @Controller
 @RequestMapping("/views/propietats")
-public class ControladorPropietat {
+public class PropietatController {
 
     @Autowired
-    private PropietatServeiInterface propietatService;
+    private iPropietatService propietatService;
 
     @Autowired
-    private LocalitatServeiInterface localitatService;
+    private iLocalitatService localitatService;
 
     //LListar totes les propietats
     @GetMapping({"/"})
@@ -46,8 +46,6 @@ public class ControladorPropietat {
         model.addAttribute("propietat", p);
         model.addAttribute("localitats", listLocalitats);
 
-
-
         return "/views/propietats/frmCrearPropietat";
     }
 
@@ -55,7 +53,6 @@ public class ControladorPropietat {
     public String guardar(@Validated @ModelAttribute Propietat p, BindingResult result, Model model){
 
         List<Localitat> listLocalitats = localitatService.llistarLocalitats();
-
 
         if (result.hasErrors()) {
 
@@ -83,8 +80,6 @@ public class ControladorPropietat {
         model.addAttribute("titol", "Formulari Editar propietat");
         model.addAttribute("propietat", p);
         model.addAttribute("localitats", listLocalitats);
-
-
 
         return "/views/propietats/frmCrearPropietat";
     }

@@ -4,7 +4,7 @@ import cat.iesmanacor.backend_private.entitats.Propietat;
 
 import java.util.List;
 
-public interface PropietatServeiInterface {
+public interface iPropietatService {
 
    public List<Propietat> listarTodos();
    public void guardar(Propietat p);

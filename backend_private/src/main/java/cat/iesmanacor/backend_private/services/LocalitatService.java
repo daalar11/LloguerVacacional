@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class LocalitatService implements LocalitatServeiInterface {
+public class LocalitatService implements iLocalitatService {
 
     @Autowired
     private LocalitatRepository localitatRepository;
