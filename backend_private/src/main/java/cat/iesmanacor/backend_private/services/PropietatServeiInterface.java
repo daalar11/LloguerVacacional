@@ -1,6 +1,6 @@
-package com.iesmanacor.backend_private.Models.Serveis;
+package cat.iesmanacor.backend_private.services;
 
-import com.iesmanacor.backend_private.Models.Entitats.Propietat;
+import cat.iesmanacor.backend_private.entitats.Propietat;
 
 import java.util.List;
 

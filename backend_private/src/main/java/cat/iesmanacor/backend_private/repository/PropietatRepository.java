@@ -1,6 +1,6 @@
-package com.iesmanacor.backend_private.Models.Repositoris;
+package cat.iesmanacor.backend_private.repository;
 
-import com.iesmanacor.backend_private.Models.Entitats.Propietat;
+import cat.iesmanacor.backend_private.entitats.Propietat;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

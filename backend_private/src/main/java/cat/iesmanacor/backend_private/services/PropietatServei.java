@@ -1,7 +1,7 @@
-package com.iesmanacor.backend_private.Models.Serveis;
+package cat.iesmanacor.backend_private.services;
 
-import com.iesmanacor.backend_private.Models.Entitats.Propietat;
-import com.iesmanacor.backend_private.Models.Repositoris.PropietatRepository;
+import cat.iesmanacor.backend_private.entitats.Propietat;
+import cat.iesmanacor.backend_private.repository.PropietatRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

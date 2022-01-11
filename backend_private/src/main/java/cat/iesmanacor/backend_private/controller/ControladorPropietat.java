@@ -1,9 +1,9 @@
-package com.iesmanacor.backend_private.Controladors;
+package cat.iesmanacor.backend_private.controller;
 
-import com.iesmanacor.backend_private.Models.Entitats.Localitat;
-import com.iesmanacor.backend_private.Models.Entitats.Propietat;
-import com.iesmanacor.backend_private.Models.Serveis.LocalitatServeiInterface;
-import com.iesmanacor.backend_private.Models.Serveis.PropietatServeiInterface;
+import cat.iesmanacor.backend_private.entitats.Localitat;
+import cat.iesmanacor.backend_private.entitats.Propietat;
+import cat.iesmanacor.backend_private.services.LocalitatServeiInterface;
+import cat.iesmanacor.backend_private.services.PropietatServeiInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
