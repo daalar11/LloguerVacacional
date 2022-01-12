@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="plantilla/template :: head"></head>
+<head th:replace="plantilla/template :: head">
+
+
+</head>
 <body>
 
     <header th:replace="plantilla/template :: header"></header>
@@ -9,26 +12,27 @@
 
         <main>
 
-            <h2 th:text="${titol}"></h2>
+            <h2 class="text-center" th:text="${titol}"></h2>
             <!-- <p th:text="${propietat}"></p> -->
 
             <div class="row">
 
-                <a class="btn btn-warning" th:href="@{/views/propietats/create}" th:text="'Nova Propietat'" title="Crear Nova Propietat"></a>
+                <a class="btn btn-danger" th:href="@{/views/propietats/create}" th:text="'Nova Propietat'" title="Crear Nova Propietat"></a>
 
+                <hr>
                 <div class="col-12">
 
-                    <table class="table table-striped">
+                    <table id="table_id" class="table table-striped" style="width:100%">
                         <thead class="thead-dark">
                             <tr>
                                 <th scope="col">Id</th>
                                 <th scope="col">Propietat</th>
                                 <th scope="col">Localitat</th>
-                                <th scope="col">Normes</th>
+                                <!-- <th scope="col">Normes</th> -->
                                 <th scope="col">Habitacions</th>
                                 <th scope="col">Direccio</th>
-                                <th scope="col">Descompte Setmana</th>
-                                <th scope="col">Descompte Mes</th>
+                                <th scope="col">Des.Setmana</th>
+                                <th scope="col">Des. Mes</th>
                                 <th scope="col">Activa</th>
                                 <th scope="col">Editar</th>
                                 <th scope="col">Eliminar</th>
@@ -39,7 +43,7 @@
                                 <th th:text="${pr.idPROPIETAT}"></th>
                                 <td th:text="${pr.nomPropietat}"></td>
                                 <td th:text="${pr.localitat.nomLocalitat}"></td>
-                                <td th:text="${pr.normes}"></td>
+                                <!-- <td th:text="${pr.normes}"></td> -->
                                 <td th:text="${pr.habitacions}"></td>
                                 <td th:text="${pr.direccio}"></td>
                                 <td th:text="${pr.descompteSetmana}"></td>
@@ -51,7 +55,7 @@
                                     ></a>
                                 </td>
                                 <td>
-                                    <a class="btn btn-warning" th:href="@{'/views/propietats/delete/'+${pr.idPROPIETAT}}"
+                                    <a class="btn btn-danger" th:href="@{'/views/propietats/delete/'+${pr.idPROPIETAT}}"
                                        th:text="'Eliminar Propietat'" title="Eliminar Propietat"
                                        onclick="return confirm('Estas segur que vols eliminar el registre?');">
                                     ></a>
@@ -66,5 +70,15 @@
         <footer th:replace="plantilla/template :: footer"></footer>
 
     </div>
+
+    <script>
+
+        $(document).ready(function() {
+            $('#table_id').DataTable();
+        } );
+
+
+    </script>
+
 </body>
 </html>
