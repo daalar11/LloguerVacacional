@@ -11,17 +11,17 @@
 
             <div class="row">
 
-                <div class="card bg-light">
+                <div class="card bg-light mt-3 mb-3">
 
-                    <div class="card-header" th:text="${titol}"></div>
+                    <div class="card-header bg-light" th:text="${titol}"></div>
 
-                    <div class="card-body">
+                    <div class="card-body bg-light">
 
                         <form th:object="${propietat}" th:action="@{/views/propietats/save}" method="post">
                             <input type="hidden" th:field="*{idPROPIETAT}">
                             <div class="mb-3">
                                 <label for="nomPropietat" class="form-label">Nom de la propietat</label>
-                                <input type="text" th:field="*{nomPropietat}" class="form-control" id="nomPropietat">
+                                <input type="text" th:field="*{nomPropietat}" placeholder="ej. Villa Luna" class="form-control" id="nomPropietat">
                                 <div id="spannom" class="form-text">Nom de la propietat que figura en l'escriptura</div>
                             </div>
                             <div class="mb-3">
@@ -46,7 +46,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="direccio" class="form-label">Direccio</label>
-                                <input type="text" th:field="*{direccio}" class="form-control" id="direccio">
+                                <input type="text" placeholder="ej. Major 50" th:field="*{direccio}" class="form-control" id="direccio">
                                 <div id="direcciospan" class="form-text">Direccio de la casa amb format Carrer Numero</div>
                             </div>
                             <div class="mb-3">
@@ -60,11 +60,10 @@
                                 <div id="descompteMesspan" class="form-text">Descompte aplicat en cas de lloguers majors d'un mes</div>
                             </div>
 
-                            <div class="card-footer">
-                                <input type="submit" class="btn btn-warning" value="Guardar"/>
-                            </div>
-
                         </form>
+                    </div>
+                    <div class="card-footer bg-light">
+                        <input type="submit" class="btn btn-warning" value="Guardar"/>
                     </div>
                 </div>
             </div>
