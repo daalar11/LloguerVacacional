@@ -16,7 +16,7 @@ public class Habitacions {
     private int bany;
     private int llit_Doble;
     private int llit_simple;
-    //@ManyToOne //Relacio de molts a un ambn la taula propietat
-    //@JoinColumn(name = "id_propietat") //Especificam el nom de la taula
-    private int id_propietat;
+    @ManyToOne //Relacio de molts a un ambn la taula propietat
+    @JoinColumn(name = "id_propietat") //Especificam el nom de la taula
+    private Propietat propietat;
 }

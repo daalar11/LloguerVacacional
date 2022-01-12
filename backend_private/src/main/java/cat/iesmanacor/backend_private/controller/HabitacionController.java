@@ -1,7 +1,9 @@
 package cat.iesmanacor.backend_private.controller;
 
 import cat.iesmanacor.backend_private.entitats.Habitacions;
+import cat.iesmanacor.backend_private.entitats.Propietat;
 import cat.iesmanacor.backend_private.services.iHabitacioService;
+import cat.iesmanacor.backend_private.services.iPropietatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +16,9 @@ public class HabitacionController {
     @Autowired
     private iHabitacioService habitacioService;
 
+    @Autowired
+    private iPropietatService propietatService;
+
     @GetMapping("/habitacio")
     public String llistarHabitacions(Model model){
         List<Habitacions> llistaPelicula= habitacioService.findAll();
@@ -24,10 +29,14 @@ public class HabitacionController {
     }
     @GetMapping("/afegir")
     public String afegir(Model model){
+        List<Propietat> listPropietat = propietatService.listarTodos();
+
         Habitacions habitacio = new Habitacions();
         model.addAttribute("habitacio",habitacio);
+        model.addAttribute("propietats",listPropietat);
     return "/views/pelicules/frmAfegir";
     }
+
     //recibe los datos del formulario para enviarlos a la bd
     @PostMapping("/save")
     public String save(@ModelAttribute Habitacions habitacio){

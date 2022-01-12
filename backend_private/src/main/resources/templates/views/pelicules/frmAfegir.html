@@ -26,7 +26,11 @@
     </div>
     <div class="mb-3">
       <label for="casa" class="form-label">id propietat: </label>
-      <input type="text" class="form-control" id="casa" aria-describedby="emailHelp"  th:field="*{id_propietat}">
+      <select type="text" class="form-control" id="casa" aria-describedby="emailHelp"  th:field="*{propietat}">
+        <option th:each="propietat:${propietats}"
+                 th:value="${propietat.idPROPIETAT}"
+                 th:text="${propietat.nomPropietat}"/>
+      </select>
 
     </div>
     <input type="submit" class="btn btn-primary" value="Afegir"/>

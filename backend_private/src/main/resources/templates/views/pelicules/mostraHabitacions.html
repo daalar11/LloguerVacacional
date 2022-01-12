@@ -27,7 +27,7 @@
           <td  th:text="${cl.bany}"></td>
           <td  th:text="${cl.llit_Doble}"></td>
           <td  th:text="${cl.llit_simple}"> </td>
-          <td  th:text="${cl.id_propietat}"></td>
+          <td  th:text="${cl.propietat.nomPropietat}"></td>
           <td>
             <a class="btn btn-danger" th:href="@{/views/habitacions/delete/} + ${cl.idHABITACIONS}" th:text="'Eliminar'" title="Eliminar"></a>
           </td>
