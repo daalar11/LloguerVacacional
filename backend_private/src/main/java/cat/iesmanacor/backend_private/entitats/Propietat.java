@@ -27,7 +27,7 @@ public class Propietat implements Serializable {
     private Localitat localitat;
 
     private String normes;
-
+    //@OneToMany(mappedBy = "PROPIETAT")
     private int habitacions;
 
     private String direccio;
