@@ -41,7 +41,7 @@
 
         </tbody>
       </table>
-      <a th:each="hab:${propietat}"  class="btn btn-primary" th:href="@{'/views/habitacions/afegir/'+ ${hab.idPROPIETAT}} " th:text="'Nuevo Cliente'" title="Crear nou registre"></a>
+      <a th:each="hab:${propietat}"  class="btn btn-primary" th:href="@{'/views/habitacions/afegir/'+ ${hab.idPROPIETAT}} " th:text="'Nova Habitacio'" title="Crear nou registre"></a>
     </div>
     <footer th:replace="plantilla/template :: footer"></footer>
     <script>
