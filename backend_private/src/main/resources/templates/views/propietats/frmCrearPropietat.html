@@ -1,76 +1,79 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
+
 <head th:replace="plantilla/template :: head"></head>
+
 <body>
 
-    <header th:replace="plantilla/template :: header"></header>
+<header th:replace="plantilla/template :: header"></header>
 
-    <div class="container">
+<div class="container">
 
-        <main>
+    <main>
 
-            <div class="row">
+        <div class="row">
 
-                <div class="card bg-light mt-3 mb-3">
+            <div class="card bg-light mt-3 mb-3">
 
-                    <div class="card-header bg-light" th:text="${titol}"></div>
+                <div class="card-header bg-light" th:text="${titol}"></div>
 
-                    <div class="card-body bg-light">
+                <div class="card-body bg-light">
 
-                        <form th:object="${propietat}" th:action="@{/views/propietats/save}" method="post">
-                            <input type="hidden" th:field="*{idPROPIETAT}">
-                            <div class="mb-3">
-                                <label for="nomPropietat" class="form-label">Nom de la propietat</label>
-                                <input type="text" th:field="*{nomPropietat}" placeholder="ej. Villa Luna" class="form-control" id="nomPropietat">
-                                <div id="spannom" class="form-text">Nom de la propietat que figura en l'escriptura</div>
-                            </div>
-                            <div class="mb-3">
-                                <label for="localitat" class="form-label">Localitat</label>
-                                <select class="form-control" id="localitat" th:field="*{localitat}">
-                                    <option th:each="localitat:${localitats}"
+                    <form th:object="${propietat}" th:action="@{/views/propietats/save}" method="post">
+                        <input type="hidden" th:field="*{idPROPIETAT}">
+                        <div class="mb-3">
+                            <label for="nomPropietat" class="form-label">Nom de la propietat</label>
+                            <input type="text" th:field="*{nomPropietat}" placeholder="ej. Villa Luna" class="form-control" id="nomPropietat">
+                            <div id="spannom" class="form-text">Nom de la propietat que figura en l'escriptura</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="localitat" class="form-label">Localitat</label>
+                            <select class="form-control" id="localitat" th:field="*{localitat}">
+                                <option th:each="localitat:${localitats}"
                                         th:value="${localitat.idLOCALITAT}"
                                         th:text="${localitat.nomLocalitat}"
-                                    />
-                                </select>
-                                <div id="localitatspan" class="form-text">Selecciona la localitat on es localitza la propietat</div>
-                            </div>
-                            <div class="mb-3">
-                                <label for="w3review" class="form-label">Normes</label><br>
-                                <textarea id="w3review" th:field="*{normes}" name="w3review" rows="4" cols="50"></textarea>
-                                <div id="normesspan" class="form-text">Aqui pots indicar les normes que dessitjis sobre la teva propietat.</div>
-                            </div>
-                            <div class="mb-3">
-                                <label for="habitacions" class="form-label">Habitacions</label>
-                                <input type="text" th:field="*{habitacions}" class="form-control" id="habitacions">
-                                <div id="habitacionsspan" class="form-text">Numerò d'habitacions principals que te la propietat.</div>
-                            </div>
-                            <div class="mb-3">
-                                <label for="direccio" class="form-label">Direccio</label>
-                                <input type="text" placeholder="ej. Major 50" th:field="*{direccio}" class="form-control" id="direccio">
-                                <div id="direcciospan" class="form-text">Direccio de la casa amb format Carrer Numero</div>
-                            </div>
-                            <div class="mb-3">
-                                <label for="descompteSetmana" class="form-label">Descompte Setmanal</label>
-                                <input type="text" th:field="*{descompteSetmana}" class="form-control" id="descompteSetmana">
-                                <div id="descompteSetmanaspan" class="form-text">Descompte aplicat en cas de lloguers majors a una setmana</div>
-                            </div>
-                            <div class="mb-3">
-                                <label for="descompteMes" class="form-label">Descompte Mensual</label>
-                                <input type="text" th:field="*{descompteMes}" class="form-control" id="descompteMes">
-                                <div id="descompteMesspan" class="form-text">Descompte aplicat en cas de lloguers majors d'un mes</div>
-                            </div>
-                            <div class="card-footer bg-light">
-                                <input type="submit" class="btn btn-warning" value="Guardar"/>
-                            </div>
-                        </form>
-                    </div>
-
+                                />
+                            </select>
+                            <div id="localitatspan" class="form-text">Selecciona la localitat on es localitza la propietat</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="w3review" class="form-label">Normes</label><br>
+                            <textarea id="w3review" th:field="*{normes}" name="w3review" rows="4" cols="50"></textarea>
+                            <div id="normesspan" class="form-text">Aqui pots indicar les normes que dessitjis sobre la teva propietat.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="habitacions" class="form-label">Habitacions</label>
+                            <input type="text" th:field="*{habitacions}" class="form-control" id="habitacions">
+                            <div id="habitacionsspan" class="form-text">Numerò d'habitacions principals que te la propietat.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="direccio" class="form-label">Direccio</label>
+                            <input type="text" placeholder="ej. Major 50" th:field="*{direccio}" class="form-control" id="direccio">
+                            <div id="direcciospan" class="form-text">Direccio de la casa amb format Carrer Numero</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="descompteSetmana" class="form-label">Descompte Setmanal</label>
+                            <input type="text" th:field="*{descompteSetmana}" class="form-control" id="descompteSetmana">
+                            <div id="descompteSetmanaspan" class="form-text">Descompte aplicat en cas de lloguers majors a una setmana</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="descompteMes" class="form-label">Descompte Mensual</label>
+                            <input type="text" th:field="*{descompteMes}" class="form-control" id="descompteMes">
+                            <div id="descompteMesspan" class="form-text">Descompte aplicat en cas de lloguers majors d'un mes</div>
+                        </div>
+                        <div class="card-footer bg-light">
+                            <input type="submit" class="btn btn-warning" value="Guardar" />
+                        </div>
+                    </form>
                 </div>
+
             </div>
-        </main>
+        </div>
+    </main>
 
-        <footer th:replace="plantilla/template :: footer"></footer>
+    <footer th:replace="plantilla/template :: footer"></footer>
 
-    </div>
+</div>
 </body>
+
 </html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="plantilla/template :: head">
+
+
+</head>
+
+<body>
+
+<header th:replace="plantilla/template :: header"></header>
+
+<div class="container">
+
+    <main>
+
+        <h2 class="text-center" th:text="${titol}"></h2>
+        <!-- <p th:text="${propietat}"></p> -->
+
+        <div class="row">
+
+            <a class="btn btn-danger" th:href="@{/views/propietats/create}" th:text="'Nova Propietat'" title="Crear Nova Propietat"></a>
+
+            <hr>
+            <div class="col-12">
+
+                <table id="table_id" class="table table-striped" style="width:100%">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Propietat</th>
+                        <th scope="col">Localitat</th>
+                        <!-- <th scope="col">Normes</th> -->
+                        <!--<th scope="col">Habitacions</th>-->
+                        <th scope="col">Direccio</th>
+                        <th scope="col">Des.Setmana</th>
+                        <th scope="col">Des. Mes</th>
+                        <th scope="col">Activa</th>
+                        <th scope="col">Editar</th>
+                        <th scope="col">Eliminar</th>
+                        <th scope="col">Habitacions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="pr:${propietat}">
+                        <th th:text="${pr.idPROPIETAT}"></th>
+                        <td th:text="${pr.nomPropietat}"></td>
+                        <td th:text="${pr.localitat.nomLocalitat}"></td>
+                        <!-- <td th:text="${pr.normes}"></td> -->
+                        <!-- <td th:text="${pr.habitacions}"></td>-->
+                        <td th:text="${pr.direccio}"></td>
+                        <td th:text="${pr.descompteSetmana}"></td>
+                        <td th:text="${pr.descompteMes}"></td>
+                        <td th:text="${pr.activa}"></td>
+                        <td>
+                            <a class="btn btn-success" th:href="@{'/views/propietats/edit/'+${pr.idPROPIETAT}}" th:text="'Editar Propietat'" title="Editar Propietat"></a>
+                        </td>
+                        <td>
+                            <a class="btn btn-danger" th:href="@{'/views/propietats/delete/'+${pr.idPROPIETAT}}" th:text="'Eliminar Propietat'" title="Eliminar Propietat" onclick="return confirm('Estas segur que vols eliminar el registre?');">
+                                ></a>
+                        </td>
+                        <td><a class="btn btn-primary" th:href="@{'/views/habitacions/habitacio/'+${pr.idPROPIETAT}}">Configurar Habtiacions </a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <footer th:replace="plantilla/template :: footer"></footer>
+
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('#table_id').DataTable();
+    });
+</script>
+
+</body>
+
+</html>

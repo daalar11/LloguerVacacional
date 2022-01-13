@@ -30,7 +30,7 @@ public class HabitacionController {
         model.addAttribute("titulo","Llista de habitacions");
         model.addAttribute("pelicules",llistaPelicula);
         model.addAttribute("propietat",habitacio);
-        return "/views/pelicules/mostraHabitacions";
+        return "/views/habitacions/mostraHabitacions";
     }
 
     //Afegeix habitacions en funcio de sa propietat
@@ -40,7 +40,7 @@ public class HabitacionController {
         Habitacions habitacio = new Habitacions();
         model.addAttribute("habitacio",habitacio);
         model.addAttribute("propietats",listPropietat);
-    return "/views/pelicules/frmAfegir";
+    return "/views/habitacions/frmAfegir";
     }
 
     //recibe los datos del formulario para enviarlos a la bd
@@ -58,7 +58,7 @@ public class HabitacionController {
         model.addAttribute("titulo","Formulario: Editar habitacion");
         model.addAttribute("habitacio",habitacio);
         model.addAttribute("propietat",idPROPIETAT);
-        return "/views/pelicules/frmEditar";
+        return "/views/habitacions/frmEditar";
     }
 
     //Elimina una habitacio

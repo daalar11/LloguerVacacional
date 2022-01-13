@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="plantilla/template :: head">
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+
+<body>
+<header th:replace="plantilla/template :: header"></header>
+
+<div class="container">
+
+  <main>
+
+    <div class="row">
+
+      <div class="card bg-light mt-3 mb-3">
+
+        <div class="card-header bg-light">Editar Habitacions</div>
+
+        <div class="card-body bg-light">
+
+          <form th:object="${habitacio}" th:action="@{/views/habitacions/save}" method="post">
+
+            <div class="mb-3">
+              <label for="casa" class="form-label">Id propietat: </label>
+              <select type="text" class="form-control" id="casa" aria-describedby="emailHelp" th:field="*{propietat}" readonly>
+                <option th:each="propietats:${propietat}"
+                        th:value="${propietats}"
+                        th:text="${propietats}"/>
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <input type="hidden" th:field="*{idHABITACIONS}">
+              <label for="bany" class="form-label">Banys: </label>
+              <input type="text" class="form-control" id="bany" aria-describedby="emailHelp" th:field="*{bany}">
+
+            </div>
+
+            <div class="mb-3">
+              <label for="llitDoble" class="form-label">Llits dobles: </label>
+              <input type="text" class="form-control" id="llitDoble" aria-describedby="emailHelp" th:field="*{llit_Doble}">
+
+            </div>
+
+            <div class="mb-3">
+              <label for="llitSimple" class="form-label">Llits simples: </label>
+              <input type="text" class="form-control" id="llitSimple" aria-describedby="emailHelp" th:field="*{llit_simple}">
+            </div>
+
+            <input type="submit" class="btn btn-primary" value="Editar" />
+
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <footer th:replace="plantilla/template :: footer"></footer>
+
+</div>
+</body>
+
+</html>

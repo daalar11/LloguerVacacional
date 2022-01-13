@@ -33,7 +33,7 @@ public class PropietatController {
         model.addAttribute("titol", "Llista de propietats");
         model.addAttribute("propietat", llistaPropietats);
 
-        return "/views/propietats/listar";
+        return "/views/propietats/mostrarPropietats";
     }
 
     @GetMapping("/create")
