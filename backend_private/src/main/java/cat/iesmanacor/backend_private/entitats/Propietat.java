@@ -5,6 +5,8 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
+import java.util.Set;
 
 @Data //Longbok afegeix setters, getters i el constructor buit.
 @Entity //Entitat (se menejara amb una taula)
@@ -27,8 +29,11 @@ public class Propietat implements Serializable {
     private Localitat localitat;
 
     private String normes;
-    //@OneToMany(mappedBy = "PROPIETAT")
-    private int habitacions;
+
+    //One to many para poder leer las habitaciones de una propietat
+    @OneToMany(mappedBy = "propietat")
+    private List<Habitacions> habitacions;
+
 
     private String direccio;
 
@@ -42,6 +47,9 @@ public class Propietat implements Serializable {
 
     private boolean activa;
 
+    public String toString(){
+        return "propietat: " + idPROPIETAT +"TEST";
+    }
 
 
 }

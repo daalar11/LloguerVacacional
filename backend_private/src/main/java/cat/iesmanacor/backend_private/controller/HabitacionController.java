@@ -9,28 +9,34 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 @Controller
 @RequestMapping("/views/habitacions")
 public class HabitacionController {
+    //Habitacions es ManyToOne de propietats
     @Autowired
     private iHabitacioService habitacioService;
 
     @Autowired
     private iPropietatService propietatService;
 
-    @GetMapping("/habitacio")
-    public String llistarHabitacions(Model model){
-        List<Habitacions> llistaPelicula= habitacioService.findAll();
-
+    //Llegeix habitacions en funcio de sa propietat
+    @GetMapping("/habitacio/{idPROPIETAT}")
+    public String llistarHabitacions(Model model,@PathVariable("idPROPIETAT") Long idPROPIETAT){
+        List<Habitacions> llistaPelicula=new ArrayList<>();
+        Propietat habitacio = propietatService.buscarPorId(idPROPIETAT);
+        llistaPelicula.addAll(habitacio.getHabitacions());
         model.addAttribute("titulo","Llista de habitacions");
         model.addAttribute("pelicules",llistaPelicula);
+        model.addAttribute("propietat",habitacio);
         return "/views/pelicules/mostraHabitacions";
     }
-    @GetMapping("/afegir")
-    public String afegir(Model model){
-        List<Propietat> listPropietat = propietatService.listarTodos();
 
+    //Afegeix habitacions en funcio de sa propietat
+    @GetMapping("/afegir/{idPROPIETAT}")
+    public String afegir(Model model,@PathVariable("idPROPIETAT") Long idPROPIETAT){
+        Propietat listPropietat = propietatService.buscarPorId(idPROPIETAT);
         Habitacions habitacio = new Habitacions();
         model.addAttribute("habitacio",habitacio);
         model.addAttribute("propietats",listPropietat);
@@ -42,18 +48,23 @@ public class HabitacionController {
     public String save(@ModelAttribute Habitacions habitacio){
         habitacioService.save(habitacio);
         System.out.println("Cliente guardado cone xito");
-        return "redirect:/views/habitacions/habitacio";
+        return "redirect:/views/propietats/";
     }
-    @GetMapping("/edit/{idHABITACIONS}")
-    public String editar(@PathVariable("idHABITACIONS") int idHABITACIONS, Model model){
+
+    //Edita ses habitacions d'una propietat concreta
+    @GetMapping("/edit/{idPROPIETAT}/{idHABITACIONS}")
+    public String editar(@PathVariable("idHABITACIONS") int idHABITACIONS,@PathVariable("idPROPIETAT") int idPROPIETAT, Model model){
         Habitacions habitacio = habitacioService.findById(idHABITACIONS);
         model.addAttribute("titulo","Formulario: Editar habitacion");
         model.addAttribute("habitacio",habitacio);
-        return "/views/pelicules/frmAfegir";
+        model.addAttribute("propietat",idPROPIETAT);
+        return "/views/pelicules/frmEditar";
     }
+
+    //Elimina una habitacio
     @GetMapping("/delete/{idHABITACIONS}")
     public String delete(@PathVariable("idHABITACIONS") int idHABITACIONS, Model model){
         habitacioService.delete(idHABITACIONS);
-        return "redirect:/views/habitacions/habitacio";
+        return "redirect:/views/propietats/";
     }
 }
