@@ -1,5 +1,6 @@
 package cat.iesmanacor.backend_private.controller;
 
+import cat.iesmanacor.backend_private.entitats.Habitacions;
 import cat.iesmanacor.backend_private.entitats.Localitat;
 import cat.iesmanacor.backend_private.entitats.Propietat;
 import cat.iesmanacor.backend_private.services.iLocalitatService;
@@ -11,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 //NOTACIO OBLIGATORIA (PAQUET AL QUE PERTANY)
@@ -34,6 +36,25 @@ public class PropietatController {
         model.addAttribute("propietat", llistaPropietats);
 
         return "/views/propietats/mostrarPropietats";
+    }
+
+    @GetMapping("/configurar/{idPROPIETAT}")
+    public String prova(Model model,@PathVariable("idPROPIETAT") Long idPROPIETAT){
+
+       List<Habitacions> llistaPelicula=new ArrayList<>();
+        Propietat habitacio = propietatService.buscarPorId(idPROPIETAT);
+        llistaPelicula.addAll(habitacio.getHabitacions());
+        model.addAttribute("pelicules",llistaPelicula);
+        model.addAttribute("propietat1",habitacio);
+
+        List<Localitat> listLocalitats = localitatService.llistarLocalitats();
+        Propietat propietat= propietatService.buscarPorId(idPROPIETAT);
+        model.addAttribute("titol","Editar propietat");
+        model.addAttribute("propietat",propietat);
+        model.addAttribute("localitats", listLocalitats);
+
+
+    return "/views/propietats/caracteristicaPropietat";
     }
 
     @GetMapping("/create")

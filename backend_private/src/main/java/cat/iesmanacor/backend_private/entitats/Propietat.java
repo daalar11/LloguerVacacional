@@ -47,6 +47,7 @@ public class Propietat implements Serializable {
 
     private boolean activa;
 
+    @Override
     public String toString(){
         return "propietat: " + idPROPIETAT +"TEST";
     }
