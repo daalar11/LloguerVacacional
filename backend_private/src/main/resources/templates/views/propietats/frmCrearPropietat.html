@@ -7,71 +7,102 @@
 
 <header th:replace="plantilla/template :: header"></header>
 
-<div class="container">
-
+<div class="container mt-4 mb-4">
     <main>
+        <form th:object="${propietat}" th:action="@{/views/propietats/save}" method="post">
 
-        <div th:fragment="crearPropietat" class="row">
+            <div class="row">
 
-            <div class="card bg-light mt-3 mb-3">
+                <div class="col-12 form-group">
 
-                <div class="card-header bg-light" th:text="${titol}"></div>
+                    <div class="mb-3">
+                        <label for="nomPropietat" class="form-label">Nom de la propietat</label>
+                        <input type="text" th:field="*{nomPropietat}" placeholder="ej. Villa Luna" class="form-control" id="nomPropietat">
+                        <div id="spannom" class="form-text">Nom de la propietat que figura en l'escriptura</div>
+                    </div>
 
-                <div class="card-body bg-light">
+                </div>
+                <div class="col-6 form-group">
 
-                    <form th:object="${propietat}" th:action="@{/views/propietats/save}" method="post">
-                        <input type="hidden" th:field="*{idPROPIETAT}">
-                        <div class="mb-3">
-                            <label for="nomPropietat" class="form-label">Nom de la propietat</label>
-                            <input type="text" th:field="*{nomPropietat}" placeholder="ej. Villa Luna" class="form-control" id="nomPropietat">
-                            <div id="spannom" class="form-text">Nom de la propietat que figura en l'escriptura</div>
+                    <div class="mb-3">
+                        <label for="localitat" class="form-label">Localitat</label>
+                        <select class="form-control" id="localitat" th:field="*{localitat}">
+                            <option th:each="localitat:${localitats}"
+                                    th:value="${localitat.idLOCALITAT}"
+                                    th:text="${localitat.nomLocalitat}"
+                            />
+                        </select>
+                        <div id="localitatspan" class="form-text">Selecciona la localitat on es localitza la propietat</div>
+                    </div>
+
+                </div>
+                <div class="col-6 form-group">
+
+                    <div class="mb-3">
+                        <label for="direccio" class="form-label">Direccio</label>
+                        <input type="text" placeholder="ej. Major 50" th:field="*{direccio}" class="form-control" id="direccio">
+                        <div id="direcciospan" class="form-text">Direccio de la casa amb format Carrer Numero</div>
+                    </div>
+
+                </div>
+                <div class="col-3 form-group">
+
+                    <div class="mb-3">
+                        <label for="descompteSetmana" class="form-label">Descompte Setmanal</label>
+
+                        <div class="input-group">
+                            <input type="number" th:field="*{descompteSetmana}" class="form-control" id="descompteSetmana">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">%</div>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="localitat" class="form-label">Localitat</label>
-                            <select class="form-control" id="localitat" th:field="*{localitat}">
-                                <option th:each="localitat:${localitats}"
-                                        th:value="${localitat.idLOCALITAT}"
-                                        th:text="${localitat.nomLocalitat}"
-                                />
-                            </select>
-                            <div id="localitatspan" class="form-text">Selecciona la localitat on es localitza la propietat</div>
+                        <div id="descompteSetmanaspan" class="form-text">Descompte aplicat en cas de lloguers majors a una setmana</div>
+                    </div>
+
+                </div>
+                <div class="col-3 form-group">
+
+                    <div class="mb-3">
+                        <label for="descompteMes" class="form-label">Descompte Mensual</label>
+
+                        <div class="input-group">
+                            <input type="number" th:field="*{descompteMes}" class="form-control" id="descompteMes">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">%</div>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="w3review" class="form-label">Normes</label><br>
-                            <textarea id="w3review" th:field="*{normes}" name="w3review" rows="4" cols="50"></textarea>
-                            <div id="normesspan" class="form-text">Aqui pots indicar les normes que dessitjis sobre la teva propietat.</div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="habitacions" class="form-label">Habitacions</label>
-                            <input type="text" th:field="*{habitacions}" class="form-control" id="habitacions">
-                            <div id="habitacionsspan" class="form-text">Numerò d'habitacions principals que te la propietat.</div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="direccio" class="form-label">Direccio</label>
-                            <input type="text" placeholder="ej. Major 50" th:field="*{direccio}" class="form-control" id="direccio">
-                            <div id="direcciospan" class="form-text">Direccio de la casa amb format Carrer Numero</div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="descompteSetmana" class="form-label">Descompte Setmanal</label>
-                            <input type="text" th:field="*{descompteSetmana}" class="form-control" id="descompteSetmana">
-                            <div id="descompteSetmanaspan" class="form-text">Descompte aplicat en cas de lloguers majors a una setmana</div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="descompteMes" class="form-label">Descompte Mensual</label>
-                            <input type="text" th:field="*{descompteMes}" class="form-control" id="descompteMes">
-                            <div id="descompteMesspan" class="form-text">Descompte aplicat en cas de lloguers majors d'un mes</div>
-                        </div>
-                        <div class="card-footer bg-light">
-                            <input type="submit" class="btn btn-warning" value="Guardar" />
-                        </div>
-                    </form>
+                        <div id="descompteMesspan" class="form-text">Descompte aplicat en cas de lloguers majors d'un mes</div>
+                    </div>
+
+                </div>
+
+                <div class="col-12 form-group">
+
+                    <div class="mb-3">
+                        <label for="w3review" class="form-label">Normes</label><br>
+                        <textarea class="form-control" id="w3review" th:field="*{normes}" name="w3review" rows="4" cols="50"></textarea>
+                        <div id="normesspan" class="form-text">Aqui pots indicar les normes que dessitjis sobre la teva propietat.</div>
+                    </div>
+
+                </div>
+                <div class="col-1 mt-2 form-group">
+                    <input type="submit" class="btn btn-primary" value="Guardar" />
+
+                </div>
+                <div class="col-1 form-group">
+
+                    <a class="nav-link" th:href="@{/views/propietats/}">
+                        <input type="button" class="btn btn-danger" value="Cancelar">
+                    </a>
                 </div>
 
             </div>
-        </div>
-    </main>
 
-    <footer th:replace="plantilla/template :: footer"></footer>
+        </form>
+    </main>
+</div>
+
+<footer th:replace="plantilla/template :: footer"></footer>
 
 </div>
 </body>

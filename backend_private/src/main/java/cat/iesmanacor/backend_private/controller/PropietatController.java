@@ -49,7 +49,8 @@ public class PropietatController {
 
         List<Localitat> listLocalitats = localitatService.llistarLocalitats();
         Propietat propietat= propietatService.buscarPorId(idPROPIETAT);
-        model.addAttribute("titol","Editar propietat");
+        model.addAttribute("editarPropietat","Editar propietat");
+        model.addAttribute("editarHabitacions","Configurar habitacions");
         model.addAttribute("propietat",propietat);
         model.addAttribute("localitats", listLocalitats);
 
