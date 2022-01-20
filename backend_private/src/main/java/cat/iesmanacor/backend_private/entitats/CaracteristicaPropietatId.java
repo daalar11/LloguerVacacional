@@ -8,13 +8,13 @@ import java.io.Serializable;
 @Data
 @Embeddable
 public class CaracteristicaPropietatId implements Serializable {
-    @Column(name = "id_caracteristica")
-    int id_caracteristica;
+    @Column(name = "id_car")
+    private Long id_caracteristica;
 
-    @Column(name="idPROPIETAT")
-    int idPROPIETAT;
+    @Column(name="id_pro")
+    private Long idPROPIETAT;
 
-    public CaracteristicaPropietatId(int id_caracteristica,int idPROPIETAT){
+    public CaracteristicaPropietatId(Long id_caracteristica,Long idPROPIETAT){
         this.id_caracteristica=id_caracteristica;
         this.idPROPIETAT=idPROPIETAT;
     }

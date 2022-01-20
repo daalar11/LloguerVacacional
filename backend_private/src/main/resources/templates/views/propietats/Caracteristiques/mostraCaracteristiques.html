@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="plantilla/template :: head">
+    <title>Title</title>
+</head>
+
+<body>
+<!-- HEADER (NAVBAR) -->
+<header th:replace="plantilla/template :: header"></header>
+
+<table id="table_id" class="table">
+    <thead>
+    <tr>
+        <th scope="col">Caracteristica id</th>
+        <th scope="col">Caracteristica</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="cl:${caracteristiques}">
+        <th th:text="${cl.id_caracteristica}"></th>
+        <td th:text="${cl.caracteristica}"></td>
+    </tr>
+
+    </tbody>
+</table>
+
+<!-- FOOTER -->
+<footer th:replace="plantilla/template :: footer"></footer>
+
+<!-- CODI JAVASCRIPT -->
+
+</body>
+
+</html>

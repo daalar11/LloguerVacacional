@@ -28,7 +28,7 @@ public class HabitacionController {
         Propietat habitacio = propietatService.buscarPorId(idPROPIETAT);
         llistaPelicula.addAll(habitacio.getHabitacions());
         model.addAttribute("titulo","Llista de habitacions");
-        model.addAttribute("pelicules",llistaPelicula);
+        model.addAttribute("habitacions",llistaPelicula);
         model.addAttribute("propietat",habitacio);
         return "/views/habitacions/mostraHabitacions";
     }
@@ -48,7 +48,8 @@ public class HabitacionController {
     public String save(@ModelAttribute Habitacions habitacio){
         habitacioService.save(habitacio);
         System.out.println("Cliente guardado cone xito");
-        return "redirect:/views/propietats/";
+        Long idPropietat=habitacio.getPropietat().getIdPROPIETAT();
+        return "redirect:/views/propietats/configurar/"+idPropietat;
     }
 
     //Edita ses habitacions d'una propietat concreta
@@ -64,7 +65,10 @@ public class HabitacionController {
     //Elimina una habitacio
     @GetMapping("/delete/{idHABITACIONS}")
     public String delete(@PathVariable("idHABITACIONS") int idHABITACIONS, Model model){
+        Habitacions habitacio= habitacioService.findById(idHABITACIONS);
+        Long idPropietat=habitacio.getPropietat().getIdPROPIETAT();
         habitacioService.delete(idHABITACIONS);
-        return "redirect:/views/propietats/";
+
+        return "redirect:/views/propietats/configurar/"+idPropietat;
     }
 }

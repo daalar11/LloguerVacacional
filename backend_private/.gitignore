@@ -36,3 +36,6 @@ build/
 /node_modules
 .mvn
 /src/main/resources/js
+
+### app properties ###
+application.properties

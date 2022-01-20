@@ -5,6 +5,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -34,6 +35,8 @@ public class Propietat implements Serializable {
     @OneToMany(mappedBy = "propietat")
     private List<Habitacions> habitacions;
 
+    @OneToMany(mappedBy = "propietat",orphanRemoval = true)
+    private Set<CaracteristicaPropietat> caracteristica = new HashSet<>();
 
     private String direccio;
 
@@ -51,6 +54,7 @@ public class Propietat implements Serializable {
     public String toString(){
         return "propietat: " + idPROPIETAT +"TEST";
     }
+
 
 
 }
