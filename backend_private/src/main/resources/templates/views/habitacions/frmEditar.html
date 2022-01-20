@@ -21,7 +21,7 @@
 
         <div class="card-body bg-light">
 
-          <form th:object="${habitacio}" th:action="@{/views/habitacions/save}" method="post">
+          <form th:object="${habitacio}" th:action="@{/views/habitacions/save}" method="post" enctype="multipart/form-data">
 
             <div class="mb-3">
               <label for="casa" class="form-label">Id propietat: </label>
