@@ -41,6 +41,10 @@ public class Propietat implements Serializable {
     private String direccio;
 
     @NotNull
+    @Column(name="preu_base", nullable=false)
+    private int preuBase;
+
+    @NotNull
     @Column(name="descompte_setmana", nullable=false)
     private int descompteSetmana;
 
