@@ -9,7 +9,8 @@
 
 <div class="container mt-4 mb-4">
     <main>
-        <form th:object="${propietat}" th:action="@{/views/propietats/save}" method="post">
+        <div id="errorDiv"></div>
+        <form id="formCrearPropietat" th:object="${propietat}" th:action="@{/views/propietats/save}" method="post">
 
             <div class="row">
 
@@ -17,8 +18,9 @@
 
                     <div class="mb-3">
                         <label for="nomPropietat" class="form-label">Nom de la propietat</label>
-                        <input type="text" th:field="*{nomPropietat}" placeholder="ej. Villa Luna" class="form-control" id="nomPropietat">
+                        <input type="text" th:field="*{nomPropietat}" placeholder="ej. Villa Luna" class="form-control" id="nomPropietat" required>
                         <div id="spannom" class="form-text">Nom de la propietat que figura en l'escriptura</div>
+                        <div id="validacioNom" class="form-text"></div>
                     </div>
 
                 </div>
@@ -42,6 +44,23 @@
                         <label for="direccio" class="form-label">Direccio</label>
                         <input type="text" placeholder="ej. Major 50" th:field="*{direccio}" class="form-control" id="direccio">
                         <div id="direcciospan" class="form-text">Direccio de la casa amb format Carrer Numero</div>
+                        <div id="validacioDireccio" class="form-text"></div>
+                    </div>
+
+                </div>
+                <div class="col-6 form-group">
+
+                    <div class="mb-3">
+                        <label for="preuBase" class="form-label">Preu Base</label>
+
+                        <div class="input-group">
+                            <input type="number" th:field="*{preuBase}" class="form-control" id="preuBase">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">€</div>
+                            </div>
+                        </div>
+                        <div id="preuBasespan" class="form-text">Preu base per dia de la propietat.</div>
+                        <div id="validacioPreu" class="form-text"></div>
                     </div>
 
                 </div>
@@ -57,6 +76,7 @@
                             </div>
                         </div>
                         <div id="descompteSetmanaspan" class="form-text">Descompte aplicat en cas de lloguers majors a una setmana</div>
+                        <div id="validacioDescompteS" class="form-text"></div>
                     </div>
 
                 </div>
@@ -72,6 +92,7 @@
                             </div>
                         </div>
                         <div id="descompteMesspan" class="form-text">Descompte aplicat en cas de lloguers majors d'un mes</div>
+                        <div id="validacioDescompteM" class="form-text"></div>
                     </div>
 
                 </div>
@@ -86,7 +107,7 @@
 
                 </div>
                 <div class="col-1 mt-2 form-group">
-                    <input type="submit" class="btn btn-primary" value="Guardar" />
+                    <input type="submit" id="boto-submit" class="btn btn-primary" value="Guardar" />
 
                 </div>
                 <div class="col-1 form-group">
@@ -105,6 +126,84 @@
 <footer th:replace="plantilla/template :: footer"></footer>
 
 </div>
+
+<script>
+
+    $(document).ready(function() {
+
+        $("#boto-submit").click(function () {
+            validarForm();
+        });
+
+    });
+
+    function validarForm(){
+        validarNom();
+        validarDescompteSetmana();
+        validarDescompteMes();
+        validarPreuBase();
+    }
+
+    function correcte(input, span){
+        $(input).css("background-color", "green");
+        $(span).text("Bé");
+    }
+
+    function incorrecte(input, span, missatge){
+        $(input).css("background-color", "red");
+        $(span).text(missatge);
+    }
+
+    function validarNom(){
+
+        var nom = $("#nomPropietat").val();
+
+        if (nom === "" || nom === null){
+            incorrecte("#nomPropietat", "#validacioNom", "Aquest camp es obligatori")
+        } else {
+            correcte("#nomPropietat", "#validacioNom")
+        }
+    }
+
+    function validarPreuBase(){
+
+        var preu = $("#preuBase").val();
+
+        if (preu < 0){
+            incorrecte("#preuBase", "#validacioPreu", "El preu de la propietat no pot ser negatiu.")
+        } else {
+            correcte("#preuBase", "#validacioPreu")
+        }
+
+    }
+
+    function validarDescompteSetmana(){
+
+      var descM = $("#descompteSetmana").val();
+
+        if (descM > 100 || descM < 0){
+            incorrecte("#descompteSetmana", "#validacioDescompteS", "El descompte ha d'estar entre el 0% i el 100%")
+        } else {
+            correcte("#descompteSetmana", "#validacioDescompteS")
+        }
+    }
+
+    function validarDescompteMes(){
+
+        var descS = $("#descompteMes").val();
+
+        if (descS < 0 || descS > 100){
+            incorrecte("#descompteMes", "#validacioDescompteM", "El descompte ha d'estar entre el 0% i el 100%")
+        } else {
+            correcte("#descompteMes", "#validacioDescompteM")
+        }
+    }
+
+
+
+
+</script>
+
 </body>
 
 </html>
