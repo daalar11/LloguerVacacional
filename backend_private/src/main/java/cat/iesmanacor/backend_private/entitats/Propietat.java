@@ -54,6 +54,9 @@ public class Propietat implements Serializable {
 
     private boolean activa;
 
+    @Column(nullable = true, length = 64)
+    private String foto;
+
     @Override
     public String toString(){
         return "propietat: " + idPROPIETAT +"TEST";
