@@ -11,7 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,6 +60,7 @@ public class PropietatController {
     return "/views/propietats/caracteristicaPropietat";
     }
 
+    //Metode que et dirigeix al formulari de creacio d'una propietat i et passa un titol i una llista de localitats.
     @GetMapping("/create")
     public String crear(Model model) {
 
@@ -71,10 +74,32 @@ public class PropietatController {
         return "/views/propietats/frmCrearPropietat";
     }
 
+    //Metode que s'executa quan es fa el submit del formulari crearPropietat
     @PostMapping("/save")
-    public String guardar(@Validated @ModelAttribute Propietat p, BindingResult result, Model model){
+    public String guardar(@RequestParam(name = "file") MultipartFile foto, @Validated @ModelAttribute Propietat p, BindingResult result, Model model) throws IOException{
 
         List<Localitat> listLocalitats = localitatService.llistarLocalitats();
+
+        System.out.println("HA COMENÇAT EL METODE FOTOS");
+
+        InputStream in = foto.getInputStream();
+        String nomImatge = foto.getOriginalFilename();
+
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        byte[] readBuf = new byte[4096];
+        while (in.available() > 0){
+            int bytesRead = in.read(readBuf);
+            out.write(readBuf, 0, bytesRead);
+        }
+
+        //Definim path de la foto
+        String ruta = "C://DAW//PROJECTEDAVID//LloguerVacacional//Fotos//";
+        String filename = ruta + nomImatge;
+
+        OutputStream outputStream = new FileOutputStream(filename);
+        out.writeTo(outputStream);
+
+        System.out.println("EL METODE FOTOS SHA EXECUTAT CORRECTAMENT");
 
         if (result.hasErrors()) {
 
@@ -82,17 +107,16 @@ public class PropietatController {
             model.addAttribute("propietat", p);
             model.addAttribute("localitats", listLocalitats);
 
-            System.out.println("ERROR EN EL FORMULARI");
-
             return "/views/propietats/frmCrearPropietat";
         }
 
         propietatService.guardar(p);
-        System.out.println("Cliente guardado con exito");
+
         return "redirect:/views/propietats/";
     }
 
 
+    //Metode per editar propietat
     @GetMapping("/edit/{idPROPIETAT}")
     public String editar(@PathVariable("idPROPIETAT") Long idPROPIETAT, Model model) {
 
@@ -107,6 +131,7 @@ public class PropietatController {
     }
 
 
+    //Metode que elimina una propietat.
     @GetMapping("/delete/{idPROPIETAT}")
     public String eliminar(@PathVariable("idPROPIETAT") Long idPROPIETAT) {
 
@@ -115,6 +140,8 @@ public class PropietatController {
 
         return "redirect:/views/propietats/";
     }
+
+
 
 
 
