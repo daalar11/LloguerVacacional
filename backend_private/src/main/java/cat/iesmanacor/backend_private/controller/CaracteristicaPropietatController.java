@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
@@ -25,11 +27,17 @@ public class CaracteristicaPropietatController {
 
     @Autowired
     private iPropietatService pro;
-    @GetMapping("/s")
-    public String llistarCarPro(Model model){
+
+    @GetMapping("/{idPROPIETAT}/edita")
+    public String llistarCarPro(Model model,@PathVariable("idPROPIETAT") Long idPROPIETAT){
         List<Caracteristica> llistaCar= new ArrayList<>();
         llistaCar=car.findAll();
         model.addAttribute("caracteristiques",llistaCar);
         return "/views/propietats/Caracteristiques/mostraCaracteristiques";
+    }
+
+    @PostMapping()
+    public String afegirCaracteristiques(){
+
     }
 }
