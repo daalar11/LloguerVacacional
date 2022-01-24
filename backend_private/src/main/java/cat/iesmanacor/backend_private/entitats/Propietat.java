@@ -1,7 +1,6 @@
 package cat.iesmanacor.backend_private.entitats;
 
 import com.sun.istack.NotNull;
-import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -9,14 +8,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@Data //Longbok afegeix setters, getters i el constructor buit.
 @Entity //Entitat (se menejara amb una taula)
 @Table(name="PROPIETAT") //Si la taula no s'escriu exactament igual a la classe s'ha de posar el nom de la taula (NO ES EL CAS)
 public class Propietat implements Serializable {
 
     private static final long serialVersionUID=1L;
-
-    //Atributs pelicula
 
     @Id //Indicam quin es el camp identificador
     @GeneratedValue(strategy = GenerationType.IDENTITY) //Indicam com es genera l'identificador (En aquest cas AUTO_INCREMENT)
@@ -33,7 +29,7 @@ public class Propietat implements Serializable {
 
     //One to many para poder leer las habitaciones de una propietat
     @OneToMany(mappedBy = "propietat")
-    private List<Habitacions> habitacions;
+    private List<Habitacio> habitacions;
 
     @OneToMany(mappedBy = "propietat")
     private List<Tarifa> tarifes;
@@ -61,12 +57,104 @@ public class Propietat implements Serializable {
 
     private boolean activa;
 
-    @Column(nullable = true, length = 64)
-    private String foto;
+    //GETTERS-SETTERS-CONSTRUCTOR-toString
+    public Propietat() {
+    }
 
-    @Override
-    public String toString(){
-        return "propietat: " + idPROPIETAT +"TEST";
+    public Long getIdPROPIETAT() {
+        return idPROPIETAT;
+    }
+
+    public void setIdPROPIETAT(Long idPROPIETAT) {
+        this.idPROPIETAT = idPROPIETAT;
+    }
+
+    public String getNomPropietat() {
+        return nomPropietat;
+    }
+
+    public void setNomPropietat(String nomPropietat) {
+        this.nomPropietat = nomPropietat;
+    }
+
+    public Localitat getLocalitat() {
+        return localitat;
+    }
+
+    public void setLocalitat(Localitat localitat) {
+        this.localitat = localitat;
+    }
+
+    public String getNormes() {
+        return normes;
+    }
+
+    public void setNormes(String normes) {
+        this.normes = normes;
+    }
+
+    public List<Habitacio> getHabitacions() {
+        return habitacions;
+    }
+
+    public void setHabitacions(List<Habitacio> habitacions) {
+        this.habitacions = habitacions;
+    }
+
+    public List<Tarifa> getTarifes() {
+        return tarifes;
+    }
+
+    public void setTarifes(List<Tarifa> tarifes) {
+        this.tarifes = tarifes;
+    }
+
+    public Set<Caracteristica> getCaracteristicas() {
+        return caracteristicas;
+    }
+
+    public void setCaracteristicas(Set<Caracteristica> caracteristicas) {
+        this.caracteristicas = caracteristicas;
+    }
+
+    public String getDireccio() {
+        return direccio;
+    }
+
+    public void setDireccio(String direccio) {
+        this.direccio = direccio;
+    }
+
+    public int getPreuBase() {
+        return preuBase;
+    }
+
+    public void setPreuBase(int preuBase) {
+        this.preuBase = preuBase;
+    }
+
+    public int getDescompteSetmana() {
+        return descompteSetmana;
+    }
+
+    public void setDescompteSetmana(int descompteSetmana) {
+        this.descompteSetmana = descompteSetmana;
+    }
+
+    public int getDescompteMes() {
+        return descompteMes;
+    }
+
+    public void setDescompteMes(int descompteMes) {
+        this.descompteMes = descompteMes;
+    }
+
+    public boolean isActiva() {
+        return activa;
+    }
+
+    public void setActiva(boolean activa) {
+        this.activa = activa;
     }
 
 

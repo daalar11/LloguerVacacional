@@ -1,6 +1,6 @@
 package cat.iesmanacor.backend_private.controller;
 
-import cat.iesmanacor.backend_private.entitats.Habitacions;
+import cat.iesmanacor.backend_private.entitats.Habitacio;
 import cat.iesmanacor.backend_private.entitats.Propietat;
 import cat.iesmanacor.backend_private.services.iHabitacioService;
 import cat.iesmanacor.backend_private.services.iPropietatService;
@@ -24,7 +24,7 @@ public class HabitacionController {
     //Llegeix habitacions en funcio de sa propietat
     @GetMapping("/habitacio/{idPROPIETAT}")
     public String llistarHabitacions(Model model,@PathVariable("idPROPIETAT") Long idPROPIETAT){
-        List<Habitacions> llistaPelicula=new ArrayList<>();
+        List<Habitacio> llistaPelicula=new ArrayList<>();
         Propietat habitacio = propietatService.buscarPorId(idPROPIETAT);
         llistaPelicula.addAll(habitacio.getHabitacions());
         model.addAttribute("titulo","Llista de habitacions");
@@ -37,7 +37,7 @@ public class HabitacionController {
     @GetMapping("/afegir/{idPROPIETAT}")
     public String afegir(Model model,@PathVariable("idPROPIETAT") Long idPROPIETAT){
         Propietat listPropietat = propietatService.buscarPorId(idPROPIETAT);
-        Habitacions habitacio = new Habitacions();
+        Habitacio habitacio = new Habitacio();
         model.addAttribute("habitacio",habitacio);
         model.addAttribute("propietats",listPropietat);
     return "/views/habitacions/frmAfegir";
@@ -45,7 +45,7 @@ public class HabitacionController {
 
     //recibe los datos del formulario para enviarlos a la bd
     @PostMapping("/save")
-    public String save(@ModelAttribute Habitacions habitacio){
+    public String save(@ModelAttribute Habitacio habitacio){
         habitacioService.save(habitacio);
         System.out.println("Cliente guardado cone xito");
         Long idPropietat=habitacio.getPropietat().getIdPROPIETAT();
@@ -54,8 +54,8 @@ public class HabitacionController {
 
     //Edita ses habitacions d'una propietat concreta
     @GetMapping("/edit/{idPROPIETAT}/{idHABITACIONS}")
-    public String editar(@PathVariable("idHABITACIONS") int idHABITACIONS,@PathVariable("idPROPIETAT") int idPROPIETAT, Model model){
-        Habitacions habitacio = habitacioService.findById(idHABITACIONS);
+    public String editar(@PathVariable("idHABITACIONS") Long idHABITACIONS,@PathVariable("idPROPIETAT") Long idPROPIETAT, Model model){
+        Habitacio habitacio = habitacioService.findById(idHABITACIONS);
         model.addAttribute("titulo","Formulario: Editar habitacion");
         model.addAttribute("habitacio",habitacio);
         model.addAttribute("propietat",idPROPIETAT);
@@ -64,8 +64,8 @@ public class HabitacionController {
 
     //Elimina una habitacio
     @GetMapping("/delete/{idHABITACIONS}")
-    public String delete(@PathVariable("idHABITACIONS") int idHABITACIONS, Model model){
-        Habitacions habitacio= habitacioService.findById(idHABITACIONS);
+    public String delete(@PathVariable("idHABITACIONS") Long idHABITACIONS, Model model){
+        Habitacio habitacio= habitacioService.findById(idHABITACIONS);
         Long idPropietat=habitacio.getPropietat().getIdPROPIETAT();
         habitacioService.delete(idHABITACIONS);
 

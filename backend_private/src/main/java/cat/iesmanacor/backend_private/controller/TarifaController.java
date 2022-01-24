@@ -1,6 +1,5 @@
 package cat.iesmanacor.backend_private.controller;
 
-import cat.iesmanacor.backend_private.entitats.Habitacions;
 import cat.iesmanacor.backend_private.entitats.Propietat;
 import cat.iesmanacor.backend_private.entitats.Tarifa;
 import cat.iesmanacor.backend_private.services.iTarifaService;
@@ -69,12 +68,13 @@ public class TarifaController {
 
     //Edita ses habitacions d'una propietat concreta
     @GetMapping("/edit/{idPROPIETAT}/{idTARIFA}")
-    public String editar(@PathVariable("idTARIFA") long idTARIFA,@PathVariable("idPROPIETAT") int idPROPIETAT, Model model){
+    public String editar(@PathVariable("idTARIFA") long idTARIFA,@PathVariable("idPROPIETAT") Long idPROPIETAT, Model model){
         Tarifa tarifa = tarifaService.findById(idTARIFA);
+        Propietat propietat = propietatService.buscarPorId(idPROPIETAT);
         model.addAttribute("titulo","Formulario: Editar Tarifas");
         model.addAttribute("tarifa",tarifa);
-        model.addAttribute("propietat",idPROPIETAT);
-        return "/views/habitacions/frmEditar";
+        model.addAttribute("propietat",propietat);
+        return "/views/tarifes/frmEditarTarifes";
     }
 
     //Elimina una habitacio

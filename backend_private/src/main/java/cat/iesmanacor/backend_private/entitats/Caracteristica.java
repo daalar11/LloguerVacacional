@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -12,16 +13,17 @@ import java.util.Set;
 @Entity
 @Table(name = "CARACTERISTIQUES")
 @EqualsAndHashCode(exclude="propietats")
-public class Caracteristica {
+public class Caracteristica implements Serializable {
+
     private static final long serialVersionUID=1L;
 
     //Atributs pelicula
 
     @Id //Indicam quin es el camp identificador
     @GeneratedValue(strategy = GenerationType.IDENTITY) //Indicam com es genera l'identificador (En aquest cas AUTO_INCREMENT)
-    private Long id_caracteristica;
+    @Column(name="id_caracteristica", nullable=false)
+    private int idCaracteristica;
 
-    @Column(name="caracteristica", nullable=false)
     private String caracteristica;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL,mappedBy = "caracteristicas")

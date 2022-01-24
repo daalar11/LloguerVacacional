@@ -1,13 +1,11 @@
 package cat.iesmanacor.backend_private.entitats;
 
 import com.sun.istack.NotNull;
-import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
-@Data
 @Entity
 @Table(name="TARIFA")
 public class Tarifa implements Serializable {
@@ -32,5 +30,51 @@ public class Tarifa implements Serializable {
     private Date dataFinal;
 
     private boolean activa;
+
+    //GETTERS/SETTERS/CONSTRUCTOR/toString
+
+    public Tarifa() {
+    }
+
+    public Long getIdTARIFA() {
+        return idTARIFA;
+    }
+
+    public void setIdTARIFA(Long idTARIFA) {
+        this.idTARIFA = idTARIFA;
+    }
+
+    public Propietat getPropietat() {
+        return propietat;
+    }
+
+    public void setPropietat(Propietat propietat) {
+        this.propietat = propietat;
+    }
+
+    public Date getDataInici() {
+        return dataInici;
+    }
+
+    public void setDataInici(Date dataInici) {
+        this.dataInici = dataInici;
+    }
+
+    public Date getDataFinal() {
+        return dataFinal;
+    }
+
+    public void setDataFinal(Date dataFinal) {
+        this.dataFinal = dataFinal;
+    }
+
+    public boolean isActiva() {
+        return activa;
+    }
+
+    public void setActiva(boolean activa) {
+        this.activa = activa;
+    }
+
 
 }
