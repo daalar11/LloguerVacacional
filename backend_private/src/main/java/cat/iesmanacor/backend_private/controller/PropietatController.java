@@ -50,32 +50,31 @@ public class PropietatController {
     @GetMapping("/configurar/{idPROPIETAT}")
     public String configuracio(Model model,@PathVariable("idPROPIETAT") Long idPROPIETAT){
 
-       List<Habitacions> llistaPelicula=new ArrayList<>();
-        Propietat habitacio = propietatService.buscarPorId(idPROPIETAT);
-        llistaPelicula.addAll(habitacio.getHabitacions());
-        model.addAttribute("pelicules",llistaPelicula);
-        model.addAttribute("propietat1",habitacio);
+        model.addAttribute("titolEditarPropietat","Editar propietat");
+        model.addAttribute("titolEditarHabitacions","Configurar habitacions");
+        model.addAttribute("titolTarifes","Configurar Tarifes");
+        model.addAttribute("titolCaracteristiques", "Configurar Caracteristiques");
 
-        List<Localitat> listLocalitats = localitatService.llistarLocalitats();
-        Propietat propietat= propietatService.buscarPorId(idPROPIETAT);
-        model.addAttribute("editarPropietat","Editar propietat");
-        model.addAttribute("editarHabitacions","Configurar habitacions");
+
+        //Codi Habitacions
+        List<Habitacions> llistaHabitacions=new ArrayList<>();
+        Propietat propietat = propietatService.buscarPorId(idPROPIETAT);
+        llistaHabitacions.addAll(propietat.getHabitacions());
+        model.addAttribute("habitacions",llistaHabitacions);
         model.addAttribute("propietat",propietat);
+
+        //Codi Localitat
+        List<Localitat> listLocalitats = localitatService.llistarLocalitats();
         model.addAttribute("localitats", listLocalitats);
 
-       /* List<Tarifa> llistaTarifes = new ArrayList<>();
-        Propietat pTarifes = propietatService.buscarPorId(idPROPIETAT);
-        List<Tarifa> llistaT = tarifaService.findAll();
-        llistaTarifes.addAll(pTarifes.getTarifes());
-        model.addAttribute("titulo","Llista de tarifes");
+        //Codi Tarifes
+        List<Tarifa> llistaTarifes = tarifaService.findAllByPropietat(idPROPIETAT);
         model.addAttribute("tarifes",llistaTarifes);
-        model.addAttribute("propietat",pTarifes);
-        model.addAttribute("list",llistaT);
-*/
-        List<Caracteristica> llistaCar= new ArrayList<>();
+
+        //Codi Caracteristiques
+        List<Caracteristica> llistaCar = new ArrayList<>();
         llistaCar=car.findAll();
         Caracteristica carac= new Caracteristica();
-
         model.addAttribute("idPropietat",idPROPIETAT);
         model.addAttribute("caracteristiques",llistaCar);
 

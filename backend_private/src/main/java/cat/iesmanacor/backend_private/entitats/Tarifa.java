@@ -20,7 +20,7 @@ public class Tarifa implements Serializable {
     private Long idTARIFA;
 
     @ManyToOne
-    @JoinColumn(name = "idPropietat", nullable = false)
+    @JoinColumn(name = "id_propietat")
     private Propietat propietat;
 
     @NotNull

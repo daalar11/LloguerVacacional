@@ -32,4 +32,14 @@ public class TarifaService implements iTarifaService {
     public void delete(Long id) {
         tarifaRepository.deleteById(id);
     }
+
+    @Override
+    public List<Tarifa> findTarifasByPropietat(Long id) {
+        return tarifaRepository.findTarifasByPropietat(id);
+    }
+
+    @Override
+    public List<Tarifa> findAllByPropietat(Long id) {
+        return tarifaRepository.findAllByPropietat(id);
+    }
 }

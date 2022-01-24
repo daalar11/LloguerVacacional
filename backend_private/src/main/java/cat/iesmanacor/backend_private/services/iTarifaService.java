@@ -13,4 +13,11 @@ public interface iTarifaService {
 
     void delete(Long id);
 
+    List<Tarifa> findTarifasByPropietat(Long id);
+
+    List<Tarifa> findAllByPropietat(Long id);
+
+
+
+
 }
