@@ -1,6 +1,7 @@
 package cat.iesmanacor.backend_private.entitats;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -10,6 +11,7 @@ import java.util.Set;
 @Data
 @Entity
 @Table(name = "CARACTERISTIQUES")
+@EqualsAndHashCode(exclude="propietats")
 public class Caracteristica {
     private static final long serialVersionUID=1L;
 
@@ -22,7 +24,15 @@ public class Caracteristica {
     @Column(name="caracteristica", nullable=false)
     private String caracteristica;
 
-    @OneToMany(mappedBy = "caracteristica")
-    private Set<CaracteristicaPropietat> caracteristiques = new HashSet<>();
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL,mappedBy = "caracteristicas")
+    //@JoinTable(
+       // name= "caracteristiques_propietats",
+        //joinColumns = @JoinColumn(name="id_car"),
+        //inverseJoinColumns = @JoinColumn(name="id_pro"))
+    Set<Propietat> propietats = new HashSet<>();
 
+    @Override
+    public String toString(){
+        return "propietat: TEST";
+    }
 }

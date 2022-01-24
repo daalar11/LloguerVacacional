@@ -14,5 +14,4 @@ public interface iPropietatService {
    public void eliminar(Long idPropietat);
 
 
-
 }

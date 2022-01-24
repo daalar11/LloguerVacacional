@@ -21,6 +21,9 @@
       <li class="nav-item" role="presentation">
         <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Habitacions</button>
       </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="caracteristiques-tab" data-bs-toggle="tab" data-bs-target="#caracteristiques" type="button" role="tab" aria-controls="contact" aria-selected="false">Caracteristiques</button>
+      </li>
     </ul>
 
     <div class="tab-content" id="myTabContent">
@@ -145,6 +148,29 @@
           </div>
           <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d6222941.253190838!2d-3.713378999999999!3d40.396764!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2ses!4v1642637988963!5m2!1ses!2ses" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
         </div>
+      </div>
+
+      <div class="tab-pane fade show active" id="caracteristiques" role="tabpanel" aria-labelledby="home-tab">
+
+        <form th:action="@{/views/propietats/caracteristiques/save}" method="post">
+          <div class="row">
+            <fieldset class="row">
+              <div th:each="cl:${caracteristiques}" class="col-2">
+                <input class="form-check-input" th:name="valorCar" th:id="${cl.id_caracteristica}" type="checkbox" th:value="${cl.id_caracteristica}"/>
+                <label class="form-check-label"  th:text="${cl.caracteristica}"></label>
+              </div>
+                <div th:each="ex:${idPropietat}">
+                  <input type="hidden" th:name="idPropietat" th:value="${ex}">
+                </div>
+            </fieldset>
+          </div>
+
+          <div class="col-1 mt-2 form-group">
+            <input type="submit" id="boto-submit" class="btn btn-primary" value="Guardar" />
+          </div>
+        </form>
+
+
       </div>
 
       <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab"><div th:fragment="habitacions"  class="container">

@@ -13,7 +13,6 @@ public class PropietatService implements iPropietatService {
     @Autowired
     private PropietatRepository propietatRepository;
 
-
     @Override
     public List<Propietat> listarTodos() {
         return (List<Propietat>) propietatRepository.findAll();
@@ -33,4 +32,5 @@ public class PropietatService implements iPropietatService {
     public void eliminar(Long idPropietat) {
         propietatRepository.deleteById(idPropietat);
     }
+
 }

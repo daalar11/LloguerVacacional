@@ -1,8 +1,7 @@
 package cat.iesmanacor.backend_private.controller;
 
-import cat.iesmanacor.backend_private.entitats.Habitacions;
-import cat.iesmanacor.backend_private.entitats.Localitat;
-import cat.iesmanacor.backend_private.entitats.Propietat;
+import cat.iesmanacor.backend_private.entitats.*;
+import cat.iesmanacor.backend_private.services.iCaracteristicaService;
 import cat.iesmanacor.backend_private.services.iLocalitatService;
 import cat.iesmanacor.backend_private.services.iPropietatService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +14,16 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 //NOTACIO OBLIGATORIA (PAQUET AL QUE PERTANY)
 @Controller
 @RequestMapping("/views/propietats")
 public class PropietatController {
+    @Autowired
+    private iCaracteristicaService car;
 
     @Autowired
     private iPropietatService propietatService;
@@ -41,7 +44,7 @@ public class PropietatController {
     }
 
     @GetMapping("/configurar/{idPROPIETAT}")
-    public String prova(Model model,@PathVariable("idPROPIETAT") Long idPROPIETAT){
+    public String configuracio(Model model,@PathVariable("idPROPIETAT") Long idPROPIETAT){
 
        List<Habitacions> llistaPelicula=new ArrayList<>();
         Propietat habitacio = propietatService.buscarPorId(idPROPIETAT);
@@ -56,6 +59,13 @@ public class PropietatController {
         model.addAttribute("propietat",propietat);
         model.addAttribute("localitats", listLocalitats);
 
+
+        List<Caracteristica> llistaCar= new ArrayList<>();
+        llistaCar=car.findAll();
+        Caracteristica carac= new Caracteristica();
+
+        model.addAttribute("idPropietat",idPROPIETAT);
+        model.addAttribute("caracteristiques",llistaCar);
 
     return "/views/propietats/caracteristicaPropietat";
     }
@@ -73,7 +83,21 @@ public class PropietatController {
 
         return "/views/propietats/frmCrearPropietat";
     }
+    @PostMapping("/caracteristiques/save")
+    public String guardarCaracteristiques(@RequestParam(name="idPropietat")Long idPropietat,@RequestParam(name="valorCar")List<Long> idsCarac){
+        System.out.println("test");
+        Propietat propietat = propietatService.buscarPorId(idPropietat);
+        Set<Caracteristica> set= new HashSet<>();
+        for (int i = 0; i < idsCarac.size(); i++) {
+            set.add(car.findById(idsCarac.get(i)));
+        }
+       propietat.setCaracteristicas(set);
+        propietatService.guardar(propietat);
 
+
+
+        return "redirect:/views/propietats/";
+   }
     //Metode que s'executa quan es fa el submit del formulari crearPropietat
     @PostMapping("/save")
     public String guardar(@RequestParam(name = "file") MultipartFile foto, @Validated @ModelAttribute Propietat p, BindingResult result, Model model) throws IOException{

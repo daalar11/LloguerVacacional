@@ -35,8 +35,12 @@ public class Propietat implements Serializable {
     @OneToMany(mappedBy = "propietat")
     private List<Habitacions> habitacions;
 
-    @OneToMany(mappedBy = "propietat",orphanRemoval = true)
-    private Set<CaracteristicaPropietat> caracteristica = new HashSet<>();
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(
+            name= "caracteristiques_propietats",
+            joinColumns = @JoinColumn(name="id_pro"),
+            inverseJoinColumns = @JoinColumn(name="id_car"))
+    Set<Caracteristica> caracteristicas = new HashSet<>();
 
     private String direccio;
 
