@@ -35,6 +35,9 @@ public class Propietat implements Serializable {
     @OneToMany(mappedBy = "propietat")
     private List<Habitacions> habitacions;
 
+    @OneToMany(mappedBy = "propietat")
+    private List<Tarifa> tarifes;
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name= "caracteristiques_propietats",
