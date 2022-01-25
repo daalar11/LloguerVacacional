@@ -53,8 +53,9 @@ public class PropietatController {
         model.addAttribute("titolCaracteristiques", "Configurar Caracteristiques");
 
         //Codi Habitacions
-        List<Habitacio> llistaHabitacions= habitacioService.findAll();
+        List<Habitacio> llistaHabitacions=new ArrayList<>();
         Propietat propietat = propietatService.buscarPorId(idPROPIETAT);
+        llistaHabitacions.addAll(propietat.getHabitacions());
         model.addAttribute("habitacions",llistaHabitacions);
         model.addAttribute("propietat",propietat);
 

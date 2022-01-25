@@ -21,8 +21,8 @@ public class Caracteristica implements Serializable {
 
     @Id //Indicam quin es el camp identificador
     @GeneratedValue(strategy = GenerationType.IDENTITY) //Indicam com es genera l'identificador (En aquest cas AUTO_INCREMENT)
-    @Column(columnDefinition = "INT")
-    private Long id_caracteristica;
+    @Column(name = "id_caracteristica" , columnDefinition = "INT")
+    private Long idCaracteristica;
 
     @Column(name="caracteristica", nullable=false)
     private String caracteristica;
