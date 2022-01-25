@@ -31,7 +31,7 @@ public class Caracteristica implements Serializable {
        // name= "caracteristiques_propietats",
         //joinColumns = @JoinColumn(name="id_car"),
         //inverseJoinColumns = @JoinColumn(name="id_pro"))
-    Set<Propietat> propietats = new HashSet<>();
+    Set <Propietat> propietats = new HashSet<>();
 
     @Override
     public String toString(){
