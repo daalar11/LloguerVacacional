@@ -16,6 +16,7 @@ public class Localitat implements Serializable {
 
     @Id //Indicam quin es el camp identificador
     @GeneratedValue(strategy = GenerationType.IDENTITY) //Indicam com es genera l'identificador (En aquest cas AUTO_INCREMENT)
+    @Column(columnDefinition = "INT")
     private Long idLOCALITAT;
 
     @Column(name="nom_localitat", nullable=false)

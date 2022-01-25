@@ -19,6 +19,7 @@ public class Caracteristica {
 
     @Id //Indicam quin es el camp identificador
     @GeneratedValue(strategy = GenerationType.IDENTITY) //Indicam com es genera l'identificador (En aquest cas AUTO_INCREMENT)
+    @Column(columnDefinition = "INT")
     private Long id_caracteristica;
 
     @Column(name="caracteristica", nullable=false)

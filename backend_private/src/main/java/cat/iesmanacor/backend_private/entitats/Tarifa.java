@@ -17,6 +17,7 @@ public class Tarifa implements Serializable {
     //Atributs tarifa
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(columnDefinition = "INT")
     private Long idTARIFA;
 
     @ManyToOne
