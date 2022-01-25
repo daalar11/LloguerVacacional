@@ -4,6 +4,7 @@ import cat.iesmanacor.backend_private.entitats.*;
 import cat.iesmanacor.backend_private.services.iCaracteristicaService;
 import cat.iesmanacor.backend_private.services.iLocalitatService;
 import cat.iesmanacor.backend_private.services.iPropietatService;
+import cat.iesmanacor.backend_private.services.iTarifaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +31,9 @@ public class PropietatController {
 
     @Autowired
     private iLocalitatService localitatService;
+
+    @Autowired
+    private iTarifaService tarifaService;
 
     //LListar totes les propietats
     @GetMapping({"/"})
@@ -59,7 +63,15 @@ public class PropietatController {
         model.addAttribute("propietat",propietat);
         model.addAttribute("localitats", listLocalitats);
 
-
+       /* List<Tarifa> llistaTarifes = new ArrayList<>();
+        Propietat pTarifes = propietatService.buscarPorId(idPROPIETAT);
+        List<Tarifa> llistaT = tarifaService.findAll();
+        llistaTarifes.addAll(pTarifes.getTarifes());
+        model.addAttribute("titulo","Llista de tarifes");
+        model.addAttribute("tarifes",llistaTarifes);
+        model.addAttribute("propietat",pTarifes);
+        model.addAttribute("list",llistaT);
+*/
         List<Caracteristica> llistaCar= new ArrayList<>();
         llistaCar=car.findAll();
         Caracteristica carac= new Caracteristica();

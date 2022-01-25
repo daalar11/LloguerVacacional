@@ -14,7 +14,7 @@ public class Habitacions {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idHABITACIONS;
-
+    @Column(columnDefinition = "bit")
     private int bany;
 
     private int llit_Doble;

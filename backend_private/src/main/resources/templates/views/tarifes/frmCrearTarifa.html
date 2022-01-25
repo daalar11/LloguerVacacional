@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="plantilla/template :: head">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+
+<header th:replace="plantilla/template :: header"></header>
+
+<div class="container">
+
+    <main>
+
+        <div class="row">
+
+            <div class="card bg-light mt-3 mb-3">
+
+                <div class="card-header bg-light">Afegir Tarifes</div>
+
+                <div class="card-body bg-light">
+
+                    <form th:object="${tarifes}" th:action="@{/views/tarifes/save}" method="post">
+                        <div class="mb-3">
+                            <input type="hidden" th:field="*{idTARIFA}">
+                            <label for="casa" class="form-label">Propietat</label>
+                            <select type="text" class="form-control" id="casa" aria-describedby="emailHelp" th:field="*{propietat}" readonly>
+                                <option th:each="propietat:${propietats}"
+                                        th:value="${propietat.idPROPIETAT}"
+                                        th:text="${propietat.nomPropietat}"/>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="dataIni" class="form-label">Data Inici </label>
+                            <input type="date" class="form-control" id="dataIni" aria-describedby="emailHelp" th:field="*{dataInici}">
+
+                        </div>
+                        <div class="mb-3">
+                            <label for="dataFi" class="form-label">Data Final</label>
+                            <input type="date" class="form-control" id="dataFi" aria-describedby="emailHelp" th:field="*{dataFinal}">
+
+                        </div>
+                        <input type="submit" class="btn btn-primary" value="Afegir" />
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <footer th:replace="plantilla/template :: footer"></footer>
+
+</div>
+</body>
+
+</html>
