@@ -17,6 +17,7 @@ public class Propietat implements Serializable {
 
     @Id //Indicam quin es el camp identificador
     @GeneratedValue(strategy = GenerationType.IDENTITY) //Indicam com es genera l'identificador (En aquest cas AUTO_INCREMENT)
+    @Column(columnDefinition = "INT")
     private Long idPROPIETAT;
 
     @Column(name="nom_propietat", nullable=false)
