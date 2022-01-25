@@ -20,7 +20,7 @@
 
                 <div class="card-body bg-light">
 
-                    <form th:object="${tarifes}" th:action="@{/views/tarifes/save}" method="post" onsubmit="return validacio()">
+                    <form th:object="${tarifes}" th:action="@{/views/tarifes/save}" method="post" onsubmit="return validacioTarifa()">
                         <div class="mb-3">
                             <input type="hidden" th:field="*{idTARIFA}">
                             <label for="casa" class="form-label">Propietat</label>
@@ -43,7 +43,7 @@
                             <div id="validacioDataFi" class="form-text"></div>
                         </div>
                         <div class="col-1 mt-2 form-group">
-                            <input type="submit" class="btn btn-primary" id="boto-submit" value="Guardar" />
+                            <input type="submit" class="btn btn-primary" id="boto-submit-tarifa" value="Guardar" />
                         </div>
                         <div class="col-1 form-group">
 
@@ -65,8 +65,8 @@
 
         $(document).ready(function() {
 
-            $("#boto-submit").click(function () {
-                validarForm();
+            $("#boto-submit-tarifa").click(function () {
+                validarFormTarifa();
 
                 console.log(campsCorrectes);
 

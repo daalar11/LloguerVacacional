@@ -22,6 +22,7 @@
 
                     <form th:object="${tarifa}" th:action="@{/views/tarifes/save}" method="post" onsubmit="return validacio()">
                         <div class="mb-3">
+                            <input type="hidden" th:field="*{idTARIFA}" />
                             <label for="casa" class="form-label">Propietat</label>
                             <select type="text" class="form-control" id="casa" aria-describedby="emailHelp" th:field="*{propietat}" readonly>
                                 <option th:each="propietat:${propietat}"

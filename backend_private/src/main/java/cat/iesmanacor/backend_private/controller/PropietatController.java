@@ -64,7 +64,8 @@ public class PropietatController {
         model.addAttribute("localitats", listLocalitats);
 
         //Codi Tarifes
-        List<Tarifa> llistaTarifes = tarifaService.findAll();
+        List<Tarifa> llistaTarifes = new ArrayList<>();
+        llistaTarifes.addAll(propietat.getTarifes());
         model.addAttribute("tarifes",llistaTarifes);
 
         //Codi Caracteristiques

@@ -10,7 +10,7 @@
 <div class="container mt-4 mb-4">
     <main>
         <div id="errorDiv"></div>
-        <form id="formCrearPropietat" th:object="${propietat}" th:action="@{/views/propietats/save}" method="post" onsubmit="return validacio()" enctype="multipart/form-data">
+        <form id="formCrearPropietat" th:object="${propietat}" th:action="@{/views/propietats/save}" method="post" onsubmit="return validacioPropietat()" enctype="multipart/form-data">
 
             <div class="row">
 
@@ -149,7 +149,7 @@
     $(document).ready(function() {
 
         $("#boto-submit").click(function () {
-            validarForm();
+            validarFormPropietat();
 
             if (campsCorrectes != 6){
                 campsCorrectes = 0;
