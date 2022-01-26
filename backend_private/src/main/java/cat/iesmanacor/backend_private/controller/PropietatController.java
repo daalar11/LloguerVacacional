@@ -11,10 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 //NOTACIO OBLIGATORIA (PAQUET AL QUE PERTANY)
 @Controller
@@ -75,6 +72,12 @@ public class PropietatController {
         Caracteristica carac= new Caracteristica();
         model.addAttribute("idPropietat",idPROPIETAT);
         model.addAttribute("caracteristiques",llistaCar);
+        List<Caracteristica>prova = propietat.getCaracteristicas();
+
+
+        model.addAttribute("prova",prova);
+        //llistar caracteristiques
+
 
         //Codi Bloqueig
         List<Bloqueig> llistaBloqueig = new ArrayList<>();
@@ -102,7 +105,7 @@ public class PropietatController {
     public String guardarCaracteristiques(@RequestParam(name="idPropietat")Long idPropietat,@RequestParam(name="valorCar")List<Long> idsCarac){
 
         Propietat propietat = propietatService.buscarPorId(idPropietat);
-        Set<Caracteristica> set= new HashSet<>();
+        List<Caracteristica> set= new ArrayList<>();
         for (int i = 0; i < idsCarac.size(); i++) {
             set.add(caracteristicaService.findById(idsCarac.get(i)));
         }

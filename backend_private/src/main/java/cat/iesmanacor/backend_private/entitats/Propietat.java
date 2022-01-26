@@ -5,6 +5,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -44,7 +45,8 @@ public class Propietat implements Serializable {
             name= "caracteristiques_propietats",
             joinColumns = @JoinColumn(name="id_pro"),
             inverseJoinColumns = @JoinColumn(name="id_car"))
-    Set<Caracteristica> caracteristicas = new HashSet<>();
+    private List<Caracteristica> caracteristicas = new ArrayList<>();
+
 
     private String direccio;
 
@@ -114,11 +116,11 @@ public class Propietat implements Serializable {
         this.tarifes = tarifes;
     }
 
-    public Set<Caracteristica> getCaracteristicas() {
+    public List<Caracteristica> getCaracteristicas() {
         return caracteristicas;
     }
 
-    public void setCaracteristicas(Set<Caracteristica> caracteristicas) {
+    public void setCaracteristicas(List<Caracteristica> caracteristicas) {
         this.caracteristicas = caracteristicas;
     }
 

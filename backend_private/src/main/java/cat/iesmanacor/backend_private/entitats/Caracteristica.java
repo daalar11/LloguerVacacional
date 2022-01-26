@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -32,7 +33,7 @@ public class Caracteristica implements Serializable {
        // name= "caracteristiques_propietats",
         //joinColumns = @JoinColumn(name="id_car"),
         //inverseJoinColumns = @JoinColumn(name="id_pro"))
-    Set <Propietat> propietats = new HashSet<>();
+    List <Propietat> propietats = new ArrayList<>();
 
     @Override
     public String toString(){
