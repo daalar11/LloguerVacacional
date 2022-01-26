@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,9 +62,46 @@ public class TarifaController {
 
     @PostMapping("/save")
     public String save(@ModelAttribute Tarifa tarifa){
-        tarifaService.save(tarifa);
-        System.out.println("Tarifa guardada amb exit");
-        return "redirect:/views/propietats/";
+
+        boolean valid = false;
+
+        //Tractament per veure si les dates son valides i no hi ha conflictes amb tarifes existents
+        LocalDate dataInici = tarifa.getDataInici();
+        LocalDate dataFinal = tarifa.getDataFinal();
+
+        Propietat propietat = propietatService.buscarPorId(tarifa.getPropietat().getIdPROPIETAT());
+        List<Tarifa> llistaTarifes = new ArrayList<>();
+        llistaTarifes.addAll(propietat.getTarifes());
+
+        for (int i = 0; i<llistaTarifes.size();i++){
+
+            LocalDate ini = llistaTarifes.get(i).getDataInici();
+            LocalDate fi = llistaTarifes.get(i).getDataFinal();
+
+            if (dataFinal.isBefore(ini)||dataInici.isAfter(fi)){
+                valid = true;
+            }
+
+
+        }
+
+        /*
+        * if (
+                            (dataInici.isAfter(ini)&&dataFinal.isBefore(fi))||
+                            (dataInici.isBefore(ini)&&dataFinal.isBefore(ini)||
+                            (dataInici.isAfter(ini)&&dataFinal.isBefore(fi)))
+            ){
+                valid = false;
+            }
+        * */
+        if (valid) {
+            tarifaService.save(tarifa);
+            System.out.println("Tarifa guardada amb exit");
+            return "redirect:/views/propietats/";
+        } else {
+            System.out.println("Ja hi ha una tarifa en aquestes dates.");
+            return "redirect:/views/propietats/";
+        }
     }
 
     //Edita ses habitacions d'una propietat concreta
