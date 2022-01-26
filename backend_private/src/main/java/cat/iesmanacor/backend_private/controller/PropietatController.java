@@ -51,6 +51,7 @@ public class PropietatController {
         model.addAttribute("titolEditarHabitacions","Configurar habitacions");
         model.addAttribute("titolTarifes","Configurar Tarifes");
         model.addAttribute("titolCaracteristiques", "Configurar Caracteristiques");
+        model.addAttribute("titolBloqueig", "Configuració dels dies de bloqueig");
 
         //Codi Habitacions
         List<Habitacio> llistaHabitacions=new ArrayList<>();
@@ -74,6 +75,11 @@ public class PropietatController {
         Caracteristica carac= new Caracteristica();
         model.addAttribute("idPropietat",idPROPIETAT);
         model.addAttribute("caracteristiques",llistaCar);
+
+        //Codi Bloqueig
+        List<Bloqueig> llistaBloqueig = new ArrayList<>();
+        llistaBloqueig.addAll(propietat.getBloqueig());
+        model.addAttribute("bloqueig", llistaBloqueig);
 
     return "/views/propietats/caracteristicaPropietat";
     }

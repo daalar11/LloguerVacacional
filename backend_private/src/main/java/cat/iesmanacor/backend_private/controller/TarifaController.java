@@ -61,47 +61,77 @@ public class TarifaController {
     }
 
     @PostMapping("/save")
-    public String save(@ModelAttribute Tarifa tarifa){
+    public String save(@ModelAttribute Tarifa tarifa, Model model){
 
-        boolean valid = false;
+        boolean valida = true;
 
-        //Tractament per veure si les dates son valides i no hi ha conflictes amb tarifes existents
+        //Obtenim els valors de les dates que vol introduir l'usuari com a nova tarifa.
         LocalDate dataInici = tarifa.getDataInici();
         LocalDate dataFinal = tarifa.getDataFinal();
 
+        //Primer de tot validam que la dataInici es anterior a la dataFinal
+        if (dataInici.isAfter(dataFinal)){
+            valida = false;
+        }
+
+        //Cream l'objecte propietat, ja que nomes hem de mirar que no existesqui conflicte entre les tarifes de nomes aquella propietat i no totes
         Propietat propietat = propietatService.buscarPorId(tarifa.getPropietat().getIdPROPIETAT());
+
+        //Cream un arrayList de tarifes i afegim totes les tarifes de la propietat.
         List<Tarifa> llistaTarifes = new ArrayList<>();
         llistaTarifes.addAll(propietat.getTarifes());
+
+        //Tambe cream un arrayList per tal d'enmegatzemar les tarifes conflictives i proporcionar info a l'usuari.
+        List<Tarifa> tarifesConflictives = new ArrayList<>();
 
         for (int i = 0; i<llistaTarifes.size();i++){
 
             LocalDate ini = llistaTarifes.get(i).getDataInici();
             LocalDate fi = llistaTarifes.get(i).getDataFinal();
 
-            if (dataFinal.isBefore(ini)||dataInici.isAfter(fi)){
-                valid = true;
+            //Condicional que mira si les dates d'una tarifa son valides respecte les tarifes ja existents
+            //Si compleix alguna de les seguents 4 condicions vol dir que la tarifa no es valida i canviara la variable valid a false.
+            if (
+                            (dataFinal.isAfter(ini)&&dataFinal.isBefore(fi)&&dataInici.isBefore(ini)) || //Cas 1
+                            ((dataInici.isAfter(ini)&&dataInici.isBefore(fi))&&dataFinal.isAfter(fi)) || //Cas 2
+                            ((dataInici.isBefore(ini)&&dataFinal.isAfter(fi))) || //Cas 3
+                            (dataInici.isAfter(ini)&&dataFinal.isBefore(fi)) //Cas 4
+                ){
+                //Si ha entrat vol dir que la tarifa en iteració no es valida per lo que la afegim a l'array
+                tarifesConflictives.add(llistaTarifes.get(i));
+                valida = false;
             }
-
-
         }
 
-        /*
-        * if (
-                            (dataInici.isAfter(ini)&&dataFinal.isBefore(fi))||
-                            (dataInici.isBefore(ini)&&dataFinal.isBefore(ini)||
-                            (dataInici.isAfter(ini)&&dataFinal.isBefore(fi)))
-            ){
-                valid = false;
-            }
-        * */
-        if (valid) {
+        if (valida) {
             tarifaService.save(tarifa);
             System.out.println("Tarifa guardada amb exit");
             return "redirect:/views/propietats/";
         } else {
             System.out.println("Ja hi ha una tarifa en aquestes dates.");
+            model.addAttribute("tarifesConflictives", tarifesConflictives);
             return "redirect:/views/propietats/";
         }
+
+        //Logica del condicional
+        /*
+         * OPCIONS VALIDES
+         * Si la data final es anterior a la d'inici de totes les tarifes = valid
+         * -> if (dataFinal.isBefore(ini)){...}
+         * Si la data inicial es posterior a totes les finals de les altres tarifes = valid
+         *  -> if (dataInici.isAfter(fi)){...}
+         *
+         * OPCIONS NO VALIDES
+         * Si la data final esta entre la dataInici i la dataFinal, i la data inicial esta anterior a la data inici  = no valid
+         * -> if ((dataFinal.isAfter(ini)&&dataFinal.isBefore(fi)&&dataInici.isBefore(ini)){...}
+         * Si la data inicial esta entre la dataInici i la data final, i la data final es posterior a la dataFinal = no valid
+         * -> if ((dataInici.isAfter(ini)&&dataInici.isBefore(fi))&&dataFinal.isAfter(fi)){...}
+         * Si la data inicial esta abans que la dataInicial i la data final esta despres de la final = no valid
+         * -> if ((dataInici.isBefore(ini)&&dataFinal.isAfter(fi)){...}
+         * Si la data inicial i la data final estan entre la data inicial i la data final = no valid
+         * -> id (dataInici.isAfter(ini)&&dataFinal.isBefore(fi)){...}
+         * */
+
     }
 
     //Edita ses habitacions d'una propietat concreta
