@@ -1,7 +1,7 @@
 
 var campsCorrectes = 0;
 
-function validacio(){
+function validacioTarifa(){
 
     var pasaValidacio = false;
 
@@ -14,20 +14,20 @@ function validacio(){
     }
 }
 
-function validarForm(){
+function validarFormTarifa(){
 
     validarDataInici();
     validarDataFinal();
 
 }
 
-function correcte(input, span){
+function correct(input, span){
     $(input).css("border", "2px solid green");
     $(span).css("color", "green");
     $(span).text("Bé");
 }
 
-function incorrecte(input, span, missatge){
+function incorrect(input, span, missatge){
     $(input).css("border", "2px solid red");
     $(span).css("color", "red");
     $(span).text(missatge);
@@ -39,9 +39,9 @@ function validarDataInici(){
     var date_regex = /^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/;
 
     if (dataInici === "" || dataInici === null){
-        incorrecte("#dataIni", "#validacioDataIni", "Aquest camp es obligatori")
+        incorrect("#dataIni", "#validacioDataIni", "Aquest camp es obligatori")
     } else {
-        correcte("#dataIni", "#validacioDataIni")
+        correct("#dataIni", "#validacioDataIni")
         campsCorrectes++;
     }
 }
@@ -52,9 +52,9 @@ function validarDataFinal(){
     var date_regex = /^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/;
 
     if (dataFinal === "" || dataFinal === null){
-        incorrecte("#dataFi", "#validacioDataFi", "Aquest camp es obligatori")
+        incorrect("#dataFi", "#validacioDataFi", "Aquest camp es obligatori")
     } else {
-        correcte("#dataFi", "#validacioDataFi")
+        correct("#dataFi", "#validacioDataFi")
         campsCorrectes++;
     }
 }

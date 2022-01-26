@@ -1,9 +1,11 @@
 package cat.iesmanacor.backend_private.entitats;
 
 import com.sun.istack.NotNull;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -24,11 +26,13 @@ public class Tarifa implements Serializable {
 
     @NotNull
     @Column(name="d_inici", nullable = false)
-    private Date dataInici;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate dataInici;
 
     @NotNull
     @Column(name="d_fi", nullable = false)
-    private Date dataFinal;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate dataFinal;
 
     private boolean activa;
 
@@ -53,19 +57,19 @@ public class Tarifa implements Serializable {
         this.propietat = propietat;
     }
 
-    public Date getDataInici() {
+    public LocalDate getDataInici() {
         return dataInici;
     }
 
-    public void setDataInici(Date dataInici) {
+    public void setDataInici(LocalDate dataInici) {
         this.dataInici = dataInici;
     }
 
-    public Date getDataFinal() {
+    public LocalDate getDataFinal() {
         return dataFinal;
     }
 
-    public void setDataFinal(Date dataFinal) {
+    public void setDataFinal(LocalDate dataFinal) {
         this.dataFinal = dataFinal;
     }
 
@@ -76,6 +80,4 @@ public class Tarifa implements Serializable {
     public void setActiva(boolean activa) {
         this.activa = activa;
     }
-
-
 }

@@ -1,7 +1,7 @@
 
     var campsCorrectes = 0;
 
-    function validacio(){
+    function validacioPropietat(){
 
         var pasaValidacio = false;
 
@@ -14,7 +14,7 @@
         }
     }
 
-    function validarForm(){
+    function validarFormPropietat(){
     validarNom();
     validarLocalitat();
     validarDireccio();

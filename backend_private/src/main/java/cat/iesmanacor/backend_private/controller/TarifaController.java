@@ -34,7 +34,7 @@ public class TarifaController {
 
 
     //Llegeix habitacions en funcio de sa propietat
-    @GetMapping("/{idPROPIETAT}")
+    /*@GetMapping("/{idPROPIETAT}")
     public String llistarTarifes(Model model, @PathVariable("idPROPIETAT") Long idPROPIETAT){
         List<Tarifa> llistaTarifes = new ArrayList<>();
 
@@ -48,7 +48,7 @@ public class TarifaController {
         model.addAttribute("propietat",propietat);
         model.addAttribute("list",llistaT);
         return "/views/tarifes/mostrarTarifes";
-    }
+    }*/
 
     @GetMapping("/afegir/{idPROPIETAT}")
     public String afegir(Model model,@PathVariable("idPROPIETAT") Long idPROPIETAT){
