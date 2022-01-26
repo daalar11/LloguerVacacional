@@ -22,7 +22,7 @@
         <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Habitacions</button>
       </li>
       <li class="nav-item" role="presentation">
-        <button class="nav-link" id="caracteristiques-tab" data-bs-toggle="tab" data-bs-target="#caracteristiques" type="button" role="tab" aria-controls="contact" aria-selected="false">Caracteristiques</button>
+        <button class="nav-link" id="caracteristiques-tab" data-bs-toggle="tab" data-bs-target="#caracteristiques" type="button" role="tab" aria-controls="caracteristiques" aria-selected="false">Caracteristiques</button>
       </li>
       <li class="nav-item" role="presentation">
         <button class="nav-link" id="tarifes-tab" data-bs-toggle="tab" data-bs-target="#tarifes" type="button" role="tab" aria-controls="tarifes" aria-selected="false">Tarifes</button>
@@ -337,10 +337,10 @@
 
 
                 <td>
-                  <a class="btn btn-success" th:href="@{'/views/tarifes/edit/'+${ta.propietat.idPROPIETAT} +'/'+${ta.idTARIFA}} " th:text="'Editar'" title="Editar"></a>
+                  <a class="btn btn-success" th:href="@{'/views/bloqueig/edit/'+${ta.propietat.idPROPIETAT} +'/'+${ta.idBLOQUEIG}} " th:text="'Editar'" title="Editar"></a>
                 </td>
                 <td>
-                  <a class="btn btn-danger" th:href="@{'/views/tarifes/delete/' + ${ta.idTARIFA}}" th:text="'Eliminar'" title="Eliminar"></a>
+                  <a class="btn btn-danger" th:href="@{'/views/bloqueig/delete/' + ${ta.idBLOQUEIG}}" th:text="'Eliminar'" title="Eliminar"></a>
                 </td>
 
               </tr>

@@ -18,7 +18,7 @@ import java.util.List;
 public class BloqueigController {
 
     @Autowired
-    iBloqueigService bloqueigService;
+    private iBloqueigService bloqueigService;
 
     @Autowired
     private iPropietatService propietatService;
