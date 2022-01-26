@@ -35,21 +35,22 @@
 
           <div class="card  mt-3 mb-3 bg-light">
 
-            <div class="card-header bg-light" th:text="${editarPropietat}"></div>
+            <div class="card-header bg-light" th:text="${titolEditarPropietat}"></div>
 
             <div class="card-body ">
 
-              <form th:object="${propietat}" th:action="@{/views/propietats/save}" method="post">
+              <form id="formCrearPropietat" th:object="${propietat}" th:action="@{/views/propietats/save}" method="post" enctype="multipart/form-data">
 
                 <div class="row">
 
                   <div class="col-12 form-group">
 
                     <div class="mb-3">
-                      <input type="hidden" th:field="*{idPROPIETAT}">
+                      <input type="hidden" th:field="*{idPROPIETAT}" />
                       <label for="nomPropietat" class="form-label">Nom de la propietat</label>
                       <input type="text" th:field="*{nomPropietat}" placeholder="ej. Villa Luna" class="form-control" id="nomPropietat">
                       <div id="spannom" class="form-text">Nom de la propietat que figura en l'escriptura</div>
+                      <div id="validacioNom" class="form-text"></div>
                     </div>
 
                   </div>
@@ -58,12 +59,14 @@
                     <div class="mb-3">
                       <label for="localitat" class="form-label">Localitat</label>
                       <select class="form-control" id="localitat" th:field="*{localitat}">
+                        <option value="0" selected>-- Tria la localitat --</option>
                         <option th:each="localitat:${localitats}"
                                 th:value="${localitat.idLOCALITAT}"
                                 th:text="${localitat.nomLocalitat}"
                         />
                       </select>
                       <div id="localitatspan" class="form-text">Selecciona la localitat on es localitza la propietat</div>
+                      <div id="validacioLocalitat" class="form-text"></div>
                     </div>
 
                   </div>
@@ -73,6 +76,7 @@
                       <label for="direccio" class="form-label">Direccio</label>
                       <input type="text" placeholder="ej. Major 50" th:field="*{direccio}" class="form-control" id="direccio">
                       <div id="direcciospan" class="form-text">Direccio de la casa amb format Carrer Numero</div>
+                      <div id="validacioDireccio" class="form-text"></div>
                     </div>
 
                   </div>
@@ -88,6 +92,7 @@
                         </div>
                       </div>
                       <div id="preuBasespan" class="form-text">Preu base per dia de la propietat.</div>
+                      <div id="validacioPreu" class="form-text"></div>
                     </div>
 
                   </div>
@@ -103,6 +108,7 @@
                         </div>
                       </div>
                       <div id="descompteSetmanaspan" class="form-text">Descompte aplicat en cas de lloguers majors a una setmana</div>
+                      <div id="validacioDescompteS" class="form-text"></div>
                     </div>
 
                   </div>
@@ -118,6 +124,23 @@
                         </div>
                       </div>
                       <div id="descompteMesspan" class="form-text">Descompte aplicat en cas de lloguers majors d'un mes</div>
+                      <div id="validacioDescompteM" class="form-text"></div>
+                    </div>
+
+                  </div>
+                  <div class="col-12 form-group">
+
+                    <div class="mb-3">
+                      <label for="file" class="form-label">Fotos</label>
+
+                      <div class="input-group">
+                        <input type="file" name="file" class="form-control" id="file" />
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">#</div>
+                        </div>
+                      </div>
+                      <div id="fotosSpan" class="form-text">Aqui pots afegir fotos de la propietat.</div>
+                      <div id="validacioFoto" class="form-text"></div>
                     </div>
 
                   </div>
@@ -131,10 +154,8 @@
                     </div>
 
                   </div>
-
                   <div class="col-1 mt-2 form-group">
-                    <input type="submit" class="btn btn-primary" value="Guardar" />
-
+                    <input type="submit" id="boto-submit" class="btn btn-primary" value="Guardar" />
                   </div>
                   <div class="col-1 form-group">
 
@@ -159,11 +180,17 @@
 
       <div class="tab-pane fade" id="caracteristiques" role="tabpanel" aria-labelledby="caracteristiques-tab">
 
+        <div class="card  mt-3 mb-3 bg-light">
+
+          <div class="card-header bg-light" th:text="${titolCaracteristiques}"></div>
+
+          <div class="card-body ">
+
         <form th:action="@{/views/propietats/caracteristiques/save}" method="post">
           <div class="row">
             <fieldset class="row">
               <div th:each="cl:${caracteristiques}" class="col-2">
-                <input class="form-check-input" th:name="valorCar" th:id="${cl.id_caracteristica}" type="checkbox" th:value="${cl.id_caracteristica}"/>
+                <input class="form-check-input" th:name="valorCar" th:id="${cl.idCaracteristica}" type="checkbox" th:value="${cl.idCaracteristica}"/>
                 <label class="form-check-label"  th:text="${cl.caracteristica}"></label>
               </div>
               <div th:each="ex:${idPropietat}">
@@ -173,19 +200,32 @@
           </div>
 
           <div class="col-1 mt-2 form-group">
-            <input type="submit" id="boto-submit" class="btn btn-primary" value="Guardar" />
+            <input type="submit" id="boto-submit-caracteristiques" class="btn btn-primary" value="Guardar" />
           </div>
         </form>
 
+            </div>
 
+        </div>
+        <hr>
+        <div class="row">
+            <div class="card col-3" th:each="carac:${prova}">
+              <div class="card-body">
+            <h5 th:text="${carac.caracteristica}"/>
+              </div>
+            </td>
+          </div>
+        </div>
       </div>
 
-
-
-
+      <!-- Tab Panel Habitacio -->
       <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
 
-        <h5 th:text="${editarHabitacions}" class="mt-3 mb-3"></h5>
+        <div class="card  mt-3 mb-3 bg-light">
+
+          <div class="card-header bg-light" th:text="${titolEditarHabitacions}"></div>
+
+          <div class="card-body ">
 
         <table class="table">
           <thead>
@@ -200,7 +240,7 @@
           </tr>
           </thead>
           <tbody>
-          <tr th:each="cl:${pelicules}">
+          <tr th:each="cl:${habitacions}">
             <th th:text="${cl.idHABITACIONS}"></th>
             <td th:text="${cl.bany}"></td>
             <td th:text="${cl.llit_Doble}"></td>
@@ -219,19 +259,18 @@
 
           </tbody>
         </table>
+
+          </div>
+        </div>
         <a th:each="hab:${propietat}" class="btn btn-primary" th:href="@{'/views/habitacions/afegir/'+ ${hab.idPROPIETAT}} " th:text="'Nova Habitacio'" title="Crear nou registre"></a>
       </div>
 
       <!-- Tab-Tarifes -->
       <div class="tab-pane fade" id="tarifes" role="tabpanel" aria-labelledby="tarifes-tab">
 
-        <div th:fragment="tarifes">
-
-          <div th:text="${list}"></div>
-
           <div class="card  mt-3 mb-3 bg-light">
 
-            <div class="card-header bg-light" th:text="${titulo}"></div>
+            <div class="card-header bg-light" th:text="${titolTarifes}"></div>
 
             <div class="card-body ">
 
@@ -242,6 +281,7 @@
                   <th scope="col">Data Inici</th>
                   <th scope="col">Data Fi</th>
                   <th scope="col">Activa</th>
+                  <th scope="col">Nom Propietat</th>
                   <th scope="col">Editar</th>
                   <th scope="col">Eliminar</th>
                 </tr>
@@ -252,6 +292,9 @@
                   <td th:text="${ta.dataInici}"></td>
                   <td th:text="${ta.dataFinal}"> </td>
                   <td th:text="${ta.activa}"></td>
+                  <td th:text="${ta.propietat.nomPropietat}"></td>
+
+
                   <td>
                     <a class="btn btn-success" th:href="@{'/views/tarifes/edit/'+${ta.propietat.idPROPIETAT} +'/'+${ta.idTARIFA}} " th:text="'Editar'" title="Editar"></a>
                   </td>
@@ -266,7 +309,7 @@
             </div>
           </div>
           <a th:each="tar:${propietat}" class="btn btn-primary mt-3" th:href="@{'/views/tarifes/afegir/'+ ${tar.idPROPIETAT}} " th:text="'Nova Tarifa'" title="Crear nou registre"></a>
-        </div>
+
 
       </div>
 
@@ -280,241 +323,6 @@
   $(document).ready(function() {
     veureTaula();
   });
-
-  var veureTaula = function (){
-
-    $('table.table').DataTable({
-      responsive: true,
-      autoWidth: false,
-      "language": {
-        "processing": "Procesando...",
-        "lengthMenu": "Mostrar _MENU_ registros",
-        "zeroRecords": "No se encontraron resultados",
-        "emptyTable": "Ningún dato disponible en esta tabla",
-        "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-        "infoFiltered": "(filtrado de un total de _MAX_ registros)",
-        "search": "Buscar:",
-        "infoThousands": ",",
-        "loadingRecords": "Cargando...",
-        "paginate": {
-          "first": "Primero",
-          "last": "Último",
-          "next": "Siguiente",
-          "previous": "Anterior"
-        },
-        "aria": {
-          "sortAscending": ": Activar para ordenar la columna de manera ascendente",
-          "sortDescending": ": Activar para ordenar la columna de manera descendente"
-        },
-        "buttons": {
-          "copy": "Copiar",
-          "colvis": "Visibilidad",
-          "collection": "Colección",
-          "colvisRestore": "Restaurar visibilidad",
-          "copyKeys": "Presione ctrl o u2318 + C para copiar los datos de la tabla al portapapeles del sistema. <br \/> <br \/> Para cancelar, haga clic en este mensaje o presione escape.",
-          "copySuccess": {
-            "1": "Copiada 1 fila al portapapeles",
-            "_": "Copiadas %ds fila al portapapeles"
-          },
-          "copyTitle": "Copiar al portapapeles",
-          "csv": "CSV",
-          "excel": "Excel",
-          "pageLength": {
-            "-1": "Mostrar todas las filas",
-            "_": "Mostrar %d filas"
-          },
-          "pdf": "PDF",
-          "print": "Imprimir",
-          "renameState": "Cambiar nombre",
-          "updateState": "Actualizar"
-        },
-        "autoFill": {
-          "cancel": "Cancelar",
-          "fill": "Rellene todas las celdas con <i>%d<\/i>",
-          "fillHorizontal": "Rellenar celdas horizontalmente",
-          "fillVertical": "Rellenar celdas verticalmentemente"
-        },
-        "decimal": ",",
-        "searchBuilder": {
-          "add": "Añadir condición",
-          "button": {
-            "0": "Constructor de búsqueda",
-            "_": "Constructor de búsqueda (%d)"
-          },
-          "clearAll": "Borrar todo",
-          "condition": "Condición",
-          "conditions": {
-            "date": {
-              "after": "Despues",
-              "before": "Antes",
-              "between": "Entre",
-              "empty": "Vacío",
-              "equals": "Igual a",
-              "notBetween": "No entre",
-              "notEmpty": "No Vacio",
-              "not": "Diferente de"
-            },
-            "number": {
-              "between": "Entre",
-              "empty": "Vacio",
-              "equals": "Igual a",
-              "gt": "Mayor a",
-              "gte": "Mayor o igual a",
-              "lt": "Menor que",
-              "lte": "Menor o igual que",
-              "notBetween": "No entre",
-              "notEmpty": "No vacío",
-              "not": "Diferente de"
-            },
-            "string": {
-              "contains": "Contiene",
-              "empty": "Vacío",
-              "endsWith": "Termina en",
-              "equals": "Igual a",
-              "notEmpty": "No Vacio",
-              "startsWith": "Empieza con",
-              "not": "Diferente de",
-              "notContains": "No Contiene",
-              "notStarts": "No empieza con",
-              "notEnds": "No termina con"
-            },
-            "array": {
-              "not": "Diferente de",
-              "equals": "Igual",
-              "empty": "Vacío",
-              "contains": "Contiene",
-              "notEmpty": "No Vacío",
-              "without": "Sin"
-            }
-          },
-          "data": "Data",
-          "deleteTitle": "Eliminar regla de filtrado",
-          "leftTitle": "Criterios anulados",
-          "logicAnd": "Y",
-          "logicOr": "O",
-          "rightTitle": "Criterios de sangría",
-          "title": {
-            "0": "Constructor de búsqueda",
-            "_": "Constructor de búsqueda (%d)"
-          },
-          "value": "Valor"
-        },
-        "searchPanes": {
-          "clearMessage": "Borrar todo",
-          "collapse": {
-            "0": "Paneles de búsqueda",
-            "_": "Paneles de búsqueda (%d)"
-          },
-          "count": "{total}",
-          "countFiltered": "{shown} ({total})",
-          "emptyPanes": "Sin paneles de búsqueda",
-          "loadMessage": "Cargando paneles de búsqueda",
-          "title": "Filtros Activos - %d",
-          "showMessage": "Mostrar Todo",
-          "collapseMessage": "Colapsar Todo"
-        },
-        "select": {
-          "cells": {
-            "1": "1 celda seleccionada",
-            "_": "%d celdas seleccionadas"
-          },
-          "columns": {
-            "1": "1 columna seleccionada",
-            "_": "%d columnas seleccionadas"
-          },
-          "rows": {
-            "1": "1 fila seleccionada",
-            "_": "%d filas seleccionadas"
-          }
-        },
-        "thousands": ".",
-        "datetime": {
-          "previous": "Anterior",
-          "next": "Proximo",
-          "hours": "Horas",
-          "minutes": "Minutos",
-          "seconds": "Segundos",
-          "unknown": "-",
-          "amPm": [
-            "AM",
-            "PM"
-          ],
-          "months": {
-            "0": "Enero",
-            "1": "Febrero",
-            "10": "Noviembre",
-            "11": "Diciembre",
-            "2": "Marzo",
-            "3": "Abril",
-            "4": "Mayo",
-            "5": "Junio",
-            "6": "Julio",
-            "7": "Agosto",
-            "8": "Septiembre",
-            "9": "Octubre"
-          },
-          "weekdays": [
-            "Dom",
-            "Lun",
-            "Mar",
-            "Mie",
-            "Jue",
-            "Vie",
-            "Sab"
-          ]
-        },
-        "editor": {
-          "close": "Cerrar",
-          "create": {
-            "button": "Nuevo",
-            "title": "Crear Nuevo Registro",
-            "submit": "Crear"
-          },
-          "edit": {
-            "button": "Editar",
-            "title": "Editar Registro",
-            "submit": "Actualizar"
-          },
-          "remove": {
-            "button": "Eliminar",
-            "title": "Eliminar Registro",
-            "submit": "Eliminar",
-            "confirm": {
-              "_": "¿Está seguro que desea eliminar %d filas?",
-              "1": "¿Está seguro que desea eliminar 1 fila?"
-            }
-          },
-          "error": {
-            "system": "Ha ocurrido un error en el sistema (<a target=\"\\\" rel=\"\\ nofollow\" href=\"\\\">Más información&lt;\\\/a&gt;).<\/a>"
-          },
-          "multi": {
-            "title": "Múltiples Valores",
-            "info": "Los elementos seleccionados contienen diferentes valores para este registro. Para editar y establecer todos los elementos de este registro con el mismo valor, hacer click o tap aquí, de lo contrario conservarán sus valores individuales.",
-            "restore": "Deshacer Cambios",
-            "noMulti": "Este registro puede ser editado individualmente, pero no como parte de un grupo."
-          }
-        },
-        "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
-        "stateRestore": {
-          "creationModal": {
-            "button": "Crear",
-            "name": "Nombre:",
-            "order": "Clasificación",
-            "paging": "Paginación",
-            "search": "Busqueda",
-            "select": "Seleccionar"
-          },
-          "emptyError": "El nombre no puede estar vacio",
-          "removeConfirm": "¿Seguro que quiere eliminar este %s?",
-          "removeError": "Error al eliminar el registro",
-          "removeJoiner": "y",
-          "removeSubmit": "Eliminar",
-          "renameButton": "Cambiar Nombre",
-          "renameLabel": "Nuevo nombre para %s"
-        }
-      }
-    });
-  }
 
 </script>
 

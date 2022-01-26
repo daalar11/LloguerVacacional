@@ -1,7 +1,6 @@
 package cat.iesmanacor.backend_private.services;
 
 import cat.iesmanacor.backend_private.entitats.Caracteristica;
-import cat.iesmanacor.backend_private.entitats.Habitacions;
 import cat.iesmanacor.backend_private.repository.CaracteristicaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

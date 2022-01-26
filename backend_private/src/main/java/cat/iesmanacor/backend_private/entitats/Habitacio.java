@@ -3,17 +3,20 @@ package cat.iesmanacor.backend_private.entitats;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Data
 @Entity
 @Table(name="HABITACIONS")
-public class Habitacions {
+public class Habitacio implements Serializable {
 
     private static final long serialVersionUID=1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idHABITACIONS;
+    @Column(columnDefinition = "INT")
+    private Long idHABITACIONS;
+
     @Column(columnDefinition = "bit")
     private int bany;
 
@@ -30,4 +33,6 @@ public class Habitacions {
     public String toString(){
         return "habitacio: " + idHABITACIONS +"TEST";
     }
+
+
 }

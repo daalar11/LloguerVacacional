@@ -4,6 +4,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -12,15 +14,16 @@ import java.util.Set;
 @Entity
 @Table(name = "CARACTERISTIQUES")
 @EqualsAndHashCode(exclude="propietats")
-public class Caracteristica {
+public class Caracteristica implements Serializable {
+
     private static final long serialVersionUID=1L;
 
     //Atributs pelicula
 
     @Id //Indicam quin es el camp identificador
     @GeneratedValue(strategy = GenerationType.IDENTITY) //Indicam com es genera l'identificador (En aquest cas AUTO_INCREMENT)
-    @Column(columnDefinition = "INT")
-    private Long id_caracteristica;
+    @Column(name = "id_caracteristica" , columnDefinition = "INT")
+    private Long idCaracteristica;
 
     @Column(name="caracteristica", nullable=false)
     private String caracteristica;
@@ -30,7 +33,7 @@ public class Caracteristica {
        // name= "caracteristiques_propietats",
         //joinColumns = @JoinColumn(name="id_car"),
         //inverseJoinColumns = @JoinColumn(name="id_pro"))
-    Set<Propietat> propietats = new HashSet<>();
+    List <Propietat> propietats = new ArrayList<>();
 
     @Override
     public String toString(){

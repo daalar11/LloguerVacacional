@@ -1,19 +1,20 @@
 package cat.iesmanacor.backend_private.services;
 
-import cat.iesmanacor.backend_private.entitats.Habitacions;
-import org.springframework.stereotype.Service;
+import cat.iesmanacor.backend_private.entitats.Habitacio;
 
 import java.util.List;
 
 public interface iHabitacioService {
 
-    public List<Habitacions> findAll();
+    public List<Habitacio> findAll();
 
-    public void save (Habitacions habitacio);
+    public void save (Habitacio habitacio);
 
-    public Habitacions findById(Integer id);
+    public Habitacio findById(Long id);
 
-    public void delete(Integer id);
+    public void delete(Long id);
+
+    List<Habitacio> findHabitacionsByPropietat(Long id);
 
 
 }
