@@ -206,7 +206,15 @@
             </div>
 
         </div>
-
+        <hr>
+        <div class="row">
+            <div class="card col-3" th:each="carac:${prova}">
+              <div class="card-body">
+            <h5 th:text="${carac.caracteristica}"/>
+              </div>
+            </td>
+          </div>
+        </div>
       </div>
 
       <!-- Tab Panel Habitacio -->
