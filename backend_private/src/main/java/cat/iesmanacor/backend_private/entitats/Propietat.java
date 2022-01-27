@@ -40,6 +40,9 @@ public class Propietat implements Serializable {
     @OneToMany(mappedBy = "propietat")
     private List<PoliticaCancelacio> politica;
 
+    @OneToMany(mappedBy = "propietat")
+    private List<Bloqueig> bloqueig;
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name= "caracteristiques_propietats",
@@ -168,6 +171,11 @@ public class Propietat implements Serializable {
         return "propietat: " + idPROPIETAT +"TEST";
     }
 
+    public List<Bloqueig> getBloqueig() {
+        return bloqueig;
+    }
 
-
+    public void setBloqueig(List<Bloqueig> bloqueig) {
+        this.bloqueig = bloqueig;
+    }
 }

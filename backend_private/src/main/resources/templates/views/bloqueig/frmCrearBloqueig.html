@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="plantilla/template :: head">
+</head>
+
+<body>
+
+<header th:insert="plantilla/template :: header"></header>
+
+<div class="container">
+
+    <main>
+
+        <div class="row">
+
+            <div class="card bg-light mt-3 mb-3">
+
+                <div class="card-header bg-light">Afegir Tarifes</div>
+
+                <div class="card-body bg-light">
+
+                    <form th:object="${bloqueig}" th:action="@{/views/bloqueig/save}" method="post"> <!-- onsubmit="return validacioTarifa()"-->
+                        <div class="mb-3">
+                            <input type="hidden" th:field="*{idBLOQUEIG}">
+                            <label for="casa" class="form-label">Propietat</label>
+                            <select type="text" class="form-control" id="casa" aria-describedby="emailHelp" th:field="*{propietat}" readonly>
+                                <option th:each="propietat:${propietats}"
+                                        th:value="${propietat.idPROPIETAT}"
+                                        th:text="${propietat.nomPropietat}"/>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="dataIni" class="form-label">Data Inici </label>
+                            <input type="date" class="form-control" id="dataIni" aria-describedby="emailHelp" th:field="*{dataInici}">
+                            <div id="dataIniSpan" class="form-text">Indica quin dia comença a entrar en vigor la teva tarifa.</div>
+                            <div id="validacioDataIni" class="form-text"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="dataFi" class="form-label">Data Final</label>
+                            <input type="date" class="form-control" id="dataFi" aria-describedby="emailHelp" th:field="*{dataFinal}">
+                            <div id="dataFiSpan" class="form-text">Indica quin dia deixa d'entrar en vigor la teva tarifa.</div>
+                            <div id="validacioDataFi" class="form-text"></div>
+                        </div>
+                        <div class="col-1 mt-2 form-group">
+                            <input type="submit" class="btn btn-primary" id="boto-submit-bloqueig" value="Guardar" />
+                        </div>
+                        <div class="col-1 form-group">
+
+                            <a class="nav-link" th:href="@{/views/propietats/}">
+                                <input type="button" class="btn btn-danger" value="Cancelar">
+                            </a>
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <footer th:replace="plantilla/template :: footer"></footer>
+
+    <script>
+
+        $(document).ready(function() {
+
+            $("#boto-submit-bloqueig").click(function () {
+                validarFormTarifa();
+
+                console.log(campsCorrectes);
+
+                if (campsCorrectes != 2){
+                    campsCorrectes = 0;
+                }
+            });
+        });
+
+    </script>
+
+</div>
+</body>
+
+</html>
