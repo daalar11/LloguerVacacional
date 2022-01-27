@@ -37,6 +37,9 @@ public class Propietat implements Serializable {
     @OneToMany(mappedBy = "propietat")
     private List<Tarifa> tarifes;
 
+    @OneToMany(mappedBy = "propietat")
+    private List<PoliticaCancelacio> politica;
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name= "caracteristiques_propietats",
@@ -159,6 +162,7 @@ public class Propietat implements Serializable {
 
     public void setActiva(boolean activa) {
         this.activa = activa;
+    }
     @Override
     public String toString(){
         return "propietat: " + idPROPIETAT +"TEST";
