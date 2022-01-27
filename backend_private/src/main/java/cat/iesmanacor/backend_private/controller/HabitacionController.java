@@ -21,18 +21,6 @@ public class HabitacionController {
     @Autowired
     private iPropietatService propietatService;
 
-    //Llegeix habitacions en funcio de sa propietat
-    @GetMapping("/habitacio/{idPROPIETAT}")
-    public String llistarHabitacions(Model model,@PathVariable("idPROPIETAT") Long idPROPIETAT){
-        List<Habitacio> llistaPelicula=new ArrayList<>();
-        Propietat habitacio = propietatService.buscarPorId(idPROPIETAT);
-        llistaPelicula.addAll(habitacio.getHabitacions());
-        model.addAttribute("titulo","Llista de habitacions");
-        model.addAttribute("habitacions",llistaPelicula);
-        model.addAttribute("propietat",habitacio);
-        return "/views/habitacions/mostraHabitacions";
-    }
-
     //Afegeix habitacions en funcio de sa propietat
     @GetMapping("/afegir/{idPROPIETAT}")
     public String afegir(Model model,@PathVariable("idPROPIETAT") Long idPROPIETAT){

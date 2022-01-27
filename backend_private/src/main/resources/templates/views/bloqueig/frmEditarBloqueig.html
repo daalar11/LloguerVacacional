@@ -16,15 +16,16 @@
 
             <div class="card bg-light mt-3 mb-3">
 
-                <div class="card-header bg-light">Afegir Tarifes</div>
+                <div class="card-header bg-light">Afegir Bloqueig</div>
 
                 <div class="card-body bg-light">
 
                     <form th:object="${bloqueig}" th:action="@{/views/bloqueig/save}" method="post"> <!-- onsubmit="return validacioTarifa()"-->
                         <div class="mb-3">
+                            <input type="hidden" th:field="*{idBLOQUEIG}">
                             <label for="casa" class="form-label">Propietat</label>
                             <select type="text" class="form-control" id="casa" aria-describedby="emailHelp" th:field="*{propietat}" readonly>
-                                <option th:each="propietat:${propietats}"
+                                <option th:each="propietat:${propietat}"
                                         th:value="${propietat.idPROPIETAT}"
                                         th:text="${propietat.nomPropietat}"/>
                             </select>
