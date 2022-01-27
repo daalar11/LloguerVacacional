@@ -22,13 +22,18 @@
 
                     <form th:object="${tarifes}" th:action="@{/views/tarifes/save}" method="post" onsubmit="return validacioTarifa()">
                         <div class="mb-3">
-                            <input type="hidden" th:field="*{idTARIFA}">
                             <label for="casa" class="form-label">Propietat</label>
                             <select type="text" class="form-control" id="casa" aria-describedby="emailHelp" th:field="*{propietat}" readonly>
                                 <option th:each="propietat:${propietats}"
                                         th:value="${propietat.idPROPIETAT}"
                                         th:text="${propietat.nomPropietat}"/>
                             </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="preu" class="form-label">Preu</label>
+                            <input type="number" class="form-control" id="preu" aria-describedby="emailHelp" th:field="*{preu}">
+                            <div id="preuSpan" class="form-text">Indica el preu per la nova tarifació durants els dies seleccionats.</div>
+                            <div id="validacioPreu" class="form-text"></div>
                         </div>
                         <div class="mb-3">
                             <label for="dataIni" class="form-label">Data Inici </label>

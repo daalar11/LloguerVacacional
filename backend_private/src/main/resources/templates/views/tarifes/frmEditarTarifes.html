@@ -31,6 +31,12 @@
                             </select>
                         </div>
                         <div class="mb-3">
+                            <label for="preu" class="form-label">Preu</label>
+                            <input type="number" class="form-control" id="preu" aria-describedby="emailHelp" th:field="*{preu}">
+                            <div id="preuSpan" class="form-text">Indica el preu per la nova tarifació durants els dies seleccionats.</div>
+                            <div id="validacioPreu" class="form-text"></div>
+                        </div>
+                        <div class="mb-3">
                             <label for="dataIni" class="form-label">Data Inici </label>
                             <input type="date" class="form-control" id="dataIni" aria-describedby="emailHelp" th:field="*{dataInici}">
 

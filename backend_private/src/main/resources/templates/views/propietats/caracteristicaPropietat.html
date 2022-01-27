@@ -281,6 +281,7 @@
                 <thead>
                 <tr>
                   <th scope="col">Id Tarifa</th>
+                  <th scope="col">Preu</th>
                   <th scope="col">Data Inici</th>
                   <th scope="col">Data Fi</th>
                   <th scope="col">Activa</th>
@@ -292,6 +293,7 @@
                 <tbody>
                 <tr th:each="ta:${tarifes}">
                   <th th:text="${ta.idTARIFA}"></th>
+                  <td th:text="${#numbers.formatCurrency(ta.preu)}"></td>
                   <td th:text="${ta.dataInici}"></td>
                   <td th:text="${ta.dataFinal}"> </td>
                   <td th:text="${ta.activa}"></td>
