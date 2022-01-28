@@ -143,7 +143,7 @@ public class PropietatController {
         }
 
         //Definim path de la foto
-        String ruta = "C://DAW//PROJECTEDAVID//LloguerVacacional//Fotos//";
+        String ruta = "C://DAW//PROJECTEDAVID//LloguerVacacional//FOTOS//";
         String filename = ruta + nomImatge;
 
         OutputStream outputStream = new FileOutputStream(filename);

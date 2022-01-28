@@ -14,6 +14,8 @@
 
   <main>
 
+    <h4 th:text="${propietat.nomPropietat}"></h4>
+
     <ul class="nav nav-tabs" id="myTab" role="tablist">
       <li class="nav-item" role="presentation">
         <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Editar casa</button>
@@ -29,6 +31,12 @@
       </li>
       <li class="nav-item" role="presentation">
         <button class="nav-link" id="bloqueig-tab" data-bs-toggle="tab" data-bs-target="#bloqueig" type="button" role="tab" aria-controls="bloqueig" aria-selected="false">Dies de Bloqueig</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="reserves" data-bs-toggle="tab" data-bs-target="#reserves" type="button" role="tab" aria-controls="reserves" aria-selected="false">Reserves</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="fotos" data-bs-toggle="tab" data-bs-target="#fotos" type="button" role="tab" aria-controls="fotos" aria-selected="false">Fotos de la Propietat</button>
       </li>
       <li class="nav-item" role="presentation">
         <button class="nav-link" id="politica-tab" data-bs-toggle="tab" data-bs-target="#politica" type="button" role="tab" aria-controls="politica" aria-selected="false">Politiques de cancelacio</button>
@@ -317,6 +325,7 @@
                 <thead>
                 <tr>
                   <th scope="col">Id Tarifa</th>
+                  <th scope="col">Preu</th>
                   <th scope="col">Data Inici</th>
                   <th scope="col">Data Fi</th>
                   <th scope="col">Activa</th>
@@ -328,6 +337,7 @@
                 <tbody>
                 <tr th:each="ta:${tarifes}">
                   <th th:text="${ta.idTARIFA}"></th>
+                  <td th:text="${#numbers.formatCurrency(ta.preu)}"></td>
                   <td th:text="${ta.dataInici}"></td>
                   <td th:text="${ta.dataFinal}"> </td>
                   <td th:text="${ta.activa}"></td>

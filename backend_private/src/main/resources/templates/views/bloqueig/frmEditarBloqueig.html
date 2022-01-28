@@ -16,24 +16,19 @@
 
             <div class="card bg-light mt-3 mb-3">
 
-                <div class="card-header bg-light">Afegir Tarifes</div>
+                <div class="card-header bg-light">Afegir Bloqueig</div>
 
                 <div class="card-body bg-light">
 
-                    <form th:object="${tarifes}" th:action="@{/views/tarifes/save}" method="post" onsubmit="return validacioTarifa()">
+                    <form th:object="${bloqueig}" th:action="@{/views/bloqueig/save}" method="post"> <!-- onsubmit="return validacioTarifa()"-->
                         <div class="mb-3">
+                            <input type="hidden" th:field="*{idBLOQUEIG}">
                             <label for="casa" class="form-label">Propietat</label>
                             <select type="text" class="form-control" id="casa" aria-describedby="emailHelp" th:field="*{propietat}" readonly>
-                                <option th:each="propietat:${propietats}"
+                                <option th:each="propietat:${propietat}"
                                         th:value="${propietat.idPROPIETAT}"
                                         th:text="${propietat.nomPropietat}"/>
                             </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="preu" class="form-label">Preu</label>
-                            <input type="number" class="form-control" id="preu" aria-describedby="emailHelp" th:field="*{preu}">
-                            <div id="preuSpan" class="form-text">Indica el preu per la nova tarifació durants els dies seleccionats.</div>
-                            <div id="validacioPreu" class="form-text"></div>
                         </div>
                         <div class="mb-3">
                             <label for="dataIni" class="form-label">Data Inici </label>
@@ -48,7 +43,7 @@
                             <div id="validacioDataFi" class="form-text"></div>
                         </div>
                         <div class="col-1 mt-2 form-group">
-                            <input type="submit" class="btn btn-primary" id="boto-submit-tarifa" value="Guardar" />
+                            <input type="submit" class="btn btn-primary" id="boto-submit-bloqueig" value="Guardar" />
                         </div>
                         <div class="col-1 form-group">
 
@@ -70,7 +65,7 @@
 
         $(document).ready(function() {
 
-            $("#boto-submit-tarifa").click(function () {
+            $("#boto-submit-bloqueig").click(function () {
                 validarFormTarifa();
 
                 console.log(campsCorrectes);

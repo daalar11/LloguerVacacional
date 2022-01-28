@@ -20,7 +20,9 @@
 
                 <div class="card-body bg-light">
 
-                    <form th:object="${tarifa}" th:action="@{/views/tarifes/save}" method="post" onsubmit="return validacio()">
+                    <div class="col-9">
+
+                    <form th:object="${tarifa}" th:action="@{/views/tarifes/save}" method="post" onsubmit="return validacioTarifa()">
                         <div class="mb-3">
                             <input type="hidden" th:field="*{idTARIFA}" />
                             <label for="casa" class="form-label">Propietat</label>
@@ -31,26 +33,32 @@
                             </select>
                         </div>
                         <div class="mb-3">
+                            <label for="preu" class="form-label">Preu</label>
+                            <input type="number" class="form-control" id="preu" aria-describedby="emailHelp" th:field="*{preu}">
+                            <div id="preuSpan" class="form-text">Indica el preu per la nova tarifació durants els dies seleccionats.</div>
+                            <div id="validacioPreu" class="form-text"></div>
+                        </div>
+                        <div class="mb-3">
                             <label for="dataIni" class="form-label">Data Inici </label>
                             <input type="date" class="form-control" id="dataIni" aria-describedby="emailHelp" th:field="*{dataInici}">
-
+                            <div id="validacioDataIni" class="form-text"></div>
                         </div>
                         <div class="mb-3">
                             <label for="dataFi" class="form-label">Data Final</label>
                             <input type="date" class="form-control" id="dataFi" aria-describedby="emailHelp" th:field="*{dataFinal}">
-
+                            <div id="validacioDataFi" class="form-text"></div>
                         </div>
                         <div class="col-1 mt-2 form-group">
-                            <input type="submit" class="btn btn-primary" value="Guardar" />
+                            <input type="submit" class="btn btn-primary" value="Guardar" id="boto-submit-tarifa" />
                         </div>
                         <div class="col-1 form-group">
-
                             <a class="nav-link" th:href="@{/views/propietats/}">
                                 <input type="button" class="btn btn-danger" value="Cancelar">
                             </a>
                         </div>
 
                     </form>
+                    </div>
                 </div>
 
             </div>
@@ -58,6 +66,23 @@
     </main>
 
     <footer th:replace="plantilla/template :: footer"></footer>
+
+    <script>
+
+        $(document).ready(function() {
+
+            $("#boto-submit-tarifa").click(function () {
+                validarFormTarifa();
+
+                console.log(campsCorrectes);
+
+                if (campsCorrectes != 2){
+                    campsCorrectes = 0;
+                }
+            });
+        });
+
+    </script>
 
 </div>
 </body>

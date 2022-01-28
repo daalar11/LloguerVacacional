@@ -20,6 +20,8 @@ public class Tarifa implements Serializable {
     @Column(columnDefinition = "INT")
     private Long idTARIFA;
 
+    private float preu;
+
     @ManyToOne
     @JoinColumn(name = "id_propietat")
     private Propietat propietat;
@@ -47,6 +49,14 @@ public class Tarifa implements Serializable {
 
     public void setIdTARIFA(Long idTARIFA) {
         this.idTARIFA = idTARIFA;
+    }
+
+    public float getPreu() {
+        return preu;
+    }
+
+    public void setPreu(float preu) {
+        this.preu = preu;
     }
 
     public Propietat getPropietat() {
