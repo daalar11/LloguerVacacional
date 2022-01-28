@@ -29,9 +29,9 @@ public class PropietatController {
     @Autowired
     private iHabitacioService habitacioService;
 
-    //LListar totes les propietats
+    //Metode controlador que retorna una llista de les propietats per mostrarles a la dataTable.
     @GetMapping({"/"})
-    public String llistarPropietats (Model model){ //(Model) Per enviar dades a la vista
+    public String llistarPropietats (Model model){ //(Model) El model s'utilitza per passar dades a les vistes.
 
         List <Propietat> llistaPropietats = propietatService.listarTodos();
 
@@ -41,9 +41,11 @@ public class PropietatController {
         return "/views/propietats/mostrarPropietats";
     }
 
+    //Metode controlador de configurar una propietat. Et retorna totes les dades relacionades amb la propietat.
     @GetMapping("/configurar/{idPROPIETAT}")
     public String configuracio(Model model, @PathVariable("idPROPIETAT") Long idPROPIETAT){
 
+        //Models que envien els titols de cada Tab.
         model.addAttribute("titolEditarPropietat","Editar propietat");
         model.addAttribute("titolEditarHabitacions","Configurar habitacions");
         model.addAttribute("titolTarifes","Configurar Tarifes");
@@ -67,17 +69,11 @@ public class PropietatController {
         model.addAttribute("tarifes",llistaTarifes);
 
         //Codi Caracteristiques
-        List<Caracteristica> llistaCar = new ArrayList<>();
-        llistaCar=caracteristicaService.findAll();
+        List<Caracteristica> llistaCar = caracteristicaService.findAll();
         Caracteristica carac= new Caracteristica();
         model.addAttribute("idPropietat",idPROPIETAT);
         model.addAttribute("caracteristiques",llistaCar);
         List<Caracteristica>prova = propietat.getCaracteristicas();
-
-
-        model.addAttribute("prova",prova);
-        //llistar caracteristiques
-
 
         //Codi Bloqueig
         List<Bloqueig> llistaBloqueig = new ArrayList<>();
@@ -106,9 +102,11 @@ public class PropietatController {
 
         Propietat propietat = propietatService.buscarPorId(idPropietat);
         List<Caracteristica> set= new ArrayList<>();
+
         for (int i = 0; i < idsCarac.size(); i++) {
             set.add(caracteristicaService.findById(idsCarac.get(i)));
         }
+
         propietat.setCaracteristicas(set);
         propietatService.guardar(propietat);
 

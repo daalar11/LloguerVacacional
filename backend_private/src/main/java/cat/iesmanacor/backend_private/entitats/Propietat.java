@@ -1,14 +1,10 @@
 package cat.iesmanacor.backend_private.entitats;
 
 import com.sun.istack.NotNull;
-import lombok.Data;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity //Entitat (se menejara amb una taula)
 @Table(name="PROPIETAT") //Si la taula no s'escriu exactament igual a la classe s'ha de posar el nom de la taula (NO ES EL CAS)
@@ -47,7 +43,6 @@ public class Propietat implements Serializable {
             inverseJoinColumns = @JoinColumn(name="id_car"))
     private List<Caracteristica> caracteristicas = new ArrayList<>();
 
-
     private String direccio;
 
     @NotNull
@@ -64,110 +59,83 @@ public class Propietat implements Serializable {
 
     private boolean activa;
 
-    //GETTERS-SETTERS-CONSTRUCTOR-toString
-    public Propietat() {
-    }
+    private float x;
 
+    private float y;
+
+    //Constructor buit
+    public Propietat() {}
+
+    //Getters i Setters
     public Long getIdPROPIETAT() {
         return idPROPIETAT;
     }
-
     public void setIdPROPIETAT(Long idPROPIETAT) {
         this.idPROPIETAT = idPROPIETAT;
     }
-
     public String getNomPropietat() {
         return nomPropietat;
     }
-
     public void setNomPropietat(String nomPropietat) {
         this.nomPropietat = nomPropietat;
     }
-
     public Localitat getLocalitat() {
         return localitat;
     }
-
     public void setLocalitat(Localitat localitat) {
         this.localitat = localitat;
     }
-
     public String getNormes() {
         return normes;
     }
-
-    public void setNormes(String normes) {
-        this.normes = normes;
-    }
-
+    public void setNormes(String normes) {this.normes = normes;}
     public List<Habitacio> getHabitacions() {
         return habitacions;
     }
-
     public void setHabitacions(List<Habitacio> habitacions) {
         this.habitacions = habitacions;
     }
-
     public List<Tarifa> getTarifes() {
         return tarifes;
     }
-
     public void setTarifes(List<Tarifa> tarifes) {
         this.tarifes = tarifes;
     }
-
     public List<Caracteristica> getCaracteristicas() {
         return caracteristicas;
     }
-
     public void setCaracteristicas(List<Caracteristica> caracteristicas) {
         this.caracteristicas = caracteristicas;
     }
-
-    public String getDireccio() {
-        return direccio;
-    }
-
+    public String getDireccio() {return direccio;}
     public void setDireccio(String direccio) {
         this.direccio = direccio;
     }
-
     public int getPreuBase() {
         return preuBase;
     }
-
-    public void setPreuBase(int preuBase) {
-        this.preuBase = preuBase;
-    }
-
+    public void setPreuBase(int preuBase) {this.preuBase = preuBase;}
     public int getDescompteSetmana() {
         return descompteSetmana;
     }
-
     public void setDescompteSetmana(int descompteSetmana) {
         this.descompteSetmana = descompteSetmana;
     }
-
     public int getDescompteMes() {
         return descompteMes;
     }
-
     public void setDescompteMes(int descompteMes) {
         this.descompteMes = descompteMes;
     }
-
     public boolean isActiva() {
         return activa;
     }
-
     public void setActiva(boolean activa) {
         this.activa = activa;
     }
-
     public List<Bloqueig> getBloqueig() {
         return bloqueig;
     }
-
     public void setBloqueig(List<Bloqueig> bloqueig) {
         this.bloqueig = bloqueig;
     }

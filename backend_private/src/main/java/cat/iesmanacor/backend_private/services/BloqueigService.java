@@ -4,7 +4,6 @@ import cat.iesmanacor.backend_private.entitats.Bloqueig;
 import cat.iesmanacor.backend_private.repository.BloqueigRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service

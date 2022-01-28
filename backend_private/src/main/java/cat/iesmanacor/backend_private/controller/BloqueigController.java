@@ -2,14 +2,12 @@ package cat.iesmanacor.backend_private.controller;
 
 import cat.iesmanacor.backend_private.entitats.Bloqueig;
 import cat.iesmanacor.backend_private.entitats.Propietat;
-import cat.iesmanacor.backend_private.entitats.Tarifa;
 import cat.iesmanacor.backend_private.services.iBloqueigService;
 import cat.iesmanacor.backend_private.services.iPropietatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,10 +24,12 @@ public class BloqueigController {
 
     @GetMapping("/afegir/{idPROPIETAT}")
     public String afegir(Model model,@PathVariable("idPROPIETAT") Long idPROPIETAT){
+
         Propietat listPropietat = propietatService.buscarPorId(idPROPIETAT);
         Bloqueig bloqueig = new Bloqueig();
         model.addAttribute("bloqueig",bloqueig);
         model.addAttribute("propietats",listPropietat);
+
         return "/views/bloqueig/frmCrearBloqueig";
     }
 
@@ -37,6 +37,7 @@ public class BloqueigController {
     @PostMapping("/save")
     public String save(@ModelAttribute Bloqueig bloqueig, Model model){
 
+        //Boolean que indica si es pot fer el save o no. Si es true es fa l'insert si es false no ho fa.
         boolean valida = true;
 
         //Obtenim els valors de les dates que vol introduir l'usuari com a nova tarifa.
@@ -58,6 +59,7 @@ public class BloqueigController {
         //Tambe cream un arrayList per tal d'enmegatzemar les tarifes conflictives i proporcionar info a l'usuari.
         List<Bloqueig> bloqueigsConflictius = new ArrayList<>();
 
+        //Bucle que recorr els bloquejos d'una propietat per cada iteració.
         for (int i = 0; i<llistaBloqueig.size();i++){
 
             LocalDate ini = llistaBloqueig.get(i).getDataInici();
@@ -92,21 +94,24 @@ public class BloqueigController {
     //Edita ses habitacions d'una propietat concreta
     @GetMapping("/edit/{idPROPIETAT}/{idBLOQUEIG}")
     public String editar(@PathVariable("idBLOQUEIG") long idBLOQUEIG,@PathVariable("idPROPIETAT") Long idPROPIETAT, Model model){
+
         Bloqueig bloqueig = bloqueigService.findById(idBLOQUEIG);
         Propietat propietat = propietatService.buscarPorId(idPROPIETAT);
         model.addAttribute("titulo","Formulario: Editar Bloqueig");
         model.addAttribute("bloqueig",bloqueig);
         model.addAttribute("propietat",propietat);
+
         return "/views/bloqueig/frmEditarBloqueig";
     }
 
     //Elimina una habitacio
     @GetMapping("/delete/{idBLOQUEIG}")
     public String delete(@PathVariable("idBLOQUEIG") long idBLOQUEIG){
+
         Bloqueig bloqueig = bloqueigService.findById(idBLOQUEIG);
         long idPROPIETAT = bloqueig.getPropietat().getIdPROPIETAT();
-
         bloqueigService.delete(idBLOQUEIG);
+
         return "redirect:/views/propietats/configurar/"+idPROPIETAT;
     }
 

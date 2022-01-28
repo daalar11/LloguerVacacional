@@ -4,7 +4,6 @@ import cat.iesmanacor.backend_private.entitats.Tarifa;
 import cat.iesmanacor.backend_private.repository.TarifaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
@@ -33,13 +32,4 @@ public class TarifaService implements iTarifaService {
         tarifaRepository.deleteById(id);
     }
 
-    @Override
-    public List<Tarifa> findTarifasByPropietat(Long id) {
-        return tarifaRepository.findTarifasByPropietat(id);
-    }
-
-    @Override
-    public List<Tarifa> findAllByPropietat(Long id) {
-        return tarifaRepository.findAllByPropietat(id);
-    }
 }
