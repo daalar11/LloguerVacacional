@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="plantilla/template :: head"></head>
-
+<head th:replace="plantilla/template :: head"><title>Lloguer Vacacional</title></head>
 <body>
 
 <header th:replace="plantilla/template :: header"></header>
@@ -32,8 +31,7 @@
                             <option value="0" selected>-- Tria la localitat --</option>
                             <option th:each="localitat:${localitats}"
                                     th:value="${localitat.idLOCALITAT}"
-                                    th:text="${localitat.nomLocalitat}"
-                            />
+                                    th:text="${localitat.nomLocalitat}"></option>
                         </select>
                         <div id="localitatspan" class="form-text">Selecciona la localitat on es localitza la propietat</div>
                         <div id="validacioLocalitat" class="form-text"></div>
@@ -142,8 +140,6 @@
 
 <footer th:replace="plantilla/template :: footer"></footer>
 
-</div>
-
 <script>
 
     $(document).ready(function() {
@@ -151,7 +147,7 @@
         $("#boto-submit").click(function () {
             validarFormPropietat();
 
-            if (campsCorrectes != 6){
+            if (campsCorrectes !== 6){
                 campsCorrectes = 0;
             }
         });

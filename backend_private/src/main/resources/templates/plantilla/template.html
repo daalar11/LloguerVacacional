@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
 
+<!-- Fragment Head -->
 <head th:fragment="head">
     <meta charset="UTF-8">
     <title>Lloguer Vacacional</title>
@@ -10,9 +11,10 @@
     <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css" rel="stylesheet"> -->
     <!-- CSS DATATABLES -->
     <link href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+
 </head>
 
-
+<!-- Fragment Header (NavBar) -->
 <header th:fragment="header">
     <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
         <div class="container-fluid">
@@ -47,11 +49,10 @@
     </nav>
 </header>
 
-
-
-<!-- footer -->
+<!-- Fragment Footer -->
 <footer th:fragment="footer" class="text-center">
 
+    <!-- HTML del Footer -->
     <div class="container">
         <hr>
         <p><strong>Copyright IES MANACOR - 2022</strong></p>
@@ -61,12 +62,14 @@
     <!-- Traduccions a l'español de les DataTables amb class="table" -->
     <script type="text/javascript" th:src="@{/js/traduccioDataTable.js}"></script>
     <!-- Validacio Formulari de Crear Nova Propietat i Editar Propietat -->
-    <script type="text/javascript" th:src="@{/js/validacioNovaPropietat.js}"></script>
+    <script type="text/javascript" th:src="@{/js/ValidacionsFormulari/validacioNovaPropietat.js}"></script>
     <!-- Validacio Formulari de Crear Nova Tarifa i editar Tarifa -->
-    <script type="text/javascript" th:src="@{/js/validacioTarifa.js}"></script>
+    <script type="text/javascript" th:src="@{/js/ValidacionsFormulari/validacioTarifa.js}"></script>
+
     <!-- ---------------- -->
+
     <!-- JS BOOTSTRAP -->
-    <script type="text/javascript" th:src="@{/js/bootstrap.bundle.js}"></script>
+    <script type="text/javascript" th:src="@{/js/jsBootstrap/bootstrap.bundle.js}"></script>
     <!-- JQUERY -->
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <!-- CDN JS DATATABLES-->
@@ -74,6 +77,5 @@
     <!-- CDN JS DATATABLES DE BOOTSTRAP-->
     <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
 </footer>
-</body>
 
 </html>

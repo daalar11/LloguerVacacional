@@ -28,7 +28,7 @@
               <select type="text" class="form-control" id="casa" aria-describedby="emailHelp" th:field="*{propietat}" readonly>
                 <option th:each="propietats:${propietat}"
                         th:value="${propietats}"
-                        th:text="${propietats}"/>
+                        th:text="${propietats}"></option>
               </select>
             </div>
 

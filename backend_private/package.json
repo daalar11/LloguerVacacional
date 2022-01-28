@@ -17,6 +17,7 @@
     "sass": "^1.43.4"
   },
   "dependencies": {
-    "bootstrap": "^5.1.3"
+    "bootstrap": "^5.1.3",
+    "mp-calendar": "^3.0.0"
   }
 }

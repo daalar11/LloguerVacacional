@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="plantilla/template :: head">
-</head>
+    <title>LloguerVacacional</title></head>
 
 <body>
 
@@ -29,7 +29,7 @@
                             <select type="text" class="form-control" id="casa" aria-describedby="emailHelp" th:field="*{propietat}" readonly>
                                 <option th:each="propietat:${propietat}"
                                         th:value="${propietat.idPROPIETAT}"
-                                        th:text="${propietat.nomPropietat}"/>
+                                        th:text="${propietat.nomPropietat}"></option>
                             </select>
                         </div>
                         <div class="mb-3">
@@ -76,7 +76,7 @@
 
                 console.log(campsCorrectes);
 
-                if (campsCorrectes != 2){
+                if (campsCorrectes !== 2){
                     campsCorrectes = 0;
                 }
             });
