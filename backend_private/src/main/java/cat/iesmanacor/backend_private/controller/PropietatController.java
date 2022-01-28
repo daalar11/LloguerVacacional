@@ -28,6 +28,8 @@ public class PropietatController {
     private iTarifaService tarifaService;
     @Autowired
     private iHabitacioService habitacioService;
+    @Autowired
+    private iPoliticaService politicaService;
 
     //LListar totes les propietats
     @GetMapping({"/"})
@@ -83,6 +85,12 @@ public class PropietatController {
         List<Bloqueig> llistaBloqueig = new ArrayList<>();
         llistaBloqueig.addAll(propietat.getBloqueig());
         model.addAttribute("bloqueig", llistaBloqueig);
+
+        //Listar politicas de cancelacio
+        List<PoliticaCancelacio> politiques = new ArrayList<>();
+        politiques.addAll(propietat.getPolitica());
+        model.addAttribute("politiques",politiques);
+
 
     return "/views/propietats/caracteristicaPropietat";
     }

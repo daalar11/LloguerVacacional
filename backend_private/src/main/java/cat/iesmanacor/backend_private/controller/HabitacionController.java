@@ -47,7 +47,6 @@ public class HabitacionController {
     @PostMapping("/save")
     public String save(@ModelAttribute Habitacio habitacio){
         habitacioService.save(habitacio);
-        System.out.println("Cliente guardado cone xito");
         Long idPropietat=habitacio.getPropietat().getIdPROPIETAT();
         return "redirect:/views/propietats/configurar/"+idPropietat;
     }

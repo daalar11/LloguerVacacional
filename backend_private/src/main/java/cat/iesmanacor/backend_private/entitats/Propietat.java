@@ -178,4 +178,11 @@ public class Propietat implements Serializable {
     public void setBloqueig(List<Bloqueig> bloqueig) {
         this.bloqueig = bloqueig;
     }
+
+    public List<PoliticaCancelacio> getPolitica(){
+        return politica;
+    }
+    public void setPolitica(List<PoliticaCancelacio> politica){
+        this.politica=politica;
+    }
 }

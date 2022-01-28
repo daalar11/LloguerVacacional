@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+
 @Entity
 @Table(name="POLITICA_CANCELACIO")
 public class PoliticaCancelacio  implements Serializable {
@@ -30,4 +30,53 @@ public class PoliticaCancelacio  implements Serializable {
     @Column(name="activa",columnDefinition = "BIT")
     private int activa;
 
+    public PoliticaCancelacio(Long idPolitica, Propietat propietat, int dies, int perdut, int activa) {
+        this.idPolitica = idPolitica;
+        this.propietat = propietat;
+        this.dies = dies;
+        this.perdut = perdut;
+        this.activa = activa;
+    }
+
+    public PoliticaCancelacio(){}
+
+    public Long getIdPolitica() {
+        return idPolitica;
+    }
+
+    public void setIdPolitica(Long idPolitica) {
+        this.idPolitica = idPolitica;
+    }
+
+    public Propietat getPropietat() {
+        return propietat;
+    }
+
+    public void setPropietat(Propietat propietat) {
+        this.propietat = propietat;
+    }
+
+    public int getDies() {
+        return dies;
+    }
+
+    public void setDies(int dies) {
+        this.dies = dies;
+    }
+
+    public int getPerdut() {
+        return perdut;
+    }
+
+    public void setPerdut(int perdut) {
+        this.perdut = perdut;
+    }
+
+    public int getActiva() {
+        return activa;
+    }
+
+    public void setActiva(int activa) {
+        this.activa = activa;
+    }
 }
