@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="plantilla/template :: head">
-
-    <title>LloguerVacacional</title></head>
+<head>
+    <div th:replace="plantilla/template :: head(type='tag')"></div>
+    <title>Eis</title>
+</head>
 
 <body>
 
@@ -60,7 +61,9 @@
         </div>
     </main>
 
-    <footer th:replace="plantilla/template :: footer"></footer>
+    <footer>
+        <div th:replace="plantilla/template :: footer"></div>
+    </footer>
 
 </div>
 

@@ -1,7 +1,13 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="plantilla/template :: head"><title>Lloguer Vacacional</title></head>
+<head>
+    <div th:replace="plantilla/template :: head(type='tag')"></div>
+    <!-- Validacio Formulari de Crear Nova Propietat i Editar Propietat -->
+    <script type="text/javascript" th:src="@{/js/ValidacionsFormularis/validacioNovaPropietat.js}"></script>
+    <title>Crear Propietat</title>
+</head>
+
 <body>
 
 <header th:replace="plantilla/template :: header"></header>
@@ -99,7 +105,7 @@
                 <div class="col-12 form-group">
 
                     <div class="mb-3">
-                        <label for="file" class="form-label">Fotos</label>
+                        <label for="file" class="form-label">Foto de Portada</label>
 
                         <div class="input-group">
                             <input type="file" name="file" class="form-control" id="file" />
@@ -107,7 +113,7 @@
                                 <div class="input-group-text">#</div>
                             </div>
                         </div>
-                        <div id="fotosSpan" class="form-text">Aqui pots afegir fotos de la propietat.</div>
+                        <div id="fotosSpan" class="form-text">Afegeix la foto principal de la teva propietat.</div>
                         <div id="validacioFoto" class="form-text"></div>
                     </div>
 
@@ -138,7 +144,9 @@
     </main>
 </div>
 
-<footer th:replace="plantilla/template :: footer"></footer>
+<footer>
+    <div th:replace="plantilla/template :: footer"></div>
+</footer>
 
 <script>
 
