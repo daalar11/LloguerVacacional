@@ -11,4 +11,5 @@ public interface HabitacioRepository extends CrudRepository<Habitacio,Long> {
 
     List<Habitacio> findHabitacionsByPropietat(Long id);
 
+
 }

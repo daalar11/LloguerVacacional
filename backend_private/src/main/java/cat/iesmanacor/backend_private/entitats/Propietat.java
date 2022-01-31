@@ -67,6 +67,9 @@ public class Propietat implements Serializable {
 
     private boolean activa;
 
+    private float x;
+    private float y;
+
     //GETTERS-SETTERS-CONSTRUCTOR-toString
     public Propietat() {
     }
