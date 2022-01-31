@@ -77,6 +77,22 @@ public class PropietatController {
         model.addAttribute("caracteristiques",llistaCar);
         List<Caracteristica>prova = propietat.getCaracteristicas();
 
+        List<CaracteristicaDTO> llistaDTO = new ArrayList<>();
+        for(int i=0; i<llistaCar.size();i++){
+            boolean isThere = false;
+            for(int j=0;j<prova.size();j++){
+                if(llistaCar.get(i).getIdCaracteristica().equals(prova.get(j).getIdCaracteristica())){
+                    llistaDTO.add(new CaracteristicaDTO(llistaCar.get(i),true));
+                    isThere = true;
+                }
+            }
+            if (!isThere) {
+                llistaDTO.add(new CaracteristicaDTO(llistaCar.get(i),false));
+            }
+        }
+        System.out.println(llistaDTO);
+        model.addAttribute("caracteristiquesProp",llistaDTO);
+
         //Codi Bloqueig
         List<Bloqueig> llistaBloqueig = new ArrayList<>();
         llistaBloqueig.addAll(propietat.getBloqueig());

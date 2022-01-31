@@ -141,36 +141,11 @@
           <li class="nav-item" role="presentation">
             <button class="nav-link" id="fotos-tab" data-bs-toggle="tab" data-bs-target="#fotos" type="button" role="tab" aria-controls="fotos" aria-selected="false">Fotos de la Propietat</button>
           </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="politica-tab" data-bs-toggle="tab" data-bs-target="#politica" type="button" role="tab" aria-controls="politica" aria-selected="false">Politiques de cancelacio</button>
+          </li>
         </ul>
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
-      <li class="nav-item" role="presentation">
-        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Editar casa</button>
-      </li>
-      <li class="nav-item" role="presentation">
-        <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Habitacions</button>
-      </li>
-      <li class="nav-item" role="presentation">
-        <button class="nav-link" id="caracteristiques-tab" data-bs-toggle="tab" data-bs-target="#caracteristiques" type="button" role="tab" aria-controls="caracteristiques" aria-selected="false">Caracteristiques</button>
-      </li>
-      <li class="nav-item" role="presentation">
-        <button class="nav-link" id="tarifes-tab" data-bs-toggle="tab" data-bs-target="#tarifes" type="button" role="tab" aria-controls="tarifes" aria-selected="false">Tarifes</button>
-      </li>
-      <li class="nav-item" role="presentation">
-        <button class="nav-link" id="bloqueig-tab" data-bs-toggle="tab" data-bs-target="#bloqueig" type="button" role="tab" aria-controls="bloqueig" aria-selected="false">Dies de Bloqueig</button>
-      </li>
-      <li class="nav-item" role="presentation">
-        <button class="nav-link" id="reserves" data-bs-toggle="tab" data-bs-target="#reserves" type="button" role="tab" aria-controls="reserves" aria-selected="false">Reserves</button>
-      </li>
-      <li class="nav-item" role="presentation">
-        <button class="nav-link" id="fotos" data-bs-toggle="tab" data-bs-target="#fotos" type="button" role="tab" aria-controls="fotos" aria-selected="false">Fotos de la Propietat</button>
-      </li>
-      <li class="nav-item" role="presentation">
-        <button class="nav-link" id="politica-tab" data-bs-toggle="tab" data-bs-target="#politica" type="button" role="tab" aria-controls="politica" aria-selected="false">Politiques de cancelacio</button>
-      </li>
-    </ul>
-
         <div class="tab-content" id="myTabContent">
-    <div class="tab-content" id="myTabContent">
       <div class="tab-pane fade" id="politica" role="tabpanel" aria-labelledby="politica-tab">
 
         <table class="table">
@@ -357,36 +332,41 @@
               <div class="card-header bg-light" th:text="${titolCaracteristiques}"></div>
 
               <div class="card-body ">
+                <div class="row">
+            <form th:action="@{/views/propietats/caracteristiques/save}" method="post" class="col-6">
+            <div  class="row">
+<!--                <fieldset>-->
+                    <div th:each="cara:${caracteristiquesProp}" class="col-2">
+                      <input th:if="${cara.contain}==true" type="checkbox" class="btn-check" th:name="valorCar" th:id="${cara.caracteristica.idCaracteristica}" th:value="${cara.caracteristica.idCaracteristica}" checked/>
+                      <input th:unless="${cara.contain}==true" type="checkbox" class="btn-check" th:name="valorCar" th:id="${cara.caracteristica.idCaracteristica}" th:value="${cara.caracteristica.idCaracteristica}"/>
+                      <label th:if="${cara.contain}==true" class="btn btn-outline-primary"  th:text="${cara.caracteristica.caracteristica}" th:for="${cara.caracteristica.idCaracteristica}" ></label>
+                      <label th:if="${cara.contain}==false" class="btn btn-outline-primary"  th:text="${cara.caracteristica.caracteristica}" th:for="${cara.caracteristica.idCaracteristica}" ></label>
+                    </div>
 
-            <form th:action="@{/views/propietats/caracteristiques/save}" method="post">
-              <div class="row">
-                <fieldset class="row">
-                  <div th:each="cl:${caracteristiques}" class="col-2">
-                    <label class="form-check-label"  th:text="${cl.caracteristica}" th:for="${cl.idCaracteristica}" >
-                      <input class="form-check-input" th:name="valorCar" th:id="${cl.idCaracteristica}" type="checkbox" th:value="${cl.idCaracteristica}"/>
-                    </label>
-                  </div>
                   <div th:each="ex:${idPropietat}">
                     <input type="hidden" th:name="idPropietat" th:value="${ex}">
                   </div>
-                </fieldset>
-              </div>
+<!--                </fieldset>-->
+            </div>
 
               <div class="col-1 mt-2 form-group">
-                <input type="submit" id="boto-submit-caracteristiques" class="btn btn-primary" value="Guardar" />
+                <input type="submit" id="boto-submit-caracteristiques" class="btn btn-success" value="Guardar" />
               </div>
             </form>
 
-                </div>
 
-            </div>
-            <hr>
-            <div class="row">
-                <div class="card col-3" th:each="carac:${prova}">
-                  <div class="card-body">
-                <h5 th:text="${carac.caracteristica}"></h5>
+            <div class="col-6">
+              <div class="row">
+                <div class="card col-3" th:each="carac:${caracteristiquesProp}" th:if="${carac.contain}==true">
+                  <div  class="card-body">
+                    <h5  th:text="${carac.caracteristica.caracteristica}"></h5>
                   </div>
               </div>
+              </div>
+            </div>
+                </div>
+              </div>
+
             </div>
           </div>
 
@@ -571,7 +551,8 @@
 
           </div>
 
-        </div>
+
+      </div>
 
       </div>
 
