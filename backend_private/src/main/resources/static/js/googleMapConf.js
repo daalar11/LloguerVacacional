@@ -1,8 +1,12 @@
-//Funcio mapa javascript
+//Funcio mapa javascript+
 function myMap() {
     //Aquesta variable definira les variables del mapa
 
+    /*let lat = [[${propietat.x}]];
+    let lon = [[${propietat.y}]];*/
+
     var myCenter = new google.maps.LatLng(39.602776, 3.006384);
+
     var mapProp= {
         //Center -> Especifica a on centrar el mapa (Lat, Long)
         center: myCenter,

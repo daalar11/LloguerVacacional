@@ -176,7 +176,7 @@
 
               <div class="card-body ">
 
-                <form id="formCrearPropietat" th:object="${propietat}" th:action="@{/views/propietats/save}" method="post" enctype="multipart/form-data">
+                <form id="formCrearPropietat" th:object="${propietat}" th:action="@{/views/propietats/save}" method="post" enctype="multipart/form-data" onsubmit="return validacioPropietat()">
 
                 <div class="row">
 
@@ -570,6 +570,14 @@
 
   $(document).ready(function() {
     veureTaula();
+    $("#boto-submit").click(function () {
+
+      validarFormPropietat();
+
+      if (campsCorrectes !== 6){
+        campsCorrectes = 0;
+      }
+    });
   });
 
 </script>

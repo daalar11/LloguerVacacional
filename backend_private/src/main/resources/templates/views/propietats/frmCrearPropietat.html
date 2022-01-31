@@ -18,7 +18,7 @@
 
 <div class="container mt-4 mb-4">
     <main>
-        <form id="formCrearPropietat" th:object="${propietat}" th:action="@{/views/propietats/save}" method="post" enctype="multipart/form-data">
+        <form id="formCrearPropietat" th:object="${propietat}" th:action="@{/views/propietats/save}" method="post" enctype="multipart/form-data" onsubmit="return validacioPropietat()">
 
                 <div class="row">
 
@@ -26,7 +26,7 @@
 
                         <div class="mb-3">
                             <label for="nomPropietat" class="form-label">Nom de la propietat</label>
-                            <input type="text" placeholder="ej. Villa Luna" class="form-control" th:field="*{propietat.nomPropietat}" id="nomPropietat">
+                            <input type="text" placeholder="ej. Villa Luna" class="form-control" th:field="*{nomPropietat}" id="nomPropietat">
                             <div id="spannom" class="form-text">Nom de la propietat que figura en l'escriptura</div>
                             <div id="validacioNom" class="form-text"></div>
                         </div>
@@ -36,7 +36,7 @@
 
                         <div class="mb-3">
                             <label for="localitat" class="form-label">Localitat</label>
-                            <select class="form-control" id="localitat" th:field="*{localitats}">
+                            <select class="form-control" id="localitat" th:field="*{localitat}">
                                 <option value="0" selected>-- Tria la localitat --</option>
                                 <option th:each="localitat:${localitats}"
                                         th:value="${localitat.idLOCALITAT}"
@@ -51,7 +51,7 @@
 
                         <div class="mb-3">
                             <label for="direccio" class="form-label">Direccio</label>
-                            <input type="text" placeholder="ej. Major 50" class="form-control" id="direccio"  th:field="*{propietat.direccio}">
+                            <input type="text" placeholder="ej. Major 50" class="form-control" id="direccio"  th:field="*{direccio}">
                             <div id="direcciospan" class="form-text">Direccio de la casa amb format Carrer Numero</div>
                             <div id="validacioDireccio" class="form-text"></div>
                         </div>
@@ -65,7 +65,7 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text">€</div>
                             </div>
-                            <input type="number" class="form-control" id="preuBase" th:field="*{propietat.preuBase}">
+                            <input type="number" class="form-control" id="preuBase" th:field="*{preuBase}">
                         </div>
                         <div id="preuBasespan" class="form-text">Preu base per dia de la propietat.</div>
                         <div id="validacioPreu" class="form-text"></div>
@@ -73,11 +73,11 @@
                     </div>
                     <div class="col-3 form-group">
                         <label for="latitud" class="form-label">Latitud de la propietat: </label>
-                        <input type="number" step="any" th:field="*{propietat.y}" id="latitud" class="form-control" readonly/>
+                        <input type="number" step="any" th:field="*{y}" id="latitud" class="form-control" readonly/>
                     </div>
                     <div class="col-3 form-group">
                         <label for="longitud" class="form-label">Longitud de la propietat: </label>
-                        <input type="number" step="any" th:field="*{propietat.x}" id="longitud" class="form-control" readonly/>
+                        <input type="number" step="any" th:field="*{x}" id="longitud" class="form-control" readonly/>
                     </div>
                     <div class="col-12">
                         <div class="row">
@@ -92,7 +92,7 @@
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">%</div>
                                                 </div>
-                                                <input type="number" class="form-control" id="descompteSetmana" th:field="*{propietat.descompteSetmana}">
+                                                <input type="number" class="form-control" id="descompteSetmana" th:field="*{descompteSetmana}">
                                             </div>
                                             <div id="descompteSetmanaspan" class="form-text">Descompte aplicat en cas de lloguers majors a una setmana</div>
                                             <div id="validacioDescompteS" class="form-text"></div>
@@ -108,7 +108,7 @@
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">%</div>
                                                 </div>
-                                                <input type="number" class="form-control" id="descompteMes" th:field="*{propietat.descompteMes}">
+                                                <input type="number" class="form-control" id="descompteMes" th:field="*{descompteMes}">
                                             </div>
                                             <div id="descompteMesspan" class="form-text">Descompte aplicat en cas de lloguers majors d'un mes</div>
                                             <div id="validacioDescompteM" class="form-text"></div>
@@ -119,7 +119,7 @@
 
                                         <div class="mb-3">
                                             <label for="w3review" class="form-label">Normes</label><br>
-                                            <textarea class="form-control" id="w3review"  th:field="*{propietat.normes}" rows="4" cols="50">Prohibit fumar</textarea>
+                                            <textarea class="form-control" id="w3review"  th:field="*{normes}" rows="4" cols="50">Prohibit fumar</textarea>
                                             <div id="normesspan" class="form-text">Aqui pots indicar les normes que dessitjis sobre la teva propietat.</div>
                                         </div>
 
@@ -172,6 +172,7 @@
     $(document).ready(function() {
 
         $("#boto-submit").click(function () {
+
             validarFormPropietat();
 
             if (campsCorrectes !== 6){
