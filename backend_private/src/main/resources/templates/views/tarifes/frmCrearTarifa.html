@@ -25,43 +25,47 @@
                 <div class="card-body bg-light">
 
                     <form th:object="${tarifes}" th:action="@{/views/tarifes/save}" method="post" onsubmit="return validacioTarifa()">
-                        <div class="mb-3">
-                            <label for="casa" class="form-label">Propietat</label>
-                            <select type="text" class="form-control" id="casa" aria-describedby="emailHelp" th:field="*{propietat}" readonly>
-                                <option th:each="propietat:${propietats}"
-                                        th:value="${propietat.idPROPIETAT}"
-                                        th:text="${propietat.nomPropietat}"></option>
-                            </select>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <label for="casa" class="form-label">Propietat</label>
+                                    <select type="text" class="form-control" id="casa" aria-describedby="emailHelp" th:field="*{propietat}" readonly>
+                                        <option th:each="propietat:${propietats}"
+                                                th:value="${propietat.idPROPIETAT}"
+                                                th:text="${propietat.nomPropietat}"></option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="preu" class="form-label">Preu</label>
+                                    <input type="number" step="any" class="form-control" id="preu" aria-describedby="emailHelp" th:field="*{preu}">
+                                    <div id="preuSpan" class="form-text">Indica el preu per la nova tarifació durants els dies seleccionats.</div>
+                                    <div id="validacioPreu" class="form-text"></div>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <label class="form-check-label" for="activa">Estat de la tarifa (Desactivar <- -> Activar)</label>
+                                    <input class="form-check-input" type="checkbox" id="activa" th:field="*{activa}">
+                                </div>
+                                <div class="col-1 mt-5 form-group">
+                                    <input type="submit" class="btn btn-primary" value="Guardar" id="boto-submit-tarifa" />
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <label for="dataIni" class="form-label">Data Inici </label>
+                                    <input type="date" class="form-control" id="dataIni" aria-describedby="emailHelp" th:field="*{dataInici}">
+                                    <div id="validacioDataIni" class="form-text"></div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="dataFi" class="form-label">Data Final</label>
+                                    <input type="date" class="form-control" id="dataFi" aria-describedby="emailHelp" th:field="*{dataFinal}">
+                                    <div id="validacioDataFi" class="form-text"></div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="preu" class="form-label">Preu</label>
-                            <input type="number" class="form-control" id="preu" aria-describedby="emailHelp" th:field="*{preu}">
-                            <div id="preuSpan" class="form-text">Indica el preu per la nova tarifació durants els dies seleccionats.</div>
-                            <div id="validacioPreu" class="form-text"></div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="dataIni" class="form-label">Data Inici </label>
-                            <input type="date" class="form-control" id="dataIni" aria-describedby="emailHelp" th:field="*{dataInici}">
-                            <div id="dataIniSpan" class="form-text">Indica quin dia comença a entrar en vigor la teva tarifa.</div>
-                            <div id="validacioDataIni" class="form-text"></div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="dataFi" class="form-label">Data Final</label>
-                            <input type="date" class="form-control" id="dataFi" aria-describedby="emailHelp" th:field="*{dataFinal}">
-                            <div id="dataFiSpan" class="form-text">Indica quin dia deixa d'entrar en vigor la teva tarifa.</div>
-                            <div id="validacioDataFi" class="form-text"></div>
-                        </div>
-                        <div class="col-1 mt-2 form-group">
-                            <input type="submit" class="btn btn-primary" id="boto-submit-tarifa" value="Guardar" />
-                        </div>
-                        <div class="col-1 form-group">
-
-                            <a class="nav-link" th:href="@{/views/propietats/}">
-                                <input type="button" class="btn btn-danger" value="Cancelar">
-                            </a>
-                        </div>
-
                     </form>
+                    <hr>
+                    <a class="nav-link" th:href="@{'/views/propietats/configurar/' + ${propietats.idPROPIETAT}}">Tornar enrere -></a>
+
                 </div>
 
             </div>

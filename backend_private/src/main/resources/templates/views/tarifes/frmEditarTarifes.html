@@ -1,6 +1,5 @@
-
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <div th:replace="plantilla/template :: head(type='tag')"></div>
@@ -14,7 +13,9 @@
 
 <header th:insert="plantilla/template :: header"></header>
 
-<main>
+<div id="container">
+
+    <main>
 
     <div class="row">
 
@@ -42,7 +43,11 @@
                                 <div id="preuSpan" class="form-text">Indica el preu per la nova tarifació durants els dies seleccionats.</div>
                                 <div id="validacioPreu" class="form-text"></div>
                             </div>
-                            <div class="col-1 mt-2 form-group">
+                            <div class="form-check form-switch">
+                                <label class="form-check-label" for="activa">Estat de la tarifa (Desactivar <- -> Activar)</label>
+                                <input class="form-check-input" type="checkbox" id="activa" th:field="*{activa}">
+                            </div>
+                            <div class="col-1 mt-5 form-group">
                                 <input type="submit" class="btn btn-primary" value="Guardar" id="boto-submit-tarifa" />
                             </div>
                         </div>
@@ -57,23 +62,22 @@
                                 <input type="date" class="form-control" id="dataFi" aria-describedby="emailHelp" th:field="*{dataFinal}">
                                 <div id="validacioDataFi" class="form-text"></div>
                             </div>
-                            <div class="mb-3">
-                                <label for="activa" class="form-label">Estat de la tarifa</label><br>
-                                <label>Activa<input type="checkbox" class="form-control" id="activa"></label>
-                                <label>Desactiva<input type="checkbox" class="form-control" id="desactiva"></label>
-                                <div id="activaValidacio" class="form-text"></div>
+                            <div class="col-1 mt-5 form-group">
+                                <a class="btn btn-lg btn-outline-danger" th:href="@{'/views/tarifes/delete/' + ${idTARIFA}}" th:text="'Eliminar Tarifa'" title="Eliminar"></a>
                             </div>
                         </div>
                     </div>
                 </form>
                 <hr>
-                <a class="nav-link" th:href="@{/views/propietats/}">Tornar enrere -></a>
+                <a class="nav-link" th:href="@{'/views/propietats/configurar/' + ${tarifa.getPropietat().getIdPROPIETAT()}}">Tornar enrere -></a>
 
             </div>
 
         </div>
     </div>
 </main>
+
+
 
 <footer>
     <div th:replace="plantilla/template :: footer"></div>
@@ -97,7 +101,7 @@
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBCKiIqCdZGrVxx06LSbe7uG3zXOq1Cz5k&callback=myMap"></script>
 
-
+</div>
 </body>
 
 </html>

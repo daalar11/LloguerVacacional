@@ -156,13 +156,27 @@ public class PropietatController {
             out.write(readBuf, 0, bytesRead);
         }
 
+        //Cream una carpeta per la Media de la propietat, el nom de la carpeta sera nomPropietat-img
+        File carpeta = new File("C://DAW//Segon//PROJECTE//LloguerVacacional//Media//"+ p.getNomPropietat().replace(" ", "") + "-img//img//");
+        if (!carpeta.exists()){
+            if (carpeta.mkdirs()){
+                System.out.println("Shan crear les carpetes");
+            } else {
+                System.out.println("No s'ha creat les carpetes");
+            }
+        }
+
         //Definim path de la foto
-        String ruta = "C://DAW//PROJECTEDAVID//LloguerVacacional//FOTOS//";
-        String filename = ruta + nomImatge;
+        String rutaPortatil = "C://DAW//PROJECTEDAVID//LloguerVacacional//Media//";
+        String rutaTorre = "C://DAW//Segon//PROJECTE//LloguerVacacional//Media//" + p.getNomPropietat().replace(" ", "") + "-img//";
+        String filename = rutaTorre + nomImatge;
 
-        OutputStream outputStream = new FileOutputStream(filename);
-        out.writeTo(outputStream);
+        //El condicional es per veure si han pujar una foto o no.
+        if (nomImatge != "") {
 
+            OutputStream outputStream = new FileOutputStream(filename);
+            out.writeTo(outputStream);
+        }
         System.out.println("-- EL METODE FOTOS SHA EXECUTAT CORRECTAMENT --");
 
         if (result.hasErrors()) {
@@ -178,6 +192,53 @@ public class PropietatController {
 
         return "redirect:/views/propietats/";
     }
+
+    /*Metode que s'executa quan es fa el submit del formulari pujar fotos, guarda multiples fotos al directori img del directori del media de la propietat.
+    @PostMapping("/savefotos")
+    public String guardarFotos(@RequestParam(name = "files") MultipartFile[] fotos, @Validated @ModelAttribute Propietat p, BindingResult result, Model model) throws IOException{
+
+        InputStream in = fotos.getInputStream();
+        String nomImatge = fotos.getOriginalFilesnames();
+
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        byte[] readBuf = new byte[4096];
+        while (in.available() > 0){
+            int bytesRead = in.read(readBuf);
+            out.write(readBuf, 0, bytesRead);
+        }
+
+        //Cream una carpeta per la Media de la propietat, el nom de la carpeta sera nomPropietat-img
+        File carpeta = new File("C://DAW//Segon//PROJECTE//LloguerVacacional//Media//"+ p.getNomPropietat().replace(" ", "") + "-img//img//");
+        if (!carpeta.exists()){
+            if (carpeta.mkdirs()){
+                System.out.println("Shan crear les carpetes");
+            } else {
+                System.out.println("No s'ha creat les carpetes");
+            }
+        }
+
+        //Definim path de la foto
+        String rutaPortatil = "C://DAW//PROJECTEDAVID//LloguerVacacional//Media//";
+        String rutaTorre = "C://DAW//Segon//PROJECTE//LloguerVacacional//Media//" + p.getNomPropietat().replace(" ", "") + "-img//";
+        String filename = rutaTorre + nomImatge;
+
+        OutputStream outputStream = new FileOutputStream(filename);
+        out.writeTo(outputStream);
+
+        System.out.println("-- EL METODE FOTOS SHA EXECUTAT CORRECTAMENT --");
+
+        if (result.hasErrors()) {
+
+            model.addAttribute("titol", "Afegeix totes les fotos que vulguis");
+            model.addAttribute("propietat", p);
+
+            return "/views/propietats/frmCrearPropietat";
+        }
+
+        propietatService.guardar(p);
+
+        return "redirect:/views/propietats/";
+    }*/
 
 
     //Metode per editar propietat

@@ -26,10 +26,10 @@ public class TarifaController {
     @GetMapping("/afegir/{idPROPIETAT}")
     public String afegir(Model model,@PathVariable("idPROPIETAT") Long idPROPIETAT){
 
-        Propietat listPropietat = propietatService.buscarPorId(idPROPIETAT);
+        Propietat propietat = propietatService.buscarPorId(idPROPIETAT);
         Tarifa tarifa = new Tarifa();
         model.addAttribute("tarifes",tarifa);
-        model.addAttribute("propietats",listPropietat);
+        model.addAttribute("propietats",propietat);
 
         return "/views/tarifes/frmCrearTarifa";
     }

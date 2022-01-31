@@ -5,6 +5,8 @@ function myMap() {
     /*let lat = [[${propietat.x}]];
     let lon = [[${propietat.y}]];*/
 
+    //var locationPropietat = { lat: [[${propietat.y}]], lng: [[${propietat.x}]] };
+
     var myCenter = new google.maps.LatLng(39.602776, 3.006384);
 
     var mapProp= {
@@ -34,6 +36,17 @@ function myMap() {
         animation:google.maps.Animation.BOUNCE
     });
     marker.setMap(map);
+
+    /*var markerExistent = new google.maps.Marker({
+        position: locationPropietat,
+        animation:google.maps.Animation.BOUNCE
+    });
+    if (1 != 0){
+        markerDefault.setMap(map);
+    } else {
+        markerExistent.setMap(map);
+
+    }*/
 
 
     //Obrir una finestra quan es clicki el marcador

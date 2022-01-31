@@ -46,14 +46,9 @@
                         <div class="col-1 mt-2 form-group">
                             <input type="submit" class="btn btn-primary" id="boto-submit-bloqueig" value="Guardar" />
                         </div>
-                        <div class="col-1 form-group">
-
-                            <a class="nav-link" th:href="@{/views/propietats/}">
-                                <input type="button" class="btn btn-danger" value="Cancelar">
-                            </a>
-                        </div>
-
                     </form>
+                    <hr>
+                    <a class="nav-link" th:href="@{'/views/propietats/configurar/' + ${propietats.idPROPIETAT}}">Tornar enrere -></a>
                 </div>
 
             </div>

@@ -25,10 +25,10 @@ public class BloqueigController {
     @GetMapping("/afegir/{idPROPIETAT}")
     public String afegir(Model model,@PathVariable("idPROPIETAT") Long idPROPIETAT){
 
-        Propietat listPropietat = propietatService.buscarPorId(idPROPIETAT);
+        Propietat propietat = propietatService.buscarPorId(idPROPIETAT);
         Bloqueig bloqueig = new Bloqueig();
         model.addAttribute("bloqueig",bloqueig);
-        model.addAttribute("propietats",listPropietat);
+        model.addAttribute("propietats",propietat);
 
         return "/views/bloqueig/frmCrearBloqueig";
     }

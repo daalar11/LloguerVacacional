@@ -5,13 +5,8 @@
   <div th:replace="plantilla/template :: head(type='tag')"></div>
   <!-- Validacio Formulari de Crear Nova Propietat i Editar Propietat -->
   <script type="text/javascript" th:src="@{/js/ValidacionsFormularis/validacioNovaPropietat.js}"></script>
-  <script type="text/javascript" th:src="@{/js/googleMapConf.js}"></script>
 
   <title>Configuracio Propietat</title>
-
-  <!-- Api Google Maps -->
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-
 
   <!-- Full Calendar Boundle -->
   <link th:href="@{/fullcalendar/main.css}" rel='stylesheet' />
@@ -132,8 +127,12 @@
             <button class="nav-link" id="politica-tab" data-bs-toggle="tab" data-bs-target="#politica" type="button" role="tab" aria-controls="politica" aria-selected="false">Politiques de cancelacio</button>
           </li>
         </ul>
+
+        <!-- Div General Tabs -->
         <div class="tab-content" id="myTabContent">
-      <div class="tab-pane fade" id="politica" role="tabpanel" aria-labelledby="politica-tab">
+
+          <!-- Tab Panel Politiques -->
+          <div class="tab-pane fade" id="politica" role="tabpanel" aria-labelledby="politica-tab">
 
         <table class="table">
           <thead>
@@ -433,8 +432,7 @@
                     <th scope="col">Data Inici</th>
                     <th scope="col">Data Fi</th>
                     <th scope="col">Activa</th>
-                    <th scope="col">Editar</th>
-                    <th scope="col">Eliminar</th>
+                    <th scope="col"></th>
                   </tr>
                   </thead>
                   <tbody>
@@ -445,10 +443,7 @@
                     <td th:text="${ta.dataFinal}"> </td>
                     <td th:text="${ta.activa}"></td>
                     <td>
-                      <a class="btn btn-success" th:href="@{'/views/tarifes/edit/'+${ta.propietat.idPROPIETAT} +'/'+${ta.idTARIFA}} " th:text="'Editar'" title="Editar"></a>
-                    </td>
-                    <td>
-                      <a class="btn btn-danger" th:href="@{'/views/tarifes/delete/' + ${ta.idTARIFA}}" th:text="'Eliminar'" title="Eliminar"></a>
+                      <a class="btn btn-success" th:href="@{'/views/tarifes/edit/'+${ta.propietat.idPROPIETAT} +'/'+${ta.idTARIFA}} " th:text="'Configuracio'" title="Editar"></a>
                     </td>
 
                   </tr>
@@ -565,6 +560,104 @@
 <footer>
   <div th:replace="plantilla/template :: footer"></div>
 </footer>
+
+<!-- He agut de posar el JavaScript del mapa al fitxer html perque conte caracters incompatibles a un fitxer de JavaScript pur -->
+<script>
+  function myMap() {
+    //Aquesta variable definira les variables del mapa
+
+    var myCenter = new google.maps.LatLng(39.602776, 3.006384);
+
+    //Cream variable amb la location de la propietat.
+    var locationPropietat = { lat: [[${propietat.y}]], lng: [[${propietat.x}]] };
+
+    var mapProp= {
+      //Center -> Especifica a on centrar el mapa (Lat, Long)
+      center: myCenter,
+      //Zoom -> Especifica el nivell de zoom del mapa
+      zoom:9,
+      //Defineix el tipo de mapa (HYBRID, ROADMAP, SATELLITE, TERRAIN)
+      //Setter -> map.setMapTypeId(google.maps.MapTypeId.HYBRID);
+      mapTypeId: google.maps.MapTypeId.HYBRID,
+      panControl: true,
+      zoomControl: true,
+      mapTypeControl: true,
+      scaleControl: true,
+      streetViewControl: true,
+      overviewMapControl: true,
+      rotateControl: true
+
+    };
+
+    //Aquesta linia crea un mapa dins l'element amb id googleMap
+    var map = new google.maps.Map(document.getElementById("googleMap"),mapProp)
+
+    //Afegeix un marker amb animacio (Animacio = Botar (Bounce))
+    var marker = new google.maps.Marker({
+      //Colocam el marker a la localitzacio de la propietat
+      position: locationPropietat,
+      animation:google.maps.Animation.BOUNCE
+    });
+    marker.setMap(map);
+
+    /*var markerExistent = new google.maps.Marker({
+        position: locationPropietat,
+        animation:google.maps.Animation.BOUNCE
+    });
+    if (1 != 0){
+        markerDefault.setMap(map);
+    } else {
+        markerExistent.setMap(map);
+
+    }*/
+
+
+    //Obrir una finestra quan es clicki el marcador
+    var infowindow = new google.maps.InfoWindow({
+      content:"Localitzacio de la propietat."
+    });
+    google.maps.event.addListener(marker, 'click', function() {
+      infowindow.open(map,marker);
+    });
+
+    //Funcio que afegeix un marcador on clicki l'usuari.
+    function placeMarker(map, location) {
+
+      if (marker && marker.setMap) {
+        marker.setMap(null);
+      }
+
+      marker = new google.maps.Marker({
+        position: location,
+        map: map,
+        animation:google.maps.Animation.BOUNCE
+      });
+
+      /*S'obri una finestreta damunt el marker amb informaciĂł de les coordenades seleccionades.
+      var infowindow = new google.maps.InfoWindow({
+        content: 'Les coordenades de la teva propietat son <br> Latitud: '
+                + location.lat() +
+                '<br>Longitud: '
+                + location.lng()
+      });
+      infowindow.open(map, marker);*/
+
+      $("#latitud").val(location.lat());
+      $("#longitud").val(location.lng());
+
+    }
+    //Coloca el marcador i obre una finestra per cada marcador.
+    google.maps.event.addListener(map, 'click', function(event) {
+      placeMarker(map, event.latLng);
+    });
+    // Zoom fins a 9 quan es clica el marker
+    google.maps.event.addListener(marker,'click',function() {
+      map.setZoom(9);
+      map.setCenter(marker.getPosition());
+    });
+
+  }//Fi funcio googleMap
+</script>
 
 <script>
 
