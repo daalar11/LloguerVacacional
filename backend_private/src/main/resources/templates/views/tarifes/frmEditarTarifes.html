@@ -1,97 +1,103 @@
+
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="es">
 
 <head>
     <div th:replace="plantilla/template :: head(type='tag')"></div>
-    <!-- Validacio Formulari de Crear Nova Tarifa i Editar Tarifa -->
-    <script type="text/javascript" th:src="@{/js/ValidacionsFormularis/validacioTarifa.js}"></script>
+    <!-- Validacio Formulari de Crear Nova Propietat i Editar Propietat -->
+    <!--<script type="text/javascript" src="/js/ValidacionsFormularis/validacioTarifa.js"></script>-->
+
     <title>Editar Tarifa</title>
 </head>
 
 <body>
 
-<header th:replace="plantilla/template :: header"></header>
+<header th:insert="plantilla/template :: header"></header>
 
-<div class="container">
+<main>
 
-    <main>
+    <div class="row">
 
-        <div class="row">
+        <div class="card bg-light mt-3 mb-3">
 
-            <div class="card bg-light mt-3 mb-3">
+            <div class="card-header bg-light">Afegir Tarifes</div>
 
-                <div class="card-header bg-light">Afegir Tarifes</div>
+            <div class="card-body bg-light">
 
-                <div class="card-body bg-light">
-
-                    <div class="col-9">
-
-                    <form th:object="${tarifa}" th:action="@{/views/tarifes/save}" method="post" onsubmit="return validacioTarifa()">
-                        <div class="mb-3">
-                            <input type="hidden" th:field="*{idTARIFA}" />
-                            <label for="casa" class="form-label">Propietat</label>
-                            <select type="text" class="form-control" id="casa" aria-describedby="emailHelp" th:field="*{propietat}" readonly>
-                                <option th:each="propietat:${propietat}"
-                                        th:value="${propietat.idPROPIETAT}"
-                                        th:text="${propietat.nomPropietat}"></option>
-                            </select>
+                <form th:object="${tarifa}" th:action="@{/views/tarifes/save}" method="post" onsubmit="return validacioTarifa()">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <input type="hidden" id="idTARIFA" th:field="*{idTARIFA}" />
+                                <label for="casa" class="form-label">Propietat</label>
+                                <select type="text" class="form-control" id="casa" aria-describedby="emailHelp" th:field="*{propietat}" readonly>
+                                    <option th:each="propietat:${propietat}"
+                                            th:value="${propietat.idPROPIETAT}"
+                                            th:text="${propietat.nomPropietat}"></option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="preu" class="form-label">Preu</label>
+                                <input type="number" step="any" class="form-control" id="preu" aria-describedby="emailHelp" th:field="*{preu}">
+                                <div id="preuSpan" class="form-text">Indica el preu per la nova tarifació durants els dies seleccionats.</div>
+                                <div id="validacioPreu" class="form-text"></div>
+                            </div>
+                            <div class="col-1 mt-2 form-group">
+                                <input type="submit" class="btn btn-primary" value="Guardar" id="boto-submit-tarifa" />
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="preu" class="form-label">Preu</label>
-                            <input type="number" class="form-control" id="preu" aria-describedby="emailHelp" th:field="*{preu}">
-                            <div id="preuSpan" class="form-text">Indica el preu per la nova tarifació durants els dies seleccionats.</div>
-                            <div id="validacioPreu" class="form-text"></div>
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <label for="dataIni" class="form-label">Data Inici </label>
+                                <input type="date" class="form-control" id="dataIni" aria-describedby="emailHelp" th:field="*{dataInici}">
+                                <div id="validacioDataIni" class="form-text"></div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="dataFi" class="form-label">Data Final</label>
+                                <input type="date" class="form-control" id="dataFi" aria-describedby="emailHelp" th:field="*{dataFinal}">
+                                <div id="validacioDataFi" class="form-text"></div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="activa" class="form-label">Estat de la tarifa</label><br>
+                                <label>Activa<input type="checkbox" class="form-control" id="activa"></label>
+                                <label>Desactiva<input type="checkbox" class="form-control" id="desactiva"></label>
+                                <div id="activaValidacio" class="form-text"></div>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="dataIni" class="form-label">Data Inici </label>
-                            <input type="date" class="form-control" id="dataIni" aria-describedby="emailHelp" th:field="*{dataInici}">
-                            <div id="validacioDataIni" class="form-text"></div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="dataFi" class="form-label">Data Final</label>
-                            <input type="date" class="form-control" id="dataFi" aria-describedby="emailHelp" th:field="*{dataFinal}">
-                            <div id="validacioDataFi" class="form-text"></div>
-                        </div>
-                        <div class="col-1 mt-2 form-group">
-                            <input type="submit" class="btn btn-primary" value="Guardar" id="boto-submit-tarifa" />
-                        </div>
-                        <div class="col-1 form-group">
-                            <a class="nav-link" th:href="@{/views/propietats/}">
-                                <input type="button" class="btn btn-danger" value="Cancelar">
-                            </a>
-                        </div>
-
-                    </form>
                     </div>
-                </div>
+                </form>
+                <hr>
+                <a class="nav-link" th:href="@{/views/propietats/}">Tornar enrere -></a>
 
             </div>
+
         </div>
-    </main>
+    </div>
+</main>
 
-    <footer th:include="plantilla/template :: footer">
-        <!-- Validacio Formulari de Crear Nova Tarifa i editar Tarifa -->
-        <script type="text/javascript" th:src="@{/js/ValidacionsFormularis/validacioTarifa.js}"></script>
-    </footer>
+<footer>
+    <div th:replace="plantilla/template :: footer"></div>
+</footer>
+<!-- Codi JavaScript -->
+<script>
 
-    <script>
+    $(document).ready(function() {
 
-        $(document).ready(function() {
+        $("#boto-submit").click(function () {
+            validarFormPropietat();
 
-            $("#boto-submit-tarifa").click(function () {
-                validarFormTarifa();
-
-                console.log(campsCorrectes);
-
-                if (campsCorrectes !== 2){
-                    campsCorrectes = 0;
-                }
-            });
+            if (campsCorrectes !== 6){
+                campsCorrectes = 0;
+            }
         });
+    });
 
-    </script>
+</script>
+<!-- Boundle Amb API GOOGLE MAPS + KEY (DEVELOPERS)(Ha d'anar passat el codi js) -->
 
-</div>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBCKiIqCdZGrVxx06LSbe7uG3zXOq1Cz5k&callback=myMap"></script>
+
+
 </body>
 
 </html>

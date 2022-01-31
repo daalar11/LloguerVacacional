@@ -3,15 +3,13 @@
 
 <!-- Fragment Head -->
 <head th:fragment="head (type)" th:remove="${type}"> <!-- Lo que fa el type i el remove es eliminar el tag (etiqueta) aixi es lleva el div que es una etiqueta incompatible amb l'etiqueta head-->
+
     <meta charset="UTF-8">
     <!-- ------------ CSS LINKS -------------- -->
     <!-- CSS BOOTSTRAP CUSTOM -->
     <link th:href="@{/css/custom.css}" rel="stylesheet">
-    <!-- CSS BOOTSTRAP ORIGINAL -->
-    <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css" rel="stylesheet"> -->
     <!-- CSS DATATABLES -->
     <link href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css" rel="stylesheet">
-    <!-- Api Google Maps -->
 
     <!-- -------- JAVASCRIPT LINKS --------- -->
     <!-- Traduccions a l'español de les DataTables amb class="table" -->
