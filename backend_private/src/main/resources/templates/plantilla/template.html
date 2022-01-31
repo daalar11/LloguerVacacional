@@ -1,18 +1,33 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
 
-<head th:fragment="head">
+<!-- Fragment Head -->
+<head th:fragment="head (type)" th:remove="${type}"> <!-- Lo que fa el type i el remove es eliminar el tag (etiqueta) aixi es lleva el div que es una etiqueta incompatible amb l'etiqueta head-->
     <meta charset="UTF-8">
-    <title>Lloguer Vacacional</title>
+    <!-- ------------ CSS LINKS -------------- -->
     <!-- CSS BOOTSTRAP CUSTOM -->
     <link th:href="@{/css/custom.css}" rel="stylesheet">
     <!-- CSS BOOTSTRAP ORIGINAL -->
     <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css" rel="stylesheet"> -->
     <!-- CSS DATATABLES -->
     <link href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+    <!-- Api Google Maps -->
+
+    <!-- -------- JAVASCRIPT LINKS --------- -->
+    <!-- Traduccions a l'español de les DataTables amb class="table" -->
+    <script type="text/javascript" th:src="@{/js/traduccioDataTable.js}"></script>
+    <!-- JS BOOTSTRAP -->
+    <script type="text/javascript" th:src="@{/js/jsBootstrap/bootstrap.bundle.js}"></script>
+    <!-- JQUERY -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <!-- CDN JS DATATABLES-->
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <!-- CDN JS DATATABLES DE BOOTSTRAP-->
+    <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
+
 </head>
 
-
+<!-- Fragment Header (NavBar) -->
 <header th:fragment="header">
     <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
         <div class="container-fluid">
@@ -47,33 +62,15 @@
     </nav>
 </header>
 
+<!-- Fragment Footer -->
+<div th:fragment="footer" class="text-center">
 
-
-<!-- footer -->
-<footer th:fragment="footer" class="text-center">
-
+    <!-- HTML del Footer -->
     <div class="container">
         <hr>
         <p><strong>Copyright IES MANACOR - 2022</strong></p>
     </div>
 
-    <!-- JAVASCRIPT LINKS -->
-    <!-- Traduccions a l'español de les DataTables amb class="table" -->
-    <script type="text/javascript" th:src="@{/js/traduccioDataTable.js}"></script>
-    <!-- Validacio Formulari de Crear Nova Propietat i Editar Propietat -->
-    <script type="text/javascript" th:src="@{/js/validacioNovaPropietat.js}"></script>
-    <!-- Validacio Formulari de Crear Nova Tarifa i editar Tarifa -->
-    <script type="text/javascript" th:src="@{/js/validacioTarifa.js}"></script>
-    <!-- ---------------- -->
-    <!-- JS BOOTSTRAP -->
-    <script type="text/javascript" th:src="@{/js/bootstrap.bundle.js}"></script>
-    <!-- JQUERY -->
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <!-- CDN JS DATATABLES-->
-    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
-    <!-- CDN JS DATATABLES DE BOOTSTRAP-->
-    <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
-</footer>
-</body>
+</div>
 
 </html>

@@ -35,7 +35,7 @@ build/
 /node
 /node_modules
 .mvn
-/src/main/resources/js
+/src/main/resources/static/js/jsBootstrap
 
 ### app properties ###
 application.properties

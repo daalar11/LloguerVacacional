@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<head th:insert="plantilla/template :: head">
+<head>
+    <div th:replace="plantilla/template :: head(type='tag')"></div>
+    <!-- Validacio Formulari de Crear Nova Tarifa i Editar Tarifa -->
+    <script type="text/javascript" th:src="@{/js/ValidacionsFormularis/validacioTarifa.js}"></script>
+    <title>Crear Tarifa</title>
 </head>
 
 <body>
@@ -26,7 +30,7 @@
                             <select type="text" class="form-control" id="casa" aria-describedby="emailHelp" th:field="*{propietat}" readonly>
                                 <option th:each="propietat:${propietats}"
                                         th:value="${propietat.idPROPIETAT}"
-                                        th:text="${propietat.nomPropietat}"/>
+                                        th:text="${propietat.nomPropietat}"></option>
                             </select>
                         </div>
                         <div class="mb-3">
@@ -64,7 +68,10 @@
         </div>
     </main>
 
-    <footer th:replace="plantilla/template :: footer"></footer>
+    <footer th:include="plantilla/template :: footer">
+        <!-- Validacio Formulari de Crear Nova Tarifa i editar Tarifa -->
+        <script type="text/javascript" th:src="@{/js/ValidacionsFormularis/validacioTarifa.js}"></script>
+    </footer>
 
     <script>
 
@@ -75,7 +82,7 @@
 
                 console.log(campsCorrectes);
 
-                if (campsCorrectes != 2){
+                if (campsCorrectes !== 2){
                     campsCorrectes = 0;
                 }
             });

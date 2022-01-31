@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="plantilla/template :: head">
-  <meta charset="UTF-8">
-  <title>Title</title>
+<head>
+  <div th:replace="plantilla/template :: head(type='tag')"></div>
+  <title>Eis</title>
 </head>
-
 <body>
 <header th:replace="plantilla/template :: header"></header>
 
@@ -28,7 +27,7 @@
               <select type="text" class="form-control" id="casa" aria-describedby="emailHelp" th:field="*{propietat}" readonly>
                 <option th:each="propietats:${propietat}"
                         th:value="${propietats}"
-                        th:text="${propietats}"/>
+                        th:text="${propietats}"></option>
               </select>
             </div>
 
@@ -59,7 +58,9 @@
     </div>
   </main>
 
-  <footer th:replace="plantilla/template :: footer"></footer>
+  <footer>
+    <div th:replace="plantilla/template :: footer"></div>
+  </footer>
 
 </div>
 </body>

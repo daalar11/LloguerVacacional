@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,43 +22,19 @@ public class TarifaController {
     @Autowired
     private iPropietatService propietatService;
 
-    /*@GetMapping("/")
-    public String llistarTarifes(Model model){
-
-        List<Tarifa> llistaTarifes = tarifaService.findAll();
-
-        model.addAttribute("titulo","Llista de tarifes");
-        model.addAttribute("tarifes",llistaTarifes);
-        return "/views/tarifes/mostrarTarifes";
-    }*/
-
-
-    //Llegeix habitacions en funcio de sa propietat
-    /*@GetMapping("/{idPROPIETAT}")
-    public String llistarTarifes(Model model, @PathVariable("idPROPIETAT") Long idPROPIETAT){
-        List<Tarifa> llistaTarifes = new ArrayList<>();
-
-        List<Tarifa> llistaT = tarifaService.findAll();
-
-
-        Propietat propietat = propietatService.buscarPorId(idPROPIETAT);
-        llistaTarifes.addAll(propietat.getTarifes());
-        model.addAttribute("titulo","Llista de tarifes");
-        model.addAttribute("tarifes",llistaTarifes);
-        model.addAttribute("propietat",propietat);
-        model.addAttribute("list",llistaT);
-        return "/views/tarifes/mostrarTarifes";
-    }*/
-
+    //Metode afegir nova tarifa.
     @GetMapping("/afegir/{idPROPIETAT}")
     public String afegir(Model model,@PathVariable("idPROPIETAT") Long idPROPIETAT){
+
         Propietat listPropietat = propietatService.buscarPorId(idPROPIETAT);
         Tarifa tarifa = new Tarifa();
         model.addAttribute("tarifes",tarifa);
         model.addAttribute("propietats",listPropietat);
+
         return "/views/tarifes/frmCrearTarifa";
     }
 
+    //Metode que sexecuta en fer el submit de CREATE/UPDATE tarifa
     @PostMapping("/save")
     public String save(@ModelAttribute Tarifa tarifa, Model model){
 
@@ -78,27 +53,26 @@ public class TarifaController {
         Propietat propietat = propietatService.buscarPorId(tarifa.getPropietat().getIdPROPIETAT());
 
         //Cream un arrayList de tarifes i afegim totes les tarifes de la propietat.
-        List<Tarifa> llistaTarifes = new ArrayList<>();
-        llistaTarifes.addAll(propietat.getTarifes());
+        List<Tarifa> llistaTarifes = new ArrayList<>(propietat.getTarifes());
 
         //Tambe cream un arrayList per tal d'enmegatzemar les tarifes conflictives i proporcionar info a l'usuari.
         List<Tarifa> tarifesConflictives = new ArrayList<>();
 
-        for (int i = 0; i<llistaTarifes.size();i++){
+        for (Tarifa llistaTarife : llistaTarifes) {
 
-            LocalDate ini = llistaTarifes.get(i).getDataInici();
-            LocalDate fi = llistaTarifes.get(i).getDataFinal();
+            LocalDate ini = llistaTarife.getDataInici();
+            LocalDate fi = llistaTarife.getDataFinal();
 
             //Condicional que mira si les dates d'una tarifa son valides respecte les tarifes ja existents
             //Si compleix alguna de les seguents 4 condicions vol dir que la tarifa no es valida i canviara la variable valid a false.
             if (
-                            (dataFinal.isAfter(ini)&&dataFinal.isBefore(fi)&&dataInici.isBefore(ini)) || //Cas 1
-                            ((dataInici.isAfter(ini)&&dataInici.isBefore(fi))&&dataFinal.isAfter(fi)) || //Cas 2
-                            ((dataInici.isBefore(ini)&&dataFinal.isAfter(fi))) || //Cas 3
-                            (dataInici.isAfter(ini)&&dataFinal.isBefore(fi)) //Cas 4
-                ){
+                    (dataFinal.isAfter(ini) && dataFinal.isBefore(fi) && dataInici.isBefore(ini)) || //Cas 1
+                            ((dataInici.isAfter(ini) && dataInici.isBefore(fi)) && dataFinal.isAfter(fi)) || //Cas 2
+                            ((dataInici.isBefore(ini) && dataFinal.isAfter(fi))) || //Cas 3
+                            (dataInici.isAfter(ini) && dataFinal.isBefore(fi)) //Cas 4
+            ) {
                 //Si ha entrat vol dir que la tarifa en iteració no es valida per lo que la afegim a l'array
-                tarifesConflictives.add(llistaTarifes.get(i));
+                tarifesConflictives.add(llistaTarife);
                 valida = false;
             }
         }
@@ -134,7 +108,7 @@ public class TarifaController {
 
     }
 
-    //Edita ses habitacions d'una propietat concreta
+    //Metode controlador que envia l'informacio de la tarifa a editar al formulari.
     @GetMapping("/edit/{idPROPIETAT}/{idTARIFA}")
     public String editar(@PathVariable("idTARIFA") long idTARIFA,@PathVariable("idPROPIETAT") Long idPROPIETAT, Model model){
         Tarifa tarifa = tarifaService.findById(idTARIFA);
@@ -145,7 +119,7 @@ public class TarifaController {
         return "/views/tarifes/frmEditarTarifes";
     }
 
-    //Elimina una habitacio
+    //Elimina una tarifa
     @GetMapping("/delete/{idTARIFA}")
     public String delete(@PathVariable("idTARIFA") long idTARIFA){
         tarifaService.delete(idTARIFA);

@@ -12,8 +12,6 @@ public class Localitat implements Serializable {
 
     private static final long serialVersionUID=1L;
 
-    //Atributs pelicula
-
     @Id //Indicam quin es el camp identificador
     @GeneratedValue(strategy = GenerationType.IDENTITY) //Indicam com es genera l'identificador (En aquest cas AUTO_INCREMENT)
     @Column(columnDefinition = "INT")
@@ -23,9 +21,5 @@ public class Localitat implements Serializable {
     private String nomLocalitat;
 
     private String cp_localitat;
-
-
-
-
 
 }

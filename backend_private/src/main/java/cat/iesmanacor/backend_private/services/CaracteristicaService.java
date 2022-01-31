@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 @Service
 public class CaracteristicaService implements iCaracteristicaService{
+
     @Autowired
     CaracteristicaRepository caracteristicaDATA;
+
     @Override
     public List<Caracteristica> findAll() {
         return (List<Caracteristica>) caracteristicaDATA.findAll();

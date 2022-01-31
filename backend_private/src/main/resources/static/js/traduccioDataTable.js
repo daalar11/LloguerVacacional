@@ -1,3 +1,4 @@
+//Document necessari per traduir les dataTables a l'idioma español.
 function veureTaula(){
 
     $('table.table').DataTable({
