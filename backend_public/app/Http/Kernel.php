@@ -4,6 +4,7 @@ namespace App\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
+/* AQUEST ARCHIU S'EXECUTA QUAN ENTRA UN REQUEST S'EXECUTA */
 class Kernel extends HttpKernel
 {
     /**

@@ -11,6 +11,9 @@
 |
 */
 
+/*
+AQUI ES CREA L'INSTANCIA DE LA NOSTRA APLICACIÓ
+*/
 $app = new Illuminate\Foundation\Application(
     $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
 );
@@ -26,6 +29,8 @@ $app = new Illuminate\Foundation\Application(
 |
 */
 
+/* UNA VEGADA CREADA L'INSTANCIA A LA NOSTRA APLICACIÓ UTILITZANT EL PATRO SINGLETON ES CREEN LES INSTANCIES PER EL KERNEL HTTP PER EL KERNEL DE CONSOLA
+I PER GESTIONAR LES EXCEPCIONS De LARAVAL QUE ES GENERARAN A L'INICI DE LA NOSTRA APLICACIÓ */
 $app->singleton(
     Illuminate\Contracts\Http\Kernel::class,
     App\Http\Kernel::class
@@ -52,4 +57,4 @@ $app->singleton(
 |
 */
 
-return $app;
+return $app;/* FA UN RETURN DE L'INSTANCIA DE LA NOSTRA APLICACIÓ */
