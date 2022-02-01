@@ -1,5 +1,7 @@
 package cat.iesmanacor.backend_private.entitats;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -28,12 +30,15 @@ public class Reserva implements Serializable {
     private Propietat propietat;
 
     @Column(name = "data_reserva")
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss a")
     private Date dataReserva;
 
     @Column(name = "d_arribada")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dArribada;
 
     @Column(name = "d_sortida")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dSortida;
 
     @Column(name = "copia_normes")

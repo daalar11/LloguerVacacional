@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div th:replace="plantilla/template :: head(type='tag')"></div>
+    <!-- Validacio Formulari de Crear Nova Propietat i Editar Propietat -->
+    <script type="text/javascript" th:src="@{/js/ValidacionsFormularis/validacioTarifa.js}"></script>
+
+    <title>Editar Tarifa</title>
+</head>
+
+<body>
+
+<header th:insert="plantilla/template :: header"></header>
+
+<div id="container">
+
+    <main>
+
+        <div class="row">
+
+            <div class="card bg-light mt-3 mb-3">
+
+                <div class="card-header bg-light">Afegir Tarifes</div>
+
+                <div class="card-body bg-light">
+
+                    <form th:object="${reserva}" th:action="@{/views/reserves/cancelar}" method="post">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="mb-3">
+                                    <input type="hidden" th:field="*{idReserva}" />
+                                    <input type="hidden" th:field="*{propietat}" />
+                                    <input type="hidden" th:field="*{dataReserva}" />
+                                    <input type="hidden" th:field="*{dArribada}" />
+                                    <input type="hidden" th:field="*{dSortida}" />
+                                    <input type="hidden" th:field="*{copiaNormes}" />
+                                    <input type="hidden" th:field="*{preuFinal}" />
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" th:field="*{cancelada}" type="checkbox" id="flexSwitchCheckChecked" checked>
+                                        <label class="form-check-label" for="flexSwitchCheckChecked">Activa per cancelar la tarifa.</label>
+                                    </div>
+                                </div>
+                                <div class="col-1 mt-5 form-group">
+                                    <input type="submit" class="btn btn-primary" value="Guardar" id="boto-submit-reserva" />
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <hr>
+                    <a class="nav-link" th:href="@{'/views/propietats/configurar/' + ${reserva.getPropietat().getIdPROPIETAT()}}">Tornar enrere -></a>
+
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div th:replace="plantilla/template :: footer"></div>
+    </footer>
+
+    <!-- Codi JavaScript -->
+    <script>
+
+        $(document).ready(function() {
+
+        });
+
+    </script>
+
+</div>
+</body>
+
+</html>

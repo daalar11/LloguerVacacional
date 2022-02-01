@@ -9,5 +9,4 @@ public interface iReservaService {
     void guardar(Reserva r);
     Reserva buscarPorId(Long idReserva);
     void eliminar(Long idReserva);
-
 }

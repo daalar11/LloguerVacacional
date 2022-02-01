@@ -166,4 +166,10 @@ public class Propietat implements Serializable {
     public void setY(String y) {
         this.y = y;
     }
+    public List<Reserva> getReserves() {
+        return reserves;
+    }
+    public void setReserves(List<Reserva> reserves) {
+        this.reserves = reserves;
+    }
 }
