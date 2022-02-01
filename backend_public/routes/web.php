@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PropietatController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('/propietat',[PropietatController::class,'listAll']);
 Route::get('/', function () {
     return view('welcome');
 });

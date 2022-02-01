@@ -1,8 +1,9 @@
 <?php
 
+use App\Models\Propietat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use  App\Http\Controllers\PropietatController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
