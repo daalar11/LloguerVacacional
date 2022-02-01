@@ -31,10 +31,10 @@
                         <th scope="col">Propietat</th>
                         <th scope="col">Localitat</th>
                         <th scope="col">Direccio</th>
+                        <th scope="col">Banys</th>
                         <th scope="col">Preu Base</th>
                         <th scope="col">Des.Setmana</th>
                         <th scope="col">Des. Mes</th>
-                        <th scope="col">Activa</th>
                         <th scope="col">Configuració Casa</th>
                         <th scope="col">Eliminar</th>
                     </tr>
@@ -47,10 +47,10 @@
                         <td th:text="${pr.nomPropietat}"></td>
                         <td th:text="${pr.localitat.nomLocalitat}"></td>
                         <td th:text="${pr.direccio}"></td>
-                        <td th:text="${pr.preuBase}"></td>
+                        <td th:text="${pr.banysPropietat}"></td>
+                        <td th:text="${#numbers.formatCurrency(pr.preuBase)}"></td>
                         <td th:text="${pr.descompteSetmana}"></td>
                         <td th:text="${pr.descompteMes}"></td>
-                        <td th:text="${pr.activa}"></td>
                         <td><a class="btn btn-primary" th:href="@{'/views/propietats/configurar/' + ${pr.idPROPIETAT}}">Configurar casa </a></td>
                         <td><a class="btn btn-danger" th:href="@{'/views/propietats/delete/' + ${pr.idPROPIETAT}}" th:text="'Eliminar Propietat'" title="Eliminar Propietat" onclick="return confirm('Estas segur que vols eliminar el registre?');"></a></td>
                     </tr>

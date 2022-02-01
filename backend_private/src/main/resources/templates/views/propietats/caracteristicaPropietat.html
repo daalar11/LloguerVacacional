@@ -215,22 +215,28 @@
                       </div>
 
                     </div>
-                    <div class="col-6 form-group">
+                  <div class="col-3 form-group">
 
-                      <div class="mb-3">
-                        <label for="preuBase" class="form-label">Preu Base</label>
+                    <label for="preuBase" class="form-label">Preu Base</label>
 
-                        <div class="input-group">
-                          <div class="input-group-prepend">
-                            <div class="input-group-text">€</div>
-                          </div>
-                          <input type="number" class="form-control" id="preuBase" th:field="*{preuBase}">
-                        </div>
-                        <div id="preuBasespan" class="form-text">Preu base per dia de la propietat.</div>
-                        <div id="validacioPreu" class="form-text"></div>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">€</div>
                       </div>
-
+                      <input type="number" class="form-control" id="preuBase" th:field="*{preuBase}">
                     </div>
+                    <div id="preuBasespan" class="form-text">Preu base per dia de la propietat.</div>
+                    <div id="validacioPreu" class="form-text"></div>
+
+                  </div>
+                  <div class="col-3 form-group">
+
+                    <label for="banys" class="form-label">Banys Comunitaris</label>
+                    <input type="number" class="form-control" id="banys" th:field="*{banysPropietat}">
+                    <div id="banysSpan" class="form-text">Indica quants de banys compartits (generals) te la teva propietat.</div>
+                    <div id="validacioBanys" class="form-text"></div>
+
+                  </div>
                     <div class="col-3 mb-3">
                       <label for="latitud" class="form-label">Latitud de la propietat: </label>
                       <input type="text" th:field="*{y}" id="latitud" class="form-control" readonly/>
@@ -549,9 +555,9 @@
           </div>
 
 
-      </div>
+      </div> <!-- Fi de tag (DIV) general dels tabs -->
 
-      </div>
+      </div><!-- Fi de tag COL -->
 
     </div><!-- Fi de Tag ROW -->
 

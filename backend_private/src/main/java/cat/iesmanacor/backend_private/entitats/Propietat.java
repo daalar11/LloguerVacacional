@@ -48,6 +48,9 @@ public class Propietat implements Serializable {
 
     private String direccio;
 
+    @Column(name = "banys_propietat")
+    private int banysPropietat;
+
     @NotNull
     @Column(name="preu_base", nullable=false)
     private int preuBase;
@@ -59,8 +62,6 @@ public class Propietat implements Serializable {
     @NotNull
     @Column(name="descompte_mes", nullable=false)
     private int descompteMes;
-
-    private boolean activa;
 
     private String x;
     private String y;
@@ -113,6 +114,15 @@ public class Propietat implements Serializable {
     public void setDireccio(String direccio) {
         this.direccio = direccio;
     }
+
+    public int getBanysPropietat() {
+        return banysPropietat;
+    }
+
+    public void setBanysPropietat(int banysPropietat) {
+        this.banysPropietat = banysPropietat;
+    }
+
     public int getPreuBase() {
         return preuBase;
     }
@@ -129,39 +139,27 @@ public class Propietat implements Serializable {
     public void setDescompteMes(int descompteMes) {
         this.descompteMes = descompteMes;
     }
-    public boolean isActiva() {
-        return activa;
-    }
-    public void setActiva(boolean activa) {
-        this.activa = activa;
-    }
     public List<Bloqueig> getBloqueig() {
         return bloqueig;
     }
     public void setBloqueig(List<Bloqueig> bloqueig) {
         this.bloqueig = bloqueig;
     }
-
     public List<PoliticaCancelacio> getPolitica(){
         return politica;
     }
     public void setPolitica(List<PoliticaCancelacio> politica){
         this.politica=politica;
     }
-
-
     public String getX() {
         return x;
     }
-
     public void setX(String x) {
         this.x = x;
     }
-
     public String getY() {
         return y;
     }
-
     public void setY(String y) {
         this.y = y;
     }
