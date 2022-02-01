@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="plantilla/template :: head">
+<head>
+  <div th:replace="plantilla/template :: head(type='tag')"></div>
   <meta charset="UTF-8">
   <title>Title</title>
 </head>
@@ -18,7 +19,7 @@
 
       <div class="card bg-light mt-3 mb-3">
 
-        <div class="card-header bg-light">Afegir Habitacions</div>
+        <div class="card-header bg-light">Afegir Politica</div>
 
         <div class="card-body bg-light">
 
@@ -31,16 +32,18 @@
                         th:text="${propietat.nomPropietat}"/>
               </select>
             </div>
-            <div class="mb-3">
+            <div class="row">
+            <div class="mb-3 col-6">
               <input type="hidden" th:field="*{idPolitica}">
               <label for="antelacio" class="form-label">Dies d'antelació: </label>
               <input type="text" class="form-control" id="antelacio" aria-describedby="emailHelp" th:field="*{dies}">
 
             </div>
-            <div class="mb-3">
+            <div class="mb-3 col-6">
               <label for="perdut" class="form-label">Dies: </label>
               <input type="text" class="form-control" id="perdut" aria-describedby="emailHelp" th:field="*{perdut}">
 
+            </div>
             </div>
             <input type="submit" class="btn btn-primary" value="Afegir" />
           </form>

@@ -23,32 +23,36 @@
           <form th:object="${habitacio}" th:action="@{/views/habitacions/save}" method="post" enctype="multipart/form-data">
 
             <div class="mb-3">
-              <label for="casa" class="form-label">Id propietat: </label>
+              <label for="casa" class="form-label">Propietat: </label>
               <select type="text" class="form-control" id="casa" aria-describedby="emailHelp" th:field="*{propietat}" readonly>
                 <option th:each="propietats:${propietat}"
-                        th:value="${propietats}"
-                        th:text="${propietats}"></option>
+                        th:value="${propietats.idPROPIETAT}"
+                        th:text="${propietats.nomPropietat}"></option>
               </select>
             </div>
 
             <div class="mb-3">
               <input type="hidden" th:field="*{idHABITACIONS}">
-              <label for="bany" class="form-label">Banys: </label>
-              <input type="text" class="form-control" id="bany" aria-describedby="emailHelp" th:field="*{bany}">
-
+              <label for="bany" class="form-label"> Banys: </label>
+              <select type="text" class="form-control" id="bany" aria-describedby="emailHelp" th:field="*{bany}">
+                <option th:value="1"
+                        th:text="Si"/>
+                <option th:value="0"
+                        th:text="No"/>
+              </select>
             </div>
-
-            <div class="mb-3">
+          <div class="row">
+            <div class="mb-3 col-6">
               <label for="llitDoble" class="form-label">Llits dobles: </label>
               <input type="text" class="form-control" id="llitDoble" aria-describedby="emailHelp" th:field="*{llit_Doble}">
 
             </div>
 
-            <div class="mb-3">
+            <div class="mb-3 col-6">
               <label for="llitSimple" class="form-label">Llits simples: </label>
               <input type="text" class="form-control" id="llitSimple" aria-describedby="emailHelp" th:field="*{llit_simple}">
             </div>
-
+          </div>
             <input type="submit" class="btn btn-primary" value="Guardar" />
 
           </form>
