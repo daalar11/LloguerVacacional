@@ -648,6 +648,7 @@
     }
     //Coloca el marcador i obre una finestra per cada marcador.
     google.maps.event.addListener(map, 'click', function(event) {
+      console.log(event.latLng);
       placeMarker(map, event.latLng);
     });
     // Zoom fins a 9 quan es clica el marker
