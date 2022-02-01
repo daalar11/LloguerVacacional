@@ -62,8 +62,8 @@ public class Propietat implements Serializable {
 
     private boolean activa;
 
-    private float x;
-    private float y;
+    private String x;
+    private String y;
 
     //Constructor buit
     public Propietat() {}
@@ -149,19 +149,20 @@ public class Propietat implements Serializable {
         this.politica=politica;
     }
 
-    public float getX() {
+
+    public String getX() {
         return x;
     }
 
-    public void setX(float x) {
+    public void setX(String x) {
         this.x = x;
     }
 
-    public float getY() {
+    public String getY() {
         return y;
     }
 
-    public void setY(float y) {
+    public void setY(String y) {
         this.y = y;
     }
 }
