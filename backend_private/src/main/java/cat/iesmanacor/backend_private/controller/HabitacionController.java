@@ -44,11 +44,11 @@ public class HabitacionController {
     //Edita ses habitacions d'una propietat concreta
     @GetMapping("/edit/{idPROPIETAT}/{idHABITACIONS}")
     public String editar(@PathVariable("idHABITACIONS") Long idHABITACIONS,@PathVariable("idPROPIETAT") Long idPROPIETAT, Model model){
-
+        Propietat propietat = propietatService.buscarPorId(idPROPIETAT);
         Habitacio habitacio = habitacioService.findById(idHABITACIONS);
         model.addAttribute("titulo","Formulario: Editar habitacion");
         model.addAttribute("habitacio",habitacio);
-        model.addAttribute("propietat",idPROPIETAT);
+        model.addAttribute("propietat",propietat);
 
         return "/views/habitacions/frmEditar";
     }
