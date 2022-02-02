@@ -59,7 +59,7 @@
                         </div>
 
                     </div>
-                    <div class="col-6 form-group">
+                    <div class="col-3 form-group">
 
                         <label for="preuBase" class="form-label">Preu Base</label>
 
@@ -74,12 +74,20 @@
 
                     </div>
                     <div class="col-3 form-group">
+
+                        <label for="banys" class="form-label">Banys Comunitaris</label>
+                        <input type="number" class="form-control" id="banys" th:field="*{banysPropietat}">
+                        <div id="banysSpan" class="form-text">Indica quants de banys compartits (generals) te la teva propietat.</div>
+                        <div id="validacioBanys" class="form-text"></div>
+
+                    </div>
+                    <div class="col-3 form-group">
                         <label for="latitud" class="form-label">Latitud de la propietat: </label>
-                        <input type="number" step="any" th:field="*{y}" id="latitud" class="form-control" readonly/>
+                        <input type="text" th:field="*{y}" id="latitud" class="form-control" readonly/>
                     </div>
                     <div class="col-3 form-group">
                         <label for="longitud" class="form-label">Longitud de la propietat: </label>
-                        <input type="number" step="any" th:field="*{x}" id="longitud" class="form-control" readonly/>
+                        <input type="text" th:field="*{x}" id="longitud" class="form-control" readonly/>
                     </div>
                     <div class="col-12">
                         <div class="row">

@@ -5,6 +5,7 @@ namespace App\Exceptions;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 
+/* DESDE AQUI PODEM CONTROLAR TOTES LES EXCEPCIONS A NIVELL GLOBAL QUE TENEN LLOC A LA NOSTRA APLICACIO*/
 class Handler extends ExceptionHandler
 {
     /**

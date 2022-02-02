@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PropietatController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+/* AQUI ES DEFINEIXEN LES RUTES DEL LLOC WEB*/
+
+/* AIXO S'ANOMENA UNA FACHADA, EN AQUEST CAS LA FACHADA "ROUTE"
+I UTILITZA EL METODE GET */
+
+/* '/' -> el mappeig de la ruta
+    return view() -> Retorna una vista anomanada 'welcome' */
+Route::get('/propietat',[PropietatController::class,'listAll']);
 Route::get('/', function () {
     return view('welcome');
 });

@@ -53,6 +53,8 @@ public class PropietatController {
         model.addAttribute("titolTarifes","Configurar Tarifes");
         model.addAttribute("titolCaracteristiques", "Configurar Caracteristiques");
         model.addAttribute("titolBloqueig", "Configuració dels dies de bloqueig");
+        model.addAttribute("titolReserves", "Reserves de la propietat");
+        model.addAttribute("titolFotos", "Configurar fotos de la propietat");
 
         //Codi Habitacions
         List<Habitacio> llistaHabitacions=new ArrayList<>();
@@ -97,6 +99,11 @@ public class PropietatController {
         List<Bloqueig> llistaBloqueig = new ArrayList<>();
         llistaBloqueig.addAll(propietat.getBloqueig());
         model.addAttribute("bloqueig", llistaBloqueig);
+
+        //Codi Reserves
+        List <Reserva> llistaReserves = new ArrayList<>();
+        llistaReserves.addAll(propietat.getReserves());
+        model.addAttribute("reserves", llistaReserves);
 
         //Listar politicas de cancelacio
         List<PoliticaCancelacio> politiques = new ArrayList<>();
@@ -157,7 +164,7 @@ public class PropietatController {
         }
 
         //Cream una carpeta per la Media de la propietat, el nom de la carpeta sera nomPropietat-img
-        File carpeta = new File("C://DAW//Segon//PROJECTE//LloguerVacacional//Media//"+ p.getNomPropietat().replace(" ", "") + "-img//img//");
+        File carpeta = new File("C://DAW//PROJECTEDAVID//LloguerVacacional//Media//"+ p.getNomPropietat().replace(" ", "") + "-img//img//");
         if (!carpeta.exists()){
             if (carpeta.mkdirs()){
                 System.out.println("Shan crear les carpetes");
@@ -167,9 +174,9 @@ public class PropietatController {
         }
 
         //Definim path de la foto
-        String rutaPortatil = "C://DAW//PROJECTEDAVID//LloguerVacacional//Media//";
+        String rutaPortatil = "C://DAW//PROJECTEDAVID//LloguerVacacional//Media//" + p.getNomPropietat().replace(" ", "") + "-img//img//";
         String rutaTorre = "C://DAW//Segon//PROJECTE//LloguerVacacional//Media//" + p.getNomPropietat().replace(" ", "") + "-img//";
-        String filename = rutaTorre + nomImatge;
+        String filename = rutaPortatil + nomImatge;
 
         //El condicional es per veure si han pujar una foto o no.
         if (nomImatge != "") {
@@ -267,6 +274,30 @@ public class PropietatController {
     }
 
 
+    //Metode que s'executa quan es fa el submit del formulari crearPropietat
+    @PostMapping("/fotos/save")
+    public String guardarFoto(@RequestParam(name = "file") MultipartFile foto, @Validated @ModelAttribute Propietat p) throws IOException{
+
+        InputStream in = foto.getInputStream();
+        String nomImatge = foto.getOriginalFilename();
+
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        byte[] readBuf = new byte[4096];
+        while (in.available() > 0){
+            int bytesRead = in.read(readBuf);
+            out.write(readBuf, 0, bytesRead);
+        }
+
+        //Definim path de la foto
+        String rutaPortatil = "C://DAW//PROJECTEDAVID//LloguerVacacional//Media//" + p.getNomPropietat().replace(" ", "") + "-img//img//";
+        String rutaTorre = "C://DAW//Segon//PROJECTE//LloguerVacacional//Media//" + p.getNomPropietat().replace(" ", "") + "-img//img//";
+        String filename = rutaPortatil + nomImatge;
+
+        OutputStream outputStream = new FileOutputStream(filename);
+        out.writeTo(outputStream);
+
+        return "redirect:/views/propietats/";
+    }
 
 
 

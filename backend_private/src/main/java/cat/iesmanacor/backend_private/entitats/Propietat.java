@@ -39,6 +39,9 @@ public class Propietat implements Serializable {
     @OneToMany(mappedBy = "propietat")
     private List<Bloqueig> bloqueig;
 
+    @OneToMany(mappedBy = "propietat")
+    private List<Reserva> reserves;
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name= "caracteristiques_propietats",
@@ -47,6 +50,9 @@ public class Propietat implements Serializable {
     private List<Caracteristica> caracteristicas = new ArrayList<>();
 
     private String direccio;
+
+    @Column(name = "banys_propietat")
+    private int banysPropietat;
 
     @NotNull
     @Column(name="preu_base", nullable=false)
@@ -60,10 +66,8 @@ public class Propietat implements Serializable {
     @Column(name="descompte_mes", nullable=false)
     private int descompteMes;
 
-    private boolean activa;
-
-    private float x;
-    private float y;
+    private String x;
+    private String y;
 
     //Constructor buit
     public Propietat() {}
@@ -113,6 +117,15 @@ public class Propietat implements Serializable {
     public void setDireccio(String direccio) {
         this.direccio = direccio;
     }
+
+    public int getBanysPropietat() {
+        return banysPropietat;
+    }
+
+    public void setBanysPropietat(int banysPropietat) {
+        this.banysPropietat = banysPropietat;
+    }
+
     public int getPreuBase() {
         return preuBase;
     }
@@ -129,39 +142,34 @@ public class Propietat implements Serializable {
     public void setDescompteMes(int descompteMes) {
         this.descompteMes = descompteMes;
     }
-    public boolean isActiva() {
-        return activa;
-    }
-    public void setActiva(boolean activa) {
-        this.activa = activa;
-    }
     public List<Bloqueig> getBloqueig() {
         return bloqueig;
     }
     public void setBloqueig(List<Bloqueig> bloqueig) {
         this.bloqueig = bloqueig;
     }
-
     public List<PoliticaCancelacio> getPolitica(){
         return politica;
     }
     public void setPolitica(List<PoliticaCancelacio> politica){
         this.politica=politica;
     }
-
-    public float getX() {
+    public String getX() {
         return x;
     }
-
-    public void setX(float x) {
+    public void setX(String x) {
         this.x = x;
     }
-
-    public float getY() {
+    public String getY() {
         return y;
     }
-
-    public void setY(float y) {
+    public void setY(String y) {
         this.y = y;
+    }
+    public List<Reserva> getReserves() {
+        return reserves;
+    }
+    public void setReserves(List<Reserva> reserves) {
+        this.reserves = reserves;
     }
 }
