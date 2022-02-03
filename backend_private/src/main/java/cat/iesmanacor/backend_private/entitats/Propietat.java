@@ -39,6 +39,9 @@ public class Propietat implements Serializable {
     @OneToMany(mappedBy = "propietat")
     private List<Bloqueig> bloqueig;
 
+    @OneToMany(mappedBy = "propietat")
+    private List<Reserva> reserves;
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name= "caracteristiques_propietats",
@@ -47,6 +50,9 @@ public class Propietat implements Serializable {
     private List<Caracteristica> caracteristicas = new ArrayList<>();
 
     private String direccio;
+
+    @Column(name = "banys_propietat")
+    private int banysPropietat;
 
     @NotNull
     @Column(name="preu_base", nullable=false)
@@ -59,8 +65,6 @@ public class Propietat implements Serializable {
     @NotNull
     @Column(name="descompte_mes", nullable=false)
     private int descompteMes;
-
-    private boolean activa;
 
     private String x;
     private String y;
@@ -113,6 +117,15 @@ public class Propietat implements Serializable {
     public void setDireccio(String direccio) {
         this.direccio = direccio;
     }
+
+    public int getBanysPropietat() {
+        return banysPropietat;
+    }
+
+    public void setBanysPropietat(int banysPropietat) {
+        this.banysPropietat = banysPropietat;
+    }
+
     public int getPreuBase() {
         return preuBase;
     }
@@ -141,27 +154,28 @@ public class Propietat implements Serializable {
     public void setBloqueig(List<Bloqueig> bloqueig) {
         this.bloqueig = bloqueig;
     }
-
     public List<PoliticaCancelacio> getPolitica(){
         return politica;
     }
     public void setPolitica(List<PoliticaCancelacio> politica){
         this.politica=politica;
     }
-
     public String getX() {
         return x;
     }
-
     public void setX(String x) {
         this.x = x;
     }
-
     public String getY() {
         return y;
     }
-
     public void setY(String y) {
         this.y = y;
+    }
+    public List<Reserva> getReserves() {
+        return reserves;
+    }
+    public void setReserves(List<Reserva> reserves) {
+        this.reserves = reserves;
     }
 }

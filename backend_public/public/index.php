@@ -1,8 +1,10 @@
 <?php
 
+/* INTERFAZ DE KERNEL */
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Http\Request;
 
+/* DEFINEIX CONSTANT QUE UTILITZA MES ENVANT */
 define('LARAVEL_START', microtime(true));
 
 /*
@@ -16,6 +18,9 @@ define('LARAVEL_START', microtime(true));
 |
 */
 
+/* AQUI MIRA SI EL PROJECTE ESTA EN MANTENIMENT
+En cas de que existesqui el fitxer maintenance.php l'inclou amb el require.
+ */
 if (file_exists($maintenance = __DIR__.'/../storage/framework/maintenance.php')) {
     require $maintenance;
 }
@@ -31,6 +36,10 @@ if (file_exists($maintenance = __DIR__.'/../storage/framework/maintenance.php'))
 |
 */
 
+/* AQUI ES FA EL REGISTRE DE L'AUTOLOAD.
+AQUEST ARCHIU ES TROBA DINS EL DIRECTORI VENDOR I S'ANOMENA autoload.php
+ES L'ENCARREGAT DE CARREGAR TOTES LES DEPENDENCIES. (AUTOCARREGA DE CLASSES)
+*/
 require __DIR__.'/../vendor/autoload.php';
 
 /*
@@ -44,12 +53,21 @@ require __DIR__.'/../vendor/autoload.php';
 |
 */
 
+/* S'EXECUTA L'APLICACIO */
+/* Es defineix la variable app fent un requireonce de larchiu app.php i aixo seria l'instancia de la nostra aplicació. ($app) */
 $app = require_once __DIR__.'/../bootstrap/app.php';
 
+/* AQUI ES CREA EL KERNEL
+ES CREA MITJANÇANT EL CONTRACTE KERNEL I DEPENENT SI ESTAM ATENEN UNA PETICIO HTTP O UNA DE CONSOLA (DOS KERNELS DIFERENTS) ES CREARA
+UN KERNEL O UN ALTRE
+ */
 $kernel = $app->make(Kernel::class);
 
+/* DESPRES DE OBTENIR EL KERNEL ENTRA UN REQUEST DINS LARAVEL I AQUEST REQUEST EL GESTIONA LARAVEL PER DESPRES GENERAR UNA RESPONSE
+CAPTURA EL REQUEST I RETORNA UNA RESPONSE */
 $response = $kernel->handle(
     $request = Request::capture()
 )->send();
 
+/* FINALMENT LARAVEL EL QUE HA DE FER UTILITZANT EL KERNEL ADEQUAT ES ACABAR LA PETICIO UTILITZANT EL REQUEST I RESPONSE */
 $kernel->terminate($request, $response);

@@ -138,6 +138,7 @@ return [
 
         /*
          * Laravel Framework Service Providers...
+         * PROVIDERS INTENRS DEL FRAMEWORK
          */
         Illuminate\Auth\AuthServiceProvider::class,
         Illuminate\Broadcasting\BroadcastServiceProvider::class,
@@ -164,10 +165,12 @@ return [
 
         /*
          * Package Service Providers...
+         * PROVADIRS DE PACKETS DE TERCERS
          */
 
         /*
          * Application Service Providers...
+         * LARAVEL QUE LARAVEL ENS DONA DE BASE
          */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
@@ -190,6 +193,7 @@ return [
 
     'aliases' => [
 
+        /* AIXO SON ELS ALIES I AQUETS ALIES ENS PETMETEN UTILITZAR FACHADAS A LA NOSTRA APLICACIO */
         'App' => Illuminate\Support\Facades\App::class,
         'Arr' => Illuminate\Support\Arr::class,
         'Artisan' => Illuminate\Support\Facades\Artisan::class,

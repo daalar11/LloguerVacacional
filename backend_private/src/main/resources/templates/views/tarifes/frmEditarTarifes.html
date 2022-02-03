@@ -4,7 +4,7 @@
 <head>
     <div th:replace="plantilla/template :: head(type='tag')"></div>
     <!-- Validacio Formulari de Crear Nova Propietat i Editar Propietat -->
-    <!--<script type="text/javascript" src="/js/ValidacionsFormularis/validacioTarifa.js"></script>-->
+    <script type="text/javascript" th:src="@{/js/ValidacionsFormularis/validacioTarifa.js}"></script>
 
     <title>Editar Tarifa</title>
 </head>
@@ -87,10 +87,10 @@
 
     $(document).ready(function() {
 
-        $("#boto-submit").click(function () {
-            validarFormPropietat();
+        $("#boto-submit-tarifa").click(function () {
+            validarFormTarifa();
 
-            if (campsCorrectes !== 6){
+            if (campsCorrectes !== 2){
                 campsCorrectes = 0;
             }
         });
