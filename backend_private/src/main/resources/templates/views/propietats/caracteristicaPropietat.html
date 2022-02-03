@@ -587,10 +587,14 @@
                   <div class="row">
 
                     <div class="col-12 form-group">
+                      <div class="mb-3">
+                        <input type="hidden" th:field="${propietat.idPROPIETAT}" />
+                        <input type="hidden" placeholder="ej. Villa Luna" class="form-control" th:field="${propietat.nomPropietat}">
+                      </div>
 
                       <div class="mb-3">
-                        <label for="fotosMultiple" class="form-label">Fotos</label>
-                        <input type="file" class="form-control" id="fotosMultiple">
+                        <label for="fotosSecundaries" class="form-label">Fotos</label>
+                        <input type="file" class="form-control" name="fotosSecundaries" id="fotosSecundaries">
                         <div id="fotosMultipleSpan" class="form-text">Aqui pots afegir totes les fotos que vulguis de la teva propietat (De una en una)</div>
                       </div>
 
