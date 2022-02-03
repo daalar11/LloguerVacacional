@@ -373,7 +373,7 @@
 
               <div class="card-body ">
                 <div class="row">
-            <form th:action="@{/views/propietats/caracteristiques/save}" method="post" class="col-6">
+            <form th:action="@{/views/propietats/caracteristiques/save}" method="post" class="col-12">
             <div  class="row">
 <!--                <fieldset>-->
                     <div th:each="cara:${caracteristiquesProp}" class="col-2">
@@ -394,16 +394,6 @@
               </div>
             </form>
 
-
-            <div class="col-6">
-              <div class="row">
-                <div class="card col-3" th:each="carac:${caracteristiquesProp}" th:if="${carac.contain}==true">
-                  <div  class="card-body">
-                    <h5  th:text="${carac.caracteristica.caracteristica}"></h5>
-                  </div>
-              </div>
-              </div>
-            </div>
                 </div>
               </div>
 
