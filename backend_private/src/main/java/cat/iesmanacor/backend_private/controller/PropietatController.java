@@ -198,21 +198,6 @@ public class PropietatController {
         return "redirect:/views/propietats/";
     }
 
-    //Metode per editar propietat
-    @GetMapping("/edit/{idPROPIETAT}")
-    public String editar(@PathVariable("idPROPIETAT") Long idPROPIETAT, Model model) {
-
-        Propietat p = propietatService.buscarPorId(idPROPIETAT);
-        List<Localitat> listLocalitats = localitatService.llistarLocalitats();
-
-        model.addAttribute("titol", "Formulari Editar propietat");
-        model.addAttribute("propietat", p);
-        model.addAttribute("localitats", listLocalitats);
-
-        return "/views/propietats/frmCrearPropietat";
-    }
-
-
     //Metode que elimina una propietat.
     @GetMapping("/delete/{idPROPIETAT}")
     public String eliminar(@PathVariable("idPROPIETAT") Long idPROPIETAT) {
@@ -223,7 +208,7 @@ public class PropietatController {
         return "redirect:/views/propietats/";
     }
 
-
+    //Metode que guarda fotos secundaries de la propietat.
     @PostMapping("/fotos/save")
     public String guardarFoto(@RequestParam(name = "fotosSecundaries") MultipartFile foto, @Validated @ModelAttribute Propietat p) throws IOException{
 
@@ -254,7 +239,7 @@ public class PropietatController {
         OutputStream outputStream = new FileOutputStream(filename);
         out.writeTo(outputStream);
 
-        return "redirect:/views/propietats/";
+        return "redirect:/views/propietats/configurar/"+p.getIdPROPIETAT();
     }
 
 
