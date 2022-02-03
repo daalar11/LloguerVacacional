@@ -1,28 +1,33 @@
 {
-  "_from": "fullcalendar",
+  "_args": [
+    [
+      "fullcalendar@5.10.1",
+      "C:\\Users\\elcul\\Desktop\\lloguervacacional\\LloguerVacacional\\backend_private"
+    ]
+  ],
+  "_development": true,
+  "_from": "fullcalendar@5.10.1",
   "_id": "fullcalendar@5.10.1",
   "_inBundle": false,
   "_integrity": "sha512-0jgDxiWRuC36MzAUK3+Equmu4R0+vAPEtttsXLX9GNNDUHEZ5HjcH+dUtWut4vlJtxGJgVZ+eZ76/7qhcu+RMA==",
   "_location": "/fullcalendar",
   "_phantomChildren": {},
   "_requested": {
-    "type": "tag",
+    "type": "version",
     "registry": true,
-    "raw": "fullcalendar",
+    "raw": "fullcalendar@5.10.1",
     "name": "fullcalendar",
     "escapedName": "fullcalendar",
-    "rawSpec": "",
+    "rawSpec": "5.10.1",
     "saveSpec": null,
-    "fetchSpec": "latest"
+    "fetchSpec": "5.10.1"
   },
   "_requiredBy": [
-    "#DEV:/",
-    "#USER"
+    "#DEV:/"
   ],
   "_resolved": "https://registry.npmjs.org/fullcalendar/-/fullcalendar-5.10.1.tgz",
-  "_shasum": "b3fd67ed1698df05d6bd0516d81bbf2f45a872da",
-  "_spec": "fullcalendar",
-  "_where": "C:\\DAW\\Segon\\PROJECTE\\LloguerVacacional\\backend_private",
+  "_spec": "5.10.1",
+  "_where": "C:\\Users\\elcul\\Desktop\\lloguervacacional\\LloguerVacacional\\backend_private",
   "author": {
     "name": "Adam Shaw",
     "email": "arshaw@arshaw.com",
@@ -32,8 +37,6 @@
   "bugs": {
     "url": "https://fullcalendar.io/reporting-bugs"
   },
-  "bundleDependencies": false,
-  "deprecated": false,
   "description": "An easily consumable combination of standard plugins",
   "devDependencies": {
     "@fullcalendar/bootstrap": "~5.10.1",

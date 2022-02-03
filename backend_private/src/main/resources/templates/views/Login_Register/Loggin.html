@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div th:replace="plantilla/template :: head(type='tag')"></div>
+    <title>Eis</title>
+</head>
+<body>
+<header th:insert="plantilla/template :: header"></header>
+
+<main class="container">
+    <div class="row">
+        <div class="col-2"></div>
+        <form class="col-8 border border-2 border-secondary bg-light rounded" th:object="${usuari}" th:action="@{/autenticate/autenticate}" method="post">
+           <div class="row  mt-4">
+               <div class="col-6">
+                   <label for="correu" class="form-label"> Correu electronic: </label>
+                   <input  class="form-control" th:type="text" id="correu" th:name="correu" th:field="*{correu}">
+               </div>
+               <div class="col-6">
+                   <label for="contrasenya" class="form-label"> Contrasenya: </label>
+                   <input  class="form-control" th:type="text" id="contrasenya" th:name="contrasenya" th:field="*{contrasenya}">
+               </div>
+           </div>
+            <div class="row">
+                <div class="col-12 mt-4 mb-4">
+                    <input type="submit" class="btn btn-primary" value="Loggin" />
+                </div>
+            </div>
+        </form>
+        <div class="col-2"></div>
+    </div>
+</main>
+
+<footer>
+    <div th:replace="plantilla/template :: footer"></div>
+</footer>
+
+</body>
+</html>
