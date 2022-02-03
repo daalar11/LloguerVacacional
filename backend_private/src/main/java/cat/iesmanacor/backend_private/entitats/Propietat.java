@@ -142,12 +142,6 @@ public class Propietat implements Serializable {
     public void setDescompteMes(int descompteMes) {
         this.descompteMes = descompteMes;
     }
-    public boolean isActiva() {
-        return activa;
-    }
-    public void setActiva(boolean activa) {
-        this.activa = activa;
-    }
     public List<Bloqueig> getBloqueig() {
         return bloqueig;
     }
