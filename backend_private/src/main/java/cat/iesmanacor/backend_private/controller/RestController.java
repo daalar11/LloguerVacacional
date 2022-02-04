@@ -13,9 +13,13 @@ import java.util.List;
 @org.springframework.web.bind.annotation.RestController
 public class RestController {
 
+    //Controllador que retorna un JSON per Get i un per POST
+    //Els jsons corresponen als events de reserves(post) i bloquejos(get)
+
     @Autowired
     private iPropietatService propietatService;
 
+    //Metode que retorna per get un JSON amb els bloquejos d'una propietat
     @GetMapping("/views/propietat/configurar/{idPROPIETAT}")
     public List<EventJSON> bloqueigCalendari(@PathVariable long idPROPIETAT){
 
@@ -39,6 +43,7 @@ public class RestController {
         return jsonBloqueig;
     }
 
+    //Metode que retorna per post un json amb les reserves de la propietat. Li passa a la vista mapejada
     @PostMapping("/views/propietat/configurar/{idPROPIETAT}")
     public List<EventJSON> reservesCalendari(@PathVariable long idPROPIETAT){
 
@@ -46,6 +51,7 @@ public class RestController {
         List<Reserva> llistaReserves = new ArrayList<>(propietat.getReserves());
         List<EventJSON> jsonReserves = new ArrayList<>();
 
+        //Bucle que llegeix cada reserve i agafa l'informacio per fer sets i crear un objecte de tipus eventJSON
         for (Reserva reserva : llistaReserves) {
 
             EventJSON eventJSON = new EventJSON();
