@@ -50,13 +50,14 @@ public class PropietatController {
     public String configuracio(Model model, @PathVariable("idPROPIETAT") Long idPROPIETAT){
 
         //Models que envien els titols de cada Tab.
-        model.addAttribute("titolEditarPropietat","Editar propietat");
-        model.addAttribute("titolEditarHabitacions","Configurar habitacions");
-        model.addAttribute("titolTarifes","Configurar Tarifes");
-        model.addAttribute("titolCaracteristiques", "Configurar Caracteristiques");
+        model.addAttribute("titolEditarPropietat","Totes les dades de la propietat, tambè pots modificar les dades");
+        model.addAttribute("titolEditarHabitacions","Habitacions de la propietat");
+        model.addAttribute("titolTarifes","Tarifes aplicades a la tarifació de la propietat");
+        model.addAttribute("titolCaracteristiques", "Configuració de les caracteristiques");
         model.addAttribute("titolBloqueig", "Configuració dels dies de bloqueig");
         model.addAttribute("titolReserves", "Reserves de la propietat");
-        model.addAttribute("titolFotos", "Configurar fotos de la propietat");
+        model.addAttribute("titolPolitiques", "Politiques de cancelacio aplicades a les reserves d'aquesta propietat");
+        model.addAttribute("titolFotos", "Configuracions sobre les fotos de la propietat");
 
         //Codi Habitacions
         List<Habitacio> llistaHabitacions=new ArrayList<>();
