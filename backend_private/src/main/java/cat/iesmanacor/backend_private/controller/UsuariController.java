@@ -7,7 +7,9 @@ import cat.iesmanacor.backend_private.repository.AdministradorRepository;
 import cat.iesmanacor.backend_private.services.iAdministradorService;
 import cat.iesmanacor.backend_private.services.iPropietariService;
 import cat.iesmanacor.backend_private.services.iUsuariService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -88,13 +90,18 @@ public class UsuariController {
            httpSession.setAttribute("usuari",usuari);
            usuari2 = administradorService.findAdministradorByCorreu(usuari.getCorreu());
            if(validate(usuari, usuari2)) {
+               usuari=usuari2;
                autenticat = true;
            }
        }else if(propietariService.findPropietariByCorreu(usuari.getCorreu())!=null){
+           Propietari propietari = new Propietari();
+           BeanUtils.copyProperties(usuari,propietari);
            httpSession.setAttribute("rol","propietari");
-           httpSession.setAttribute("usuari",usuari);
+           httpSession.setAttribute("usuari",propietari);
+
            usuari2 = propietariService.findPropietariByCorreu(usuari.getCorreu());
            if(validate(usuari, usuari2)) {
+               usuari=usuari2;
                autenticat = true;
            }
        }else{

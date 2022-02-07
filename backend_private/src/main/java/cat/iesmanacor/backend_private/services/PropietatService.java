@@ -1,5 +1,6 @@
 package cat.iesmanacor.backend_private.services;
 
+import cat.iesmanacor.backend_private.entitats.Propietari;
 import cat.iesmanacor.backend_private.entitats.Propietat;
 import cat.iesmanacor.backend_private.repository.PropietatRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,11 @@ public class PropietatService implements iPropietatService {
     @Override
     public void eliminar(Long idPropietat) {
         propietatRepository.deleteById(idPropietat);
+    }
+
+    @Override
+    public List<Propietat> findByPropietari(Propietari propietari){
+        return (List<Propietat>) propietatRepository.findPropietatByPropietari(propietari);
     }
 
 }

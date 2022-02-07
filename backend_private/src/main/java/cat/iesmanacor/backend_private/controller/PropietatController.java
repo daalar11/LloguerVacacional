@@ -33,15 +33,21 @@ public class PropietatController {
     private iHabitacioService habitacioService;
     @Autowired
     private iPoliticaService politicaService;
+    @Autowired
+    private iPropietariService propietariService;
 
     //Metode controlador que retorna una llista de les propietats per mostrarles a la dataTable.
     @GetMapping({"/{Id}"})
     public String llistarPropietats (@PathVariable("Id") Long id, Model model, HttpSession httpSession){ //(Model) El model s'utilitza per passar dades a les vistes.
+        List <Propietat> llistaPropietats;
         if(httpSession.getAttribute("rol").equals("propietari")){
-
+            Propietari propietari;
+            propietari= propietariService.findPropietariByCorreu(((Propietari) httpSession.getAttribute("usuari")).getCorreu());
+            llistaPropietats = propietatService.findByPropietari( propietari);
+            model.addAttribute("id",propietari.getId());
+        }else {
+            llistaPropietats = propietatService.listarTodos();
         }
-        List <Propietat> llistaPropietats = propietatService.listarTodos();
-
         model.addAttribute("titolLlistarPropietats", "Llista de propietats");
         model.addAttribute("propietats", llistaPropietats);
 
@@ -121,12 +127,14 @@ public class PropietatController {
     }
 
     //Metode que et dirigeix al formulari de creacio d'una propietat i et passa un titol i una llista de localitats.
-    @GetMapping("/create")
-    public String crear(Model model) {
+    @GetMapping("/create/{Id}")
+    public String crear(@PathVariable("Id") Long id,Model model) {
 
         Propietat p = new Propietat();
         List<Localitat> listLocalitats = localitatService.llistarLocalitats();
+        Propietari propietari = propietariService.findById(id);
 
+        model.addAttribute("propietari",propietari);
         model.addAttribute("propietat", p);
         model.addAttribute("localitats", listLocalitats);
 

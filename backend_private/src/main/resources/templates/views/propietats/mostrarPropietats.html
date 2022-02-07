@@ -57,7 +57,7 @@
                         <td><a class="btn btn-danger" th:href="@{'/views/propietats/delete/' + ${pr.idPROPIETAT}}" th:text="'Eliminar Propietat'" title="Eliminar Propietat" onclick="return confirm('Estas segur que vols eliminar el registre?');"></a></td>
                     </tr>
                     </tbody>
-
+                        <a  class="btn btn-primary" th:text="'Nova propietat'" th:href="@{'/views/propietats/create/'+${id}}"></a>
                 </table>
             </div>
         </div>

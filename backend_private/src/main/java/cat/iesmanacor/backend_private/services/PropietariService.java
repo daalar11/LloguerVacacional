@@ -23,12 +23,12 @@ public class PropietariService implements  iPropietariService{
     }
 
     @Override
-    public Propietari findById(String id) {
+    public Propietari findById(Long id) {
         return propietariRepository.findById(id).orElse(null);
     }
 
     @Override
-    public void delete(String id) {
+    public void delete(Long id) {
         propietariRepository.deleteById(id);
     }
 

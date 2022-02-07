@@ -21,7 +21,16 @@
 <div class="container mt-4 mb-4">
     <main>
         <form id="formCrearPropietat" th:object="${propietat}" th:action="@{/views/propietats/save}" method="post" enctype="multipart/form-data" onsubmit="return validacioPropietat()">
-
+                <div class="row">
+                    <div class="col-12">
+                        <label for="propietari" class="form-label">Propietari: </label>
+                        <select type="text" class="form-control" id="propietari" aria-describedby="emailHelp" th:field="*{propietari}" readonly>
+                            <option th:each="us:${propietari}"
+                                    th:value="${us.Id}"
+                                    th:text="${us.Nom}"></option>
+                        </select>
+                    </div>
+                </div>
                 <div class="row">
 
                     <div class="col-12 form-group">

@@ -7,7 +7,7 @@ import java.util.List;
 public interface iPropietariService {
     List<Propietari> findAll();
     void save(Propietari propietari);
-    Propietari findById(String id);
-    void delete (String id);
+    Propietari findById(Long id);
+    void delete (Long id);
     Propietari findPropietariByCorreu(String correu);
 }
