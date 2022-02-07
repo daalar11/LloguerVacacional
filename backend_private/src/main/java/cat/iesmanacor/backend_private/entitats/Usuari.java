@@ -11,7 +11,10 @@ public class Usuari implements Serializable {
     private static final long serialVersionUID=1L;
 
     @Id
-    @Column(name = "dni",unique=true, nullable = false)
+    @Column(name = "id",unique=true, nullable = false,columnDefinition = "INT")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private String dni;
 
     private String nom;
@@ -30,7 +33,8 @@ public class Usuari implements Serializable {
     public Usuari() {
     }
 
-    public Usuari(String dni, String nom, String llinatge1, String llinatge2, String correu, String contrasenya, int eliminat) {
+    public Usuari(Long id, String dni, String nom, String llinatge1, String llinatge2, String correu, String contrasenya, int eliminat) {
+        this.id = id;
         this.dni = dni;
         this.nom = nom;
         this.llinatge1 = llinatge1;
@@ -51,6 +55,14 @@ public class Usuari implements Serializable {
                 ", contrasenya='" + contrasenya + '\'' +
                 ", eliminat=" + eliminat +
                 '}';
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getDni() {

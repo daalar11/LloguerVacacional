@@ -14,6 +14,11 @@
 
     </div>
     <form th:object="${propietari}" th:action="@{/autenticate/save}" class="col-8 border border-2 border-secondary bg-light rounded "  method="post">
+      <div class="row">
+        <div class="col-12">
+          <h2 th:if="${repeticioDades}!=null " th:text="${repeticioDades}"></h2>
+        </div>
+      </div>
       <div class="row mt-4">
         <div class="col-6">
           <label for="dni2" class="form-label"> DNI: </label>

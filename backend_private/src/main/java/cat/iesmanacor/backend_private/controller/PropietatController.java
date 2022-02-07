@@ -12,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.util.*;
 
@@ -34,9 +35,11 @@ public class PropietatController {
     private iPoliticaService politicaService;
 
     //Metode controlador que retorna una llista de les propietats per mostrarles a la dataTable.
-    @GetMapping({"/"})
-    public String llistarPropietats (Model model){ //(Model) El model s'utilitza per passar dades a les vistes.
+    @GetMapping({"/{Id}"})
+    public String llistarPropietats (@PathVariable("Id") Long id, Model model, HttpSession httpSession){ //(Model) El model s'utilitza per passar dades a les vistes.
+        if(httpSession.getAttribute("rol").equals("propietari")){
 
+        }
         List <Propietat> llistaPropietats = propietatService.listarTodos();
 
         model.addAttribute("titolLlistarPropietats", "Llista de propietats");

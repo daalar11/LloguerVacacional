@@ -6,6 +6,7 @@ import cat.iesmanacor.backend_private.entitats.Usuari;
 import cat.iesmanacor.backend_private.repository.AdministradorRepository;
 import cat.iesmanacor.backend_private.services.iAdministradorService;
 import cat.iesmanacor.backend_private.services.iPropietariService;
+import cat.iesmanacor.backend_private.services.iUsuariService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.mindrot.jbcrypt.BCrypt;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Controller
@@ -27,6 +30,9 @@ public class UsuariController {
 
     @Autowired
     private iAdministradorService administradorService;
+
+    @Autowired
+    private iUsuariService usuariService;
 
     public String passwordHash(String pass){
         return BCrypt.hashpw(pass,BCrypt.gensalt());
@@ -40,9 +46,25 @@ public class UsuariController {
         return "/views/Login_Register/Register";
     }
 
+    public boolean comprovacioCorreuDni(List<Usuari> llistaUsuaris, Propietari propietari){
+        boolean repeticio= false;
+        for (Usuari usuaris : llistaUsuaris) {
+            if (usuaris.getDni().equals(propietari.getDni()) || usuaris.getCorreu().equals(propietari.getCorreu())) {
+                repeticio = true;
+                break;
+            }
+        }
+        return repeticio;
+    }
+
     //guardar l'usuari aplicant un hash a la contrasenya
     @PostMapping("/save")
     public String save(@ModelAttribute Propietari propietari, Model model){
+        List<Usuari> llistaUsuaris = usuariService.findAll();
+        if(comprovacioCorreuDni(llistaUsuaris,propietari)){
+            model.addAttribute("repeticioDades","Aquest correu o DNI ja esta registrat.");
+            return "/views/Login_Register/Register";
+        }
         propietari.setContrasenya(passwordHash(propietari.getContrasenya()));
         propietariService.save(propietari);
         return "redirect:/autenticate/register";
@@ -58,7 +80,7 @@ public class UsuariController {
 
     //Comprova si l'usuari es administrador o propietari, si no es cap dels dos torna a pantalla loggin
     @PostMapping("/autenticate")
-    public String autenticate(@ModelAttribute Usuari usuari, HttpSession httpSession){
+    public String autenticate(@ModelAttribute Usuari usuari, HttpSession httpSession,Model model){
         boolean autenticat = false;
         Usuari usuari2;
        if(administradorService.findAdministradorByCorreu(usuari.getCorreu())!=null){
@@ -75,10 +97,12 @@ public class UsuariController {
            if(validate(usuari, usuari2)) {
                autenticat = true;
            }
+       }else{
+           model.addAttribute("registrat","Aquest usuari no esta registrat");
        }
 
         if(autenticat){
-            return "redirect:/views/propietats/";
+            return "redirect:/views/propietats/"+usuari.getId();
         }else{
             return "/views/Login_Register/Loggin";
         }

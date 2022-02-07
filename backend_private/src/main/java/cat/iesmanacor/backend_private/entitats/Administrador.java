@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name="ADMINISTRADOR")
-@PrimaryKeyJoinColumn(name="dni_usuari")
+@PrimaryKeyJoinColumn(name="id")
 public class Administrador extends Usuari implements Serializable {
 
     private static final long serialVersionUID=1L;
@@ -13,8 +13,7 @@ public class Administrador extends Usuari implements Serializable {
     public Administrador() {
     }
 
-    public Administrador(String dni, String nom, String llinatge1, String llinatge2, String correu, String contrasenya, int eliminat) {
-        super(dni, nom, llinatge1, llinatge2, correu, contrasenya, eliminat);
+    public Administrador(Long id, String dni, String nom, String llinatge1, String llinatge2, String correu, String contrasenya, int eliminat) {
+        super(id, dni, nom, llinatge1, llinatge2, correu, contrasenya, eliminat);
     }
-
 }
