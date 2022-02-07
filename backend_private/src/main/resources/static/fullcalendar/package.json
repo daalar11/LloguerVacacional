@@ -2,7 +2,7 @@
   "_args": [
     [
       "fullcalendar@5.10.1",
-      "C:\\Users\\elcul\\Desktop\\lloguervacacional\\LloguerVacacional\\backend_private"
+      "C:\\DAW\\PROJECTEDAVID\\LloguerVacacional\\backend_private"
     ]
   ],
   "_development": true,
@@ -27,7 +27,7 @@
   ],
   "_resolved": "https://registry.npmjs.org/fullcalendar/-/fullcalendar-5.10.1.tgz",
   "_spec": "5.10.1",
-  "_where": "C:\\Users\\elcul\\Desktop\\lloguervacacional\\LloguerVacacional\\backend_private",
+  "_where": "C:\\DAW\\PROJECTEDAVID\\LloguerVacacional\\backend_private",
   "author": {
     "name": "Adam Shaw",
     "email": "arshaw@arshaw.com",

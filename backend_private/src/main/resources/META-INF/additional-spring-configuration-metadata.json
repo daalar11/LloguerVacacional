@@ -1,0 +1,13 @@
+{
+  "properties": [
+    {
+      "name": "ruta.carpeta.media",
+      "type": "java.lang.String",
+      "description": "Description for ruta.carpeta.media."
+    },
+    {
+      "name": "ruta.carpeta.media",
+      "type": "java.lang.String",
+      "description": "Description for ruta.carpeta.media."
+    }
+  ] }

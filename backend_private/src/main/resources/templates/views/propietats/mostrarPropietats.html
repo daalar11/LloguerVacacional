@@ -14,12 +14,14 @@
 
     <main>
 
-        <h4 th:text="${titolLlistarPropietats}"></h4>
+        <div class="row text-center">
+            <p class="fs-1 font-monospace border-dark border-2 border-bottom" th:text="${titolLlistarPropietats}"></p>
+        </div>
 
         <div class="row">
-            <div class="col-2 mb-4">
+            <!-- <div class="col-2 mb-4">
                 <a class="btn btn-secondary" th:href="@{/views/propietats/create}" th:text="'Nova Propietat'" title="Crear Nova Propietat"></a>
-            </div>
+            </div> -->
             <div class="col-12">
 
                 <table id="table_id" class="table table-striped" style="width:100%">
@@ -61,11 +63,11 @@
         </div>
     </main>
 
-    <footer>
-        <div th:replace="plantilla/template :: footer"></div>
-    </footer>
-
 </div>
+
+<footer>
+    <div th:replace="plantilla/template :: footer"></div>
+</footer>
 
 <script>
 
