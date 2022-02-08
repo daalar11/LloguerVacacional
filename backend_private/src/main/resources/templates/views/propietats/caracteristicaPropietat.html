@@ -11,7 +11,7 @@
   <!-- Full Calendar Boundle -->
   <link th:href="@{/fullcalendar/main.css}" rel='stylesheet' />
   <script th:src="@{/fullcalendar/main.js}" ></script>
-  <script th:src="@{/fullcalendar/locales/locales-all.js}" ></script><!-- Idiomes -->
+  <script th:src="@{/fullcalendar/locales-all.js}" ></script><!-- Idiomes -->
 
   <script>
 
@@ -28,7 +28,6 @@
         height: 'auto', //Setter -> calendar.setOption('height', 700);
         contentHeight: 600, //Setter -> calendar.setOption('contentHeight', 650);
         themeSystem: 'default',
-        themeName: 'Lux', //NO FUNCIONA
         navLinks: 'true',
         selectable: 'true', //Fa els dies seleccionables (Tambe en grups (Arrastrant))
         unselectAuto: 'true', //Si esta a true es deseleccionaran els dies seleccionats fent click a cualsevol banda
@@ -573,8 +572,8 @@
                   <tr>
                     <th scope="col">Id Reserva</th>
                     <th scope="col">Data Reserva</th>
-                    <th scope="col">Data Inici Reserva</th>
-                    <th scope="col">Data Final Reserva</th>
+                    <th scope="col">Data Arribada</th>
+                    <th scope="col">Data Sortida</th>
                     <th scope="col">Preu Final</th>
                     <th scope="col">Cancelada?</th>
                     <th scope="col">Eliminar (Cancelar)</th>
@@ -597,8 +596,6 @@
                 </table>
               </div>
             </div>
-            <a th:each="tar:${propietat}" class="btn btn-primary mt-3" th:href="@{'/views/bloqueig/afegir/'+ ${tar.idPROPIETAT}} " th:text="'Nou Bloqueig'" title="Crear nou registre"></a>
-
 
           </div>
 

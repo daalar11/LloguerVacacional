@@ -4,7 +4,6 @@ import cat.iesmanacor.backend_private.entitats.*;
 import cat.iesmanacor.backend_private.services.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -36,6 +35,15 @@ public class PropietatController {
     @Autowired
     private iPropietariService propietariService;
 
+    @ModelAttribute
+    public void addAttributes(Model model, HttpSession httpSession) {
+
+        if (httpSession.getAttribute("usuari") != null){
+            Propietari propietari = propietariService.findPropietariByCorreu(((Propietari) httpSession.getAttribute("usuari")).getCorreu());
+            model.addAttribute("idUsuari", propietari.getId());
+        }
+    }
+
     //Metode controlador que retorna una llista de les propietats per mostrarles a la dataTable.
     @GetMapping({"/{Id}"})
     public String llistarPropietats (@PathVariable("Id") Long id, Model model, HttpSession httpSession){ //(Model) El model s'utilitza per passar dades a les vistes.
@@ -56,7 +64,7 @@ public class PropietatController {
 
     //Metode controlador de configurar una propietat. Et retorna totes les dades relacionades amb la propietat.
     @GetMapping("/configurar/{idPROPIETAT}")
-    public String configuracio(Model model, @PathVariable("idPROPIETAT") Long idPROPIETAT){
+    public String configuracio(@ModelAttribute("idUsuari") Long idUsuari, Model model, @PathVariable("idPROPIETAT") Long idPROPIETAT, HttpSession httpSession){
 
         //Models que envien els titols de cada Tab.
         model.addAttribute("titolEditarPropietat","Totes les dades de la propietat, tambè pots modificar les dades");
@@ -122,13 +130,14 @@ public class PropietatController {
         politiques.addAll(propietat.getPolitica());
         model.addAttribute("politiques",politiques);
 
+        model.addAttribute("id", idUsuari);
 
     return "/views/propietats/caracteristicaPropietat";
     }
 
     //Metode que et dirigeix al formulari de creacio d'una propietat i et passa un titol i una llista de localitats.
     @GetMapping("/create/{Id}")
-    public String crear(@PathVariable("Id") Long id,Model model) {
+    public String crear(@ModelAttribute("idUsuari") Long idUsuari, @PathVariable("Id") Long id,Model model, HttpSession httpSession) {
 
         Propietat p = new Propietat();
         List<Localitat> listLocalitats = localitatService.llistarLocalitats();
@@ -137,12 +146,16 @@ public class PropietatController {
         model.addAttribute("propietari",propietari);
         model.addAttribute("propietat", p);
         model.addAttribute("localitats", listLocalitats);
+        model.addAttribute("id", idUsuari);
+
+
+
 
         return "/views/propietats/frmCrearPropietat";
     }
 
     @PostMapping("/caracteristiques/save")
-    public String guardarCaracteristiques(@RequestParam(name="idPropietat")Long idPropietat,@RequestParam(name="valorCar")List<Long> idsCarac){
+    public String guardarCaracteristiques(@ModelAttribute("idUsuari") Long idUsuari, @RequestParam(name="idPropietat")Long idPropietat,@RequestParam(name="valorCar")List<Long> idsCarac, Model model){
 
         Propietat propietat = propietatService.buscarPorId(idPropietat);
         List<Caracteristica> set= new ArrayList<>();
@@ -154,12 +167,16 @@ public class PropietatController {
         propietat.setCaracteristicas(set);
         propietatService.guardar(propietat);
 
-        return "redirect:/views/propietats/";
+        model.addAttribute("id", idUsuari);
+
+        return "redirect:/views/propietats/configurar/"+propietat.getIdPROPIETAT();
     }
 
     //Metode que s'executa quan es fa el submit del formulari crearPropietat
     @PostMapping("/save")
-    public String guardar(@RequestParam(name = "file") MultipartFile foto, @Validated @ModelAttribute Propietat p, BindingResult result, Model model) throws IOException{
+    public String guardar(@ModelAttribute("idUsuari") Long idUsuari, HttpSession httpSession, @RequestParam(name = "file") MultipartFile foto, @Validated @ModelAttribute Propietat p, BindingResult result, Model model) throws IOException{
+
+        Propietari propietari = propietariService.findPropietariByCorreu(((Propietari) httpSession.getAttribute("usuari")).getCorreu());
 
         List<Localitat> listLocalitats = localitatService.llistarLocalitats();
 
@@ -195,6 +212,7 @@ public class PropietatController {
             OutputStream outputStream = new FileOutputStream(filename);
             out.writeTo(outputStream);
         }
+        model.addAttribute("id", idUsuari);
 
         if (result.hasErrors()) {
 
@@ -202,27 +220,29 @@ public class PropietatController {
             model.addAttribute("propietat", p);
             model.addAttribute("localitats", listLocalitats);
 
-            return "/views/propietats/frmCrearPropietat";
+            return "redirect:/views/propietats/configurar/" + p.getIdPROPIETAT();
         }
 
         propietatService.guardar(p);
 
-        return "redirect:/views/propietats/";
+        return "redirect:/views/propietats/"+propietari.getId();
     }
 
     //Metode que elimina una propietat.
     @GetMapping("/delete/{idPROPIETAT}")
-    public String eliminar(@PathVariable("idPROPIETAT") Long idPROPIETAT) {
+    public String eliminar(@ModelAttribute("idUsuari") Long idUsuari, HttpSession httpSession, @PathVariable("idPROPIETAT") Long idPROPIETAT) {
+
+        Propietari propietari = propietariService.findPropietariByCorreu(((Propietari) httpSession.getAttribute("usuari")).getCorreu());
 
         propietatService.eliminar(idPROPIETAT);
         System.out.println("Sha eliminat la propietat amb exit");
 
-        return "redirect:/views/propietats/";
+        return "redirect:/views/propietats/"+idUsuari;
     }
 
     //Metode que guarda fotos secundaries de la propietat.
     @PostMapping("/fotos/save")
-    public String guardarFoto(@RequestParam(name = "fotosSecundaries") MultipartFile foto, @Validated @ModelAttribute Propietat p) throws IOException{
+    public String guardarFoto(@ModelAttribute("idUsuari") Long idUsuari, @RequestParam(name = "fotosSecundaries") MultipartFile foto, @Validated @ModelAttribute Propietat p, Model model) throws IOException{
 
         InputStream in = foto.getInputStream();
         String nomImatge = foto.getOriginalFilename();
@@ -251,8 +271,11 @@ public class PropietatController {
         OutputStream outputStream = new FileOutputStream(filename);
         out.writeTo(outputStream);
 
+        model.addAttribute("id", idUsuari);
+
         return "redirect:/views/propietats/configurar/"+p.getIdPROPIETAT();
     }
+
 
 
 

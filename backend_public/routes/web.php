@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 I UTILITZA EL METODE GET */
 
 /* '/' -> el mappeig de la ruta
-    return view() -> Retorna una vista anomanada 'welcome' */
+    return view() -> Retorna una vista */
 
 //Rutes Aplicació
 
@@ -29,5 +29,5 @@ Route::get('/propietat',[PropietatController::class,'listAll']);
 //Route /propietat/{idPropietat}/tarifes
 
 Route::get('/', function () {
-    return view('welcome');
+    return 'Aixo es la part de Laravel (Api)';
 });

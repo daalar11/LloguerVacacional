@@ -13,6 +13,7 @@ public class EventJSON {
     private String start;
     private String end;
     private String url;
+    //private float preu;
 
 
 }

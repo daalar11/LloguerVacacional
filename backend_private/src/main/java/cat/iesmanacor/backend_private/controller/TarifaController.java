@@ -1,13 +1,17 @@
 package cat.iesmanacor.backend_private.controller;
 
+import cat.iesmanacor.backend_private.entitats.Propietari;
 import cat.iesmanacor.backend_private.entitats.Propietat;
 import cat.iesmanacor.backend_private.entitats.Tarifa;
+import cat.iesmanacor.backend_private.services.iPropietariService;
 import cat.iesmanacor.backend_private.services.iTarifaService;
 import cat.iesmanacor.backend_private.services.iPropietatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,21 +26,35 @@ public class TarifaController {
     @Autowired
     private iPropietatService propietatService;
 
+    @Autowired
+    private iPropietariService propietariService;
+
+    @ModelAttribute
+    public void addAttributes(Model model, HttpSession httpSession) {
+
+        if (httpSession.getAttribute("usuari") != null){
+            Propietari propietari = propietariService.findPropietariByCorreu(((Propietari) httpSession.getAttribute("usuari")).getCorreu());
+            model.addAttribute("idUsuari", propietari.getId());
+        }
+    }
+
     //Metode afegir nova tarifa.
     @GetMapping("/afegir/{idPROPIETAT}")
-    public String afegir(Model model,@PathVariable("idPROPIETAT") Long idPROPIETAT){
+    public String afegir(@ModelAttribute("idUsuari") Long idUsuari, Model model,@PathVariable("idPROPIETAT") Long idPROPIETAT){
 
         Propietat propietat = propietatService.buscarPorId(idPROPIETAT);
         Tarifa tarifa = new Tarifa();
         model.addAttribute("tarifes",tarifa);
         model.addAttribute("propietats",propietat);
 
+        model.addAttribute("id", idUsuari);
+
         return "/views/tarifes/frmCrearTarifa";
     }
 
     //Metode que sexecuta en fer el submit de CREATE/UPDATE tarifa
     @PostMapping("/save")
-    public String save(@ModelAttribute Tarifa tarifa, Model model){
+    public String save(@ModelAttribute("idUsuari") Long idUsuari, @ModelAttribute Tarifa tarifa, Model model){
 
         boolean valida = true;
 
@@ -77,14 +95,16 @@ public class TarifaController {
             }
         }
 
+        model.addAttribute("id", idUsuari);
+
         if (valida) {
             tarifaService.save(tarifa);
             System.out.println("Tarifa guardada amb exit");
-            return "redirect:/views/propietats/";
+            return "redirect:/views/propietats/configurar/" + propietat.getIdPROPIETAT();
         } else {
             System.out.println("Ja hi ha una tarifa en aquestes dates.");
             model.addAttribute("tarifesConflictives", tarifesConflictives);
-            return "redirect:/views/propietats/";
+            return "redirect:/views/propietats/configurar/" + propietat.getIdPROPIETAT();
         }
 
         //Logica del condicional
@@ -110,21 +130,24 @@ public class TarifaController {
 
     //Metode controlador que envia l'informacio de la tarifa a editar al formulari.
     @GetMapping("/edit/{idPROPIETAT}/{idTARIFA}")
-    public String editar(@PathVariable("idTARIFA") long idTARIFA,@PathVariable("idPROPIETAT") Long idPROPIETAT, Model model){
+    public String editar(@ModelAttribute("idUsuari") Long idUsuari, @PathVariable("idTARIFA") long idTARIFA,@PathVariable("idPROPIETAT") Long idPROPIETAT, Model model){
         Tarifa tarifa = tarifaService.findById(idTARIFA);
         Propietat propietat = propietatService.buscarPorId(idPROPIETAT);
         model.addAttribute("titulo","Formulario: Editar Tarifas");
         model.addAttribute("tarifa",tarifa);
         model.addAttribute("propietat",propietat);
+
+        model.addAttribute("id", idUsuari);
+
         return "/views/tarifes/frmEditarTarifes";
     }
 
     //Elimina una tarifa
-    @GetMapping("/delete/{idTARIFA}")
+    /*@GetMapping("/delete/{idTARIFA}")
     public String delete(@PathVariable("idTARIFA") long idTARIFA){
         tarifaService.delete(idTARIFA);
         return "redirect:/views/propietats/";
-    }
+    } */
 
 
 

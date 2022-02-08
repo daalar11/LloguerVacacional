@@ -69,6 +69,9 @@ public class UsuariController {
         }
         propietari.setContrasenya(passwordHash(propietari.getContrasenya()));
         propietariService.save(propietari);
+
+        model.addAttribute("id", propietari.getId());
+
         return "redirect:/autenticate/register";
     }
 

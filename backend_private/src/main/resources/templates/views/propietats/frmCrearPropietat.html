@@ -20,7 +20,14 @@
 
 <div class="container mt-4 mb-4">
     <main>
-        <form id="formCrearPropietat" th:object="${propietat}" th:action="@{/views/propietats/save}" method="post" enctype="multipart/form-data" onsubmit="return validacioPropietat()">
+
+        <div class="card  mt-3 mb-3 bg-light">
+
+            <div class="card-header bg-light fw-bold">Dona d'alta una propietat</div>
+
+            <div class="card-body ">
+
+                <form id="formCrearPropietat" th:object="${propietat}" th:action="@{/views/propietats/save}" method="post" enctype="multipart/form-data" onsubmit="return validacioPropietat()">
                 <div class="row">
                     <div class="col-12">
                         <label for="propietari" class="form-label">Propietari: </label>
@@ -179,6 +186,9 @@
                 </div>
 
             </form>
+
+            </div>
+        </div>
     </main>
 </div>
 

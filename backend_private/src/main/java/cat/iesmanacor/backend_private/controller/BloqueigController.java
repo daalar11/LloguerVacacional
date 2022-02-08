@@ -1,13 +1,17 @@
 package cat.iesmanacor.backend_private.controller;
 
 import cat.iesmanacor.backend_private.entitats.Bloqueig;
+import cat.iesmanacor.backend_private.entitats.Propietari;
 import cat.iesmanacor.backend_private.entitats.Propietat;
 import cat.iesmanacor.backend_private.services.iBloqueigService;
+import cat.iesmanacor.backend_private.services.iPropietariService;
 import cat.iesmanacor.backend_private.services.iPropietatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,20 +26,33 @@ public class BloqueigController {
     @Autowired
     private iPropietatService propietatService;
 
+    @Autowired
+    private iPropietariService propietariService;
+
+    @ModelAttribute
+    public void addAttributes(Model model, HttpSession httpSession) {
+
+        if (httpSession.getAttribute("usuari") != null){
+            Propietari propietari = propietariService.findPropietariByCorreu(((Propietari) httpSession.getAttribute("usuari")).getCorreu());
+            model.addAttribute("idUsuari", propietari.getId());
+        }
+    }
+
     @GetMapping("/afegir/{idPROPIETAT}")
-    public String afegir(Model model,@PathVariable("idPROPIETAT") Long idPROPIETAT){
+    public String afegir(@ModelAttribute("idUsuari") Long idUsuari, Model model,@PathVariable("idPROPIETAT") Long idPROPIETAT){
 
         Propietat propietat = propietatService.buscarPorId(idPROPIETAT);
         Bloqueig bloqueig = new Bloqueig();
         model.addAttribute("bloqueig",bloqueig);
         model.addAttribute("propietats",propietat);
+        model.addAttribute("id", idUsuari);
 
         return "/views/bloqueig/frmCrearBloqueig";
     }
 
     //recibe los datos del formulario para enviarlos a la bd
     @PostMapping("/save")
-    public String save(@ModelAttribute Bloqueig bloqueig, Model model){
+    public String save(@ModelAttribute("idUsuari") Long idUsuari, @ModelAttribute Bloqueig bloqueig, Model model){
 
         //Boolean que indica si es pot fer el save o no. Si es true es fa l'insert si es false no ho fa.
         boolean valida = true;
@@ -79,6 +96,8 @@ public class BloqueigController {
             }
         }
 
+        model.addAttribute("id", idUsuari);
+
         if (valida) {
             bloqueigService.save(bloqueig);
             System.out.println("bloqueig guardat amb exit");
@@ -93,24 +112,26 @@ public class BloqueigController {
 
     //Edita ses habitacions d'una propietat concreta
     @GetMapping("/edit/{idPROPIETAT}/{idBLOQUEIG}")
-    public String editar(@PathVariable("idBLOQUEIG") long idBLOQUEIG,@PathVariable("idPROPIETAT") Long idPROPIETAT, Model model){
+    public String editar(@ModelAttribute("idUsuari") Long idUsuari, @PathVariable("idBLOQUEIG") long idBLOQUEIG,@PathVariable("idPROPIETAT") Long idPROPIETAT, Model model){
 
         Bloqueig bloqueig = bloqueigService.findById(idBLOQUEIG);
         Propietat propietat = propietatService.buscarPorId(idPROPIETAT);
         model.addAttribute("titulo","Formulario: Editar Bloqueig");
         model.addAttribute("bloqueig",bloqueig);
         model.addAttribute("propietat",propietat);
+        model.addAttribute("id", idUsuari);
 
         return "/views/bloqueig/frmEditarBloqueig";
     }
 
     //Elimina una habitacio
     @GetMapping("/delete/{idBLOQUEIG}")
-    public String delete(@PathVariable("idBLOQUEIG") long idBLOQUEIG){
+    public String delete(@ModelAttribute("idUsuari") Long idUsuari, @PathVariable("idBLOQUEIG") long idBLOQUEIG, Model model){
 
         Bloqueig bloqueig = bloqueigService.findById(idBLOQUEIG);
         long idPROPIETAT = bloqueig.getPropietat().getIdPROPIETAT();
         bloqueigService.delete(idBLOQUEIG);
+        model.addAttribute("id", idUsuari);
 
         return "redirect:/views/propietats/configurar/"+idPROPIETAT;
     }
