@@ -24,6 +24,10 @@ public class Propietat implements Serializable {
     @JoinColumn(name = "id_localitat") //Especificam el nom de la taula
     private Localitat localitat;
 
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name="id_prop")
+    private Propietari propietari;
+
     private String normes;
 
     //One to many para poder leer las habitaciones de una propietat
@@ -73,6 +77,15 @@ public class Propietat implements Serializable {
     public Propietat() {}
 
     //Getters i Setters
+
+    public Propietari getPropietari() {
+        return propietari;
+    }
+
+    public void setPropietari(Propietari propietari) {
+        this.propietari = propietari;
+    }
+
     public Long getIdPROPIETAT() {
         return idPROPIETAT;
     }

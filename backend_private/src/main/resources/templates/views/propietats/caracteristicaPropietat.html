@@ -11,17 +11,7 @@
   <!-- Full Calendar Boundle -->
   <link th:href="@{/fullcalendar/main.css}" rel='stylesheet' />
   <script th:src="@{/fullcalendar/main.js}" ></script>
-
-  <!-- CDN FULL CALENDAR
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales-all.min.js"></script>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales-all.min.js"></script>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
-  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/LICENSE.txt">
-  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/LICENSE.txt">
-  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/README.md"> -->
+  <script th:src="@{/fullcalendar/locales-all.js}" ></script><!-- Idiomes -->
 
   <script>
 
@@ -30,13 +20,29 @@
     document.addEventListener('DOMContentLoaded', function() {
       var calendarEl = document.getElementById('calendar');
       calendar = new FullCalendar.Calendar(calendarEl, {
-        timeZone: 'UTC',
-        initialView: 'dayGridMonth',
+        locale: 'ca', //Idioma
+        timeZone: 'UTC', //UTF
+        initialView: 'dayGridMonth', //Vista inicial
         //themeSystem: 'Lux',
         //Propietats de height del calendari
         height: 'auto', //Setter -> calendar.setOption('height', 700);
         contentHeight: 600, //Setter -> calendar.setOption('contentHeight', 650);
-        themeSystem: 'Lux',
+        themeSystem: 'default',
+        navLinks: 'true',
+        selectable: 'true', //Fa els dies seleccionables (Tambe en grups (Arrastrant))
+        unselectAuto: 'true', //Si esta a true es deseleccionaran els dies seleccionats fent click a cualsevol banda
+
+        //DayClick -> Quan es clica una data
+        /*dateClick: function() {
+          $(this).css('border', '2px solid black');
+          $("#modal").show();
+        },*/
+
+        //Configuracions marcador setmana de l'any
+        weekNumbers: 'true',
+        weekText: 'S',
+        weekNumberFormat: {week: 'narrow'},
+
         //Propietats Header i Footer del Calenari Elements [] = Title, prev, next, prevYear, nextYear, today, dayGridView
         headerToolbar: {
           start: 'prev prevYear', //Elements que apareixen al principi del header
@@ -44,8 +50,8 @@
           end: 'nextYear next' //Elements que apareixen al final del header
         },
         footerToolbar: {
-          left: 'dayGridMonth timeGridWeek timeGridDay',
-          center: 'today',
+          left: 'botoEspanyol botoCatala botoIngles',
+          center: 'dayGridMonth today',//center: 'dayGridMonth timeGridWeek timeGridDay',
           right: 'botoTarifes botoBloqueig botoReserves'
         },
         //Aqui podem crear botons custom i indicarli una funcio a executar quan facin click
@@ -67,24 +73,47 @@
             click: function () {
               alert('Redirect a tab Reserves!');
             }
+          },
+          botoEspanyol: {
+            text: 'Español',
+            click: function () {
+              calendar.setOption('locale', 'es');
+            }
+          },
+          botoCatala: {
+            text: 'Catala',
+            click: function () {
+              calendar.setOption('locale', 'ca');
+            }
+          },
+          botoIngles: {
+            text: 'English',
+            click: function () {
+              calendar.setOption('locale', 'en');
+            }
           }
         },
-        //Eventos
-        events: [
+        eventSources: [
+
           {
-            id: 'tarifa1',
-            title: 'Tarifa Nadal',
-            start: '2021-12-22',
-            end: '2021-12-27',
-            backgroundColor: 'green'
+            //Per GET arriben els bloquejos
+            method: "GET", //Metode d'obtencio de les dades
+            url: "http://localhost:8080/views/propietat/configurar/" + [[${propietat.idPROPIETAT}]], //URL on es passa el JSON
+            //Propietats dels events que arriben per GET
+            display: "background", //Es displayea levent ocupant tot el background del dia
+            backgroundColor: "red", //Color del background
+            borderColor: "black", //Color del border !NO FUNCIONA
+            textColor: "black" //Color del text !NO FUNCIONA
           },
           {
-            id: 'bloqueig1',
-            title: 'Bloqueig Desembre',
-            start: '2021-12-02',
-            end: '2021-12-06',
-            backgroundColor: 'blue'
+            //Per post arrriben les tarifes
+            method: "POST",
+            url: "http://localhost:8080/views/propietat/configurar/" + [[${propietat.idPROPIETAT}]], //URL on es passa el JSON
+            //Propietats dels events que arriben per POST
+            backgroundColor: "green",
+            display: "background"
           }
+
         ]
 
 
@@ -104,45 +133,46 @@
 
   <main>
 
-    <h4 th:text="${propietat.nomPropietat}"></h4>
-
+    <div class="row text-center">
+      <p class="fs-1 font-monospace border-dark border-2 border-bottom" th:text="${propietat.nomPropietat}"></p>
+    </div>
     <div class="row">
 
       <div class="col-12">
 
         <!-- Llista o Menu de Navegacion -->
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <ul class="nav nav-tabs text-dark d-flex justify-content-between" id="myTab" role="tablist">
           <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="calendari-tab" data-bs-toggle="tab" data-bs-target="#calendari" type="button" role="tab" aria-controls="calendari" aria-selected="false">Calendari</button>
+            <button class="nav-link text-dark active" id="calendari-tab" data-bs-toggle="tab" data-bs-target="#calendari" type="button" role="tab" aria-controls="calendari" aria-selected="false">Calendari</button>
           </li>
           <li class="nav-item" role="presentation">
-            <button class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Editar casa</button>
+            <button class="nav-link text-dark" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Dades</button>
           </li>
           <li class="nav-item" role="presentation">
-            <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Habitacions</button>
+            <button class="nav-link text-dark" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Habitacions</button>
           </li>
           <li class="nav-item" role="presentation">
-            <button class="nav-link" id="caracteristiques-tab" data-bs-toggle="tab" data-bs-target="#caracteristiques" type="button" role="tab" aria-controls="caracteristiques" aria-selected="false">Caracteristiques</button>
+            <button class="nav-link text-dark" id="caracteristiques-tab" data-bs-toggle="tab" data-bs-target="#caracteristiques" type="button" role="tab" aria-controls="caracteristiques" aria-selected="false">Caracteristiques</button>
           </li>
           <li class="nav-item" role="presentation">
-            <button class="nav-link" id="tarifes-tab" data-bs-toggle="tab" data-bs-target="#tarifes" type="button" role="tab" aria-controls="tarifes" aria-selected="false">Tarifes</button>
+            <button class="nav-link text-dark" id="tarifes-tab" data-bs-toggle="tab" data-bs-target="#tarifes" type="button" role="tab" aria-controls="tarifes" aria-selected="false">Tarifes</button>
           </li>
           <li class="nav-item" role="presentation">
-            <button class="nav-link" id="bloqueig-tab" data-bs-toggle="tab" data-bs-target="#bloqueig" type="button" role="tab" aria-controls="bloqueig" aria-selected="false">Dies de Bloqueig</button>
+            <button class="nav-link text-dark" id="bloqueig-tab" data-bs-toggle="tab" data-bs-target="#bloqueig" type="button" role="tab" aria-controls="bloqueig" aria-selected="false">Dies de Bloqueig</button>
           </li>
           <li class="nav-item" role="presentation">
-            <button class="nav-link" id="politica-tab" data-bs-toggle="tab" data-bs-target="#politica" type="button" role="tab" aria-controls="politica" aria-selected="false">Politiques de cancelacio</button>
+            <button class="nav-link text-dark" id="politica-tab" data-bs-toggle="tab" data-bs-target="#politica" type="button" role="tab" aria-controls="politica" aria-selected="false">Politiques de cancelacio</button>
           </li>
           <li class="nav-item" role="presentation">
-            <button class="nav-link" id="reserves-tab" data-bs-toggle="tab" data-bs-target="#reserves" type="button" role="tab" aria-controls="reserves" aria-selected="false">Reserves</button>
+            <button class="nav-link text-dark" id="reserves-tab" data-bs-toggle="tab" data-bs-target="#reserves" type="button" role="tab" aria-controls="reserves" aria-selected="false">Reserves</button>
           </li>
           <li class="nav-item" role="presentation">
-            <button class="nav-link" id="fotos-tab" data-bs-toggle="tab" data-bs-target="#fotos" type="button" role="tab" aria-controls="fotos" aria-selected="false">Fotos de la Propietat</button>
+            <button class="nav-link text-dark" id="fotos-tab" data-bs-toggle="tab" data-bs-target="#fotos" type="button" role="tab" aria-controls="fotos" aria-selected="false">Fotos</button>
           </li>
         </ul>
 
         <!-- Div General Tabs -->
-        <div class="tab-content" id="myTabContent">
+        <div class="tab-content mt-3" id="myTabContent">
 
           <!-- Tab-Calendari -->
           <div class="tab-pane fade show active" id="calendari" role="tabpanel" aria-labelledby="calendari-tab">
@@ -160,7 +190,7 @@
 
             <div class="card  mt-3 mb-3 bg-light">
 
-              <div class="card-header bg-light" th:text="${titolEditarPropietat}"></div>
+              <div class="card-header bg-light fw-bold" th:text="${titolEditarPropietat}"></div>
 
               <div class="card-body ">
 
@@ -325,7 +355,7 @@
 
             <div class="card  mt-3 mb-3 bg-light">
 
-              <div class="card-header bg-light" th:text="${titolEditarHabitacions}"></div>
+              <div class="card-header bg-light fw-bold" th:text="${titolEditarHabitacions}"></div>
 
               <div class="card-body ">
 
@@ -369,41 +399,31 @@
 
             <div class="card  mt-3 mb-3 bg-light">
 
-              <div class="card-header bg-light" th:text="${titolCaracteristiques}"></div>
+              <div class="card-header bg-light fw-bold" th:text="${titolCaracteristiques}"></div>
 
               <div class="card-body ">
                 <div class="row">
-            <form th:action="@{/views/propietats/caracteristiques/save}" method="post" class="col-6">
-            <div  class="row">
-<!--                <fieldset>-->
-                    <div th:each="cara:${caracteristiquesProp}" class="col-2">
-                      <input th:if="${cara.contain}==true" type="checkbox" class="btn-check" th:name="valorCar" th:id="${cara.caracteristica.idCaracteristica}" th:value="${cara.caracteristica.idCaracteristica}" checked/>
-                      <input th:unless="${cara.contain}==true" type="checkbox" class="btn-check" th:name="valorCar" th:id="${cara.caracteristica.idCaracteristica}" th:value="${cara.caracteristica.idCaracteristica}"/>
-                      <label th:if="${cara.contain}==true" class="btn btn-outline-primary"  th:text="${cara.caracteristica.caracteristica}" th:for="${cara.caracteristica.idCaracteristica}" ></label>
-                      <label th:if="${cara.contain}==false" class="btn btn-outline-primary"  th:text="${cara.caracteristica.caracteristica}" th:for="${cara.caracteristica.idCaracteristica}" ></label>
+                  <form th:action="@{/views/propietats/caracteristiques/save}" method="post" class="col-12">
+                  <div  class="row">
+      <!--                <fieldset>-->
+                          <div th:each="cara:${caracteristiquesProp}" class="col-2 mt-4">
+                            <input th:if="${cara.contain}==true" type="checkbox" class="btn-check" th:name="valorCar" th:id="${cara.caracteristica.idCaracteristica}" th:value="${cara.caracteristica.idCaracteristica}" checked/>
+                            <input th:unless="${cara.contain}==true" type="checkbox" class="btn-check" th:name="valorCar" th:id="${cara.caracteristica.idCaracteristica}" th:value="${cara.caracteristica.idCaracteristica}"/>
+                            <label th:if="${cara.contain}==true" class="btn btn-outline-primary"  th:text="${cara.caracteristica.caracteristica}" th:for="${cara.caracteristica.idCaracteristica}" ></label>
+                            <label th:if="${cara.contain}==false" class="btn btn-outline-primary"  th:text="${cara.caracteristica.caracteristica}" th:for="${cara.caracteristica.idCaracteristica}" ></label>
+                          </div>
+
+                        <div th:each="ex:${idPropietat}">
+                          <input type="hidden" th:name="idPropietat" th:value="${ex}">
+                        </div>
+      <!--                </fieldset>-->
+                  </div>
+
+                    <div class="col-1 mt-2 form-group">
+                      <input type="submit" id="boto-submit-caracteristiques" class="btn btn-warning" value="Guardar" />
                     </div>
+                  </form>
 
-                  <div th:each="ex:${idPropietat}">
-                    <input type="hidden" th:name="idPropietat" th:value="${ex}">
-                  </div>
-<!--                </fieldset>-->
-            </div>
-
-              <div class="col-1 mt-2 form-group">
-                <input type="submit" id="boto-submit-caracteristiques" class="btn btn-success" value="Guardar" />
-              </div>
-            </form>
-
-
-            <div class="col-6">
-              <div class="row">
-                <div class="card col-3" th:each="carac:${caracteristiquesProp}" th:if="${carac.contain}==true">
-                  <div  class="card-body">
-                    <h5  th:text="${carac.caracteristica.caracteristica}"></h5>
-                  </div>
-              </div>
-              </div>
-            </div>
                 </div>
               </div>
 
@@ -415,7 +435,7 @@
 
             <div class="card  mt-3 mb-3 bg-light">
 
-              <div class="card-header bg-light" th:text="${titolTarifes}"></div>
+              <div class="card-header bg-light fw-bold" th:text="${titolTarifes}"></div>
 
               <div class="card-body ">
 
@@ -456,7 +476,7 @@
 
             <div class="card  mt-3 mb-3 bg-light">
 
-              <div class="card-header bg-light" th:text="${titolBloqueig}"></div>
+              <div class="card-header bg-light fw-bold" th:text="${titolBloqueig}"></div>
 
               <div class="card-body ">
 
@@ -498,35 +518,43 @@
           <!-- Tab Panel Politiques -->
           <div class="tab-pane fade" id="politica" role="tabpanel" aria-labelledby="politica-tab">
 
-            <table class="table">
-              <thead>
-              <tr>
-                <th scope="col">idPolitica</th>
-                <th scope="col">Propietat</th>
-                <th scope="col">nº Dies de antelació</th>
-                <th scope="col">% de dotbers perdut</th>
-                <th scope="col">Editar</th>
-                <th scope="col">Eliminar</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr th:each="pol:${politiques}">
-                <th th:text="${pol.idPolitica}"></th>
-                <td th:text="${pol.propietat.nomPropietat}"></td>
-                <td th:text="${pol.dies}"></td>
-                <td th:text="${pol.perdut}"> </td>
-                <td>
-                  <a class="btn btn-success" th:href="@{'/views/propietats/politiques/edit/'+${pol.propietat.idPROPIETAT}+'/'+${pol.idPolitica}} " th:text="'Editar Politica'" title="Editar"></a>
-                </td>
-                <td>
-                  <a class="btn btn-danger" th:href="@{'/views/propietats/politiques/delete/'+${pol.propietat.idPROPIETAT}+'/'+ ${pol.idPolitica}}" th:text="'Eliminar Politica'" title="Eliminar"></a>
-                </td>
+            <div class="card  mt-3 mb-3 bg-light">
 
-              </tr>
+              <div class="card-header bg-light fw-bold" th:text="${titolPolitiques}"></div>
 
-              </tbody>
+              <div class="card-body ">
 
-            </table>
+                <table class="table">
+                  <thead>
+                  <tr>
+                    <th scope="col">idPolitica</th>
+                    <th scope="col">Propietat</th>
+                    <th scope="col">nº Dies de antelació</th>
+                    <th scope="col">% de dotbers perdut</th>
+                    <th scope="col">Editar</th>
+                    <th scope="col">Eliminar</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr th:each="pol:${politiques}">
+                    <th th:text="${pol.idPolitica}"></th>
+                    <td th:text="${pol.propietat.nomPropietat}"></td>
+                    <td th:text="${pol.dies}"></td>
+                    <td th:text="${pol.perdut}"> </td>
+                    <td>
+                      <a class="btn btn-warning" th:href="@{'/views/propietats/politiques/edit/'+${pol.propietat.idPROPIETAT}+'/'+${pol.idPolitica}} " th:text="'Editar Politica'" title="Editar"></a>
+                    </td>
+                    <td>
+                      <a class="btn btn-danger" th:href="@{'/views/propietats/politiques/delete/'+${pol.propietat.idPROPIETAT}+'/'+ ${pol.idPolitica}}" th:text="'Eliminar Politica'" title="Eliminar"></a>
+                    </td>
+
+                  </tr>
+
+                  </tbody>
+
+                </table>
+              </div>
+            </div>
             <a class="btn btn-success" th:object="${propietat}" th:href="@{'/views/propietats/politiques/afegir/'+*{idPROPIETAT}}">Afegir Politica</a>
           </div>
 
@@ -535,7 +563,7 @@
 
             <div class="card  mt-3 mb-3 bg-light">
 
-              <div class="card-header bg-light" th:text="${titolReserves}"></div>
+              <div class="card-header bg-light fw-bold" th:text="${titolReserves}"></div>
 
               <div class="card-body ">
 
@@ -544,8 +572,8 @@
                   <tr>
                     <th scope="col">Id Reserva</th>
                     <th scope="col">Data Reserva</th>
-                    <th scope="col">Data Inici Reserva</th>
-                    <th scope="col">Data Final Reserva</th>
+                    <th scope="col">Data Arribada</th>
+                    <th scope="col">Data Sortida</th>
                     <th scope="col">Preu Final</th>
                     <th scope="col">Cancelada?</th>
                     <th scope="col">Eliminar (Cancelar)</th>
@@ -568,8 +596,6 @@
                 </table>
               </div>
             </div>
-            <a th:each="tar:${propietat}" class="btn btn-primary mt-3" th:href="@{'/views/bloqueig/afegir/'+ ${tar.idPROPIETAT}} " th:text="'Nou Bloqueig'" title="Crear nou registre"></a>
-
 
           </div>
 
@@ -578,7 +604,7 @@
 
             <div class="card  mt-3 mb-3 bg-light">
 
-              <div class="card-header bg-light" th:text="${titolFotos}"></div>
+              <div class="card-header bg-light fw-bold" th:text="${titolFotos}"></div>
 
               <div class="card-body ">
 
@@ -587,10 +613,14 @@
                   <div class="row">
 
                     <div class="col-12 form-group">
+                      <div class="mb-3">
+                        <input type="hidden" th:field="${propietat.idPROPIETAT}" />
+                        <input type="hidden" placeholder="ej. Villa Luna" class="form-control" th:field="${propietat.nomPropietat}">
+                      </div>
 
                       <div class="mb-3">
-                        <label for="fotosMultiple" class="form-label">Fotos</label>
-                        <input type="file" class="form-control" id="fotosMultiple">
+                        <label for="fotosSecundaries" class="form-label">Fotos</label>
+                        <input type="file" class="form-control" name="fotosSecundaries" id="fotosSecundaries">
                         <div id="fotosMultipleSpan" class="form-text">Aqui pots afegir totes les fotos que vulguis de la teva propietat (De una en una)</div>
                       </div>
 
@@ -718,7 +748,12 @@
 
 <script>
 
+  let height = screen.height;
+
   $(document).ready(function() {
+
+
+    $("body").css("min-height", height);
 
     veureTaula();
 
@@ -737,16 +772,12 @@
       calendar.render();
     });
 
-
-
-
   });
 
 </script>
 
 <!-- Boundle Amb API GOOGLE MAPS + KEY (DEVELOPERS)(Ha d'anar passat el codi js) -->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBCKiIqCdZGrVxx06LSbe7uG3zXOq1Cz5k&callback=myMap"></script>
-
 
 </body>
 

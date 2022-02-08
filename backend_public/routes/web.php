@@ -13,15 +13,21 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-/* AQUI ES DEFINEIXEN LES RUTES DEL LLOC WEB*/
+//AQUI ES DEFINEIXEN LES RUTES DEL LLOC WEB
 
 /* AIXO S'ANOMENA UNA FACHADA, EN AQUEST CAS LA FACHADA "ROUTE"
 I UTILITZA EL METODE GET */
 
 /* '/' -> el mappeig de la ruta
-    return view() -> Retorna una vista anomanada 'welcome' */
+    return view() -> Retorna una vista */
+
+//Rutes Aplicació
+
+//Route /propietats -> Llistar totes les propietats.
 Route::get('/propietat',[PropietatController::class,'listAll']);
+
+//Route /propietat/{idPropietat}/tarifes
+
 Route::get('/', function () {
-    return view('welcome');
+    return 'Aixo es la part de Laravel (Api)';
 });

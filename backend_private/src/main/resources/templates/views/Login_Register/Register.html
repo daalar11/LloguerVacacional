@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <div th:replace="plantilla/template :: head(type='tag')"></div>
+  <title>Eis</title>
+</head>
+<body>
+<header th:insert="plantilla/template :: header"></header>
+
+<main class="container">
+  <div class="row">
+    <div class="col-2">
+
+    </div>
+    <form th:object="${propietari}" th:action="@{/autenticate/save}" class="col-8 border border-2 border-secondary bg-light rounded "  method="post">
+      <div class="row">
+        <div class="col-12">
+          <h2 th:if="${repeticioDades}!=null " th:text="${repeticioDades}"></h2>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-6">
+          <label for="dni2" class="form-label"> DNI: </label>
+          <input  class="form-control" th:type="text" id="dni2" th:name="dni2" th:field="*{dni}">
+        </div>
+        <div class="col-6">
+          <label for="nom" class="form-label"> Nom: </label>
+          <input class="form-control" th:type="text" id="nom" th:name="nom" th:field="*{nom}">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <label for="llin1" class="form-label"> Primer llinatge: </label>
+          <input class="form-control" th:type="text" id="llin1" th:name="llin1" th:field="*{llinatge1}">
+        </div>
+        <div class="col-6">
+          <label for="llin2" class="form-label"> Segon llinatge: </label>
+          <input class="form-control" th:type="text" id="llin2" th:name="llin2" th:field="*{llinatge2}">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <label for="correu" class="form-label"> Correu: </label>
+          <input class="form-control" th:type="text" id="correu" th:name="correu" th:field="*{correu}">
+        </div>
+<!--        <div class="col-6">-->
+<!--          <label for="tel" class="form-label"> Telefon: </label>-->
+<!--          <input class="form-control" th:type="text" id="tel" th:name="tel" th:field="*{tel}">-->
+<!--        </div>-->
+        <div class="col-6">
+          <label for="pass" class="form-label"> Contrasenya: </label>
+          <input  class="form-control" type="password" id="pass" th:name="pass" th:field="*{contrasenya}">
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-6 mb-4">
+          <input type="submit" class="btn btn-primary" value="Guardar" />
+        </div>
+
+      </div>
+    </form>
+    <div class="col-2"></div>
+  </div>
+</main>
+
+<footer>
+  <div th:replace="plantilla/template :: footer"></div>
+</footer>
+
+</body>
+</html>

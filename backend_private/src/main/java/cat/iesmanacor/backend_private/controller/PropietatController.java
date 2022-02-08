@@ -2,6 +2,7 @@ package cat.iesmanacor.backend_private.controller;
 
 import cat.iesmanacor.backend_private.entitats.*;
 import cat.iesmanacor.backend_private.services.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +11,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.util.*;
 
@@ -30,13 +32,30 @@ public class PropietatController {
     private iHabitacioService habitacioService;
     @Autowired
     private iPoliticaService politicaService;
+    @Autowired
+    private iPropietariService propietariService;
+
+    @ModelAttribute
+    public void addAttributes(Model model, HttpSession httpSession) {
+
+        if (httpSession.getAttribute("usuari") != null){
+            Propietari propietari = propietariService.findPropietariByCorreu(((Propietari) httpSession.getAttribute("usuari")).getCorreu());
+            model.addAttribute("idUsuari", propietari.getId());
+        }
+    }
 
     //Metode controlador que retorna una llista de les propietats per mostrarles a la dataTable.
-    @GetMapping({"/"})
-    public String llistarPropietats (Model model){ //(Model) El model s'utilitza per passar dades a les vistes.
-
-        List <Propietat> llistaPropietats = propietatService.listarTodos();
-
+    @GetMapping({"/{Id}"})
+    public String llistarPropietats (@PathVariable("Id") Long id, Model model, HttpSession httpSession){ //(Model) El model s'utilitza per passar dades a les vistes.
+        List <Propietat> llistaPropietats;
+        if(httpSession.getAttribute("rol").equals("propietari")){
+            Propietari propietari;
+            propietari= propietariService.findPropietariByCorreu(((Propietari) httpSession.getAttribute("usuari")).getCorreu());
+            llistaPropietats = propietatService.findByPropietari( propietari);
+            model.addAttribute("id",propietari.getId());
+        }else {
+            llistaPropietats = propietatService.listarTodos();
+        }
         model.addAttribute("titolLlistarPropietats", "Llista de propietats");
         model.addAttribute("propietats", llistaPropietats);
 
@@ -45,16 +64,17 @@ public class PropietatController {
 
     //Metode controlador de configurar una propietat. Et retorna totes les dades relacionades amb la propietat.
     @GetMapping("/configurar/{idPROPIETAT}")
-    public String configuracio(Model model, @PathVariable("idPROPIETAT") Long idPROPIETAT){
+    public String configuracio(@ModelAttribute("idUsuari") Long idUsuari, Model model, @PathVariable("idPROPIETAT") Long idPROPIETAT, HttpSession httpSession){
 
         //Models que envien els titols de cada Tab.
-        model.addAttribute("titolEditarPropietat","Editar propietat");
-        model.addAttribute("titolEditarHabitacions","Configurar habitacions");
-        model.addAttribute("titolTarifes","Configurar Tarifes");
-        model.addAttribute("titolCaracteristiques", "Configurar Caracteristiques");
+        model.addAttribute("titolEditarPropietat","Totes les dades de la propietat, tambè pots modificar les dades");
+        model.addAttribute("titolEditarHabitacions","Habitacions de la propietat");
+        model.addAttribute("titolTarifes","Tarifes aplicades a la tarifació de la propietat");
+        model.addAttribute("titolCaracteristiques", "Configuració de les caracteristiques");
         model.addAttribute("titolBloqueig", "Configuració dels dies de bloqueig");
         model.addAttribute("titolReserves", "Reserves de la propietat");
-        model.addAttribute("titolFotos", "Configurar fotos de la propietat");
+        model.addAttribute("titolPolitiques", "Politiques de cancelacio aplicades a les reserves d'aquesta propietat");
+        model.addAttribute("titolFotos", "Configuracions sobre les fotos de la propietat");
 
         //Codi Habitacions
         List<Habitacio> llistaHabitacions=new ArrayList<>();
@@ -110,26 +130,32 @@ public class PropietatController {
         politiques.addAll(propietat.getPolitica());
         model.addAttribute("politiques",politiques);
 
+        model.addAttribute("id", idUsuari);
 
     return "/views/propietats/caracteristicaPropietat";
     }
 
     //Metode que et dirigeix al formulari de creacio d'una propietat i et passa un titol i una llista de localitats.
-    @GetMapping("/create")
-    public String crear(Model model) {
+    @GetMapping("/create/{Id}")
+    public String crear(@ModelAttribute("idUsuari") Long idUsuari, @PathVariable("Id") Long id,Model model, HttpSession httpSession) {
 
         Propietat p = new Propietat();
         List<Localitat> listLocalitats = localitatService.llistarLocalitats();
+        Propietari propietari = propietariService.findById(id);
 
+        model.addAttribute("propietari",propietari);
         model.addAttribute("propietat", p);
         model.addAttribute("localitats", listLocalitats);
+        model.addAttribute("id", idUsuari);
+
+
+
 
         return "/views/propietats/frmCrearPropietat";
     }
 
-
     @PostMapping("/caracteristiques/save")
-    public String guardarCaracteristiques(@RequestParam(name="idPropietat")Long idPropietat,@RequestParam(name="valorCar")List<Long> idsCarac){
+    public String guardarCaracteristiques(@ModelAttribute("idUsuari") Long idUsuari, @RequestParam(name="idPropietat")Long idPropietat,@RequestParam(name="valorCar")List<Long> idsCarac, Model model){
 
         Propietat propietat = propietatService.buscarPorId(idPropietat);
         List<Caracteristica> set= new ArrayList<>();
@@ -141,17 +167,18 @@ public class PropietatController {
         propietat.setCaracteristicas(set);
         propietatService.guardar(propietat);
 
-        return "redirect:/views/propietats/";
-    }
+        model.addAttribute("id", idUsuari);
 
+        return "redirect:/views/propietats/configurar/"+propietat.getIdPROPIETAT();
+    }
 
     //Metode que s'executa quan es fa el submit del formulari crearPropietat
     @PostMapping("/save")
-    public String guardar(@RequestParam(name = "file") MultipartFile foto, @Validated @ModelAttribute Propietat p, BindingResult result, Model model) throws IOException{
+    public String guardar(@ModelAttribute("idUsuari") Long idUsuari, HttpSession httpSession, @RequestParam(name = "file") MultipartFile foto, @Validated @ModelAttribute Propietat p, BindingResult result, Model model) throws IOException{
+
+        Propietari propietari = propietariService.findPropietariByCorreu(((Propietari) httpSession.getAttribute("usuari")).getCorreu());
 
         List<Localitat> listLocalitats = localitatService.llistarLocalitats();
-
-        System.out.println("-- HA COMENÇAT EL METODE FOTOS --");
 
         InputStream in = foto.getInputStream();
         String nomImatge = foto.getOriginalFilename();
@@ -164,7 +191,7 @@ public class PropietatController {
         }
 
         //Cream una carpeta per la Media de la propietat, el nom de la carpeta sera nomPropietat-img
-        File carpeta = new File("C://DAW//PROJECTEDAVID//LloguerVacacional//Media//"+ p.getNomPropietat().replace(" ", "") + "-img//img//");
+        File carpeta = new File("../Media/"+ p.getNomPropietat().replace(" ", "") + "-media/img/");
         if (!carpeta.exists()){
             if (carpeta.mkdirs()){
                 System.out.println("Shan crear les carpetes");
@@ -173,10 +200,11 @@ public class PropietatController {
             }
         }
 
-        //Definim path de la foto
-        String rutaPortatil = "C://DAW//PROJECTEDAVID//LloguerVacacional//Media//" + p.getNomPropietat().replace(" ", "") + "-img//img//";
-        String rutaTorre = "C://DAW//Segon//PROJECTE//LloguerVacacional//Media//" + p.getNomPropietat().replace(" ", "") + "-img//";
-        String filename = rutaPortatil + nomImatge;
+        //Definim path de la foto (Path relatiu)
+        String ruta = "../Media/" + p.getNomPropietat().replace(" ", "") + "-media/";
+
+        //Ruta completa
+        String filename = ruta + nomImatge;
 
         //El condicional es per veure si han pujar una foto o no.
         if (nomImatge != "") {
@@ -184,7 +212,7 @@ public class PropietatController {
             OutputStream outputStream = new FileOutputStream(filename);
             out.writeTo(outputStream);
         }
-        System.out.println("-- EL METODE FOTOS SHA EXECUTAT CORRECTAMENT --");
+        model.addAttribute("id", idUsuari);
 
         if (result.hasErrors()) {
 
@@ -192,91 +220,29 @@ public class PropietatController {
             model.addAttribute("propietat", p);
             model.addAttribute("localitats", listLocalitats);
 
-            return "/views/propietats/frmCrearPropietat";
+            return "redirect:/views/propietats/configurar/" + p.getIdPROPIETAT();
         }
 
         propietatService.guardar(p);
 
-        return "redirect:/views/propietats/";
+        return "redirect:/views/propietats/"+propietari.getId();
     }
-
-    /*Metode que s'executa quan es fa el submit del formulari pujar fotos, guarda multiples fotos al directori img del directori del media de la propietat.
-    @PostMapping("/savefotos")
-    public String guardarFotos(@RequestParam(name = "files") MultipartFile[] fotos, @Validated @ModelAttribute Propietat p, BindingResult result, Model model) throws IOException{
-
-        InputStream in = fotos.getInputStream();
-        String nomImatge = fotos.getOriginalFilesnames();
-
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        byte[] readBuf = new byte[4096];
-        while (in.available() > 0){
-            int bytesRead = in.read(readBuf);
-            out.write(readBuf, 0, bytesRead);
-        }
-
-        //Cream una carpeta per la Media de la propietat, el nom de la carpeta sera nomPropietat-img
-        File carpeta = new File("C://DAW//Segon//PROJECTE//LloguerVacacional//Media//"+ p.getNomPropietat().replace(" ", "") + "-img//img//");
-        if (!carpeta.exists()){
-            if (carpeta.mkdirs()){
-                System.out.println("Shan crear les carpetes");
-            } else {
-                System.out.println("No s'ha creat les carpetes");
-            }
-        }
-
-        //Definim path de la foto
-        String rutaPortatil = "C://DAW//PROJECTEDAVID//LloguerVacacional//Media//";
-        String rutaTorre = "C://DAW//Segon//PROJECTE//LloguerVacacional//Media//" + p.getNomPropietat().replace(" ", "") + "-img//";
-        String filename = rutaTorre + nomImatge;
-
-        OutputStream outputStream = new FileOutputStream(filename);
-        out.writeTo(outputStream);
-
-        System.out.println("-- EL METODE FOTOS SHA EXECUTAT CORRECTAMENT --");
-
-        if (result.hasErrors()) {
-
-            model.addAttribute("titol", "Afegeix totes les fotos que vulguis");
-            model.addAttribute("propietat", p);
-
-            return "/views/propietats/frmCrearPropietat";
-        }
-
-        propietatService.guardar(p);
-
-        return "redirect:/views/propietats/";
-    }*/
-
-
-    //Metode per editar propietat
-    @GetMapping("/edit/{idPROPIETAT}")
-    public String editar(@PathVariable("idPROPIETAT") Long idPROPIETAT, Model model) {
-
-        Propietat p = propietatService.buscarPorId(idPROPIETAT);
-        List<Localitat> listLocalitats = localitatService.llistarLocalitats();
-
-        model.addAttribute("titol", "Formulari Editar propietat");
-        model.addAttribute("propietat", p);
-        model.addAttribute("localitats", listLocalitats);
-
-        return "/views/propietats/frmCrearPropietat";
-    }
-
 
     //Metode que elimina una propietat.
     @GetMapping("/delete/{idPROPIETAT}")
-    public String eliminar(@PathVariable("idPROPIETAT") Long idPROPIETAT) {
+    public String eliminar(@ModelAttribute("idUsuari") Long idUsuari, HttpSession httpSession, @PathVariable("idPROPIETAT") Long idPROPIETAT) {
+
+        Propietari propietari = propietariService.findPropietariByCorreu(((Propietari) httpSession.getAttribute("usuari")).getCorreu());
 
         propietatService.eliminar(idPROPIETAT);
         System.out.println("Sha eliminat la propietat amb exit");
 
-        return "redirect:/views/propietats/";
+        return "redirect:/views/propietats/"+idUsuari;
     }
 
-
-    //Metode que s'executa quan es fa el submit del formulari crearPropietat
+    //Metode que guarda fotos secundaries de la propietat.
     @PostMapping("/fotos/save")
-    public String guardarFoto(@RequestParam(name = "file") MultipartFile foto, @Validated @ModelAttribute Propietat p) throws IOException{
+    public String guardarFoto(@ModelAttribute("idUsuari") Long idUsuari, @RequestParam(name = "fotosSecundaries") MultipartFile foto, @Validated @ModelAttribute Propietat p, Model model) throws IOException{
 
         InputStream in = foto.getInputStream();
         String nomImatge = foto.getOriginalFilename();
@@ -288,16 +254,28 @@ public class PropietatController {
             out.write(readBuf, 0, bytesRead);
         }
 
-        //Definim path de la foto
-        String rutaPortatil = "C://DAW//PROJECTEDAVID//LloguerVacacional//Media//" + p.getNomPropietat().replace(" ", "") + "-img//img//";
-        String rutaTorre = "C://DAW//Segon//PROJECTE//LloguerVacacional//Media//" + p.getNomPropietat().replace(" ", "") + "-img//img//";
-        String filename = rutaPortatil + nomImatge;
+        //Cream una carpeta per la Media de la propietat, el nom de la carpeta sera nomPropietat-img
+        File carpeta = new File("../Media/"+ p.getNomPropietat().replace(" ", "") + "-media/img/");
+        if (!carpeta.exists()){
+            if (carpeta.mkdirs()){
+                System.out.println("Shan crear les carpetes");
+            } else {
+                System.out.println("No s'ha creat les carpetes");
+            }
+        }
+
+        //Definim path de la foto (Path relatiu)
+        String ruta = "../Media/" + p.getNomPropietat().replace(" ", "") + "-media/img/";
+        String filename = ruta + nomImatge;
 
         OutputStream outputStream = new FileOutputStream(filename);
         out.writeTo(outputStream);
 
-        return "redirect:/views/propietats/";
+        model.addAttribute("id", idUsuari);
+
+        return "redirect:/views/propietats/configurar/"+p.getIdPROPIETAT();
     }
+
 
 
 
