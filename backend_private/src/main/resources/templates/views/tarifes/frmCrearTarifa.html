@@ -3,8 +3,8 @@
 
 <head>
     <div th:replace="plantilla/template :: head(type='tag')"></div>
-    <!-- Validacio Formulari de Crear Nova Tarifa i Editar Tarifa -->
-    <script type="text/javascript" th:src="@{/js/ValidacionsFormularis/validacioTarifa.js}"></script>
+    <!-- Validacio Formulari de Crear Nova Tarifa i editar Tarifa -->
+    <script type="text/javascript" th:src="@{/js/ValidacionsFormularis/validacionsFormularis.js}"></script>
     <title>Crear Tarifa</title>
 </head>
 
@@ -37,7 +37,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="preu" class="form-label">Preu</label>
-                                    <input type="number" step="any" class="form-control" id="preu" aria-describedby="emailHelp" th:field="*{preu}">
+                                    <input type="number" step="any" class="form-control" id="preu" th:field="*{preu}">
                                     <div id="preuSpan" class="form-text">Indica el preu per la nova tarifació durants els dies seleccionats.</div>
                                     <div id="validacioPreu" class="form-text"></div>
                                 </div>
@@ -73,8 +73,7 @@
     </main>
 
     <footer th:include="plantilla/template :: footer">
-        <!-- Validacio Formulari de Crear Nova Tarifa i editar Tarifa -->
-        <script type="text/javascript" th:src="@{/js/ValidacionsFormularis/validacioTarifa.js}"></script>
+
     </footer>
 
     <script>
@@ -86,7 +85,7 @@
 
                 console.log(campsCorrectes);
 
-                if (campsCorrectes !== 2){
+                if (campsCorrectes !== 3){
                     campsCorrectes = 0;
                 }
             });

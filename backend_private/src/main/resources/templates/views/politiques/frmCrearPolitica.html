@@ -3,8 +3,10 @@
 
 <head>
   <div th:replace="plantilla/template :: head(type='tag')"></div>
-  <meta charset="UTF-8">
   <title>Crear Politica</title>
+
+  <!-- Validacio Formulari de Crear Nova Tarifa i editar Tarifa -->
+  <script type="text/javascript" th:src="@{/js/ValidacionsFormularis/validacionsFormularis.js}"></script>
 </head>
 
 <body>
@@ -23,29 +25,29 @@
 
         <div class="card-body bg-light">
 
-          <form th:object="${politica}" th:action="@{/views/propietats/politiques/save}" method="post">
+          <form th:object="${politica}" th:action="@{/views/propietats/politiques/save}" method="post" onsubmit="return validacioPolitica()">
             <div class="mb-3">
               <label for="casa" class="form-label">Id propietat: </label>
               <select type="text" class="form-control" id="casa" aria-describedby="emailHelp" th:field="*{propietat}" readonly>
                 <option th:each="propietat:${propietats}"
                         th:value="${propietat.idPROPIETAT}"
-                        th:text="${propietat.nomPropietat}"/>
+                        th:text="${propietat.nomPropietat}"></option>
               </select>
             </div>
             <div class="row">
             <div class="mb-3 col-6">
               <input type="hidden" th:field="*{idPolitica}">
               <label for="antelacio" class="form-label">Dies d'antelació: </label>
-              <input type="text" class="form-control" id="antelacio" aria-describedby="emailHelp" th:field="*{dies}">
-
+              <input type="text" class="form-control" id="antelacio" th:field="*{dies}">
+              <div id="validacioAntelacio" class="form-text"></div>
             </div>
             <div class="mb-3 col-6">
               <label for="perdut" class="form-label">Dies: </label>
-              <input type="text" class="form-control" id="perdut" aria-describedby="emailHelp" th:field="*{perdut}">
-
+              <input type="text" class="form-control" id="perdut" th:field="*{perdut}">
+              <div id="validacioPerdut" class="form-text"></div>
             </div>
             </div>
-            <input type="submit" class="btn btn-primary" value="Afegir" />
+            <input type="submit" class="btn btn-primary" value="Afegir" id="boto-submit-politica" />
           </form>
         </div>
 
@@ -54,6 +56,23 @@
   </main>
 
   <footer th:replace="plantilla/template :: footer"></footer>
+
+  <script>
+
+    $(document).ready(function() {
+
+      $("#boto-submit-politica").click(function () {
+        validarFormPolitica();
+
+        console.log(campsCorrectes);
+
+        if (campsCorrectes !== 2){
+          campsCorrectes = 0;
+        }
+      });
+    });
+
+  </script>
 
 </div>
 </body>

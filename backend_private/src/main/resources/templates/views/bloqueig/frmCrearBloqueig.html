@@ -4,6 +4,9 @@
 <head>
     <div th:replace="plantilla/template :: head(type='tag')"></div>
     <title>Crear Bloqueig</title>
+
+    <!-- Validacio Formulari de Crear Nova Tarifa i editar Tarifa -->
+    <script type="text/javascript" th:src="@{/js/ValidacionsFormularis/validacionsFormularis.js}"></script>
 </head>
 
 <body>
@@ -22,7 +25,7 @@
 
                 <div class="card-body bg-light">
 
-                    <form th:object="${bloqueig}" th:action="@{/views/bloqueig/save}" method="post"> <!-- onsubmit="return validacioTarifa()"-->
+                    <form th:object="${bloqueig}" th:action="@{/views/bloqueig/save}" method="post" onsubmit="return validacioBloqueig()">
                         <div class="mb-3">
                             <label for="casa" class="form-label">Propietat</label>
                             <select type="text" class="form-control" id="casa" aria-describedby="emailHelp" th:field="*{propietat}" readonly>
@@ -63,9 +66,8 @@
         $(document).ready(function() {
 
             $("#boto-submit-bloqueig").click(function () {
-                validarFormTarifa();
 
-                console.log(campsCorrectes);
+                validarFormBloqueig();
 
                 if (campsCorrectes !== 2){
                     campsCorrectes = 0;

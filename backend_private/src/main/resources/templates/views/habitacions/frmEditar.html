@@ -4,6 +4,9 @@
 <head>
   <div th:replace="plantilla/template :: head(type='tag')"></div>
   <title>Editar Habitacio</title>
+
+  <!-- Validacio Formulari de Crear Nova Tarifa i editar Tarifa -->
+  <script type="text/javascript" th:src="@{/js/ValidacionsFormularis/validacionsFormularis.js}"></script>
 </head>
 <body>
 <header th:replace="plantilla/template :: header"></header>
@@ -20,7 +23,7 @@
 
         <div class="card-body bg-light">
 
-          <form th:object="${habitacio}" th:action="@{/views/habitacions/save}" method="post" enctype="multipart/form-data">
+          <form th:object="${habitacio}" th:action="@{/views/habitacions/save}" method="post" onsubmit="return validacioHabitacio()">
 
             <div class="mb-3">
               <label for="casa" class="form-label">Propietat: </label>
@@ -36,25 +39,26 @@
               <label for="bany" class="form-label"> Banys: </label>
               <select type="text" class="form-control" id="bany" aria-describedby="emailHelp" th:field="*{bany}">
                 <option th:value="1"
-                        th:text="Si"/>
+                        th:text="Si"></option>
                 <option th:value="0"
-                        th:text="No"/>
+                        th:text="No"></option>
               </select>
             </div>
           <div class="row">
             <div class="mb-3 col-6">
               <label for="llitDoble" class="form-label">Llits dobles: </label>
               <input type="text" class="form-control" id="llitDoble" aria-describedby="emailHelp" th:field="*{llit_Doble}">
-
+              <div id="validacioDoble" class="form-text"></div>
             </div>
 
             <div class="mb-3 col-6">
               <label for="llitSimple" class="form-label">Llits simples: </label>
               <input type="text" class="form-control" id="llitSimple" aria-describedby="emailHelp" th:field="*{llit_simple}">
+              <div id="validacioSimple" class="form-text"></div>
             </div>
           </div>
-            <input type="submit" class="btn btn-primary" value="Guardar" />
-
+            <div id="errorLlits" class="form-text mb-4 p-3"></div>
+            <input type="submit" class="btn btn-primary" value="Guardar" id="boto-submit-habitacio"/>
           </form>
         </div>
 
@@ -65,6 +69,22 @@
   <footer>
     <div th:replace="plantilla/template :: footer"></div>
   </footer>
+
+  <script>
+
+    $(document).ready(function() {
+
+      $("#boto-submit-habitacio").click(function () {
+
+        validarFormHabitacio();
+
+        if (campsCorrectes !== 3){
+          campsCorrectes = 0;
+        }
+      });
+    });
+
+  </script>
 
 </div>
 </body>
