@@ -46,7 +46,9 @@ public class TarifaController {
         Tarifa tarifa = new Tarifa();
         model.addAttribute("tarifes",tarifa);
         model.addAttribute("propietats",propietat);
-
+        if(!idUsuari.equals(propietat.getPropietari().getId())){
+            return "/views/errorAutenticacio";
+        }
         model.addAttribute("id", idUsuari);
 
         return "/views/tarifes/frmCrearTarifa";
@@ -136,7 +138,9 @@ public class TarifaController {
         model.addAttribute("titulo","Formulario: Editar Tarifas");
         model.addAttribute("tarifa",tarifa);
         model.addAttribute("propietat",propietat);
-
+        if(!idUsuari.equals(propietat.getPropietari().getId())){
+            return "/views/errorAutenticacio";
+        }
         model.addAttribute("id", idUsuari);
 
         return "/views/tarifes/frmEditarTarifes";
