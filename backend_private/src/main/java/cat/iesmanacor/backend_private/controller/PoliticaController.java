@@ -55,7 +55,9 @@ public class PoliticaController {
 
         //Model que passa l'ID de l'USUARI (Necessari en tot moment per el link de propietats del header)
         model.addAttribute("id", idUsuari);
-
+        if(!idUsuari.equals(listPropietat.getPropietari().getId())){
+            return "/views/errorAutenticacio";
+        }
         return "/views/politiques/frmCrearPolitica";
     }
 
@@ -68,7 +70,9 @@ public class PoliticaController {
 
         //Model que passa l'ID de l'USUARI (Necessari en tot moment per el link de propietats del header)
         model.addAttribute("id", idUsuari);
-
+        if(!idUsuari.equals(listPropietat.getPropietari().getId())){
+            return "/views/errorAutenticacio";
+        }
         return "/views/politiques/frmCrearPolitica";
     }
 

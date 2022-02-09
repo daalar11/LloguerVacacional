@@ -44,7 +44,9 @@ public class HabitacionController {
         model.addAttribute("habitacio",habitacio);
         model.addAttribute("propietats",listPropietat);
         model.addAttribute("id", idUsuari);
-
+        if(!idUsuari.equals(listPropietat.getPropietari().getId())){
+            return "/views/errorAutenticacio";
+        }
         return "/views/habitacions/frmAfegir";
     }
 
@@ -70,7 +72,9 @@ public class HabitacionController {
 
         //Model que passa l'ID de l'USUARI (Necessari en tot moment per el link de propietats del header)
         model.addAttribute("id", idUsuari);
-
+        if(!idUsuari.equals(propietat.getPropietari().getId())){
+            return "/views/errorAutenticacio";
+        }
         return "/views/habitacions/frmEditar";
     }
 

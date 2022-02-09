@@ -37,7 +37,6 @@ public class PropietatController {
 
     @ModelAttribute
     public void addAttributes(Model model, HttpSession httpSession) {
-
         if (httpSession.getAttribute("usuari") != null){
             Propietari propietari = propietariService.findPropietariByCorreu(((Propietari) httpSession.getAttribute("usuari")).getCorreu());
             model.addAttribute("idUsuari", propietari.getId());
@@ -53,6 +52,9 @@ public class PropietatController {
             propietari= propietariService.findPropietariByCorreu(((Propietari) httpSession.getAttribute("usuari")).getCorreu());
             llistaPropietats = propietatService.findByPropietari( propietari);
             model.addAttribute("id",propietari.getId());
+            if(!propietari.getId().equals(id)){
+                return "/views/errorAutenticacio";
+            }
         }else {
             llistaPropietats = propietatService.listarTodos();
         }
@@ -79,6 +81,9 @@ public class PropietatController {
         //Codi Habitacions
         List<Habitacio> llistaHabitacions=new ArrayList<>();
         Propietat propietat = propietatService.buscarPorId(idPROPIETAT);
+        if(propietat.getPropietari().getId()!= idUsuari){
+            return "/views/errorAutenticacio";
+        }
         llistaHabitacions.addAll(propietat.getHabitacions());
         model.addAttribute("habitacions",llistaHabitacions);
         model.addAttribute("propietat",propietat);
@@ -146,7 +151,9 @@ public class PropietatController {
         Propietat p = new Propietat();
         List<Localitat> listLocalitats = localitatService.llistarLocalitats();
         Propietari propietari = propietariService.findById(id);
-
+        if(id != idUsuari){
+            return "/views/errorAutenticacio";
+        }
         model.addAttribute("propietari",propietari);
         model.addAttribute("propietat", p);
         model.addAttribute("localitats", listLocalitats);
