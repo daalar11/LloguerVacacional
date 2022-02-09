@@ -605,7 +605,28 @@
 
               <div class="row">
 
-                <article class="col-4"><img th:src="@{${'/Media/' + nomPropietatSenseEspais + '-media/IMG_20220201_221817.jpg'}}" alt="Foto Portada" class="img-fluid w-100"></article>
+                <article class="col-4 border p-4 border-dark"><img
+                        th:src="@{${'/Media/' + nomPropietatSenseEspais + '-media/' + nomPropietatSenseEspais + '-portada.jpg'}}"
+                        alt="Foto Portada" class="img-fluid w-100"></article>
+
+              </div>
+              <div class="row">
+                <p th:text="${numeroFotosSecundaries.toString()}"></p>
+                <th:block th:each="i: ${#numbers.sequence(1, numeroFotosSecundaries)}">
+
+                  <article class="col-4">
+                    <img
+                          th:src="@{${'/Media/' + nomPropietatSenseEspais + '-media/img/' + nomPropietatSenseEspais + '-' + i +'.jpg'}}"
+                          alt="Foto Portada" class="img-fluid w-100">
+                  </article>
+
+                </th:block>
+                <!--
+                 <th:block th:each="i: ${#numbers.sequence(0, response.count - 1)}">
+                    <button th:if="${response.page == i}" class="active">Dummy</button>
+                    <button th:unless="${response.page == i}">Dummy</button>
+                </th:block>
+                 -->
 
               </div>
 
@@ -769,7 +790,9 @@
 
       validarFormPropietat();
 
-      if (campsCorrectes !== 6) {
+      console.log(campsCorrectes);
+
+      if (campsCorrectes !== 9) {
         campsCorrectes = 0;
       }
     });

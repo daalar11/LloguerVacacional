@@ -141,6 +141,12 @@ public class PropietatController {
         String nomPropietatSenseEspais = propietat.getNomPropietat().replace(" ", "");
         model.addAttribute("nomPropietatSenseEspais", nomPropietatSenseEspais);
 
+        //Per saber el numero de fitxers que hi ha dins un directory
+        String path = "C:\\Media\\"+ propietat.getNomPropietat().replace(" ", "") + "-media\\img\\";
+        File subcarpeta = new File(path);
+        int numeroFitxers =  subcarpeta.list().length;
+        model.addAttribute("numeroFotosSecundaries", numeroFitxers);
+
     return "/views/propietats/caracteristicaPropietat";
     }
 
@@ -203,7 +209,7 @@ public class PropietatController {
         }
 
         //Cream una carpeta per la Media de la propietat, el nom de la carpeta sera nomPropietat-img
-        File carpeta = new File("../Media/"+ p.getNomPropietat().replace(" ", "") + "-media/img/");
+        File carpeta = new File("/Media/"+ p.getNomPropietat().replace(" ", "") + "-media/img/");
         if (!carpeta.exists()){
             if (carpeta.mkdirs()){
                 System.out.println("Shan crear les carpetes");
@@ -213,7 +219,7 @@ public class PropietatController {
         }
 
         //Definim path de la foto (Path relatiu)
-        String ruta = "../Media/" + p.getNomPropietat().replace(" ", "") + "-media/";
+        String ruta = "/Media/" + p.getNomPropietat().replace(" ", "") + "-media/";
 
         //Ruta completa
         String filename = ruta + nomModificatImatge;
@@ -254,10 +260,18 @@ public class PropietatController {
 
     //Metode que guarda fotos secundaries de la propietat.
     @PostMapping("/fotos/save")
-    public String guardarFoto(@ModelAttribute("idUsuari") Long idUsuari, @RequestParam(name = "fotosSecundaries") MultipartFile foto, @Validated @ModelAttribute Propietat p, Model model) throws IOException{
+    public String guardarFoto(@ModelAttribute("idUsuari") Long idUsuari, @RequestParam(name = "fotosSecundaries") MultipartFile fotoSecundaria, @Validated @ModelAttribute Propietat p, Model model) throws IOException{
 
-        InputStream in = foto.getInputStream();
-        String nomImatge = foto.getOriginalFilename();
+        //Per saber el numero de fitxers que hi ha dins un directory
+        String path = "/Media/"+ p.getNomPropietat().replace(" ", "") + "-media/img/";
+        File subcarpeta = new File(path);
+        int numeroFitxers =  Objects.requireNonNull(subcarpeta.listFiles()).length;
+        model.addAttribute("numeroFotosSecundaries", numeroFitxers);
+        int numeroFitxerSum = numeroFitxers+1;
+
+        InputStream in = fotoSecundaria.getInputStream();
+        String nomImatge = fotoSecundaria.getOriginalFilename();
+        String nomModificatImatge = p.getNomPropietat().replace(" ", "")+"-" + numeroFitxerSum +".jpg";
 
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         byte[] readBuf = new byte[4096];
@@ -267,7 +281,7 @@ public class PropietatController {
         }
 
         //Cream una carpeta per la Media de la propietat, el nom de la carpeta sera nomPropietat-img
-        File carpeta = new File("../Media/"+ p.getNomPropietat().replace(" ", "") + "-media/img/");
+        File carpeta = new File("/Media/"+ p.getNomPropietat().replace(" ", "") + "-media/img/");
         if (!carpeta.exists()){
             if (carpeta.mkdirs()){
                 System.out.println("Shan crear les carpetes");
@@ -277,8 +291,8 @@ public class PropietatController {
         }
 
         //Definim path de la foto (Path relatiu)
-        String ruta = "../Media/" + p.getNomPropietat().replace(" ", "") + "-media/img/";
-        String filename = ruta + nomImatge;
+        String ruta = "/Media/" + p.getNomPropietat().replace(" ", "") + "-media/img/";
+        String filename = ruta + nomModificatImatge;
 
         OutputStream outputStream = new FileOutputStream(filename);
         out.writeTo(outputStream);
