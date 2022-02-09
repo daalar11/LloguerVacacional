@@ -156,7 +156,7 @@ function validarLatitutPropietat(){
     console.log(lat);
 
     //No pot ser null.
-    if (lat == null){
+    if (lat.length <= 0){
         incorrecte("#latitud", "#validaciolat", "Has d'indicar la posició de la propietat al mapa!")
     } else {
         correcte("#latitud", "#validaciolat")
@@ -171,7 +171,7 @@ function validarLongitutPropietat(){
     console.log(lon);
 
     //No pot ser null.
-    if (lon == null){
+    if (lon <= 0){
         incorrecte("#longitud", "#validaciolon", "Has d'indicar la posició de la propietat al mapa!")
     } else {
         correcte("#longitud", "#validaciolon")

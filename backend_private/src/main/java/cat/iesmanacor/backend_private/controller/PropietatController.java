@@ -132,6 +132,10 @@ public class PropietatController {
 
         model.addAttribute("id", idUsuari);
 
+        //MODEL ESPECIAL PER VISUALITZAR FOTOS
+        String nomPropietatSenseEspais = propietat.getNomPropietat().replace(" ", "");
+        model.addAttribute("nomPropietatSenseEspais", nomPropietatSenseEspais);
+
     return "/views/propietats/caracteristicaPropietat";
     }
 
@@ -181,7 +185,8 @@ public class PropietatController {
         List<Localitat> listLocalitats = localitatService.llistarLocalitats();
 
         InputStream in = foto.getInputStream();
-        String nomImatge = foto.getOriginalFilename();
+        String nomOriginalImatge = foto.getOriginalFilename();
+        String nomModificatImatge = p.getNomPropietat().replace(" ", "")+"-portada.jpg";
 
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         byte[] readBuf = new byte[4096];
@@ -204,10 +209,10 @@ public class PropietatController {
         String ruta = "../Media/" + p.getNomPropietat().replace(" ", "") + "-media/";
 
         //Ruta completa
-        String filename = ruta + nomImatge;
+        String filename = ruta + nomModificatImatge;
 
         //El condicional es per veure si han pujar una foto o no.
-        if (nomImatge != "") {
+        if (nomModificatImatge != "") {
 
             OutputStream outputStream = new FileOutputStream(filename);
             out.writeTo(outputStream);

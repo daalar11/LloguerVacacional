@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Navbar, NavbarBrand, NavbarToggler, Collapse, NavItem, NavLink, Nav, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, NavbarText } from 'reactstrap';
- 
+import {Link} from "react-router-dom";
+
 class Menu extends Component {
   render() {
     return (
@@ -14,7 +15,7 @@ class Menu extends Component {
           light
         >
           <NavbarBrand href="/">
-            Home
+          <Link to="/">HOME</Link>
           </NavbarBrand>
           <NavbarToggler onClick={function noRefCheck(){}} />
           <Collapse navbar>
@@ -24,12 +25,12 @@ class Menu extends Component {
             >
               <NavItem>
                 <NavLink href="/cercarpropietat">
-                  Cercar Propietat
+                <Link to="/cercarpropietat">Cerca Propietat</Link>
                 </NavLink>
               </NavItem>
               <NavItem>
                 <NavLink href="/contact">
-                  Contact
+                <Link to="/contact">Contact</Link>
                 </NavLink>
               </NavItem>
               <UncontrolledDropdown
@@ -57,7 +58,7 @@ class Menu extends Component {
               </UncontrolledDropdown>
               <NavItem>
                 <NavLink href="/login">
-                  Loggin
+                  <Link to="/login">Login</Link>
                 </NavLink>
               </NavItem>
             </Nav>

@@ -60,16 +60,8 @@ class App extends Component {
     return (
       
       <Router>
-      <div className="App">
-      <Menu></Menu>
-        <nav>
-          <ul className="header"> {/*Seccio header*/}
-            <li><Link to="/"></Link></li> {/*Exact indica la seccio que es mostra per defecte*/}
-            <li><Link to="/cercarpropietat"></Link></li>
-            <li><Link to="/login"></Link></li>
-            <li><Link to="/contact"></Link></li>
-          </ul>
-        </nav>
+        <div className="App">
+        <Menu/>
         <div className="content mt-5"> {/*Seccio Content*/}
           <Routes>
             <Route path="/" element={<Home />} />
@@ -83,49 +75,18 @@ class App extends Component {
                   <tr><th>Hits</th></tr>
                 </thead>
                 <tbody>{hits.map(function(item, key) {
-                       return (
+                        return (
                           <tr key = {key}>
                               <td><a href={item.url}>{item.title}</a></td>
                           </tr>
                         )
-                     })}
+                      })}
                 </tbody>
-           </table>
+        </table>
       </div>
-      </Router>
+    </Router>
     );
   }
 }
 
 export default App;
-
-
-
-
-
-/*import logo from './logo.svg';
-import './App.css';
-
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
-
-export default App;
-*/
