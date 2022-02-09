@@ -322,7 +322,7 @@
                         <label for="file" class="form-label">Foto Principal</label>
 
                         <div class="input-group">
-                          <input type="file" name="file" class="form-control" id="file" />
+                          <input type="file" accept="image/jpg" name="file" class="form-control" id="file" />
                           <div class="input-group-prepend">
                             <div class="input-group-text">#</div>
                           </div>
@@ -605,16 +605,17 @@
 
               <div class="row">
 
-                <article class="col-4 border p-4 border-dark"><img
+                <article class="col-12 border m-4 p-4 border-dark"><img
                         th:src="@{${'/Media/' + nomPropietatSenseEspais + '-media/' + nomPropietatSenseEspais + '-portada.jpg'}}"
                         alt="Foto Portada" class="img-fluid w-100"></article>
 
               </div>
               <div class="row">
-                <p th:text="${numeroFotosSecundaries.toString()}"></p>
-                <th:block th:each="i: ${#numbers.sequence(1, numeroFotosSecundaries)}">
 
-                  <article class="col-4">
+                <!-- Per cada foto secundaria a la carpeta img fara un article.-->
+                <th:block th:if="${numeroFotosSecundaries != 0}" th:each="i: ${#numbers.sequence(1, numeroFotosSecundaries)}">
+
+                  <article class="col-4 m-4 p-3 border border-danger">
                     <img
                           th:src="@{${'/Media/' + nomPropietatSenseEspais + '-media/img/' + nomPropietatSenseEspais + '-' + i +'.jpg'}}"
                           alt="Foto Portada" class="img-fluid w-100">
@@ -650,7 +651,7 @@
 
                       <div class="mb-3">
                         <label for="fotosSecundaries" class="form-label">Fotos</label>
-                        <input type="file" class="form-control" name="fotosSecundaries" id="fotosSecundaries" required>
+                        <input type="file" accept="image/jpg" class="form-control" name="fotosSecundaries" id="fotosSecundaries" required>
                         <div id="fotosMultipleSpan" class="form-text">Aqui pots afegir totes les fotos que vulguis de la teva propietat (De una en una)</div>
                       </div>
 

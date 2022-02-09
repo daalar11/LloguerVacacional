@@ -27,12 +27,6 @@ public class PropietatController {
     @Autowired
     private iLocalitatService localitatService;
     @Autowired
-    private iTarifaService tarifaService;
-    @Autowired
-    private iHabitacioService habitacioService;
-    @Autowired
-    private iPoliticaService politicaService;
-    @Autowired
     private iPropietariService propietariService;
 
     @ModelAttribute
@@ -198,8 +192,19 @@ public class PropietatController {
         List<Localitat> listLocalitats = localitatService.llistarLocalitats();
 
         InputStream in = foto.getInputStream();
-        String nomOriginalImatge = foto.getOriginalFilename();
-        String nomModificatImatge = p.getNomPropietat().replace(" ", "")+"-portada.jpg";
+
+        //CODI PER OBTENIR L'EXTENSIO D'UNA IMATGE
+        String nomImatge = foto.getOriginalFilename();
+        String extension = "";
+        assert nomImatge != null;
+        int i = nomImatge.lastIndexOf('.');
+        if (i > 0) {
+            extension = nomImatge.substring(i+1);
+        }
+        model.addAttribute("extensioImatge", extension);
+
+        //Modificam el nom de l'imatge al dessitjat.
+        String nomModificatImatge = p.getNomPropietat().replace(" ", "")+"-portada." + extension;
 
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         byte[] readBuf = new byte[4096];
@@ -248,10 +253,10 @@ public class PropietatController {
 
     //Metode que elimina una propietat.
     @GetMapping("/delete/{idPROPIETAT}")
-    public String eliminar(@ModelAttribute("idUsuari") Long idUsuari, HttpSession httpSession, @PathVariable("idPROPIETAT") Long idPROPIETAT) {
+    public String eliminar(Model model, @ModelAttribute("idUsuari") Long idUsuari, HttpSession httpSession, @PathVariable("idPROPIETAT") Long idPROPIETAT) {
 
         Propietari propietari = propietariService.findPropietariByCorreu(((Propietari) httpSession.getAttribute("usuari")).getCorreu());
-
+        model.addAttribute("id", idUsuari);
         propietatService.eliminar(idPROPIETAT);
         System.out.println("Sha eliminat la propietat amb exit");
 
@@ -270,8 +275,18 @@ public class PropietatController {
         int numeroFitxerSum = numeroFitxers+1;
 
         InputStream in = fotoSecundaria.getInputStream();
+
+        //CODI PER OBTENIR L'EXTENSIO D'UNA IMATGE
         String nomImatge = fotoSecundaria.getOriginalFilename();
-        String nomModificatImatge = p.getNomPropietat().replace(" ", "")+"-" + numeroFitxerSum +".jpg";
+        String extension = "";
+        assert nomImatge != null;
+        int i = nomImatge.lastIndexOf('.');
+        if (i > 0) {
+            extension = nomImatge.substring(i+1);
+        }
+        model.addAttribute("extensioImatge", extension);
+
+        String nomModificatImatge = p.getNomPropietat().replace(" ", "")+"-" + numeroFitxerSum +"." + extension;
 
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         byte[] readBuf = new byte[4096];
@@ -302,7 +317,4 @@ public class PropietatController {
         return "redirect:/views/propietats/configurar/"+p.getIdPROPIETAT();
     }
 
-
-
-
-}
+}//FI CONTROLADOR

@@ -1,15 +1,12 @@
 package cat.iesmanacor.backend_private.controller;
 
-import cat.iesmanacor.backend_private.entitats.Administrador;
 import cat.iesmanacor.backend_private.entitats.Propietari;
 import cat.iesmanacor.backend_private.entitats.Usuari;
-import cat.iesmanacor.backend_private.repository.AdministradorRepository;
 import cat.iesmanacor.backend_private.services.iAdministradorService;
 import cat.iesmanacor.backend_private.services.iPropietariService;
 import cat.iesmanacor.backend_private.services.iUsuariService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,11 +14,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.mindrot.jbcrypt.BCrypt;
-
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
-
 
 @Controller
 @RequestMapping("/autenticate")

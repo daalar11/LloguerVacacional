@@ -2,7 +2,6 @@ package cat.iesmanacor.backend_private.controller;
 
 import cat.iesmanacor.backend_private.entitats.Propietari;
 import cat.iesmanacor.backend_private.services.iPropietariService;
-import cat.iesmanacor.backend_private.services.iPropietatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

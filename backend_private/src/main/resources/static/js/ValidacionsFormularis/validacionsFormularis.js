@@ -345,7 +345,73 @@ function validarPercentatgePerdut(){
 
 /* ---------------------CAMPS LOGIN--------------------- */
 
+
+//METODE PEL RETURN DEL FORMULARI
+function validacioLogin(){
+
+    var pasaValidacio = false;
+
+    if (campsCorrectes === 2){return true;}
+    if (pasaValidacio === false){return false;}
+}
+
+function validarFormLogin(){
+
+    campsCorrectes = 0;
+    validarEmailLoggin();
+    validarContrasenyaLogin();
+
+}
+
+function validarEmailLoggin(){
+
+    var email=$("#correu").val();
+    var caract = new RegExp(/^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/);
+
+    if (caract.test(email) == false){
+        incorrecte("#correu", "#validacioCorreu", "No correspon a un correu electronic valid")
+    }else{
+        correcte("#correu", "#validacioCorreu")
+        campsCorrectes++;
+    }
+
+}
+
+function validarContrasenyaLogin(){
+
+    var pass = $("#contrasenya").val();
+
+    if (pass.length <= 0){
+        incorrecte("#contrasenya", "#validacioPass", "Contrasenya no valida")
+    }else{
+        correcte("#contrasenya", "#validacioPass")
+        campsCorrectes++;
+    }
+
+}
+
+
 /* ---------------------CAMPS REGISTER--------------------- */
 
+//METODE PEL RETURN DEL FORMULARI
+function validacioRegister(){
 
+    var pasaValidacio = false;
+
+    if (campsCorrectes === 5){return true;}
+    if (pasaValidacio === false){return false;}
+}
+
+function validarFormRegister(){
+
+    campsCorrectes = 0;
+
+    /* FALTEN AQUETS 5 METODES
+    validarDniRegister();
+    validarNomRegister();
+    validarCognomRegister();
+    validarCorreuRegister();
+    validarContrasenyaRegister();
+    */
+}
 
