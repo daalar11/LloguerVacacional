@@ -23,6 +23,7 @@
     <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
     <!-- CDN JS DATATABLES DE BOOTSTRAP-->
     <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
+    <title>Lloguer Vacacional</title>
 
 </head>
 
@@ -45,16 +46,6 @@
                 <a th:if="${id}==null" class="nav-link text-white-50" th:href="@{/autenticate/loggin}">Sign In</a>
                 <a th:if="${id}!=null" class="nav-link text-white-50" th:href="@{'/autenticate/loggout'}">Loggout</a>
             </div>
-            <!--<div class="dropdown">
-                <button class="btn dropdown-toggle text-white-50" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    Cuenta
-                </button>
-                <ul class="dropdown-menu me-3" aria-labelledby="dropdownMenuButton1">
-                    <li><a class="dropdown-item" href="#">Perfil</a></li>
-                    <li><a class="dropdown-item" href="#">Configuració</a></li>
-                    <li><a class="dropdown-item" href="#">Loggout</a></li>
-                </ul>
-            </div>-->
         </div>
     </nav>
 </header>

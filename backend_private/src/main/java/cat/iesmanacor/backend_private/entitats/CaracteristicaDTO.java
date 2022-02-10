@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class CaracteristicaDTO {
+
     Caracteristica caracteristica;
     boolean contain;
 

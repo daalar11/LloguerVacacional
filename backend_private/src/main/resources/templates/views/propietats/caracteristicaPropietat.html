@@ -6,8 +6,6 @@
   <!-- Validacio Formulari de Crear Nova Propietat i Editar Propietat -->
   <script type="text/javascript" th:src="@{/js/ValidacionsFormularis/validacionsFormularis.js}"></script>
 
-  <title>Configuracio Propietat</title>
-
   <!-- Full Calendar Boundle -->
   <link th:href="@{/fullcalendar/main.css}" rel='stylesheet' />
   <script th:src="@{/fullcalendar/main.js}" ></script>
@@ -129,31 +127,30 @@
 
 <header th:insert="plantilla/template :: header"></header>
 
+<!-- ALERT CONFIRMACIO TARIFES -->
+<script th:inline="javascript">
+
+  if ([[${respostaTarifa}]] != null){
+
+    var resposta = [[${respostaTarifa}]];
+    alert(resposta);
+  }
+
+</script>
+
+<!-- ALERT CONFIRMACIO BLOQUEJOS -->
+<script th:inline="javascript">
+
+  if ([[${respostaBloqueig}]] != null){
+
+    var resposta = [[${respostaBloqueig}]];
+    alert(resposta);
+  }
+</script>
+
 <div class="container">
 
   <main>
-
-    <script th:inline="javascript">
-
-      if ([[${respostaTarifa}]] != null){
-
-        var resposta = [[${respostaTarifa}]];
-
-        alert(resposta);
-      }
-
-    </script>
-
-    <script th:inline="javascript">
-
-      if ([[${respostaBloqueig}]] != null){
-
-        var resposta = [[${respostaBloqueig}]];
-
-      alert(resposta);
-      }
-    </script>
-
 
     <div class="row text-center">
       <p class="fs-1 font-monospace border-dark border-2 border-bottom" th:text="${propietat.nomPropietat}"></p>
@@ -355,7 +352,7 @@
 
                     </div>
                     <div class="col-1 mt-2 form-group">
-                      <input type="submit" id="boto-submit" class="btn btn-primary" value="Guardar" />
+                      <input type="submit" id="boto-submit-propietat" class="btn btn-primary" value="Guardar" />
                     </div>
                     <div class="col-1 form-group">
 
@@ -638,18 +635,11 @@
                 <th:block th:if="${numeroFotosSecundaries != 0}" th:each="i: ${#numbers.sequence(1, numeroFotosSecundaries)}">
 
                   <article class="col-4 m-4 p-3 border border-danger">
-                    <img
-                          th:src="@{${'/Media/' + nomPropietatSenseEspais + '-media/img/' + nomPropietatSenseEspais + '-' + i +'.jpg'}}"
-                          alt="Foto Portada" class="img-fluid w-100">
+                    <img th:src="@{${'/Media/' + nomPropietatSenseEspais + '-media/img/' + nomPropietatSenseEspais + '-' + i +'.jpg'}}"
+                            alt="Foto Portada" class="img-fluid w-100">
                   </article>
 
                 </th:block>
-                <!--
-                 <th:block th:each="i: ${#numbers.sequence(0, response.count - 1)}">
-                    <button th:if="${response.page == i}" class="active">Dummy</button>
-                    <button th:unless="${response.page == i}">Dummy</button>
-                </th:block>
-                 -->
 
               </div>
 
@@ -795,6 +785,7 @@
     });
 
   }//Fi funcio googleMap
+
 </script>
 
 <script th:inline="javascript">
@@ -809,11 +800,9 @@
     veureTaula();
 
     //Quan es clica al boto de submit de editar propietat executa la seguent funcio.
-    $("#boto-submit").click(function () {
+    $("#boto-submit-propietat").click(function () {
 
       validarFormPropietat();
-
-      console.log(campsCorrectes);
 
       if (campsCorrectes !== 9) {
         campsCorrectes = 0;

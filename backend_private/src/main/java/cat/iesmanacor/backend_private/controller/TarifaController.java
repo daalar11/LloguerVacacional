@@ -55,7 +55,7 @@ public class TarifaController {
 
     //Metode que sexecuta en fer el submit de CREATE/UPDATE tarifa
     @PostMapping("/save")
-    public String save(@ModelAttribute("idUsuari") Long idUsuari, @ModelAttribute Tarifa tarifa, Model model){
+    public String save(@ModelAttribute Tarifa tarifa){
 
         boolean valida = true;
 
@@ -95,8 +95,6 @@ public class TarifaController {
                 valida = false;
             }
         }
-
-        model.addAttribute("id", idUsuari);
 
         if (valida) {
             tarifaService.save(tarifa);
@@ -146,8 +144,13 @@ public class TarifaController {
     //Elimina una tarifa
     @GetMapping("/delete/{idTARIFA}")
     public String delete(@PathVariable("idTARIFA") Long idTARIFA){
+
+        Tarifa tarifa = tarifaService.findById(idTARIFA);
+        long idPROPIETAT = tarifa.getPropietat().getIdPROPIETAT();
+
         tarifaService.delete(idTARIFA);
-        return "redirect:/views/propietats/";
+
+        return "redirect:/views/propietats/configurar/"+idPROPIETAT;
     }
 
 

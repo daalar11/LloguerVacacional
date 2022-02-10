@@ -110,16 +110,17 @@ public class BloqueigController {
     //Edita ses habitacions d'una propietat concreta
     @GetMapping("/edit/{idPROPIETAT}/{idBLOQUEIG}")
     public String editar(@ModelAttribute("idUsuari") Long idUsuari, @PathVariable("idBLOQUEIG") long idBLOQUEIG,@PathVariable("idPROPIETAT") Long idPROPIETAT, Model model){
+
         Bloqueig bloqueig = bloqueigService.findById(idBLOQUEIG);
         Propietat propietat = propietatService.buscarPorId(idPROPIETAT);
         model.addAttribute("titulo","Formulario: Editar Bloqueig");
         model.addAttribute("bloqueig",bloqueig);
         model.addAttribute("propietat",propietat);
         model.addAttribute("id", idUsuari);
+
         if(!idUsuari.equals(propietat.getPropietari().getId())){
             return "/views/errorAutenticacio";
         }
-
         return "/views/bloqueig/frmEditarBloqueig";
     }
 
@@ -130,7 +131,6 @@ public class BloqueigController {
         Bloqueig bloqueig = bloqueigService.findById(idBLOQUEIG);
         long idPROPIETAT = bloqueig.getPropietat().getIdPROPIETAT();
         bloqueigService.delete(idBLOQUEIG);
-
 
         return "redirect:/views/propietats/configurar/"+idPROPIETAT;
     }
