@@ -66,7 +66,7 @@ public class UsuariController {
 
         model.addAttribute("id", propietari.getId());
 
-        return "redirect:/autenticate/register";
+        return "redirect:/autenticate/loggin";
     }
 
     //redirecciona a loggin
@@ -75,6 +75,13 @@ public class UsuariController {
         Usuari usuari = new Usuari();
         model.addAttribute("usuari",usuari);
         return "/views/Login_Register/Loggin";
+    }
+    @GetMapping("/loggout")
+    public String loggin(HttpSession httpSession,Model model){
+        Usuari usuari = new Usuari();
+        model.addAttribute("usuari",usuari);
+        httpSession.invalidate();
+        return "redirect:/autenticate/loggin";
     }
 
     //Comprova si l'usuari es administrador o propietari, si no es cap dels dos torna a pantalla loggin
