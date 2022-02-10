@@ -100,12 +100,10 @@ public class TarifaController {
 
         if (valida) {
             tarifaService.save(tarifa);
-            System.out.println("Tarifa guardada amb exit");
-            return "redirect:/views/propietats/configurar/" + propietat.getIdPROPIETAT();
+            return "redirect:/views/propietats/configurar/" + propietat.getIdPROPIETAT()+"?respostaTarifa=1";
         } else {
-            System.out.println("Ja hi ha una tarifa en aquestes dates.");
-            model.addAttribute("tarifesConflictives", tarifesConflictives);
-            return "redirect:/views/propietats/configurar/" + propietat.getIdPROPIETAT();
+            //model.addAttribute("tarifesConflictives", tarifesConflictives);
+            return "redirect:/views/propietats/configurar/" + propietat.getIdPROPIETAT()+"?respostaTarifa=0";
         }
 
         //Logica del condicional

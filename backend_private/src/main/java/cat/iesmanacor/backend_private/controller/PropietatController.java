@@ -60,7 +60,7 @@ public class PropietatController {
 
     //Metode controlador de configurar una propietat. Et retorna totes les dades relacionades amb la propietat.
     @GetMapping("/configurar/{idPROPIETAT}")
-    public String configuracio(@ModelAttribute("idUsuari") Long idUsuari, Model model, @PathVariable("idPROPIETAT") Long idPROPIETAT, HttpSession httpSession){
+    public String configuracio(@RequestParam(name="respostaBloqueig", required = false) Integer respostaBloqueig, @RequestParam(name="respostaTarifa", required = false) Integer respostaTarifa, @ModelAttribute("idUsuari") Long idUsuari, Model model, @PathVariable("idPROPIETAT") Long idPROPIETAT, HttpSession httpSession){
 
         //Models que envien els titols de cada Tab.
         model.addAttribute("titolEditarPropietat","Totes les dades de la propietat, tambè pots modificar les dades");
@@ -141,6 +141,23 @@ public class PropietatController {
         int numeroFitxers =  subcarpeta.list().length;
         model.addAttribute("numeroFotosSecundaries", numeroFitxers);
 
+        if (respostaTarifa != null) {
+            //Per saber si una tarifa s'ha aceptat o no s'ha pogut introduir
+            if (respostaTarifa == 0) {
+                model.addAttribute("respostaTarifa", "No s'ha pogut introduir la tarifa \nComprova que les dates siguin valides");
+            } else if (respostaTarifa == 1) {
+                model.addAttribute("respostaTarifa", "Dates valides \nS'ha introduit la nova tarifa");
+            }
+        }
+        if (respostaBloqueig != null) {
+            //Per saber si una tarifa s'ha aceptat o no s'ha pogut introduir
+            if (respostaBloqueig == 0) {
+                model.addAttribute("respostaBloqueig", "No s'ha pogut introduir el bloqueig\nComprova que les dates siguin valides");
+            } else if (respostaBloqueig == 1) {
+                model.addAttribute("respostaBloqueig", "Dates valides \nS'ha introduit un nou bloqueig");
+            }
+        }
+
     return "/views/propietats/caracteristicaPropietat";
     }
 
@@ -151,16 +168,15 @@ public class PropietatController {
         Propietat p = new Propietat();
         List<Localitat> listLocalitats = localitatService.llistarLocalitats();
         Propietari propietari = propietariService.findById(id);
+
         if(id != idUsuari){
             return "/views/errorAutenticacio";
         }
+
         model.addAttribute("propietari",propietari);
         model.addAttribute("propietat", p);
         model.addAttribute("localitats", listLocalitats);
         model.addAttribute("id", idUsuari);
-
-
-
 
         return "/views/propietats/frmCrearPropietat";
     }
