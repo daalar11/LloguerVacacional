@@ -136,7 +136,7 @@ public class PropietatController {
         model.addAttribute("nomPropietatSenseEspais", nomPropietatSenseEspais);
 
         //Per saber el numero de fitxers que hi ha dins un directory
-        String path = "C:\\Media\\"+ propietat.getNomPropietat().replace(" ", "") + "-media\\img\\";
+        String path = "/Media/"+ propietat.getNomPropietat().replace(" ", "") + "-media/img/";
         File subcarpeta = new File(path);
         int numeroFitxers =  subcarpeta.list().length;
         model.addAttribute("numeroFotosSecundaries", numeroFitxers);

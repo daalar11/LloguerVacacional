@@ -98,7 +98,7 @@
           {
             //Per GET arriben els bloquejos
             method: "GET", //Metode d'obtencio de les dades
-            url: "http://localhost:8080/views/propietat/configurar/" + [[${propietat.idPROPIETAT}]], //URL on es passa el JSON
+            url: "/views/propietat/configurar/" + [[${propietat.idPROPIETAT}]], //URL on es passa el JSON
             //Propietats dels events que arriben per GET
             display: "background", //Es displayea levent ocupant tot el background del dia
             backgroundColor: "red", //Color del background
@@ -106,9 +106,9 @@
             textColor: "black" //Color del text !NO FUNCIONA
           },
           {
-            //Per post arrriben les tarifes
+            //Per post arrriben les reserves
             method: "POST",
-            url: "http://localhost:8080/views/propietat/configurar/" + [[${propietat.idPROPIETAT}]], //URL on es passa el JSON
+            url: "/views/propietat/configurar/" + [[${propietat.idPROPIETAT}]], //URL on es passa el JSON
             //Propietats dels events que arriben per POST
             backgroundColor: "green",
             display: "background"
