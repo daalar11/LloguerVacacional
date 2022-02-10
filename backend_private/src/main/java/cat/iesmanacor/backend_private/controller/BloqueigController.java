@@ -97,16 +97,12 @@ public class BloqueigController {
             }
         }
 
-        model.addAttribute("id", idUsuari);
-
         if (valida) {
             bloqueigService.save(bloqueig);
-            System.out.println("bloqueig guardat amb exit");
-            return "redirect:/views/propietats/configurar/"+propietat.getIdPROPIETAT();
+            return "redirect:/views/propietats/configurar/" + propietat.getIdPROPIETAT()+"?respostaBloqueig=1";
         } else {
-            System.out.println("Ja hi ha un bloqueig en aquestes dates.");
-            model.addAttribute("tarifesConflictives", bloqueigsConflictius);
-            return "redirect:/views/propietats/configurar/"+propietat.getIdPROPIETAT();
+
+            return "redirect:/views/propietats/configurar/" + propietat.getIdPROPIETAT()+"?respostaBloqueig=0";
         }
 
     }
@@ -129,12 +125,12 @@ public class BloqueigController {
 
     //Elimina una habitacio
     @GetMapping("/delete/{idBLOQUEIG}")
-    public String delete(@ModelAttribute("idUsuari") Long idUsuari, @PathVariable("idBLOQUEIG") long idBLOQUEIG, Model model){
+    public String delete(@PathVariable("idBLOQUEIG") long idBLOQUEIG){
 
         Bloqueig bloqueig = bloqueigService.findById(idBLOQUEIG);
         long idPROPIETAT = bloqueig.getPropietat().getIdPROPIETAT();
         bloqueigService.delete(idBLOQUEIG);
-        model.addAttribute("id", idUsuari);
+
 
         return "redirect:/views/propietats/configurar/"+idPROPIETAT;
     }

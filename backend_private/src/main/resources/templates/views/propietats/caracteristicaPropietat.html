@@ -133,6 +133,28 @@
 
   <main>
 
+    <script th:inline="javascript">
+
+      if ([[${respostaTarifa}]] != null){
+
+        var resposta = [[${respostaTarifa}]];
+
+        alert(resposta);
+      }
+
+    </script>
+
+    <script th:inline="javascript">
+
+      if ([[${respostaBloqueig}]] != null){
+
+        var resposta = [[${respostaBloqueig}]];
+
+      alert(resposta);
+      }
+    </script>
+
+
     <div class="row text-center">
       <p class="fs-1 font-monospace border-dark border-2 border-bottom" th:text="${propietat.nomPropietat}"></p>
     </div>
@@ -553,7 +575,7 @@
                 </table>
               </div>
             </div>
-            <a class="btn btn-success" th:object="${propietat}" th:href="@{'/views/propietats/politiques/afegir/'+*{idPROPIETAT}}">Afegir Politica</a>
+            <a class="btn btn-warning" th:object="${propietat}" th:href="@{'/views/propietats/politiques/afegir/'+*{idPROPIETAT}}">Afegir Politica</a>
           </div>
 
           <!-- Tab-Reserves -->

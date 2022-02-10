@@ -52,11 +52,10 @@ public class HabitacionController {
 
     //recibe los datos del formulario para enviarlos a la bd
     @PostMapping("/save")
-    public String save(@ModelAttribute("idUsuari") Long idUsuari, Model model, @ModelAttribute Habitacio habitacio){
+    public String save(@ModelAttribute Habitacio habitacio){
 
         habitacioService.save(habitacio);
         Long idPropietat=habitacio.getPropietat().getIdPROPIETAT();
-        model.addAttribute("id", idUsuari);
 
         return "redirect:/views/propietats/configurar/"+idPropietat;
     }
@@ -80,12 +79,11 @@ public class HabitacionController {
 
     //Elimina una habitacio
     @GetMapping("/delete/{idHABITACIONS}")
-    public String delete(@ModelAttribute("idUsuari") Long idUsuari, Model model, @PathVariable("idHABITACIONS") Long idHABITACIONS){
+    public String delete(@PathVariable("idHABITACIONS") Long idHABITACIONS){
 
         Habitacio habitacio= habitacioService.findById(idHABITACIONS);
         Long idPropietat=habitacio.getPropietat().getIdPROPIETAT();
         habitacioService.delete(idHABITACIONS);
-        model.addAttribute("id", idUsuari);
 
         return "redirect:/views/propietats/configurar/"+idPropietat;
     }
