@@ -13,7 +13,7 @@
   <script th:src="@{/fullcalendar/main.js}" ></script>
   <script th:src="@{/fullcalendar/locales-all.js}" ></script><!-- Idiomes -->
 
-  <script>
+  <script th:inline="javascript">
 
     var calendar;
 
@@ -706,7 +706,7 @@
 </footer>
 
 <!-- He agut de posar el JavaScript del mapa al fitxer html perque conte caracters incompatibles a un fitxer de JavaScript pur -->
-<script>
+<script th:inline="javascript">
 
   function myMap() {
 
@@ -797,7 +797,7 @@
   }//Fi funcio googleMap
 </script>
 
-<script>
+<script th:inline="javascript">
 
   let height = screen.height;
 

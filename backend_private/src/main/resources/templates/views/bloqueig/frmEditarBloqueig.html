@@ -21,18 +21,18 @@
             <div class="card bg-light mt-3 mb-3">
 
                 <!-- Card Header (Titol) -->
-                <div class="card-header bg-light">Afegir Bloqueig</div>
+                <div class="card-header bg-light">Editar Bloqueig</div>
 
                 <!-- Card Body -->
                 <div class="card-body bg-light">
 
                     <!-- Formulari Editar Bloqueig -->
-                    <form th:object="${bloqueig}" th:action="@{/views/bloqueig/save}" method="post"> <!-- onsubmit="return validacioTarifa()"-->
+                    <form th:object="${bloqueig}" th:action="@{/views/bloqueig/save}" method="post" onsubmit="return validacioBloqueig()">
                         <!-- Camp ID (Hidden) + Nom de la Propietat. -->
                         <div class="mb-3">
                             <input type="hidden" th:field="*{idBLOQUEIG}">
                             <label for="casa" class="form-label">Propietat</label>
-                            <select type="text" class="form-control" id="casa" aria-describedby="emailHelp" th:field="*{propietat}" readonly>
+                            <select type="text" class="form-control" id="casa" th:field="*{propietat}" readonly>
                                 <option th:each="propietat:${propietat}"
                                         th:value="${propietat.idPROPIETAT}"
                                         th:text="${propietat.nomPropietat}"></option>
@@ -41,15 +41,15 @@
                         <!-- Camp Data Inici -->
                         <div class="mb-3">
                             <label for="dataIni" class="form-label">Data Inici </label>
-                            <input type="date" class="form-control" id="dataIni" aria-describedby="emailHelp" th:field="*{dataInici}">
-                            <div id="dataIniSpan" class="form-text">Indica quin dia comença a entrar en vigor la teva tarifa.</div>
+                            <input type="date" class="form-control" id="dataIni" th:field="*{dataInici}">
+                            <div id="dataIniSpan" class="form-text">Indica quin dia comença el bloqueig</div>
                             <div id="validacioDataIni" class="form-text"></div>
                         </div>
                         <!-- Camp Data Final -->
                         <div class="mb-3">
                             <label for="dataFi" class="form-label">Data Final</label>
-                            <input type="date" class="form-control" id="dataFi" aria-describedby="emailHelp" th:field="*{dataFinal}">
-                            <div id="dataFiSpan" class="form-text">Indica quin dia deixa d'entrar en vigor la teva tarifa.</div>
+                            <input type="date" class="form-control" id="dataFi" th:field="*{dataFinal}">
+                            <div id="dataFiSpan" class="form-text">Indica quin dia que finalitza el bloqueig</div>
                             <div id="validacioDataFi" class="form-text"></div>
                         </div>
 
@@ -69,7 +69,7 @@
         <div th:replace="plantilla/template :: footer"></div>
     </footer>
 
-    <script>
+    <script th:inline="javascript">
 
         $(document).ready(function() {
 

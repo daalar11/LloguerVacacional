@@ -129,7 +129,7 @@ public class TarifaController {
 
     //Metode controlador que envia l'informacio de la tarifa a editar al formulari.
     @GetMapping("/edit/{idPROPIETAT}/{idTARIFA}")
-    public String editar(@ModelAttribute("idUsuari") Long idUsuari, @PathVariable("idTARIFA") long idTARIFA,@PathVariable("idPROPIETAT") Long idPROPIETAT, Model model){
+    public String editar(@ModelAttribute("idUsuari") Long idUsuari, @PathVariable("idTARIFA") Long idTARIFA,@PathVariable("idPROPIETAT") Long idPROPIETAT, Model model){
         Tarifa tarifa = tarifaService.findById(idTARIFA);
         Propietat propietat = propietatService.buscarPorId(idPROPIETAT);
         model.addAttribute("titulo","Formulario: Editar Tarifas");
@@ -144,11 +144,11 @@ public class TarifaController {
     }
 
     //Elimina una tarifa
-    /*@GetMapping("/delete/{idTARIFA}")
-    public String delete(@PathVariable("idTARIFA") long idTARIFA){
+    @GetMapping("/delete/{idTARIFA}")
+    public String delete(@PathVariable("idTARIFA") Long idTARIFA){
         tarifaService.delete(idTARIFA);
         return "redirect:/views/propietats/";
-    } */
+    }
 
 
 

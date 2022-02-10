@@ -21,7 +21,7 @@ public class RestController {
 
     //Metode que retorna per get un JSON amb els bloquejos d'una propietat
     @GetMapping("/views/propietat/configurar/{idPROPIETAT}")
-    public List<EventJSON> bloqueigCalendari(@PathVariable long idPROPIETAT){
+    public List<EventJSON> bloqueigCalendari(@PathVariable Long idPROPIETAT){
 
         Propietat propietat = propietatService.buscarPorId(idPROPIETAT);
         List<Bloqueig> llistaBloqueig = new ArrayList<>(propietat.getBloqueig());
@@ -45,7 +45,7 @@ public class RestController {
 
     //Metode que retorna per post un json amb les reserves de la propietat. Li passa a la vista mapejada
     @PostMapping("/views/propietat/configurar/{idPROPIETAT}")
-    public List<EventJSON> reservesCalendari(@PathVariable long idPROPIETAT){
+    public List<EventJSON> reservesCalendari(@PathVariable Long idPROPIETAT){
 
         Propietat propietat = propietatService.buscarPorId(idPROPIETAT);
         List<Reserva> llistaReserves = new ArrayList<>(propietat.getReserves());

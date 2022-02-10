@@ -47,13 +47,13 @@
           <div class="row">
             <div class="mb-3 col-6">
               <label for="llitDoble" class="form-label">Llits dobles: </label>
-              <input type="text" class="form-control" id="llitDoble" aria-describedby="emailHelp" th:field="*{llit_Doble}">
+              <input type="number" class="form-control" id="llitDoble" aria-describedby="emailHelp" th:field="*{llit_Doble}">
               <div id="validacioDoble" class="form-text"></div>
             </div>
 
             <div class="mb-3 col-6">
               <label for="llitSimple" class="form-label">Llits simples: </label>
-              <input type="text" class="form-control" id="llitSimple" aria-describedby="emailHelp" th:field="*{llit_simple}">
+              <input type="number" class="form-control" id="llitSimple" aria-describedby="emailHelp" th:field="*{llit_simple}">
               <div id="validacioSimple" class="form-text"></div>
             </div>
           </div>
@@ -70,7 +70,7 @@
     <div th:replace="plantilla/template :: footer"></div>
   </footer>
 
-  <script>
+  <script th:inline="javascript">
 
     $(document).ready(function() {
 

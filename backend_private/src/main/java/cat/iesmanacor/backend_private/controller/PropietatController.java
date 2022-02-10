@@ -2,7 +2,6 @@ package cat.iesmanacor.backend_private.controller;
 
 import cat.iesmanacor.backend_private.entitats.*;
 import cat.iesmanacor.backend_private.services.*;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,12 +9,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.util.*;
 
-//NOTACIO OBLIGATORIA (PAQUET AL QUE PERTANY)
 @Controller
 @RequestMapping("/views/propietats")
 public class PropietatController {
@@ -39,7 +36,7 @@ public class PropietatController {
 
     //Metode controlador que retorna una llista de les propietats per mostrarles a la dataTable.
     @GetMapping({"/{Id}"})
-    public String llistarPropietats (@PathVariable("Id") Long id, Model model, HttpSession httpSession){ //(Model) El model s'utilitza per passar dades a les vistes.
+    public String llistarPropietats (@PathVariable("Id") Long id, Model model, HttpSession httpSession){
         List <Propietat> llistaPropietats;
         if(httpSession.getAttribute("rol").equals("propietari")){
             Propietari propietari;
@@ -60,7 +57,10 @@ public class PropietatController {
 
     //Metode controlador de configurar una propietat. Et retorna totes les dades relacionades amb la propietat.
     @GetMapping("/configurar/{idPROPIETAT}")
-    public String configuracio(@RequestParam(name="respostaBloqueig", required = false) Integer respostaBloqueig, @RequestParam(name="respostaTarifa", required = false) Integer respostaTarifa, @ModelAttribute("idUsuari") Long idUsuari, Model model, @PathVariable("idPROPIETAT") Long idPROPIETAT, HttpSession httpSession){
+    public String configuracio(@RequestParam(name="respostaBloqueig", required = false) Integer respostaBloqueig,
+                               @RequestParam(name="respostaTarifa", required = false) Integer respostaTarifa,
+                               @ModelAttribute("idUsuari") Long idUsuari, Model model,
+                               @PathVariable("idPROPIETAT") Long idPROPIETAT, HttpSession httpSession){
 
         //Models que envien els titols de cada Tab.
         model.addAttribute("titolEditarPropietat","Totes les dades de la propietat, tambè pots modificar les dades");
@@ -182,7 +182,8 @@ public class PropietatController {
     }
 
     @PostMapping("/caracteristiques/save")
-    public String guardarCaracteristiques(@ModelAttribute("idUsuari") Long idUsuari, @RequestParam(name="idPropietat")Long idPropietat,@RequestParam(name="valorCar")List<Long> idsCarac, Model model){
+    public String guardarCaracteristiques(@ModelAttribute("idUsuari") Long idUsuari, @RequestParam(name="idPropietat")Long idPropietat,
+                                          @RequestParam(name="valorCar")List<Long> idsCarac, Model model){
 
         Propietat propietat = propietatService.buscarPorId(idPropietat);
         List<Caracteristica> set= new ArrayList<>();
@@ -201,7 +202,8 @@ public class PropietatController {
 
     //Metode que s'executa quan es fa el submit del formulari crearPropietat
     @PostMapping("/save")
-    public String guardar(@ModelAttribute("idUsuari") Long idUsuari, HttpSession httpSession, @RequestParam(name = "file") MultipartFile foto, @Validated @ModelAttribute Propietat p, BindingResult result, Model model) throws IOException{
+    public String guardar(@ModelAttribute("idUsuari") Long idUsuari, HttpSession httpSession, @RequestParam(name = "file") MultipartFile foto,
+                          @Validated @ModelAttribute Propietat p, BindingResult result, Model model) throws IOException{
 
         Propietari propietari = propietariService.findPropietariByCorreu(((Propietari) httpSession.getAttribute("usuari")).getCorreu());
 
@@ -269,14 +271,13 @@ public class PropietatController {
 
     //Metode que elimina una propietat.
     @GetMapping("/delete/{idPROPIETAT}")
-    public String eliminar(Model model, @ModelAttribute("idUsuari") Long idUsuari, HttpSession httpSession, @PathVariable("idPROPIETAT") Long idPROPIETAT) {
+    public String eliminar(HttpSession httpSession, @PathVariable("idPROPIETAT") Long idPROPIETAT) {
 
         Propietari propietari = propietariService.findPropietariByCorreu(((Propietari) httpSession.getAttribute("usuari")).getCorreu());
-        model.addAttribute("id", idUsuari);
         propietatService.eliminar(idPROPIETAT);
         System.out.println("Sha eliminat la propietat amb exit");
 
-        return "redirect:/views/propietats/"+idUsuari;
+        return "redirect:/views/propietats/"+propietari.getId();
     }
 
     //Metode que guarda fotos secundaries de la propietat.
@@ -300,7 +301,7 @@ public class PropietatController {
         if (i > 0) {
             extension = nomImatge.substring(i+1);
         }
-        model.addAttribute("extensioImatge", extension);
+        model.addAttribute("extensioImatge", extension); //NO ES FA
 
         String nomModificatImatge = p.getNomPropietat().replace(" ", "")+"-" + numeroFitxerSum +"." + extension;
 
