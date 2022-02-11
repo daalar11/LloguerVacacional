@@ -8,7 +8,7 @@ import react, { Component } from 'react';
 import {Alert, Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, Button} from 'reactstrap';
 
 
-class MyCard extends Component {
+class Propietat extends Component {
 
   render(){
   
@@ -35,4 +35,4 @@ class MyCard extends Component {
   }
 }
 
-export default MyCard;
+export default Propietat;
