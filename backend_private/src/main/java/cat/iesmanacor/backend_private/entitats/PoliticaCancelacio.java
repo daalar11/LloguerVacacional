@@ -28,9 +28,9 @@ public class PoliticaCancelacio  implements Serializable {
     private int perdut;
 
     @Column(name="activa",columnDefinition = "BIT")
-    private int activa;
+    private boolean activa;
 
-    public PoliticaCancelacio(Long idPolitica, Propietat propietat, int dies, int perdut, int activa) {
+    public PoliticaCancelacio(Long idPolitica, Propietat propietat, int dies, int perdut, boolean activa) {
         this.idPolitica = idPolitica;
         this.propietat = propietat;
         this.dies = dies;
@@ -72,11 +72,11 @@ public class PoliticaCancelacio  implements Serializable {
         this.perdut = perdut;
     }
 
-    public int getActiva() {
+    public boolean getActiva() {
         return activa;
     }
 
-    public void setActiva(int activa) {
+    public void setActiva(boolean activa) {
         this.activa = activa;
     }
 }

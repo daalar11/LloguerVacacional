@@ -34,18 +34,23 @@
               </select>
             </div>
             <div class="row">
-            <div class="mb-3 col-6">
-              <input type="hidden" th:field="*{idPolitica}">
-              <label for="antelacio" class="form-label">Dies d'antelació</label>
-              <input type="number" class="form-control" id="antelacio" th:field="*{dies}">
-              <div id="validacioAntelacio" class="form-text"></div>
+              <div class="mb-3 col-6">
+                <input type="hidden" th:field="*{idPolitica}">
+                <label for="antelacio" class="form-label">Dies d'antelació</label>
+                <input type="number" class="form-control" id="antelacio" th:field="*{dies}">
+                <div id="validacioAntelacio" class="form-text"></div>
+              </div>
+              <div class="mb-3 col-6">
+                <label for="perdut" class="form-label">Percentatge perdut %</label>
+                <input type="number" class="form-control" id="perdut" th:field="*{perdut}">
+                <div id="validacioPerdut" class="form-text"></div>
+              </div>
+              <div class="mb-3 col-4 form-check form-switch">
+                <label class="form-check-label" for="activa">Estat de la politica (Desactivar <- -> Activar)</label>
+                <input class="form-check-input" type="checkbox" id="activa" th:field="*{activa}">
+              </div>
             </div>
-            <div class="mb-3 col-6">
-              <label for="perdut" class="form-label">Percentatge perdut %</label>
-              <input type="number" class="form-control" id="perdut" th:field="*{perdut}">
-              <div id="validacioPerdut" class="form-text"></div>
-            </div>
-            </div>
+
             <input type="submit" class="btn btn-primary" value="Afegir" id="boto-submit-politica" />
           </form>
         </div>
