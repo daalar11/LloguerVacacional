@@ -14,13 +14,16 @@ class LocalitatController extends Controller
         $localitats = Localitat::all();
 
         //$localitats = Localitat::orderBy('nomLocalitat', 'desc')->get();
-
-        //Condicio                 where('columna', 'valor')->get()
-        //$localitats = Localitat::where('nomLocalitat', 'Artà')->get();
-
-        //Condicio (ULTIM RECORD)  latest()->get();
         //$localitats = Localitat::latest()->get();
 
+        return $localitats->toJson();
+
+    }
+
+    //Metode llistar localitat per la seva ID que arriba per URL
+    public function listByIdLocalitat($idLOCALITAT){
+
+        $localitats = Localitat::where('idLOCALITAT', $idLOCALITAT)->get();
 
         return $localitats->toJson();
 

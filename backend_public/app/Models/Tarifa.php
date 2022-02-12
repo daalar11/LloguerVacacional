@@ -5,12 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Bloqueig extends Model
+class Tarifa extends Model
 {
     use HasFactory;
 
-    protected $table ="bloqueig";
-    protected $primaryKey ='idBLOQUEIG';
+    protected $table ="tarifa";
+    protected $primaryKey ='idTARIFA';
     public $timestamps = false;
-
 }
