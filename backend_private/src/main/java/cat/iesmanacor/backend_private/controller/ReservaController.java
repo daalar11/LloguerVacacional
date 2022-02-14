@@ -49,13 +49,10 @@ public class ReservaController {
 
     //recibe los datos del formulario para enviarlos a la bd
     @PostMapping("/cancelar")
-    public String cancelarReserva(@ModelAttribute("idUsuari") Long idUsuari, Model model, @ModelAttribute Reserva reserva){
+    public String cancelarReserva(@ModelAttribute Reserva reserva){
 
         reservaService.guardar(reserva);
         Long idPropietat = reserva.getPropietat().getIdPROPIETAT();
-
-        //Model que passa l'ID de l'USUARI (Necessari en tot moment per el link de propietats del header)
-        model.addAttribute("id", idUsuari);
 
         return "redirect:/views/propietats/configurar/"+idPropietat;
     }

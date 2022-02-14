@@ -3,7 +3,6 @@
 
 <head>
   <div th:replace="plantilla/template :: head(type='tag')"></div>
-  <title>Nova Habitació</title>
 
   <!-- Validacio Formulari de Crear Nova Tarifa i editar Tarifa -->
   <script type="text/javascript" th:src="@{/js/ValidacionsFormularis/validacionsFormularis.js}"></script>
@@ -28,7 +27,7 @@
           <form th:object="${habitacio}" th:action="@{/views/habitacions/save}" method="post" onsubmit="return validacioHabitacio()">
             <div class="mb-3">
               <label for="casa" class="form-label">Propietat: </label>
-              <select type="text" class="form-control" id="casa" aria-describedby="emailHelp" th:field="*{propietat}" readonly>
+              <select type="text" class="form-control" id="casa" th:field="*{propietat}" readonly>
                 <option th:each="propietat:${propietats}"
                         th:value="${propietat.idPROPIETAT}"
                         th:text="${propietat.nomPropietat}"></option>
@@ -37,7 +36,7 @@
             <div class="mb-3">
               <input type="hidden" th:field="*{idHABITACIONS}">
               <label for="bany" class="form-label"> Banys: </label>
-              <select type="text" class="form-control" id="bany" aria-describedby="emailHelp" th:field="*{bany}">
+              <select type="text" class="form-control" id="bany" th:field="*{bany}">
                 <option th:value="1"
                         th:text="Si"></option>
                 <option th:value="0"
@@ -48,12 +47,12 @@
             <div class="row">
             <div class="mb-3 col-6">
               <label for="llitDoble" class="form-label">Llits dobles: </label>
-              <input type="text" class="form-control" id="llitDoble" aria-describedby="emailHelp" th:field="*{llit_Doble}">
+              <input type="number" class="form-control" id="llitDoble" th:field="*{llit_Doble}">
               <div id="validacioDoble" class="form-text"></div>
             </div>
             <div class="mb-3 col-6">
               <label for="llitSimple" class="form-label">Llits simples: </label>
-              <input type="text" class="form-control" id="llitSimple" aria-describedby="emailHelp" th:field="*{llit_simple}">
+              <input type="number" class="form-control" id="llitSimple" th:field="*{llit_simple}">
               <div id="validacioSimple" class="form-text"></div>
             </div>
             </div>
@@ -68,10 +67,9 @@
 
   <footer>
     <div th:include="plantilla/template :: footer"></div>
-
   </footer>
 
-  <script>
+  <script th:inline="javascript">
 
     $(document).ready(function() {
 

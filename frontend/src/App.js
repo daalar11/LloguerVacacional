@@ -1,92 +1,57 @@
+// -- COMPONENTS IMPORTS --
 import React, { Component } from 'react';
-import {Route, BrowserRouter as Router, Link, Routes} from "react-router-dom";
-
-import 'bootstrap/dist/css/bootstrap.min.css';//Bootstrap
 import Menu from "./components/Menu";//Header
+import './components/Propietat.js';
 
-import Home from "./views/Home"; /*Importam el content de les altres vistes */
+// -- CSS IMPORTS --
+import './App.css'; // Css de la pagina principal (App.js)
+import 'bootstrap/dist/css/bootstrap.min.css';//Css de bootstrap
+
+// -- IMPORTS REACT ROUTER DOM
+import {Route, BrowserRouter as Router, Routes} from "react-router-dom";
+
+// -- VIEWS IMPORTS --
+import Home from "./views/Home";
 import Cercarpropietat from "./views/Cercarpropietat";
+import Viewpropietat from "./views/Viewpropietat";
 import Login from "./views/Login";
 import Contact from "./views/Contact";
-import './App.css'; /* Css */
-
-import './components/MyCard.js';
-
-import axios from 'axios';
-
-const API = 'https://hn.algolia.com/api/v1/search?query=';
-const DEFAULT_QUERY = 'react';
-
 
 class App extends Component {
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      hits: [],
-      isLoading: false,
-      error: null,
-    };
-  }
-
-  componentDidMount() {
-
-    this.setState({ isLoading: true });
-
-    axios.get(API + DEFAULT_QUERY)
-      .then(result => this.setState({
-        hits: result.data.hits,
-        isLoading: false
-      }))
-      .catch(error => this.setState({
-        error,
-        isLoading: false
-      }));
-  }
-
+  // -- COMENÇA EL METODE RENDER
   render() {
 
-    const { hits, isLoading, error } = this.state;
-
-      if (error) {
-        return <p>{error.message}</p>;
-      }
-
-      if (isLoading) {
-        return <p>Loading ...</p>;
-      }
-
+    // -- RETURN DEL METODE RENDER
     return (
       
       <Router>
+
+        {/* Div principal Applicacio (Div General) */}
         <div className="App">
+
+        {/* Component Menu (HEADER-NAVBAR) */}
         <Menu/>
+
+        {/* Content de la pagina (Contingut del MAIN) */}
         <div className="content mt-5"> {/*Seccio Content*/}
+
+          {/* Rutes del Navbar */}
           <Routes>
+
             <Route path="/" element={<Home />} />
             <Route path="/cercarpropietat" element={<Cercarpropietat />} />
+            <Route path="/viewpropietat" element={<Viewpropietat />} />
             <Route path="/login" element={<Login />} />
             <Route path="/contact" element={<Contact />} />
+            
           </Routes>
-        </div>
-        <table  className="table table-striped table-bordered">
-                <thead>
-                  <tr><th>Hits</th></tr>
-                </thead>
-                <tbody>{hits.map(function(item, key) {
-                        return (
-                          <tr key = {key}>
-                              <td><a href={item.url}>{item.title}</a></td>
-                          </tr>
-                        )
-                      })}
-                </tbody>
-        </table>
-      </div>
+          
+        </div>{/* Fi div Content */}
+      </div>{/* Fi div App */}
     </Router>
-    );
-  }
-}
+    );//FI DEL RETURN DEL RENDER
+  }//FI DEL RENDER
+}//FI DEL COMPONENT
 
-export default App;
+export default App;// - Export del component

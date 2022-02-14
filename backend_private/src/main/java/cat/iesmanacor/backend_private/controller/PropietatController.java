@@ -2,7 +2,6 @@ package cat.iesmanacor.backend_private.controller;
 
 import cat.iesmanacor.backend_private.entitats.*;
 import cat.iesmanacor.backend_private.services.*;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,12 +9,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.util.*;
 
-//NOTACIO OBLIGATORIA (PAQUET AL QUE PERTANY)
 @Controller
 @RequestMapping("/views/propietats")
 public class PropietatController {
@@ -39,7 +36,7 @@ public class PropietatController {
 
     //Metode controlador que retorna una llista de les propietats per mostrarles a la dataTable.
     @GetMapping({"/{Id}"})
-    public String llistarPropietats (@PathVariable("Id") Long id, Model model, HttpSession httpSession){ //(Model) El model s'utilitza per passar dades a les vistes.
+    public String llistarPropietats (@PathVariable("Id") Long id, Model model, HttpSession httpSession){
         List <Propietat> llistaPropietats;
         if(httpSession.getAttribute("rol").equals("propietari")){
             Propietari propietari;
@@ -60,7 +57,10 @@ public class PropietatController {
 
     //Metode controlador de configurar una propietat. Et retorna totes les dades relacionades amb la propietat.
     @GetMapping("/configurar/{idPROPIETAT}")
-    public String configuracio(@ModelAttribute("idUsuari") Long idUsuari, Model model, @PathVariable("idPROPIETAT") Long idPROPIETAT, HttpSession httpSession){
+    public String configuracio(@RequestParam(name="respostaBloqueig", required = false) Integer respostaBloqueig,
+                               @RequestParam(name="respostaTarifa", required = false) Integer respostaTarifa,
+                               @ModelAttribute("idUsuari") Long idUsuari, Model model,
+                               @PathVariable("idPROPIETAT") Long idPROPIETAT){
 
         //Models que envien els titols de cada Tab.
         model.addAttribute("titolEditarPropietat","Totes les dades de la propietat, tambè pots modificar les dades");
@@ -73,12 +73,11 @@ public class PropietatController {
         model.addAttribute("titolFotos", "Configuracions sobre les fotos de la propietat");
 
         //Codi Habitacions
-        List<Habitacio> llistaHabitacions=new ArrayList<>();
         Propietat propietat = propietatService.buscarPorId(idPROPIETAT);
-        if(propietat.getPropietari().getId()!= idUsuari){
+        if(!Objects.equals(propietat.getPropietari().getId(), idUsuari)){
             return "/views/errorAutenticacio";
         }
-        llistaHabitacions.addAll(propietat.getHabitacions());
+        List<Habitacio> llistaHabitacions = new ArrayList<>(propietat.getHabitacions());
         model.addAttribute("habitacions",llistaHabitacions);
         model.addAttribute("propietat",propietat);
 
@@ -87,46 +86,40 @@ public class PropietatController {
         model.addAttribute("localitats", listLocalitats);
 
         //Codi Tarifes
-        List<Tarifa> llistaTarifes = new ArrayList<>();
-        llistaTarifes.addAll(propietat.getTarifes());
+        List<Tarifa> llistaTarifes = new ArrayList<>(propietat.getTarifes());
         model.addAttribute("tarifes",llistaTarifes);
 
         //Codi Caracteristiques
         List<Caracteristica> llistaCar = caracteristicaService.findAll();
-        Caracteristica carac= new Caracteristica();
         model.addAttribute("idPropietat",idPROPIETAT);
         model.addAttribute("caracteristiques",llistaCar);
         List<Caracteristica>prova = propietat.getCaracteristicas();
 
         List<CaracteristicaDTO> llistaDTO = new ArrayList<>();
-        for(int i=0; i<llistaCar.size();i++){
+        for (Caracteristica caracteristica : llistaCar) {
             boolean isThere = false;
-            for(int j=0;j<prova.size();j++){
-                if(llistaCar.get(i).getIdCaracteristica().equals(prova.get(j).getIdCaracteristica())){
-                    llistaDTO.add(new CaracteristicaDTO(llistaCar.get(i),true));
+            for (Caracteristica provum : prova) {
+                if (caracteristica.getIdCaracteristica().equals(provum.getIdCaracteristica())) {
+                    llistaDTO.add(new CaracteristicaDTO(caracteristica, true));
                     isThere = true;
                 }
             }
             if (!isThere) {
-                llistaDTO.add(new CaracteristicaDTO(llistaCar.get(i),false));
+                llistaDTO.add(new CaracteristicaDTO(caracteristica, false));
             }
         }
-        System.out.println(llistaDTO);
         model.addAttribute("caracteristiquesProp",llistaDTO);
 
         //Codi Bloqueig
-        List<Bloqueig> llistaBloqueig = new ArrayList<>();
-        llistaBloqueig.addAll(propietat.getBloqueig());
+        List<Bloqueig> llistaBloqueig = new ArrayList<>(propietat.getBloqueig());
         model.addAttribute("bloqueig", llistaBloqueig);
 
         //Codi Reserves
-        List <Reserva> llistaReserves = new ArrayList<>();
-        llistaReserves.addAll(propietat.getReserves());
+        List<Reserva> llistaReserves = new ArrayList<>(propietat.getReserves());
         model.addAttribute("reserves", llistaReserves);
 
         //Listar politicas de cancelacio
-        List<PoliticaCancelacio> politiques = new ArrayList<>();
-        politiques.addAll(propietat.getPolitica());
+        List<PoliticaCancelacio> politiques = new ArrayList<>(propietat.getPolitica());
         model.addAttribute("politiques",politiques);
 
         model.addAttribute("id", idUsuari);
@@ -138,58 +131,70 @@ public class PropietatController {
         //Per saber el numero de fitxers que hi ha dins un directory
         String path = "/Media/"+ propietat.getNomPropietat().replace(" ", "") + "-media/img/";
         File subcarpeta = new File(path);
-        int numeroFitxers =  subcarpeta.list().length;
+        int numeroFitxers =  Objects.requireNonNull(subcarpeta.list()).length;
         model.addAttribute("numeroFotosSecundaries", numeroFitxers);
+
+        if (respostaTarifa != null) {
+            //Per saber si una tarifa s'ha aceptat o no s'ha pogut introduir
+            if (respostaTarifa == 0) {
+                model.addAttribute("respostaTarifa", "No s'ha pogut introduir la tarifa \nComprova que les dates siguin valides");
+            } else if (respostaTarifa == 1) {
+                model.addAttribute("respostaTarifa", "Dates valides \nS'ha introduit la nova tarifa");
+            }
+        }
+        if (respostaBloqueig != null) {
+            //Per saber si una tarifa s'ha aceptat o no s'ha pogut introduir
+            if (respostaBloqueig == 0) {
+                model.addAttribute("respostaBloqueig", "No s'ha pogut introduir el bloqueig\nComprova que les dates siguin valides");
+            } else if (respostaBloqueig == 1) {
+                model.addAttribute("respostaBloqueig", "Dates valides \nS'ha introduit un nou bloqueig");
+            }
+        }
 
     return "/views/propietats/caracteristicaPropietat";
     }
 
     //Metode que et dirigeix al formulari de creacio d'una propietat i et passa un titol i una llista de localitats.
     @GetMapping("/create/{Id}")
-    public String crear(@ModelAttribute("idUsuari") Long idUsuari, @PathVariable("Id") Long id,Model model, HttpSession httpSession) {
+    public String crear(@ModelAttribute("idUsuari") Long idUsuari, @PathVariable("Id") Long id, Model model) {
 
         Propietat p = new Propietat();
         List<Localitat> listLocalitats = localitatService.llistarLocalitats();
         Propietari propietari = propietariService.findById(id);
-        if(id != idUsuari){
+
+        if(!Objects.equals(id, idUsuari)){
             return "/views/errorAutenticacio";
         }
+
         model.addAttribute("propietari",propietari);
         model.addAttribute("propietat", p);
         model.addAttribute("localitats", listLocalitats);
         model.addAttribute("id", idUsuari);
 
-
-
-
         return "/views/propietats/frmCrearPropietat";
     }
 
     @PostMapping("/caracteristiques/save")
-    public String guardarCaracteristiques(@ModelAttribute("idUsuari") Long idUsuari, @RequestParam(name="idPropietat")Long idPropietat,@RequestParam(name="valorCar")List<Long> idsCarac, Model model){
+    public String guardarCaracteristiques(@RequestParam(name="idPropietat")Long idPropietat, @RequestParam(name="valorCar")List<Long> idsCarac){
 
         Propietat propietat = propietatService.buscarPorId(idPropietat);
         List<Caracteristica> set= new ArrayList<>();
 
-        for (int i = 0; i < idsCarac.size(); i++) {
-            set.add(caracteristicaService.findById(idsCarac.get(i)));
+        for (Long aLong : idsCarac) {
+            set.add(caracteristicaService.findById(aLong));
         }
 
         propietat.setCaracteristicas(set);
         propietatService.guardar(propietat);
-
-        model.addAttribute("id", idUsuari);
 
         return "redirect:/views/propietats/configurar/"+propietat.getIdPROPIETAT();
     }
 
     //Metode que s'executa quan es fa el submit del formulari crearPropietat
     @PostMapping("/save")
-    public String guardar(@ModelAttribute("idUsuari") Long idUsuari, HttpSession httpSession, @RequestParam(name = "file") MultipartFile foto, @Validated @ModelAttribute Propietat p, BindingResult result, Model model) throws IOException{
+    public String guardar(HttpSession httpSession, @RequestParam(name = "file") MultipartFile foto, @Validated @ModelAttribute Propietat p, BindingResult result) throws IOException{
 
         Propietari propietari = propietariService.findPropietariByCorreu(((Propietari) httpSession.getAttribute("usuari")).getCorreu());
-
-        List<Localitat> listLocalitats = localitatService.llistarLocalitats();
 
         InputStream in = foto.getInputStream();
 
@@ -201,7 +206,7 @@ public class PropietatController {
         if (i > 0) {
             extension = nomImatge.substring(i+1);
         }
-        model.addAttribute("extensioImatge", extension);
+        //model.addAttribute("extensioImatge", extension);
 
         //Modificam el nom de l'imatge al dessitjat.
         String nomModificatImatge = p.getNomPropietat().replace(" ", "")+"-portada." + extension;
@@ -230,18 +235,13 @@ public class PropietatController {
         String filename = ruta + nomModificatImatge;
 
         //El condicional es per veure si han pujar una foto o no.
-        if (nomModificatImatge != "") {
+        if (!nomModificatImatge.equals("")) {
 
             OutputStream outputStream = new FileOutputStream(filename);
             out.writeTo(outputStream);
         }
-        model.addAttribute("id", idUsuari);
 
         if (result.hasErrors()) {
-
-            model.addAttribute("titol", "Formulari nova propietat");
-            model.addAttribute("propietat", p);
-            model.addAttribute("localitats", listLocalitats);
 
             return "redirect:/views/propietats/configurar/" + p.getIdPROPIETAT();
         }
@@ -253,25 +253,23 @@ public class PropietatController {
 
     //Metode que elimina una propietat.
     @GetMapping("/delete/{idPROPIETAT}")
-    public String eliminar(Model model, @ModelAttribute("idUsuari") Long idUsuari, HttpSession httpSession, @PathVariable("idPROPIETAT") Long idPROPIETAT) {
+    public String eliminar(HttpSession httpSession, @PathVariable("idPROPIETAT") Long idPROPIETAT) {
 
         Propietari propietari = propietariService.findPropietariByCorreu(((Propietari) httpSession.getAttribute("usuari")).getCorreu());
-        model.addAttribute("id", idUsuari);
         propietatService.eliminar(idPROPIETAT);
         System.out.println("Sha eliminat la propietat amb exit");
 
-        return "redirect:/views/propietats/"+idUsuari;
+        return "redirect:/views/propietats/"+propietari.getId();
     }
 
     //Metode que guarda fotos secundaries de la propietat.
     @PostMapping("/fotos/save")
-    public String guardarFoto(@ModelAttribute("idUsuari") Long idUsuari, @RequestParam(name = "fotosSecundaries") MultipartFile fotoSecundaria, @Validated @ModelAttribute Propietat p, Model model) throws IOException{
+    public String guardarFoto(@RequestParam(name = "fotosSecundaries") MultipartFile fotoSecundaria, @Validated @ModelAttribute Propietat p) throws IOException{
 
         //Per saber el numero de fitxers que hi ha dins un directory
         String path = "/Media/"+ p.getNomPropietat().replace(" ", "") + "-media/img/";
         File subcarpeta = new File(path);
         int numeroFitxers =  Objects.requireNonNull(subcarpeta.listFiles()).length;
-        model.addAttribute("numeroFotosSecundaries", numeroFitxers);
         int numeroFitxerSum = numeroFitxers+1;
 
         InputStream in = fotoSecundaria.getInputStream();
@@ -284,7 +282,6 @@ public class PropietatController {
         if (i > 0) {
             extension = nomImatge.substring(i+1);
         }
-        model.addAttribute("extensioImatge", extension);
 
         String nomModificatImatge = p.getNomPropietat().replace(" ", "")+"-" + numeroFitxerSum +"." + extension;
 
@@ -312,9 +309,6 @@ public class PropietatController {
         OutputStream outputStream = new FileOutputStream(filename);
         out.writeTo(outputStream);
 
-        model.addAttribute("id", idUsuari);
-
         return "redirect:/views/propietats/configurar/"+p.getIdPROPIETAT();
     }
-
 }//FI CONTROLADOR

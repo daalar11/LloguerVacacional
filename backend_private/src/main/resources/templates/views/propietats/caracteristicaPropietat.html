@@ -6,14 +6,12 @@
   <!-- Validacio Formulari de Crear Nova Propietat i Editar Propietat -->
   <script type="text/javascript" th:src="@{/js/ValidacionsFormularis/validacionsFormularis.js}"></script>
 
-  <title>Configuracio Propietat</title>
-
   <!-- Full Calendar Boundle -->
   <link th:href="@{/fullcalendar/main.css}" rel='stylesheet' />
   <script th:src="@{/fullcalendar/main.js}" ></script>
   <script th:src="@{/fullcalendar/locales-all.js}" ></script><!-- Idiomes -->
 
-  <script>
+  <script th:inline="javascript">
 
     var calendar;
 
@@ -128,6 +126,27 @@
 <body>
 
 <header th:insert="plantilla/template :: header"></header>
+
+<!-- ALERT CONFIRMACIO TARIFES -->
+<script th:inline="javascript">
+
+  if ([[${respostaTarifa}]] != null){
+
+    var resposta = [[${respostaTarifa}]];
+    alert(resposta);
+  }
+
+</script>
+
+<!-- ALERT CONFIRMACIO BLOQUEJOS -->
+<script th:inline="javascript">
+
+  if ([[${respostaBloqueig}]] != null){
+
+    var resposta = [[${respostaBloqueig}]];
+    alert(resposta);
+  }
+</script>
 
 <div class="container">
 
@@ -333,7 +352,7 @@
 
                     </div>
                     <div class="col-1 mt-2 form-group">
-                      <input type="submit" id="boto-submit" class="btn btn-primary" value="Guardar" />
+                      <input type="submit" id="boto-submit-propietat" class="btn btn-primary" value="Guardar" />
                     </div>
                     <div class="col-1 form-group">
 
@@ -530,6 +549,7 @@
                     <th scope="col">ID Politica</th>
                     <th scope="col">nº Dies d'antelació</th>
                     <th scope="col">Percentatge de dotbers perdut</th>
+                    <th scope="col">Activa?</th>
                     <th scope="col">Editar</th>
                     <th scope="col">Eliminar</th>
                   </tr>
@@ -538,7 +558,8 @@
                   <tr th:each="pol:${politiques}">
                     <th th:text="${pol.idPolitica}"></th>
                     <td th:text="${pol.dies}"></td>
-                    <td th:text="${pol.perdut}"> </td>
+                    <td th:text="${pol.perdut}"></td>
+                    <td th:text="${pol.activa}"> </td>
                     <td>
                       <a class="btn btn-warning" th:href="@{'/views/propietats/politiques/edit/'+${pol.propietat.idPROPIETAT}+'/'+${pol.idPolitica}} " th:text="'Editar Politica'" title="Editar"></a>
                     </td>
@@ -553,7 +574,7 @@
                 </table>
               </div>
             </div>
-            <a class="btn btn-success" th:object="${propietat}" th:href="@{'/views/propietats/politiques/afegir/'+*{idPROPIETAT}}">Afegir Politica</a>
+            <a class="btn btn-warning" th:object="${propietat}" th:href="@{'/views/propietats/politiques/afegir/'+*{idPROPIETAT}}">Afegir Politica</a>
           </div>
 
           <!-- Tab-Reserves -->
@@ -616,18 +637,11 @@
                 <th:block th:if="${numeroFotosSecundaries != 0}" th:each="i: ${#numbers.sequence(1, numeroFotosSecundaries)}">
 
                   <article class="col-4 m-4 p-3 border border-danger">
-                    <img
-                          th:src="@{${'/Media/' + nomPropietatSenseEspais + '-media/img/' + nomPropietatSenseEspais + '-' + i +'.jpg'}}"
-                          alt="Foto Portada" class="img-fluid w-100">
+                    <img th:src="@{${'/Media/' + nomPropietatSenseEspais + '-media/img/' + nomPropietatSenseEspais + '-' + i +'.jpg'}}"
+                            alt="Foto Portada" class="img-fluid w-100">
                   </article>
 
                 </th:block>
-                <!--
-                 <th:block th:each="i: ${#numbers.sequence(0, response.count - 1)}">
-                    <button th:if="${response.page == i}" class="active">Dummy</button>
-                    <button th:unless="${response.page == i}">Dummy</button>
-                </th:block>
-                 -->
 
               </div>
 
@@ -684,7 +698,7 @@
 </footer>
 
 <!-- He agut de posar el JavaScript del mapa al fitxer html perque conte caracters incompatibles a un fitxer de JavaScript pur -->
-<script>
+<script th:inline="javascript">
 
   function myMap() {
 
@@ -773,9 +787,10 @@
     });
 
   }//Fi funcio googleMap
+
 </script>
 
-<script>
+<script th:inline="javascript">
 
   let height = screen.height;
 
@@ -787,11 +802,9 @@
     veureTaula();
 
     //Quan es clica al boto de submit de editar propietat executa la seguent funcio.
-    $("#boto-submit").click(function () {
+    $("#boto-submit-propietat").click(function () {
 
       validarFormPropietat();
-
-      console.log(campsCorrectes);
 
       if (campsCorrectes !== 9) {
         campsCorrectes = 0;

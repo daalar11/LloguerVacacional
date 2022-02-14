@@ -3,9 +3,6 @@
 
 <head>
     <div th:replace="plantilla/template :: head(type='tag')"></div>
-
-
-    <title>Editar Tarifa</title>
 </head>
 
 <body>
@@ -60,7 +57,7 @@
     </footer>
 
     <!-- Codi JavaScript -->
-    <script>
+    <script th:inline="javascript">
 
         $(document).ready(function() {
 

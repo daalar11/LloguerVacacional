@@ -55,7 +55,7 @@ public class TarifaController {
 
     //Metode que sexecuta en fer el submit de CREATE/UPDATE tarifa
     @PostMapping("/save")
-    public String save(@ModelAttribute("idUsuari") Long idUsuari, @ModelAttribute Tarifa tarifa, Model model){
+    public String save(@ModelAttribute Tarifa tarifa){
 
         boolean valida = true;
 
@@ -96,16 +96,12 @@ public class TarifaController {
             }
         }
 
-        model.addAttribute("id", idUsuari);
-
         if (valida) {
             tarifaService.save(tarifa);
-            System.out.println("Tarifa guardada amb exit");
-            return "redirect:/views/propietats/configurar/" + propietat.getIdPROPIETAT();
+            return "redirect:/views/propietats/configurar/" + propietat.getIdPROPIETAT()+"?respostaTarifa=1";
         } else {
-            System.out.println("Ja hi ha una tarifa en aquestes dates.");
-            model.addAttribute("tarifesConflictives", tarifesConflictives);
-            return "redirect:/views/propietats/configurar/" + propietat.getIdPROPIETAT();
+            //model.addAttribute("tarifesConflictives", tarifesConflictives);
+            return "redirect:/views/propietats/configurar/" + propietat.getIdPROPIETAT()+"?respostaTarifa=0";
         }
 
         //Logica del condicional
@@ -131,7 +127,7 @@ public class TarifaController {
 
     //Metode controlador que envia l'informacio de la tarifa a editar al formulari.
     @GetMapping("/edit/{idPROPIETAT}/{idTARIFA}")
-    public String editar(@ModelAttribute("idUsuari") Long idUsuari, @PathVariable("idTARIFA") long idTARIFA,@PathVariable("idPROPIETAT") Long idPROPIETAT, Model model){
+    public String editar(@ModelAttribute("idUsuari") Long idUsuari, @PathVariable("idTARIFA") Long idTARIFA,@PathVariable("idPROPIETAT") Long idPROPIETAT, Model model){
         Tarifa tarifa = tarifaService.findById(idTARIFA);
         Propietat propietat = propietatService.buscarPorId(idPROPIETAT);
         model.addAttribute("titulo","Formulario: Editar Tarifas");
@@ -146,11 +142,16 @@ public class TarifaController {
     }
 
     //Elimina una tarifa
-    /*@GetMapping("/delete/{idTARIFA}")
-    public String delete(@PathVariable("idTARIFA") long idTARIFA){
+    @GetMapping("/delete/{idTARIFA}")
+    public String delete(@PathVariable("idTARIFA") Long idTARIFA){
+
+        Tarifa tarifa = tarifaService.findById(idTARIFA);
+        long idPROPIETAT = tarifa.getPropietat().getIdPROPIETAT();
+
         tarifaService.delete(idTARIFA);
-        return "redirect:/views/propietats/";
-    } */
+
+        return "redirect:/views/propietats/configurar/"+idPROPIETAT;
+    }
 
 
 

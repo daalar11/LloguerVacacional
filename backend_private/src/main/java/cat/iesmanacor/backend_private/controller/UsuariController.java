@@ -64,8 +64,6 @@ public class UsuariController {
         propietari.setContrasenya(passwordHash(propietari.getContrasenya()));
         propietariService.save(propietari);
 
-        model.addAttribute("id", propietari.getId());
-
         return "redirect:/autenticate/loggin";
     }
 
@@ -77,9 +75,7 @@ public class UsuariController {
         return "/views/Login_Register/Loggin";
     }
     @GetMapping("/loggout")
-    public String loggin(HttpSession httpSession,Model model){
-        Usuari usuari = new Usuari();
-        model.addAttribute("usuari",usuari);
+    public String loggin(HttpSession httpSession){
         httpSession.invalidate();
         return "redirect:/autenticate/loggin";
     }

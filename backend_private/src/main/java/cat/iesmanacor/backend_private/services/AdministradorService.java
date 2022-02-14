@@ -10,6 +10,7 @@ import java.util.List;
 
 @Service
 public class AdministradorService implements iAdministradorService{
+
     @Autowired
     private AdministradorRepository administradorRepository;
 

@@ -36,12 +36,10 @@ public class PoliticaController {
     }
 
     @PostMapping("/save")
-    public String save(@ModelAttribute("idUsuari") Long idUsuari, Model model, @ModelAttribute PoliticaCancelacio politica){
+    public String save(@ModelAttribute PoliticaCancelacio politica){
+
         politicaService.save(politica);
         Long idPropietat = politica.getPropietat().getIdPROPIETAT();
-
-        //Model que passa l'ID de l'USUARI (Necessari en tot moment per el link de propietats del header)
-        model.addAttribute("id", idUsuari);
 
         return "redirect:/views/propietats/configurar/"+idPropietat;
     }
@@ -77,12 +75,8 @@ public class PoliticaController {
     }
 
     @GetMapping("/delete/{idPROPIETAT}/{idPolitica}")
-    public String delete(@ModelAttribute("idUsuari") Long idUsuari, Model model, @PathVariable("idPolitica") Long idPolitica,@PathVariable("idPROPIETAT") Long idPropietat){
+    public String delete(@PathVariable("idPolitica") Long idPolitica,@PathVariable("idPROPIETAT") Long idPropietat){
         politicaService.delete(idPolitica);
-
-        //Model que passa l'ID de l'USUARI (Necessari en tot moment per el link de propietats del header)
-        model.addAttribute("id", idUsuari);
-
         return "redirect:/views/propietats/configurar/" +idPropietat;
     }
 }
