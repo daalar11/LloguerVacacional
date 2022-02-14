@@ -86,17 +86,18 @@ public class UsuariController {
     public String autenticate(@ModelAttribute Usuari usuari, HttpSession httpSession,Model model){
         boolean autenticat = false;
         Usuari usuari2;
-       if(administradorService.findAdministradorByCorreu(usuari.getCorreu())!=null){
-           Administrador admin = new Administrador();
-           BeanUtils.copyProperties(usuari,admin);
-           httpSession.setAttribute("rol","administrador");
-           httpSession.setAttribute("usuari",usuari);
-           usuari2 = administradorService.findAdministradorByCorreu(usuari.getCorreu());
-           //if(validate(usuari, usuari2)) {
-               usuari=usuari2;
-               autenticat = true;
-        //   }
-       }else if(propietariService.findPropietariByCorreu(usuari.getCorreu())!=null){
+//       if(administradorService.findAdministradorByCorreu(usuari.getCorreu())!=null){
+//           Administrador admin = new Administrador();
+//           BeanUtils.copyProperties(usuari,admin);
+//           httpSession.setAttribute("rol","administrador");
+//           httpSession.setAttribute("usuari",usuari);
+//           usuari2 = administradorService.findAdministradorByCorreu(usuari.getCorreu());
+//           //if(validate(usuari, usuari2)) {
+//               usuari=usuari2;
+//               autenticat = true;
+//        //   }
+//       }else
+         if(propietariService.findPropietariByCorreu(usuari.getCorreu())!=null){
            Propietari propietari = new Propietari();
            BeanUtils.copyProperties(usuari,propietari);
            httpSession.setAttribute("rol","propietari");

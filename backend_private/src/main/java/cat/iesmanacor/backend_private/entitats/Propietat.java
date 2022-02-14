@@ -24,7 +24,7 @@ public class Propietat implements Serializable {
     @JoinColumn(name = "id_localitat") //Especificam el nom de la taula
     private Localitat localitat;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="id_prop")
     private Propietari propietari;
 
@@ -46,7 +46,7 @@ public class Propietat implements Serializable {
     @OneToMany(mappedBy = "propietat")
     private List<Reserva> reserves;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name= "caracteristiques_propietats",
             joinColumns = @JoinColumn(name="id_pro"),

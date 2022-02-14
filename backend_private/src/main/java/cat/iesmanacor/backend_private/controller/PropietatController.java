@@ -195,7 +195,7 @@ public class PropietatController {
     public String guardar(HttpSession httpSession, @RequestParam(name = "file") MultipartFile foto, @Validated @ModelAttribute Propietat p, BindingResult result) throws IOException{
 
         Propietari propietari = propietariService.findPropietariByCorreu(((Propietari) httpSession.getAttribute("usuari")).getCorreu());
-
+        p.setPropietari(propietari);
         InputStream in = foto.getInputStream();
 
         //CODI PER OBTENIR L'EXTENSIO D'UNA IMATGE

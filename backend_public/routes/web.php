@@ -24,8 +24,9 @@ Route::get('/', function () {
 // -------------- Rutes Propietat --------------------
 
 //Route /propietats -> Llistar totes les propietats.
-Route::get('/propietat',[PropietatController::class,'listAll']);
-Route::get('/habitacio',[HabitacioController::class,'listAll']);
+//Route::get('/propietat',[PropietatController::class,'listAll']);
+//Route::get('/habitacio',[HabitacioController::class,'listAll']);
+//Rutes principals
 Route::get('/all',[PropietatController::class,'listAllByPropietat']);
 Route::get('/all/{Id}',[PropietatController::class,'listAllByPropietatId']);
 

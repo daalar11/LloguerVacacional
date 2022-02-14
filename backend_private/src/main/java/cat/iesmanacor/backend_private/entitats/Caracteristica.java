@@ -27,7 +27,7 @@ public class Caracteristica implements Serializable {
     //name= "caracteristiques_propietats",
     //joinColumns = @JoinColumn(name="id_car"),
     //inverseJoinColumns = @JoinColumn(name="id_pro"))
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL,mappedBy = "caracteristicas")
+    @ManyToMany(fetch = FetchType.EAGER,mappedBy = "caracteristicas")
     List <Propietat> propietats = new ArrayList<>();
 
     @Override
