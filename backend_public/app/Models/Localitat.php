@@ -16,4 +16,8 @@ class Localitat extends Model
     protected $primaryKey ='idLOCALITAT';
 
     public $timestamps = false;
+
+    public function propietat(){
+        return $this->hasMany(Propietat::class,'id_localitat');
+    }
 }

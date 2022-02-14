@@ -13,4 +13,7 @@ class Bloqueig extends Model
     protected $primaryKey ='idBLOQUEIG';
     public $timestamps = false;
 
+    public function propietat(){
+        return $this->belongsTo(Propietat::class,'id_propietat');
+    }
 }

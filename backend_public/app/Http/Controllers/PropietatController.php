@@ -18,6 +18,14 @@ class PropietatController extends Controller
         return $propietats->toJson();
     }
 
+    public function listAllByPropietat()
+    {
+        $propietat= Propietat::with('habitacions','bloqueig','localitat','tarifa','caracteristica')->get()->toArray();
+
+            return json_decode(json_encode($propietat),true);
+
+    }
+
     //Funcio que llista totes les propietats d'una localitat
     public function listAllPropietatByLocalitat($idLOCALITAT){
 
@@ -25,5 +33,12 @@ class PropietatController extends Controller
 
         //Retornam un parse de l'objecte propietats a JSON
         return $propietats->toJson();
+    }
+
+    public function listAllByPropietatId($id)
+    {
+        $propietat= Propietat::with('habitacions','bloqueig','localitat','tarifa','caracteristica')->find($id);
+
+        return json_decode(json_encode($propietat),true);
     }
 }
