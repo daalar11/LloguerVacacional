@@ -152,6 +152,13 @@
 
   <main>
 
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a th:href="@{'/views/propietats/' + ${idUsuari}}">Llista de Propietats</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Propietat</li>
+      </ol>
+    </nav>
+
     <div class="row text-center">
       <p class="fs-1 font-monospace border-dark border-2 border-bottom" th:text="${propietat.nomPropietat}"></p>
     </div>
@@ -793,9 +800,20 @@
 <script th:inline="javascript">
 
   let height = screen.height;
+  var lastActive;
+
+  function darreraTabSeleccionada(){
+
+    //Li estam diguent que quan es clicki en el boto de la pestaña del calendari es torni a renderitzar
+    $('button[data-bs-toggle="tab"]').click(function (){
+            lastActive = $(this).attr('id');
+            console.log(lastActive)
+      localStorage.setItem("pestaña", lastActive);
+    });
+
+  }
 
   $(document).ready(function() {
-
 
     $("body").css("min-height", height);
 
@@ -815,6 +833,12 @@
     $('button[id="calendari-tab"]').on('shown.bs.tab', function () {
       calendar.render();
     });
+
+    darreraTabSeleccionada();
+
+
+
+
 
   });
 

@@ -19,6 +19,14 @@
 <div class="container mt-4 mb-4">
     <main>
 
+        <!-- BREADCRUMB -->
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a th:href="@{'/views/propietats/' + ${idUsuari}}">Llista de Propietats</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Crear Nova Propietat</li>
+            </ol>
+        </nav>
+
         <div class="card  mt-3 mb-3 bg-light">
 
             <div class="card-header bg-light fw-bold">Dona d'alta una propietat</div>

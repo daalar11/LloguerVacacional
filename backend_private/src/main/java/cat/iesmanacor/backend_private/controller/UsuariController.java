@@ -19,7 +19,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
-@RequestMapping("/autenticate")
+@RequestMapping({"/autenticate","/"})
 public class UsuariController {
 
     @Autowired
@@ -69,7 +69,7 @@ public class UsuariController {
     }
 
     //redirecciona a loggin
-    @GetMapping("/loggin")
+    @GetMapping("/")
     public String loggin(Model model){
         Usuari usuari = new Usuari();
         model.addAttribute("usuari",usuari);

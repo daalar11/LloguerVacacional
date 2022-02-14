@@ -15,6 +15,15 @@
 
     <main>
 
+        <!-- BREADCRUMB -->
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a th:href="@{'/views/propietats/' + ${id}}">Llista de Propietats</a></li>
+                <li class="breadcrumb-item"><a th:href="@{'/views/propietats/configurar/' + ${idPROPIETAT}}">Propietat</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Crear Tarifa</li>
+            </ol>
+        </nav>
+
         <div class="row">
 
             <div class="card bg-light mt-3 mb-3">

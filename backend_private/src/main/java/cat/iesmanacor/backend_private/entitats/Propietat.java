@@ -60,7 +60,7 @@ public class Propietat implements Serializable {
 
     @NotNull
     @Column(name="preu_base", nullable=false)
-    private int preuBase;
+    private float preuBase;
 
     @NotNull
     @Column(name="descompte_setmana", nullable=false)
@@ -139,10 +139,10 @@ public class Propietat implements Serializable {
         this.banysPropietat = banysPropietat;
     }
 
-    public int getPreuBase() {
+    public float getPreuBase() {
         return preuBase;
     }
-    public void setPreuBase(int preuBase) {this.preuBase = preuBase;}
+    public void setPreuBase(float preuBase) {this.preuBase = preuBase;}
     public int getDescompteSetmana() {
         return descompteSetmana;
     }
