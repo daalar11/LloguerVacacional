@@ -1,19 +1,20 @@
 <?php
 
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Tarifa extends Model
+class Habitacio extends Model
 {
-    use HasFactory;
+    protected $table = "HABITACIONS";
 
-    protected $table ="tarifa";
-    protected $primaryKey ='idTARIFA';
     public $timestamps = false;
 
-    public function propietat(){
+    protected $primaryKey = 'idHABITACIONS';
+
+    public function  propietat(){
         return $this->belongsTo(Propietat::class,'id_propietat');
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HabitacioController;
 use App\Http\Controllers\PropietatController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,6 +25,11 @@ Route::get('/', function () {
 
 //Route /propietats -> Llistar totes les propietats.
 Route::get('/propietat',[PropietatController::class,'listAll']);
+Route::get('/habitacio',[HabitacioController::class,'listAll']);
+Route::get('/all',[PropietatController::class,'listAllByPropietat']);
+Route::get('/all/{Id}',[PropietatController::class,'listAllByPropietatId']);
+
+Route::get('/{idPropietat}/habitacio',[HabitacioController::class,'listHabitacioByPropietat']);
 
 //Ruta que llista totes les propietats d'una localitat
 Route::get('/propietats/localitat/{idLOCALITAT}',[PropietatController::class,'listAllPropietatByLocalitat']);

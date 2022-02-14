@@ -1,5 +1,6 @@
 package cat.iesmanacor.backend_private.controller;
 
+import cat.iesmanacor.backend_private.entitats.Administrador;
 import cat.iesmanacor.backend_private.entitats.Propietari;
 import cat.iesmanacor.backend_private.entitats.Usuari;
 import cat.iesmanacor.backend_private.services.iAdministradorService;
@@ -86,13 +87,15 @@ public class UsuariController {
         boolean autenticat = false;
         Usuari usuari2;
        if(administradorService.findAdministradorByCorreu(usuari.getCorreu())!=null){
+           Administrador admin = new Administrador();
+           BeanUtils.copyProperties(usuari,admin);
            httpSession.setAttribute("rol","administrador");
            httpSession.setAttribute("usuari",usuari);
            usuari2 = administradorService.findAdministradorByCorreu(usuari.getCorreu());
-           if(validate(usuari, usuari2)) {
+           //if(validate(usuari, usuari2)) {
                usuari=usuari2;
                autenticat = true;
-           }
+        //   }
        }else if(propietariService.findPropietariByCorreu(usuari.getCorreu())!=null){
            Propietari propietari = new Propietari();
            BeanUtils.copyProperties(usuari,propietari);
