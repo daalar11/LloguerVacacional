@@ -3,9 +3,54 @@ import React, { Component } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';//Bootstrap
 import Propietat from '../components/Propietat';
 import {Container, Row, Col } from 'reactstrap';
+
+import axios from 'axios';
  
 class Cercarpropietat extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      propietats: [],
+      isLoading: false,
+      error: null,
+    };
+  }
+
+  //Metode amb la peticio axios a n url.
+  carregarPropietats = () => {
+
+    var url = "http://127.0.0.1:8000"
+    var request = "/propietat";
+
+    axios.get(url + request)
+    .then(res => {this.setState({
+      propietats: res.data,
+          status: true
+        });
+    })
+    .catch(error => this.setState({
+      error,
+      isLoading: false
+    }));
+  }
+
+  //Metode componentDidMount
+  componentDidMount = () => {this.carregarPropietats();}
+
   render() {
+
+    const { propietats, isLoading, error } = this.state;
+
+    if (error) {
+      return <p>{error.message}</p>;
+    }
+
+    if (isLoading) {
+      return <p>Loading ...</p>;
+    }
+
     return (
       
       <div>
@@ -15,29 +60,45 @@ class Cercarpropietat extends Component {
           CERCADOR AMB FILTRES
         </p>
 
+        {/* Taula que mostra una propietat per cada row */}
+        <table  className="table table-striped table-bordered">
+                <thead>
+                  <tr>
+                    <th>ID Propietats</th>
+                    <th>Nom Propietat</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {propietats.map(function(propietats, key) {
+                        return (
+                          <tr key = {key}>
+                              <td>{propietats.idPropietat}</td>
+                              <td>{propietats.nom_propietat}</td>
+                          </tr>
+                        )
+                      })}
+                </tbody>
+        </table>
+
         <Container>
           <Row>
-          <Col>
-                    <Propietat title="Titol 1" 
-                            subtitle="Subtitol 1" 
+            <Col>
+
+            {propietats.map(function(propietats, key) {
+                          return (
+
+                            <Propietat key = {key}
+                            title = "Hola"
+                            subtitle = {propietats.nom_propietat}
                             text="Descripció llarga 1" 
                             photo="https://picsum.photos/200/200?image=10"
                             url="http://www.mylink1.com" />
-                  </Col>
-                  <Col>
-                    <Propietat title="Titol 2" 
-                          subtitle="Subtitol 2" 
-                          text="Descripció llarga 2" 
-                          photo="https://picsum.photos/200/200?image=21"
-                          url="http://www.mylink2.com" />
-                  </Col>
-                  <Col>
-                    <Propietat title="Titol 3" 
-                          subtitle="Subtitol 3" 
-                          text="Descripció llarga 3" 
-                          photo="https://picsum.photos/200/200?image=32"
-                          url="http://www.mylink3.com" />
-                  </Col>
+
+                          )
+                        })}
+                      
+            </Col>
+                  
           </Row>
         </Container>
  

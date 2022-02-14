@@ -1,21 +1,9 @@
 // -- COMPONENTS IMPORTS --
 import React, { Component } from 'react';
-import Menu from "./components/Menu";//Header
-import './components/Propietat.js';
+import Ruter from "./components/Ruter";//Header
 
 // -- CSS IMPORTS --
 import './App.css'; // Css de la pagina principal (App.js)
-import 'bootstrap/dist/css/bootstrap.min.css';//Css de bootstrap
-
-// -- IMPORTS REACT ROUTER DOM
-import {Route, BrowserRouter as Router, Routes} from "react-router-dom";
-
-// -- VIEWS IMPORTS --
-import Home from "./views/Home";
-import Cercarpropietat from "./views/Cercarpropietat";
-import Viewpropietat from "./views/Viewpropietat";
-import Login from "./views/Login";
-import Contact from "./views/Contact";
 
 class App extends Component {
 
@@ -25,31 +13,12 @@ class App extends Component {
     // -- RETURN DEL METODE RENDER
     return (
       
-      <Router>
+      <div className="App">
+        
+        <Ruter />{/* Component principal de l'aplicació */}
 
-        {/* Div principal Applicacio (Div General) */}
-        <div className="App">
-
-        {/* Component Menu (HEADER-NAVBAR) */}
-        <Menu/>
-
-        {/* Content de la pagina (Contingut del MAIN) */}
-        <div className="content mt-5"> {/*Seccio Content*/}
-
-          {/* Rutes del Navbar */}
-          <Routes>
-
-            <Route path="/" element={<Home />} />
-            <Route path="/cercarpropietat" element={<Cercarpropietat />} />
-            <Route path="/viewpropietat" element={<Viewpropietat />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/contact" element={<Contact />} />
-            
-          </Routes>
-          
-        </div>{/* Fi div Content */}
-      </div>{/* Fi div App */}
-    </Router>
+      </div>
+      
     );//FI DEL RETURN DEL RENDER
   }//FI DEL RENDER
 }//FI DEL COMPONENT
