@@ -8,7 +8,7 @@ class viewpropietat extends Component {
       <div>
         <h2>PAGINA VISTA D'UNA PROPIETAT</h2>
 
-        <Propietat title="Titol 1" 
+                    <Propietat title="Titol 3" 
                             subtitle="Subtitol 1" 
                             text="Descripció llarga 1" 
                             photo="https://picsum.photos/200/200?image=10"
