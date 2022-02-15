@@ -3,6 +3,8 @@
 
 <head>
   <div th:replace="plantilla/template :: head(type='tag')"></div>
+  <!-- Validacio Formulari de Crear Nova Propietat i Editar Propietat -->
+  <script type="text/javascript" th:src="@{/js/ValidacionsFormularis/validacionsFormularis.js}"></script>
 </head>
 <body>
 <header th:insert="plantilla/template :: header"></header>
@@ -12,49 +14,65 @@
     <div class="col-2">
 
     </div>
-    <form th:object="${propietari}" th:action="@{/autenticate/save}" class="col-8 border border-2 border-secondary bg-light rounded "  method="post">
+    <form th:object="${propietari}" th:action="@{/autenticate/save}" class="col-8 border border-2 border-secondary bg-light rounded" method="post" onsubmit="return validacioRegister()">
       <div class="row">
         <div class="col-12">
-          <h2 th:if="${repeticioDades}!=null " th:text="${repeticioDades}"></h2>
+          <h3 class="text-center mt-3">Registret com a Propietari</h3>
         </div>
       </div>
-      <div class="row mt-4">
+      <div class="row mt-4 text-center">
+        <div class="col-12">
+          <h5 th:if="${repeticioDades}!=null" class="text-danger" th:text="${repeticioDades}"></h5>
+        </div>
+      </div>
+      <div class="row mt-4 mb-2">
         <div class="col-6">
-          <label for="dni2" class="form-label"> DNI: </label>
+          <label for="dni2" class="form-label"> DNI<span class="text-danger">*</span></label>
           <input  class="form-control" th:type="text" id="dni2" th:name="dni2" th:field="*{dni}">
+          <div id="validacioDni" class="form-text"></div>
         </div>
         <div class="col-6">
-          <label for="nom" class="form-label"> Nom: </label>
+          <label for="nom" class="form-label"> Nom<span class="text-danger">*</span></label>
           <input class="form-control" th:type="text" id="nom" th:name="nom" th:field="*{nom}">
+          <div id="validacioNom" class="form-text"></div>
         </div>
       </div>
-      <div class="row">
+      <div class="row mb-2">
         <div class="col-6">
-          <label for="llin1" class="form-label"> Primer llinatge: </label>
+          <label for="llin1" class="form-label"> Primer llinatge<span class="text-danger">*</span></label>
           <input class="form-control" th:type="text" id="llin1" th:name="llin1" th:field="*{llinatge1}">
+          <div id="validacioCognom" class="form-text"></div>
         </div>
         <div class="col-6">
-          <label for="llin2" class="form-label"> Segon llinatge: </label>
+          <label for="llin2" class="form-label"> Segon llinatge</label>
           <input class="form-control" th:type="text" id="llin2" th:name="llin2" th:field="*{llinatge2}">
         </div>
       </div>
-      <div class="row">
-        <div class="col-6">
-          <label for="correu" class="form-label"> Correu: </label>
+      <div class="row mb-2">
+        <div class="col-12">
+          <label for="correu" class="form-label"> Correu<span class="text-danger">*</span></label>
           <input class="form-control" th:type="text" id="correu" th:name="correu" th:field="*{correu}">
+          <div id="validacioCorreu" class="form-text"></div>
         </div>
 <!--        <div class="col-6">-->
 <!--          <label for="tel" class="form-label"> Telefon: </label>-->
 <!--          <input class="form-control" th:type="text" id="tel" th:name="tel" th:field="*{tel}">-->
 <!--        </div>-->
-        <div class="col-6">
-          <label for="pass" class="form-label"> Contrasenya: </label>
+        <div class="col-6 mt-2">
+          <label for="pass" class="form-label"> Contrasenya<span class="text-danger">*</span></label>
           <input  class="form-control" type="password" id="pass" th:name="pass" th:field="*{contrasenya}">
         </div>
+        <div class="col-6 mt-2">
+          <label for="pass" class="form-label"> Repeteix la contrassenya<span class="text-danger">*</span></label>
+          <input  class="form-control" type="password" id="repeticioPass">
+        </div>
+        <div id="validacioPass" class="form-text"></div>
       </div>
       <div class="row mt-4">
-        <div class="col-6 mb-4">
-          <input type="submit" class="btn btn-primary" value="Guardar" />
+        <div class="col-12 mb-4 text-center">
+          <input type="submit" class="btn btn-primary" value="Guardar" id="boto-submit-register" />
+          <br><a class="mt-4" th:href="@{/}">Ja tens un usuari propietari? Inicia sessió!</a>
+
         </div>
 
       </div>
@@ -66,6 +84,23 @@
 <footer>
   <div th:replace="plantilla/template :: footer"></div>
 </footer>
+
+<script th:inline="javascript">
+
+  $(document).ready(function() {
+
+    $("#boto-submit-register").click(function () {
+
+      validarFormRegister();
+
+      console.log(campsCorrectes)
+      if (campsCorrectes !== 6){
+        campsCorrectes = 0;
+      }
+    });
+  });
+
+</script>
 
 </body>
 </html>

@@ -46,7 +46,7 @@ public class UsuariController {
     public boolean comprovacioCorreuDni(List<Usuari> llistaUsuaris, Propietari propietari){
         boolean repeticio= false;
         for (Usuari usuaris : llistaUsuaris) {
-            if (usuaris.getDni().equals(propietari.getDni()) || usuaris.getCorreu().equals(propietari.getCorreu())) {
+            if ((usuaris.getDni().equals(propietari.getDni())&&propietari.getDni()!=null) || (usuaris.getCorreu().equals(propietari.getCorreu())&& propietari.getCorreu()!=null)) {
                 repeticio = true;
                 break;
             }

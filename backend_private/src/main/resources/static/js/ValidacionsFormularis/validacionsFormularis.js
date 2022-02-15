@@ -368,7 +368,8 @@ function validarEmailLoggin(){
     var email=$("#correu").val();
     var caract = new RegExp(/^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/);
 
-    if (caract.test(email) == false){
+
+    if (caract.test(email) === false){
         incorrecte("#correu", "#validacioCorreu", "No correspon a un correu electronic valid")
     }else{
         correcte("#correu", "#validacioCorreu")
@@ -398,7 +399,7 @@ function validacioRegister(){
 
     var pasaValidacio = false;
 
-    if (campsCorrectes === 5){return true;}
+    if (campsCorrectes === 6){return true;}
     if (pasaValidacio === false){return false;}
 }
 
@@ -406,12 +407,77 @@ function validarFormRegister(){
 
     campsCorrectes = 0;
 
-    /* FALTEN AQUETS 5 METODES
     validarDniRegister();
     validarNomRegister();
     validarCognomRegister();
-    validarCorreuRegister();
+    validarEmailLoggin(); //Es diu aixi perque reciclam la funcio
     validarContrasenyaRegister();
-    */
+    passCoincideix();
+
 }
+
+function validarDniRegister(){
+
+    var dni = $("#dni2").val();
+    var regex = new RegExp(/^[0-9]{8,8}[A-Za-z]$/g);
+
+    if (regex.test(dni) === false){
+        console.log("Ha entrat")
+        incorrecte("#dni2", "#validacioDni", "No correspon a un DNI valid")
+    }else{
+        correcte("#dni2", "#validacioDni")
+        campsCorrectes++;
+    }
+
+}
+
+function validarNomRegister(){
+
+    var nom = $("#nom").val();
+
+    if (nom == null || nom.length<=0){
+        incorrecte("#nom", "#validacioNom", "El nom es obligatori")
+    }else{
+        correcte("#nom", "#validacioNom")
+        campsCorrectes++;
+    }
+}
+
+function validarCognomRegister(){
+
+    var llin = $("#llin1").val();
+
+    if (llin == null || llin.length<=0){
+        incorrecte("#llin1", "#validacioCognom", "El cognom es obligatori")
+    }else{
+        correcte("#llin1", "#validacioCognom")
+        campsCorrectes++;
+    }
+
+}
+
+function validarContrasenyaRegister(){
+    var pass = $("#pass").val();
+
+    if (pass != null){
+        campsCorrectes++;
+        incorrecte("", "#validacioPass", "No has indicat la teva contrasenya")
+    }
+}
+
+function passCoincideix(){
+
+    var pas1 = $("#pass").val();
+    var pas2 = $("#repeticioPass").val();
+
+    if (pas1 !== pas2){
+        incorrecte("#validacioPass", "#validacioPass", "Les contrassenyes no coincideixen, comprova que les hagis escrit be.")
+    } else {
+        campsCorrectes++;
+    }
+
+
+}
+
+
 

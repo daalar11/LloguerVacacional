@@ -201,7 +201,7 @@
         <div class="tab-content mt-3" id="myTabContent">
 
           <!-- Tab-Calendari -->
-          <div class="tab-pane fade show active" id="calendari" role="tabpanel" aria-labelledby="calendari-tab">
+          <div class="tab-pane fade show active" id="calendari" data-bs-toggle="pestanya" role="tabpanel" aria-labelledby="calendari-tab">
 
             <div class="row">
 
@@ -212,7 +212,7 @@
           </div>
 
           <!-- Tab Panel Dades Propietat -->
-          <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
+          <div class="tab-pane fade" id="home" role="tabpanel" data-bs-toggle="pestanya" aria-labelledby="home-tab">
 
             <div class="card  mt-3 mb-3 bg-light">
 
@@ -228,7 +228,7 @@
 
                       <div class="mb-3">
                         <input type="hidden" th:field="*{idPROPIETAT}" />
-                        <label for="nomPropietat" class="form-label">Nom de la propietat</label>
+                        <label for="nomPropietat" class="form-label">Nom de la propietat <span class="text-danger">*</span></label>
                         <input type="text" placeholder="ej. Villa Luna" class="form-control" th:field="*{nomPropietat}" id="nomPropietat">
                         <div id="spannom" class="form-text">Nom de la propietat que figura en l'escriptura</div>
                         <div id="validacioNom" class="form-text"></div>
@@ -238,7 +238,7 @@
                     <div class="col-6 form-group">
 
                       <div class="mb-3">
-                        <label for="localitat" class="form-label">Localitat</label>
+                        <label for="localitat" class="form-label">Localitat <span class="text-danger">*</span></label>
                         <select class="form-control" id="localitat" th:field="*{localitat}">
                           <option value="0" selected>-- Tria la localitat --</option>
                           <option th:each="localitat:${localitats}"
@@ -253,7 +253,7 @@
                     <div class="col-6 form-group">
 
                       <div class="mb-3">
-                        <label for="direccio" class="form-label">Direccio</label>
+                        <label for="direccio" class="form-label">Direccio <span class="text-danger">*</span></label>
                         <input type="text" placeholder="ej. Major 50" class="form-control" id="direccio"  th:field="*{direccio}">
                         <div id="direcciospan" class="form-text">Direccio de la casa amb format Carrer Numero</div>
                         <div id="validacioDireccio" class="form-text"></div>
@@ -262,7 +262,7 @@
                     </div>
                     <div class="col-3 form-group">
 
-                      <label for="preuBase" class="form-label">Preu Base</label>
+                      <label for="preuBase" class="form-label">Preu Base <span class="text-danger">*</span></label>
 
                       <div class="input-group">
                         <div class="input-group-prepend">
@@ -276,18 +276,18 @@
                     </div>
                     <div class="col-3 form-group">
 
-                      <label for="banys" class="form-label">Banys Comunitaris</label>
+                      <label for="banys" class="form-label">Banys Comunitaris <span class="text-danger">*</span></label>
                       <input type="number" class="form-control" id="banys" th:field="*{banysPropietat}">
                       <div id="banysSpan" class="form-text">Indica quants de banys compartits (generals) te la teva propietat.</div>
                       <div id="validacioBanys" class="form-text"></div>
 
                     </div>
                     <div class="col-3 mb-3">
-                      <label for="latitud" class="form-label">Latitud de la propietat: </label>
+                      <label for="latitud" class="form-label">Latitud de la propietat <span class="text-danger">*</span></label>
                       <input type="text" th:field="*{y}" id="latitud" class="form-control" readonly/>
                     </div>
                     <div class="col-3 mb-3">
-                      <label for="longitud" class="form-label">Longitud de la propietat: </label>
+                      <label for="longitud" class="form-label">Longitud de la propietat <span class="text-danger">*</span></label>
                       <input type="text" th:field="*{x}" id="longitud" class="form-control" readonly/>
                     </div>
                     <div class="col-12">
@@ -297,7 +297,7 @@
                             <div class="col-12 form-group">
 
                               <div class="mb-3">
-                                <label for="descompteSetmana" class="form-label">Descompte Setmanal</label>
+                                <label for="descompteSetmana" class="form-label">Descompte Setmanal </label>
 
                                 <div class="input-group">
                                   <div class="input-group-prepend">
@@ -313,7 +313,7 @@
                             <div class="col-12 form-group">
 
                               <div class="mb-3">
-                                <label for="descompteMes" class="form-label">Descompte Mensual</label>
+                                <label for="descompteMes" class="form-label">Descompte Mensual </label>
 
                                 <div class="input-group">
                                   <div class="input-group-prepend">
@@ -377,7 +377,7 @@
           </div>
 
           <!-- Tab Panel Habitacions -->
-          <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+          <div class="tab-pane fade" id="contact" role="tabpanel" data-bs-toggle="pestanya" aria-labelledby="contact-tab">
 
             <div class="card  mt-3 mb-3 bg-light">
 
@@ -421,7 +421,7 @@
           </div>
 
           <!-- Tab Panel Caracteristiques -->
-          <div class="tab-pane fade" id="caracteristiques" role="tabpanel" aria-labelledby="caracteristiques-tab">
+          <div class="tab-pane fade" id="caracteristiques" role="tabpanel" data-bs-toggle="pestanya" aria-labelledby="caracteristiques-tab">
 
             <div class="card  mt-3 mb-3 bg-light">
 
@@ -457,7 +457,7 @@
           </div>
 
           <!-- Tab-Tarifes -->
-          <div class="tab-pane fade" id="tarifes" role="tabpanel" aria-labelledby="tarifes-tab">
+          <div class="tab-pane fade" id="tarifes" role="tabpanel" data-bs-toggle="pestanya" aria-labelledby="tarifes-tab">
 
             <div class="card  mt-3 mb-3 bg-light">
 
@@ -498,7 +498,7 @@
           </div><!-- Fi panel tarifes -->
 
           <!-- Tab-Bloqueigos -->
-          <div class="tab-pane fade" id="bloqueig" role="tabpanel" aria-labelledby="bloqueig-tab">
+          <div class="tab-pane fade" id="bloqueig" role="tabpanel" data-bs-toggle="pestanya" aria-labelledby="bloqueig-tab">
 
             <div class="card  mt-3 mb-3 bg-light">
 
@@ -542,7 +542,7 @@
           </div>
 
           <!-- Tab Panel Politiques -->
-          <div class="tab-pane fade" id="politica" role="tabpanel" aria-labelledby="politica-tab">
+          <div class="tab-pane fade" id="politica" role="tabpanel" data-bs-toggle="pestanya" aria-labelledby="politica-tab">
 
             <div class="card  mt-3 mb-3 bg-light">
 
@@ -585,7 +585,7 @@
           </div>
 
           <!-- Tab-Reserves -->
-          <div class="tab-pane fade" id="reserves" role="tabpanel" aria-labelledby="reserves-tab">
+          <div class="tab-pane fade" id="reserves" role="tabpanel" data-bs-toggle="pestanya" aria-labelledby="reserves-tab">
 
             <div class="card  mt-3 mb-3 bg-light">
 
@@ -626,7 +626,7 @@
           </div>
 
           <!-- Tab-Fotos -->
-          <div class="tab-pane fade" id="fotos" role="tabpanel" aria-labelledby="fotos-tab">
+          <div class="tab-pane fade" id="fotos" role="tabpanel" data-bs-toggle="pestanya" aria-labelledby="fotos-tab">
 
             <div class="container" id="containerFotos">
               <h3 class="text-center">Fotos de la propietat</h3>
@@ -800,22 +800,91 @@
 <script th:inline="javascript">
 
   let height = screen.height;
+
   var lastActive;
 
-  function darreraTabSeleccionada(){
+  function guardarDarreraTab(){
 
-    //Li estam diguent que quan es clicki en el boto de la pestaña del calendari es torni a renderitzar
+    //Quan es clica un boto daquest tipus es guarda el seu id com atribut
     $('button[data-bs-toggle="tab"]').click(function (){
-            lastActive = $(this).attr('id');
-            console.log(lastActive)
-      localStorage.setItem("pestaña", lastActive);
+
+      var lastActive = $(this).attr('id');
+      var lastTabActive = lastActive.substring(0, lastActive.indexOf("-"));
+
+      localStorage.setItem("boto", lastActive);
+      localStorage.setItem("tab", lastTabActive);
+
     });
 
   }
 
+  function setLastActiveTab(){
+
+    if (localStorage.getItem("boto") !== null || localStorage.getItem("tab") !== null) {
+
+      let lastBotoActiva = localStorage.getItem("boto");
+      let lastTabActive = localStorage.getItem("tab");
+
+      //Eliminam els atributs per defecte (Per defecte al calendari)
+      $('#calendari-tab').removeClass("active");
+      $('#calendari').removeClass("active").removeClass("show");
+
+      $('#' + lastBotoActiva).addClass("active");
+      $('#' + lastTabActive).addClass("show").addClass("active");
+    }
+  }
+
+  //Funcionalitat erronea
+  /*
+  function setLastActiveTab(){
+
+    console.log("Comença");
+    var elementsBotons = $('button[data-bs-toggle="tab"]');
+    var elementsTabs = $('button[data-bs-toggle="pestanya"]');
+
+    var lastBotoActiva = localStorage.getItem("boto");
+    var lastTabActive = localStorage.getItem("tab");
+
+    console.log(lastBotoActiva, lastTabActive);
+    console.log(elementsBotons, elementsTabs);
+
+    if (lastBotoActiva !== undefined) {
+
+      console.log("HA entrat a l'if");
+
+      for (let i = 0; i < elementsBotons.length; i++) {
+
+        if (elementsBotons[i].classList.contains("active")) {
+          elementsBotons[i].classList.remove("active");
+        }
+
+        if (elementsBotons[i].getAttribute("id") === lastBotoActiva) {
+          elementsBotons[i].classList.add("active");
+        }
+      }
+
+      for (let z = 0; z < elementsBotons.length; z++) {
+
+        if (elementsTabs[z].classList.contains("active") && elementsTabs[z].classList.contains("show")) {
+          elementsTabs[z].classList.remove("active");
+          elementsTabs[z].classList.remove("show");
+        }
+
+        if (elementsTabs[z].getAttribute("id") === lastTabActive) {
+          elementsTabs[z].classList.add("active");
+          elementsTabs[z].classList.add("show");
+        }
+
+      }
+    }
+
+
+  }
+   */
+
   $(document).ready(function() {
 
-    $("body").css("min-height", height);
+    //$("body").css("min-height", height);
 
     veureTaula();
 
@@ -834,11 +903,11 @@
       calendar.render();
     });
 
-    darreraTabSeleccionada();
+    //Funcionalitat guardar darrera pestaña
+    setLastActiveTab();
 
-
-
-
+    //Funcio que guarda i activa la darrera pestaña activa
+    guardarDarreraTab();
 
   });
 

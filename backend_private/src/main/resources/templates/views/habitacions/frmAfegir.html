@@ -29,7 +29,7 @@
 
       <div class="card bg-light mt-3 mb-3">
 
-        <div class="card-header bg-light">Afegir Habitacions</div>
+        <div class="card-header bg-light fw-bold">Afegir Habitacions</div>
 
         <div class="card-body bg-light">
 
@@ -44,7 +44,7 @@
             </div>
             <div class="mb-3">
               <input type="hidden" th:field="*{idHABITACIONS}">
-              <label for="bany" class="form-label"> Banys: </label>
+              <label for="bany" class="form-label"> Banys <span class="text-danger">*</span></label>
               <select type="text" class="form-control" id="bany" th:field="*{bany}">
                 <option th:value="1"
                         th:text="Si"></option>
@@ -55,12 +55,12 @@
             </div>
             <div class="row">
             <div class="mb-3 col-6">
-              <label for="llitDoble" class="form-label">Llits dobles: </label>
+              <label for="llitDoble" class="form-label">Llits dobles <span class="text-danger">*</span></label>
               <input type="number" class="form-control" id="llitDoble" th:field="*{llit_Doble}">
               <div id="validacioDoble" class="form-text"></div>
             </div>
             <div class="mb-3 col-6">
-              <label for="llitSimple" class="form-label">Llits simples: </label>
+              <label for="llitSimple" class="form-label">Llits simples <span class="text-danger">*</span></label>
               <input type="number" class="form-control" id="llitSimple" th:field="*{llit_simple}">
               <div id="validacioSimple" class="form-text"></div>
             </div>

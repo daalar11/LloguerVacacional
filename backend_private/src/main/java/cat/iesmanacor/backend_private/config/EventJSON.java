@@ -1,4 +1,4 @@
-package cat.iesmanacor.backend_private.entitats;
+package cat.iesmanacor.backend_private.config;
 
 import lombok.Data;
 

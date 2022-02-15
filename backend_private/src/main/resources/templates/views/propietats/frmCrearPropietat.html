@@ -36,7 +36,7 @@
                 <form id="formCrearPropietat" th:object="${propietat}" th:action="@{/views/propietats/save}" method="post" enctype="multipart/form-data" onsubmit="return validacioPropietat()">
                 <div class="row">
                     <div class="col-12 form-group mb-3">
-                        <label for="propietari" class="form-label">Propietari: </label>
+                        <label for="propietari" class="form-label">Propietari </label>
                         <select type="text" class="form-control" id="propietari" aria-describedby="emailHelp" th:field="*{propietari}" readonly>
                             <option th:each="us:${propietari}"
                                     th:value="${us.Id}"
@@ -50,7 +50,7 @@
                     <div class="col-12 form-group">
 
                         <div class="mb-3">
-                            <label for="nomPropietat" class="form-label">Nom de la propietat</label>
+                            <label for="nomPropietat" class="form-label">Nom de la propietat <span class="text-danger">*</span></label>
                             <input type="text" placeholder="ej. Villa Luna" class="form-control" th:field="*{nomPropietat}" id="nomPropietat">
                             <div id="spannom" class="form-text">Nom de la propietat que figura en l'escriptura</div>
                             <div id="validacioNom" class="form-text"></div>
@@ -60,7 +60,7 @@
                     <div class="col-6 form-group">
 
                         <div class="mb-3">
-                            <label for="localitat" class="form-label">Localitat</label>
+                            <label for="localitat" class="form-label">Localitat <span class="text-danger">*</span></label>
                             <select class="form-control" id="localitat" th:field="*{localitat}">
                                 <option value="0" selected>-- Tria la localitat --</option>
                                 <option th:each="localitat:${localitats}"
@@ -75,7 +75,7 @@
                     <div class="col-6 form-group">
 
                         <div class="mb-3">
-                            <label for="direccio" class="form-label">Direccio</label>
+                            <label for="direccio" class="form-label">Direccio <span class="text-danger">*</span></label>
                             <input type="text" placeholder="ej. Major 50" class="form-control" id="direccio"  th:field="*{direccio}">
                             <div id="direcciospan" class="form-text">Direccio de la casa amb format Carrer Numero</div>
                             <div id="validacioDireccio" class="form-text"></div>
@@ -84,7 +84,7 @@
                     </div>
                     <div class="col-3 form-group">
 
-                        <label for="preuBase" class="form-label">Preu Base</label>
+                        <label for="preuBase" class="form-label">Preu Base <span class="text-danger">*</span></label>
 
                         <div class="input-group">
                             <div class="input-group-prepend">
@@ -98,19 +98,19 @@
                     </div>
                     <div class="col-3 form-group">
 
-                        <label for="banys" class="form-label">Banys Comunitaris</label>
+                        <label for="banys" class="form-label">Banys Comunitaris <span class="text-danger">*</span></label>
                         <input type="number" class="form-control" id="banys" th:field="*{banysPropietat}">
                         <div id="banysSpan" class="form-text">Indica quants de banys compartits (generals) te la teva propietat.</div>
                         <div id="validacioBanys" class="form-text"></div>
 
                     </div>
                     <div class="col-3 form-group">
-                        <label for="latitud" class="form-label">Latitud de la propietat: </label>
+                        <label for="latitud" class="form-label">Latitud de la propietat <span class="text-danger">*</span></label>
                         <input type="text" th:field="*{y}" id="latitud" class="form-control" readonly/>
                         <div id="validaciolat" class="form-text"></div>
                     </div>
                     <div class="col-3 form-group">
-                        <label for="longitud" class="form-label">Longitud de la propietat: </label>
+                        <label for="longitud" class="form-label">Longitud de la propietat <span class="text-danger">*</span></label>
                         <input type="text" th:field="*{x}" id="longitud" class="form-control" readonly/>
                         <div id="validaciolon" class="form-text"></div>
                     </div>

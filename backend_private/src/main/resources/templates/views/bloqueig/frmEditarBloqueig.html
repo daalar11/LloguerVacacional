@@ -30,7 +30,7 @@
             <div class="card bg-light mt-3 mb-3">
 
                 <!-- Card Header (Titol) -->
-                <div class="card-header bg-light">Editar Bloqueig</div>
+                <div class="card-header bg-light fw-bold">Editar Bloqueig</div>
 
                 <!-- Card Body -->
                 <div class="card-body bg-light">
@@ -49,14 +49,14 @@
                         </div>
                         <!-- Camp Data Inici -->
                         <div class="mb-3">
-                            <label for="dataIni" class="form-label">Data Inici </label>
+                            <label for="dataIni" class="form-label">Data Inici <span class="text-danger">*</span></label>
                             <input type="date" class="form-control" id="dataIni" th:field="*{dataInici}">
                             <div id="dataIniSpan" class="form-text">Indica quin dia comença el bloqueig</div>
                             <div id="validacioDataIni" class="form-text"></div>
                         </div>
                         <!-- Camp Data Final -->
                         <div class="mb-3">
-                            <label for="dataFi" class="form-label">Data Final</label>
+                            <label for="dataFi" class="form-label">Data Final <span class="text-danger">*</span></label>
                             <input type="date" class="form-control" id="dataFi" th:field="*{dataFinal}">
                             <div id="dataFiSpan" class="form-text">Indica quin dia que finalitza el bloqueig</div>
                             <div id="validacioDataFi" class="form-text"></div>

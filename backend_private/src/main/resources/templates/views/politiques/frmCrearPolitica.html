@@ -29,13 +29,13 @@
 
       <div class="card bg-light mt-3 mb-3">
 
-        <div class="card-header bg-light">Nova Politica</div>
+        <div class="card-header bg-light fw-bold">Nova Politica</div>
 
         <div class="card-body bg-light">
 
           <form th:object="${politica}" th:action="@{/views/propietats/politiques/save}" method="post" onsubmit="return validacioPolitica()">
             <div class="mb-3">
-              <label for="casa" class="form-label">Id propietat: </label>
+              <label for="casa" class="form-label">Id propietat </label>
               <select type="text" class="form-control" id="casa" th:field="*{propietat}" readonly>
                 <option th:each="propietat:${propietats}"
                         th:value="${propietat.idPROPIETAT}"
@@ -45,12 +45,12 @@
             <div class="row">
               <div class="mb-3 col-6">
                 <input type="hidden" th:field="*{idPolitica}">
-                <label for="antelacio" class="form-label">Dies d'antelació</label>
+                <label for="antelacio" class="form-label">Dies d'antelació <span class="text-danger">*</span></label>
                 <input type="number" class="form-control" id="antelacio" th:field="*{dies}">
                 <div id="validacioAntelacio" class="form-text"></div>
               </div>
               <div class="mb-3 col-6">
-                <label for="perdut" class="form-label">Percentatge perdut %</label>
+                <label for="perdut" class="form-label">Percentatge perdut (%) <span class="text-danger">*</span></label>
                 <input type="number" class="form-control" id="perdut" th:field="*{perdut}">
                 <div id="validacioPerdut" class="form-text"></div>
               </div>

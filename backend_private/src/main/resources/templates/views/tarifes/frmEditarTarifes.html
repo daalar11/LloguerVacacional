@@ -29,7 +29,7 @@
 
         <div class="card bg-light mt-3 mb-3">
 
-            <div class="card-header bg-light">Afegir Tarifes</div>
+            <div class="card-header bg-light fw-bold">Afegir Tarifes</div>
 
             <div class="card-body bg-light">
 
@@ -46,7 +46,7 @@
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <label for="preu" class="form-label">Preu</label>
+                                <label for="preu" class="form-label">Preu <span class="text-danger">*</span></label>
                                 <input type="number" step="any" class="form-control" id="preu" aria-describedby="emailHelp" th:field="*{preu}">
                                 <div id="preuSpan" class="form-text">Indica el preu per la nova tarifació durants els dies seleccionats.</div>
                                 <div id="validacioPreu" class="form-text"></div>
@@ -61,12 +61,12 @@
                         </div>
                         <div class="col-6">
                             <div class="mb-3">
-                                <label for="dataIni" class="form-label">Data Inici </label>
+                                <label for="dataIni" class="form-label">Data Inici <span class="text-danger">*</span></label>
                                 <input type="date" class="form-control" id="dataIni" aria-describedby="emailHelp" th:field="*{dataInici}">
                                 <div id="validacioDataIni" class="form-text"></div>
                             </div>
                             <div class="mb-3">
-                                <label for="dataFi" class="form-label">Data Final</label>
+                                <label for="dataFi" class="form-label">Data Final <span class="text-danger">*</span></label>
                                 <input type="date" class="form-control" id="dataFi" aria-describedby="emailHelp" th:field="*{dataFinal}">
                                 <div id="validacioDataFi" class="form-text"></div>
                             </div>
