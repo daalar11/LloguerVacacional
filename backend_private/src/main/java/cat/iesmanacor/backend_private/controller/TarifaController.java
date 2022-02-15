@@ -85,10 +85,11 @@ public class TarifaController {
             //Condicional que mira si les dates d'una tarifa son valides respecte les tarifes ja existents
             //Si compleix alguna de les seguents 4 condicions vol dir que la tarifa no es valida i canviara la variable valid a false.
             if (
-                    (dataFinal.isAfter(ini) && dataFinal.isBefore(fi) && dataInici.isBefore(ini)) || //Cas 1
-                            ((dataInici.isAfter(ini) && dataInici.isBefore(fi)) && dataFinal.isAfter(fi)) || //Cas 2
-                            ((dataInici.isBefore(ini) && dataFinal.isAfter(fi))) || //Cas 3
-                            (dataInici.isAfter(ini) && dataFinal.isBefore(fi)) //Cas 4
+                    ((dataFinal.isAfter(ini)||dataFinal.isEqual(ini)) && (dataFinal.isBefore(fi)||dataFinal.isEqual(fi)) && dataInici.isBefore(ini)) || //Cas 1
+                            ( ( dataInici.isAfter(ini) || dataInici.isEqual(ini) ) && ( dataInici.isBefore(fi) || dataInici.isEqual(fi) ) && dataFinal.isAfter(fi)) || //Cas 2
+                            ((dataInici.isBefore(ini)||dataInici.isEqual(ini)) && (dataFinal.isAfter(fi)||dataFinal.isEqual(fi))) || //Cas 3
+                            ((dataInici.isAfter(ini)||dataInici.isEqual(ini)) && (dataFinal.isBefore(fi)||dataFinal.isEqual(fi))) //Cas 4
+
             ) {
                 //Si ha entrat vol dir que la tarifa en iteració no es valida per lo que la afegim a l'array
                 tarifesConflictives.add(llistaTarife);
