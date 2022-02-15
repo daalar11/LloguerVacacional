@@ -65,7 +65,7 @@ public class UsuariController {
         propietari.setContrasenya(passwordHash(propietari.getContrasenya()));
         propietariService.save(propietari);
 
-        return "redirect:/autenticate/loggin";
+        return "redirect:/";
     }
 
     //redirecciona a loggin
@@ -78,7 +78,7 @@ public class UsuariController {
     @GetMapping("/loggout")
     public String loggin(HttpSession httpSession){
         httpSession.invalidate();
-        return "redirect:/autenticate/loggin";
+        return "redirect:/";
     }
 
     //Comprova si l'usuari es administrador o propietari, si no es cap dels dos torna a pantalla loggin
