@@ -3,6 +3,7 @@ package cat.iesmanacor.backend_private.controller;
 import cat.iesmanacor.backend_private.entitats.Bloqueig;
 import cat.iesmanacor.backend_private.entitats.Propietari;
 import cat.iesmanacor.backend_private.entitats.Propietat;
+import cat.iesmanacor.backend_private.entitats.Reserva;
 import cat.iesmanacor.backend_private.services.iBloqueigService;
 import cat.iesmanacor.backend_private.services.iPropietariService;
 import cat.iesmanacor.backend_private.services.iPropietatService;
@@ -53,7 +54,7 @@ public class BloqueigController {
 
     //recibe los datos del formulario para enviarlos a la bd
     @PostMapping("/save")
-    public String save(@ModelAttribute("idUsuari") Long idUsuari, @ModelAttribute Bloqueig bloqueig, Model model){
+    public String save(@ModelAttribute Bloqueig bloqueig) {
 
         //Boolean que indica si es pot fer el save o no. Si es true es fa l'insert si es false no ho fa.
         boolean valida = true;
@@ -63,22 +64,27 @@ public class BloqueigController {
         LocalDate dataFinal = bloqueig.getDataFinal();
 
         //Primer de tot validam que la dataInici es anterior a la dataFinal
-        if (dataInici.isAfter(dataFinal)){
+        if (dataInici.isAfter(dataFinal)) {
             valida = false;
         }
 
-        //Cream l'objecte propietat, ja que nomes hem de mirar que no existesqui conflicte entre les tarifes de nomes aquella propietat i no totes
+        //Cream l'objecte propietat, ja que nomes hem de mirar que no existesqui conflicte entre els bloquejos de nomes aquella propietat i no totes
         Propietat propietat = propietatService.buscarPorId(bloqueig.getPropietat().getIdPROPIETAT());
 
-        //Cream un arrayList de tarifes i afegim totes les tarifes de la propietat.
+        //Cream un arrayList de bloquejos i afegim tots els bloquejos de la propietat.
         List<Bloqueig> llistaBloqueig = new ArrayList<>();
         llistaBloqueig.addAll(propietat.getBloqueig());
 
+        //Com que un propietari no ha de poder bloquejar un dia que esta reservat tambe necessitarem obtenir totes les reserves de la casa
+        List<Reserva> llistaReserves = new ArrayList<>();
+        llistaReserves.addAll(propietat.getReserves());
+
         //Tambe cream un arrayList per tal d'enmegatzemar les tarifes conflictives i proporcionar info a l'usuari.
-        List<Bloqueig> bloqueigsConflictius = new ArrayList<>();
+        long idReservaConflictiva = -1;
+        long idBloqueigConclictiu = -1;
 
         //Bucle que recorr els bloquejos d'una propietat per cada iteració.
-        for (int i = 0; i<llistaBloqueig.size();i++){
+        for (int i = 0; i < llistaBloqueig.size(); i++) {
 
             LocalDate ini = llistaBloqueig.get(i).getDataInici();
             LocalDate fi = llistaBloqueig.get(i).getDataFinal();
@@ -86,24 +92,56 @@ public class BloqueigController {
             //Condicional que mira si les dates d'una tarifa son valides respecte les tarifes ja existents
             //Si compleix alguna de les seguents 4 condicions vol dir que la tarifa no es valida i canviara la variable valid a false.
             if (
-                    ((dataFinal.isAfter(ini)||dataFinal.isEqual(ini)) && (dataFinal.isBefore(fi)||dataFinal.isEqual(fi)) && dataInici.isBefore(ini)) || //Cas 1
-                            ( ( dataInici.isAfter(ini) || dataInici.isEqual(ini) ) && ( dataInici.isBefore(fi) || dataInici.isEqual(fi) ) && dataFinal.isAfter(fi)) || //Cas 2
-                            ((dataInici.isBefore(ini)||dataInici.isEqual(ini)) && (dataFinal.isAfter(fi)||dataFinal.isEqual(fi))) || //Cas 3
-                            ((dataInici.isAfter(ini)||dataInici.isEqual(ini)) && (dataFinal.isBefore(fi)||dataFinal.isEqual(fi))) //Cas 4
+                    ((dataFinal.isAfter(ini) || dataFinal.isEqual(ini)) && (dataFinal.isBefore(fi) || dataFinal.isEqual(fi)) && dataInici.isBefore(ini)) || //Cas 1
+                            ((dataInici.isAfter(ini) || dataInici.isEqual(ini)) && (dataInici.isBefore(fi) || dataInici.isEqual(fi)) && dataFinal.isAfter(fi)) || //Cas 2
+                            ((dataInici.isBefore(ini) || dataInici.isEqual(ini)) && (dataFinal.isAfter(fi) || dataFinal.isEqual(fi))) || //Cas 3
+                            ((dataInici.isAfter(ini) || dataInici.isEqual(ini)) && (dataFinal.isBefore(fi) || dataFinal.isEqual(fi))) //Cas 4
 
-            ){
+            ) {
                 //Si ha entrat vol dir que la tarifa en iteració no es valida per lo que la afegim a l'array
-                bloqueigsConflictius.add(llistaBloqueig.get(i));
+                idBloqueigConclictiu = llistaBloqueig.get(i).getIdBLOQUEIG();
                 valida = false;
+
+            }
+        }
+
+        //Bucle que recorr els bloquejos d'una propietat per cada iteració.
+        for (int z = 0; z < llistaReserves.size(); z++) {
+
+            LocalDate ini = llistaReserves.get(z).getdArribada();
+            LocalDate fi = llistaReserves.get(z).getdSortida();
+
+            //Condicional que mira si les dates d'una tarifa son valides respecte les tarifes ja existents
+            //Si compleix alguna de les seguents 4 condicions vol dir que la tarifa no es valida i canviara la variable valid a false.
+            if (
+                    ((dataFinal.isAfter(ini) || dataFinal.isEqual(ini)) && (dataFinal.isBefore(fi) || dataFinal.isEqual(fi)) && dataInici.isBefore(ini)) || //Cas 1
+                            ((dataInici.isAfter(ini) || dataInici.isEqual(ini)) && (dataInici.isBefore(fi) || dataInici.isEqual(fi)) && dataFinal.isAfter(fi)) || //Cas 2
+                            ((dataInici.isBefore(ini) || dataInici.isEqual(ini)) && (dataFinal.isAfter(fi) || dataFinal.isEqual(fi))) || //Cas 3
+                            ((dataInici.isAfter(ini) || dataInici.isEqual(ini)) && (dataFinal.isBefore(fi) || dataFinal.isEqual(fi))) //Cas 4
+
+            ) {
+                //Si ha entrat vol dir que la tarifa en iteració no es valida per lo que la afegim a l'array
+                idReservaConflictiva = llistaReserves.get(z).getIdReserva();
+                valida = false;
+                break;
+
             }
         }
 
         if (valida) {
             bloqueigService.save(bloqueig);
-            return "redirect:/views/propietats/configurar/" + propietat.getIdPROPIETAT()+"?respostaBloqueig=1";
+
+            return "redirect:/views/propietats/configurar/" + propietat.getIdPROPIETAT() + "?respostaBloqueig=1";
         } else {
 
-            return "redirect:/views/propietats/configurar/" + propietat.getIdPROPIETAT()+"?respostaBloqueig=0";
+            if (idReservaConflictiva != -1) {
+
+                return "redirect:/views/propietats/configurar/" + propietat.getIdPROPIETAT() + "?respostaBloqueig=0&idConflictiu=" + idReservaConflictiva;
+            } else {
+
+                return "redirect:/views/propietats/configurar/" + propietat.getIdPROPIETAT() + "?respostaBloqueig=0&idConflictiu=" + idBloqueigConclictiu;
+            }
+
         }
 
     }

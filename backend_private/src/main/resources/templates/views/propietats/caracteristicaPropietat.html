@@ -143,7 +143,7 @@
 
   if ([[${respostaBloqueig}]] != null){
 
-    var resposta = [[${respostaBloqueig}]];
+    var resposta = [[${respostaBloqueig}]] + '\n' + [[${idConflictiu}]];
     alert(resposta);
   }
 </script>
@@ -537,7 +537,7 @@
               </div>
             </div>
             <a th:each="tar:${propietat}" class="btn btn-primary mt-3" th:href="@{'/views/bloqueig/afegir/'+ ${tar.idPROPIETAT}} " th:text="'Nou Bloqueig'" title="Crear nou registre"></a>
-
+            <span th:if="${idConflictiu}!=null" th:text="${idConflictiu}" class="p-2 mt-4 ms-4 border border-danger"></span>
 
           </div>
 
@@ -834,57 +834,7 @@
     }
   }
 
-  //Funcionalitat erronea
-  /*
-  function setLastActiveTab(){
-
-    console.log("Comença");
-    var elementsBotons = $('button[data-bs-toggle="tab"]');
-    var elementsTabs = $('button[data-bs-toggle="pestanya"]');
-
-    var lastBotoActiva = localStorage.getItem("boto");
-    var lastTabActive = localStorage.getItem("tab");
-
-    console.log(lastBotoActiva, lastTabActive);
-    console.log(elementsBotons, elementsTabs);
-
-    if (lastBotoActiva !== undefined) {
-
-      console.log("HA entrat a l'if");
-
-      for (let i = 0; i < elementsBotons.length; i++) {
-
-        if (elementsBotons[i].classList.contains("active")) {
-          elementsBotons[i].classList.remove("active");
-        }
-
-        if (elementsBotons[i].getAttribute("id") === lastBotoActiva) {
-          elementsBotons[i].classList.add("active");
-        }
-      }
-
-      for (let z = 0; z < elementsBotons.length; z++) {
-
-        if (elementsTabs[z].classList.contains("active") && elementsTabs[z].classList.contains("show")) {
-          elementsTabs[z].classList.remove("active");
-          elementsTabs[z].classList.remove("show");
-        }
-
-        if (elementsTabs[z].getAttribute("id") === lastTabActive) {
-          elementsTabs[z].classList.add("active");
-          elementsTabs[z].classList.add("show");
-        }
-
-      }
-    }
-
-
-  }
-   */
-
   $(document).ready(function() {
-
-    //$("body").css("min-height", height);
 
     veureTaula();
 

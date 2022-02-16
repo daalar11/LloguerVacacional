@@ -59,6 +59,7 @@ public class PropietatController {
     @GetMapping("/configurar/{idPROPIETAT}")
     public String configuracio(@RequestParam(name="respostaBloqueig", required = false) Integer respostaBloqueig,
                                @RequestParam(name="respostaTarifa", required = false) Integer respostaTarifa,
+                               @RequestParam(name="idConflictiu", required = false) Integer idConflictiu,
                                @ModelAttribute("idUsuari") Long idUsuari, Model model,
                                @PathVariable("idPROPIETAT") Long idPROPIETAT){
 
@@ -143,12 +144,15 @@ public class PropietatController {
             }
         }
         if (respostaBloqueig != null) {
-            //Per saber si una tarifa s'ha aceptat o no s'ha pogut introduir
             if (respostaBloqueig == 0) {
                 model.addAttribute("respostaBloqueig", "No s'ha pogut introduir el bloqueig\nComprova que les dates siguin valides");
             } else if (respostaBloqueig == 1) {
                 model.addAttribute("respostaBloqueig", "Dates valides \nS'ha introduit un nou bloqueig");
             }
+        }
+        if (idConflictiu != null) {
+            model.addAttribute("idConflictiu", "L'ID de l'event conflictiu es " + idConflictiu);
+
         }
 
     return "/views/propietats/caracteristicaPropietat";

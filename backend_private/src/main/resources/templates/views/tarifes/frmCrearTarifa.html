@@ -5,6 +5,115 @@
     <div th:replace="plantilla/template :: head(type='tag')"></div>
     <!-- Validacio Formulari de Crear Nova Tarifa i editar Tarifa -->
     <script type="text/javascript" th:src="@{/js/ValidacionsFormularis/validacionsFormularis.js}"></script>
+
+    <!-- Full Calendar Boundle -->
+    <link th:href="@{/fullcalendar/main.css}" rel='stylesheet' />
+    <script th:src="@{/fullcalendar/main.js}" ></script>
+    <script th:src="@{/fullcalendar/locales-all.js}" ></script><!-- Idiomes -->
+
+    <script th:inline="javascript">
+
+        var calendar;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            calendar = new FullCalendar.Calendar(calendarEl, {
+                locale: 'ca', //Idioma
+                timeZone: 'UTC', //UTF
+                initialView: 'dayGridMonth', //Vista inicial
+                //themeSystem: 'Lux',
+                //Propietats de height del calendari
+                height: 'auto', //Setter -> calendar.setOption('height', 700);
+                contentHeight: 600, //Setter -> calendar.setOption('contentHeight', 650);
+                themeSystem: 'default',
+                navLinks: 'true',
+                selectable: 'true', //Fa els dies seleccionables (Tambe en grups (Arrastrant))
+                unselectAuto: 'true', //Si esta a true es deseleccionaran els dies seleccionats fent click a cualsevol banda
+
+                //DayClick -> Quan es clica una data
+                /*dateClick: function() {
+                  $(this).css('border', '2px solid black');
+                  $("#modal").show();
+                },*/
+
+                //Configuracions marcador setmana de l'any
+                weekNumbers: 'true',
+                weekText: 'S',
+                weekNumberFormat: {week: 'narrow'},
+
+                //Propietats Header i Footer del Calenari Elements [] = Title, prev, next, prevYear, nextYear, today, dayGridView
+                headerToolbar: {
+                    start: 'prev prevYear', //Elements que apareixen al principi del header
+                    center: 'title', //Elements que apareixen al centre del header
+                    end: 'nextYear next' //Elements que apareixen al final del header
+                },
+                footerToolbar: {
+                    left: 'botoEspanyol botoCatala botoIngles',
+                    center: 'dayGridMonth today',//center: 'dayGridMonth timeGridWeek timeGridDay',
+                    right: 'botoTarifes botoBloqueig botoReserves'
+                },
+                //Aqui podem crear botons custom i indicarli una funcio a executar quan facin click
+                customButtons: {
+                    botoTarifes: { //Identificador del boto
+                        text: 'Tarifes', //Text del boto
+                        click: function () {
+                            alert('Redirect a tab tarifes!');
+                        }
+                    },
+                    botoBloqueig: {
+                        text: 'Bloqueig',
+                        click: function () {
+                            alert('Redirect a tab Bloqueig!');
+                        }
+                    },
+                    botoReserves: {
+                        text: 'Reserves',
+                        click: function () {
+                            alert('Redirect a tab Reserves!');
+                        }
+                    },
+                    botoEspanyol: {
+                        text: 'Español',
+                        click: function () {
+                            calendar.setOption('locale', 'es');
+                        }
+                    },
+                    botoCatala: {
+                        text: 'Catala',
+                        click: function () {
+                            calendar.setOption('locale', 'ca');
+                        }
+                    },
+                    botoIngles: {
+                        text: 'English',
+                        click: function () {
+                            calendar.setOption('locale', 'en');
+                        }
+                    }
+                },
+                textColor: "blue", //Color del text !NO FUNCIONA
+                eventSources: [
+
+                    {
+                        //Per GET arriben els bloquejos
+                        method: "GET", //Metode d'obtencio de les dades
+                        url: "/views/tarifes/frmCrearTarifa/" + [[${propietats.idPROPIETAT}]] + "/{idTarifa}", //URL on es passa el JSON
+                        //Propietats dels events que arriben per GET
+                        display: "background", //Es displayea levent ocupant tot el background del dia
+                        backgroundColor: "green", //Color del background
+                        borderColor: "black", //Color del border !NO FUNCIONA
+                    }
+
+                ],
+
+
+
+
+            });
+            calendar.render();
+        })
+    </script>
+
 </head>
 
 <body>
@@ -78,6 +187,11 @@
 
             </div>
         </div>
+
+        <div class="row">
+            <div id='calendar' class="mt-3"></div>
+        </div>
+
     </main>
 
     <footer th:include="plantilla/template :: footer">
