@@ -13,7 +13,7 @@ class Propietat extends Model
 
     public $timestamps = false;
 
-    protected $primaryKey ='idPROPIETAT';
+    protected $primaryKey ='idpropietat';
     /**
      * @var mixed
      */

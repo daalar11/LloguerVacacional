@@ -21,7 +21,7 @@ class BloqueigController extends Controller
     public function listBloqueigsByPropietat($idPROPIETAT){
 
         $bloqueig = Bloqueig::where('id_propietat', $idPROPIETAT)
-            ->orderBy('idBLOQUEIG', 'desc')
+            ->orderBy('idbloqueig', 'desc')
             ->take(10)
             ->get();
 
@@ -32,8 +32,8 @@ class BloqueigController extends Controller
     public function listBloqueigByPropietat($idPROPIETAT, $idBLOQUEIG){
 
         $bloqueig = Bloqueig::where('id_propietat', $idPROPIETAT)
-            ->where('idBLOQUEIG', $idBLOQUEIG)
-            ->orderBy('idBLOQUEIG', 'desc')
+            ->where('idbloqueig', $idBLOQUEIG)
+            ->orderBy('idbloqueig', 'desc')
             ->take(10)
             ->get();
 

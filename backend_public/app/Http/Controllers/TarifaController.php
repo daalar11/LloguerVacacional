@@ -21,7 +21,7 @@ class TarifaController extends Controller
     public function listTarifesByPropietat($idPROPIETAT){
 
         $tarifes = Tarifa::where('id_propietat', $idPROPIETAT)
-            ->orderBy('idTARIFA', 'desc')
+            ->orderBy('idtarifa', 'desc')
             ->take(10)
             ->get();
 
@@ -32,8 +32,8 @@ class TarifaController extends Controller
     public function listTarifaByPropietat($idPROPIETAT, $idTARIFA){
 
         $tarifa = Tarifa::where('id_propietat', $idPROPIETAT)
-            ->where('idTARIFA', $idTARIFA)
-            ->orderBy('idTARIFA', 'desc')
+            ->where('idtarifa', $idTARIFA)
+            ->orderBy('idtarifa', 'desc')
             ->take(10)
             ->get();
 

@@ -10,7 +10,7 @@ class Bloqueig extends Model
     use HasFactory;
 
     protected $table ="bloqueig";
-    protected $primaryKey ='idBLOQUEIG';
+    protected $primaryKey ='idbloqueig';
     public $timestamps = false;
 
     public function propietat(){

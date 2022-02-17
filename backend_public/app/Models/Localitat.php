@@ -13,7 +13,7 @@ class Localitat extends Model
     protected $table = 'localitat';
 
     //Clau primaria de la taula localitat
-    protected $primaryKey ='idLOCALITAT';
+    protected $primaryKey ='idlocalitat';
 
     public $timestamps = false;
 

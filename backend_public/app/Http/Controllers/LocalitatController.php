@@ -23,7 +23,7 @@ class LocalitatController extends Controller
     //Metode llistar localitat per la seva ID que arriba per URL
     public function listByIdLocalitat($idLOCALITAT){
 
-        $localitats = Localitat::where('idLOCALITAT', $idLOCALITAT)->get();
+        $localitats = Localitat::where('idlocalitat', $idLOCALITAT)->get();
 
         return $localitats->toJson();
 

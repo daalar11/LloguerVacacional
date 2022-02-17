@@ -10,7 +10,7 @@ class Tarifa extends Model
     use HasFactory;
 
     protected $table ="tarifa";
-    protected $primaryKey ='idTARIFA';
+    protected $primaryKey ='idtarifa';
     public $timestamps = false;
 
     public function propietat(){

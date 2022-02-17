@@ -12,7 +12,7 @@ class Habitacio extends Model
 
     public $timestamps = false;
 
-    protected $primaryKey = 'idHABITACIONS';
+    protected $primaryKey = 'idhabitacions';
 
     public function  propietat(){
         return $this->belongsTo(Propietat::class,'id_propietat');
