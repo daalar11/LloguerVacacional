@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 import 'bootstrap/dist/css/bootstrap.min.css';//Bootstrap
 import Propietat from '../components/Propietat';
+import Cercador from "../components/Cercador";
 import {Container, Row, Col } from 'reactstrap';
 
 import axios from 'axios';
@@ -15,6 +16,7 @@ class Cercarpropietat extends Component {
       propietats: [],
       isLoading: false,
       error: null,
+      caracte
     };
   }
 
@@ -64,6 +66,11 @@ class Cercarpropietat extends Component {
         <Container>
           <Row>
             <Col>
+                <Cercador></Cercador>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
 
             {propietats.map(function(propietats, key) {
                           
@@ -76,6 +83,7 @@ class Cercarpropietat extends Component {
                             url="http://www.mylink1.com" 
                             caracterisica={propietats.caracteristica}
                             preu={propietats.preu_base}
+                            src="https://tdj.gg/uploads/attachs/64208_a58fc3c83bacd7531287dd54c5f0580927894613-56ce822d9e067cab682b844e.jpg"
                            />
                             
 

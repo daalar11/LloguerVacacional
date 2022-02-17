@@ -70,12 +70,35 @@ public class Propietat implements Serializable {
     @Column(name="descompte_mes", nullable=false)
     private int descompteMes;
 
+    private int places;
+
     private String x;
     private String y;
 
     //Constructor buit
     public Propietat() {}
 
+    public Propietat(Long idPROPIETAT, String nomPropietat, Localitat localitat, Propietari propietari, String normes, List<Habitacio> habitacions, List<Tarifa> tarifes, List<PoliticaCancelacio> politica, List<Bloqueig> bloqueig, List<Reserva> reserves, List<Caracteristica> caracteristicas, String direccio, int banysPropietat, float preuBase, int descompteSetmana, int descompteMes, int places, String x, String y) {
+        this.idPROPIETAT = idPROPIETAT;
+        this.nomPropietat = nomPropietat;
+        this.localitat = localitat;
+        this.propietari = propietari;
+        this.normes = normes;
+        this.habitacions = habitacions;
+        this.tarifes = tarifes;
+        this.politica = politica;
+        this.bloqueig = bloqueig;
+        this.reserves = reserves;
+        this.caracteristicas = caracteristicas;
+        this.direccio = direccio;
+        this.banysPropietat = banysPropietat;
+        this.preuBase = preuBase;
+        this.descompteSetmana = descompteSetmana;
+        this.descompteMes = descompteMes;
+        this.places = places;
+        this.x = x;
+        this.y = y;
+    }
     //Getters i Setters
 
     public Propietari getPropietari() {
@@ -84,6 +107,14 @@ public class Propietat implements Serializable {
 
     public void setPropietari(Propietari propietari) {
         this.propietari = propietari;
+    }
+
+    public int getPlaces() {
+        return places;
+    }
+
+    public void setPlaces(int places) {
+        this.places = places;
     }
 
     public Long getIdPROPIETAT() {

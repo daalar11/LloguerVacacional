@@ -57,7 +57,7 @@
                         </div>
 
                     </div>
-                    <div class="col-6 form-group">
+                    <div class="col-3 form-group">
 
                         <div class="mb-3">
                             <label for="localitat" class="form-label">Localitat <span class="text-danger">*</span></label>
@@ -69,6 +69,15 @@
                             </select>
                             <div id="localitatspan" class="form-text">Selecciona la localitat on es localitza la propietat</div>
                             <div id="validacioLocalitat" class="form-text"></div>
+                        </div>
+
+                    </div>
+                    <div class="col-3 form-group">
+
+                        <div class="mb-3">
+                            <label for="places" class="form-label">Nº places: <span class="text-danger">*</span></label>
+                            <input type="text" placeholder="ej. Major 50" class="form-control" id="places"  th:field="*{places}">
+                            <div id="validacioPlaces" class="form-text"></div>
                         </div>
 
                     </div>

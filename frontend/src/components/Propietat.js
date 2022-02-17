@@ -19,7 +19,7 @@ class Propietat extends Component {
     <div className='row'>
     <div className='col-5'>
     <CardImg
-      src={this.props.photo}
+      src={this.props.src}
       height='399'
       />
     </div>
