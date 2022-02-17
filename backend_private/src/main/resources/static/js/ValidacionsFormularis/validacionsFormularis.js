@@ -459,9 +459,10 @@ function validarCognomRegister(){
 function validarContrasenyaRegister(){
     var pass = $("#pass").val();
 
-    if (pass != null){
-        campsCorrectes++;
+    if (pass == null){
         incorrecte("", "#validacioPass", "No has indicat la teva contrasenya")
+    } else {
+        campsCorrectes++;
     }
 }
 
