@@ -9,7 +9,7 @@ class Caracteristiques extends Model
 {
     use HasFactory;
 
-    protected $table ="CARACTERISTIQUES";
+    protected $table ="caracteristiques";
 
     public $timestamps = false;
 

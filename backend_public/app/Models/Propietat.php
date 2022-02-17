@@ -9,7 +9,7 @@ class Propietat extends Model
 {
     use HasFactory;
 
-    protected $table ="PROPIETAT";
+    protected $table ="propietat";
 
     public $timestamps = false;
 

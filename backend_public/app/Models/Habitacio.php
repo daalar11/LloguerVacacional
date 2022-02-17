@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Habitacio extends Model
 {
-    protected $table = "HABITACIONS";
+    protected $table = "habitacions";
 
     public $timestamps = false;
 
