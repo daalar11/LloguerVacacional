@@ -120,6 +120,7 @@ public class UsuariController {
 
     }
 
+
     //comprova les contrasenya introduida amb la de la bd
     private boolean validate(Usuari usuari, Usuari usuari2) {
         return BCrypt.checkpw(usuari.getContrasenya(), usuari2.getContrasenya());

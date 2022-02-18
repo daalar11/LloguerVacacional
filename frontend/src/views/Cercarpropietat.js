@@ -16,14 +16,14 @@ class Cercarpropietat extends Component {
       propietats: [],
       isLoading: false,
       error: null,
-      caracte
     };
   }
 
   //Metode amb la peticio axios a n url.
   carregarPropietats = () => {
 
-    var url = "http://127.0.0.1:8000"
+    //var url="api.lloguerdavid.me";
+    var url = "http://127.0.0.1:8000";
     var request = "/all";
 
     axios.get(url + request)
@@ -83,7 +83,7 @@ class Cercarpropietat extends Component {
                             url="http://www.mylink1.com" 
                             caracterisica={propietats.caracteristica}
                             preu={propietats.preu_base}
-                            src="https://tdj.gg/uploads/attachs/64208_a58fc3c83bacd7531287dd54c5f0580927894613-56ce822d9e067cab682b844e.jpg"
+                            src="http://admin.lloguerdavid.me/Media/1234-media/1234-portada.jpg"
                            />
                             
 
