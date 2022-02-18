@@ -84,6 +84,7 @@ class Cercarpropietat extends Component {
                             url="http://www.mylink1.com" 
                             caracterisica={propietats.caracteristica}
                             preu={propietats.preu_base}
+                            id={propietats.idpropietat}
                             src="http://admin.lloguerdavid.me/Media/1234-media/1234-portada.jpg"
                            />
                             
