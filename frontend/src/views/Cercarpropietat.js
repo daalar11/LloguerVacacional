@@ -4,8 +4,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';//Bootstrap
 import Propietat from '../components/Propietat';
 import {Container, Row, Col } from 'reactstrap';
 
+//Importam Axios
 import axios from 'axios';
- 
+
 class Cercarpropietat extends Component {
 
   constructor(props) {
