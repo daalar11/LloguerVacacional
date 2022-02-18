@@ -82,7 +82,7 @@ class Cercarpropietat extends Component {
                             subtitle = {propietats.localitat.nom_localitat}
                             text={propietats.normes} 
                             url="http://www.mylink1.com" 
-                            caracterisica={propietats.caracteristica}
+                            caracteristica={propietats.caracteristica}
                             preu={propietats.preu_base}
                             id={propietats.idpropietat}
                             src="http://admin.lloguerdavid.me/Media/1234-media/1234-portada.jpg"

@@ -13,7 +13,7 @@ class Viewpropietat extends Component {
     super(props);
 
     this.state = {
-      propietats: [],
+      propietat: [],
       isLoading: false,
       error: null,
     };
@@ -22,13 +22,14 @@ class Viewpropietat extends Component {
   //Metode amb la peticio axios a n url.
   vistaPropietat = () => {
 
-    const values = queryString.parse(this.props.location.search);
+    //const values = queryString.parse(this.props.location.search);
+    //console.log(values);
 
     var url = "http://127.0.0.1:8000"
     var request = "/all/1";
-    var requestP = "/all/" + values.idPropietat;
+    //var requestP = "/all/" + values.id;
 
-    axios.get(url + requestP)
+    axios.get(url + request)
     .then(res => {this.setState({
       propietat: res.data,
           status: true
@@ -42,11 +43,13 @@ class Viewpropietat extends Component {
   }
 
   //Metode componentDidMount
-  componentDidMount = () => {this.carregarPropietats();}
+  componentDidMount = () => {this.vistaPropietat();
+  console.log(this.state.propietat);}
 
   render() {
 
-    const { propietata, isLoading, error } = this.state;
+
+    const { propietat, isLoading, error } = this.state;
 
     if (error) {
       return <p>{error.message}</p>;
@@ -62,19 +65,19 @@ class Viewpropietat extends Component {
       <div>
         <h2>PAGINA VISTA D'UNA PROPIETAT</h2>
 
-        {propietata.map((propietat, key) => (
+       
 
-                    <Propietat key = {key}
-                            title = {propietat.nom_propietat}
-                            subtitle = {propietat.localitat.nom_localitat}
-                            text={propietat.normes} 
+                    <Propietat
+                            title = {this.state.propietat.nom_propietat}
+                            //subtitle = {propietats.localitat.nom_localitat}
+                            text={this.state.propietat.normes} 
                             url="http://www.mylink1.com" 
-                            caracterisica={propietat.caracteristica}
-                            preu={propietat.preu_base}
+                            caracterisica={this.state.propietat.caracteristica}
+                            preu={this.state.propietat.preu_base}
                            />
         
  
-                           ))}
+      
       </div>
     );
     

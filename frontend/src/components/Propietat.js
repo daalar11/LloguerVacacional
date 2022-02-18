@@ -12,11 +12,6 @@ import {Link} from "react-router-dom";
 
 class Propietat extends Component {
 
-  pasarIdPropietat(id){
-    console.log(id);
-   return (<Propietat idPropietat={id} />)  
-  }
-
   render(){
   
     return (
@@ -46,13 +41,13 @@ class Propietat extends Component {
         <div>
             <h5>Caracteristiques:</h5>
             <CardText>
-            {this.props.caracterisica.map(function(caracterisica,key) {
+            {/*this.props.caracteristica.map(function(caracteristica,key) {
               return(
                 <span className='me-2' key= {key}>
-                  {caracterisica.caracteristica}
+                  {caracteristica.caracteristica}
                 </span>
               )
-            })}
+            })*/}
           </CardText>
           <h6>Preu per nit :</h6>
               <CardText>
