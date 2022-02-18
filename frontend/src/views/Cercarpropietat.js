@@ -5,8 +5,9 @@ import Propietat from '../components/Propietat';
 import Cercador from "../components/Cercador";
 import {Container, Row, Col } from 'reactstrap';
 
+//Importam Axios
 import axios from 'axios';
- 
+
 class Cercarpropietat extends Component {
 
   constructor(props) {

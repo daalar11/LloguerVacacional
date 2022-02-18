@@ -7,9 +7,15 @@ import react, { Component } from 'react';
 
 //Importar un component de Bootstrap.
 import {Alert, Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, Button} from 'reactstrap';
+import {Link} from "react-router-dom";
 
 
 class Propietat extends Component {
+
+  pasarIdPropietat(id){
+    console.log(id);
+   return (<Propietat idPropietat={id} />)  
+  }
 
   render(){
   
@@ -54,13 +60,16 @@ class Propietat extends Component {
               </CardText>
         </div>   
       </div>
+       {/* onClick={()=>{this.pasarIdPropietat(this.props.idPropietat)}} */}
       <div className='d-flex justify-content-center'>
+      <Link to={"/viewpropietat?id=" + this.state.idPropietat}>
           <Button 
           color="dark"
           outline
-          size="lg">
+          size="lg"
+          >
             Lloga
-          </Button>
+          </Button></Link>
       </div>
     </CardBody>
     </div>
