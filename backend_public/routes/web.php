@@ -34,6 +34,7 @@ Route::get('/', function () {
 //Rutes principals
 Route::get('/all',[PropietatController::class,'listAllByPropietat']);
 Route::get('/all/{Id}',[PropietatController::class,'listAllByPropietatId']);
+Route::get('/propietat/{idLocalitat}/{places}',[PropietatController::class,'listPropietatByPlacesAndLocalitat']);
 
 Route::get('/{idPropietat}/habitacio',[HabitacioController::class,'listHabitacioByPropietat']);
 

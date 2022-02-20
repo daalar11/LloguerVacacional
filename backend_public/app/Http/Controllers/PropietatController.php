@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers;
+use App\Models\Habitacio;
 use App\Models\Propietat;
 use Illuminate\Http\Request;
 use App\Activity;
@@ -17,7 +18,11 @@ class PropietatController extends Controller
         //Retornam un parse de l'objecte propietats a JSON
         return $propietats->toJson();
     }
-
+    public function listPropietatByPlacesAndLocalitat($idLocalitat,$places){
+        $propietat = Propietat::where('id_localitat',$idLocalitat)->where("places",$places)->get()->toArray();
+        //return DB::select("select * from habitacions where id_propietat=".$propietat->primaryKey);
+        return json_decode(json_encode($propietat),true);
+    }
     public function listAllByPropietat()
     {
         $propietat= Propietat::with('habitacions','bloqueig','localitat','tarifa','caracteristica')->get()->toArray();
