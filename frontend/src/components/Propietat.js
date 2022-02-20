@@ -21,11 +21,11 @@ class Propietat extends Component {
     <div className='col-5'>
     <CardImg
       src={this.props.src}
-      height='399'
+      height='324'
       />
     </div>
     <CardBody className='col-7 d-flex flex-column justify-content-between'
-    height='400px'>
+    height='325px'>
       <div className='d-flex flex-row justify-content-between ms-2 me-3'>
           <CardTitle tag="h2" >
           {this.props.title}

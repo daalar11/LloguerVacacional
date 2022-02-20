@@ -87,7 +87,7 @@ class Cercador extends Component {
                                     </option>
                                 
                                 })*/}
-                                 {localitats.map((localitat,key) => (
+                                 {this.props.localitats.map((localitat,key) => (
 
                                     <option key={key} value={localitat.idlocalitat}>{localitat.nom_localitat}</option>
 
