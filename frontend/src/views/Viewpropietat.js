@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import Propietat from "../components/Propietat";
+import Carrousel from "../components/Carrousel";
 import 'bootstrap/dist/css/bootstrap.min.css';//Bootstrap
+import {Container, Row, Col } from 'reactstrap';
 
 import axios from 'axios';
 
 //Importam query string
-import queryString from 'query-string';
+//import queryString from 'query-string';
  
 class Viewpropietat extends Component {
 
@@ -14,6 +16,7 @@ class Viewpropietat extends Component {
 
     this.state = {
       propietat: [],
+      localitat:[],
       isLoading: false,
       error: null,
     };
@@ -22,16 +25,17 @@ class Viewpropietat extends Component {
   //Metode amb la peticio axios a n url.
   vistaPropietat = () => {
 
-    const values = queryString.parse(this.state.location.search);
-    console.log(values);
+    //Agafam el parametres de la URL d'aquesta forma. (No fa falta instalar cap packet, ve a javascript intern)
+    const queryParams = new URLSearchParams(window.location.search);
+    const id = queryParams.get('id');
 
     var url = "http://127.0.0.1:8000"
-    //var request = "/all/1";
-    var requestP = "/all/" + values.id;
+    var request = "/all/" + id;
 
-    axios.get(url + requestP)
+    axios.get(url + request)
     .then(res => {this.setState({
       propietat: res.data,
+      localitat: res.data.localitat,
           status: true
         });
     })
@@ -48,8 +52,7 @@ class Viewpropietat extends Component {
 
   render() {
 
-
-    const { propietat, isLoading, error } = this.state;
+    const { propietat, localitat, isLoading, error } = this.state;
 
     if (error) {
       return <p>{error.message}</p>;
@@ -58,27 +61,32 @@ class Viewpropietat extends Component {
     if (isLoading) {
       return <p>Loading ...</p>;
     }
-
     
     return (
-      
-      <div>
-        <h2>PAGINA VISTA D'UNA PROPIETAT</h2>
 
-       
-
-                    <Propietat
-                            title = {this.state.propietat.nom_propietat}
-                            //subtitle = {propietats.localitat.nom_localitat}
-                            text={this.state.propietat.normes} 
-                            url="http://www.mylink1.com" 
-                            caracterisica={this.state.propietat.caracteristica}
-                            preu={this.state.propietat.preu_base}
-                           />
+      <Container>
+          <Row className="mb-3">
+            <Carrousel />
+          </Row>
+          <Row >
+            <Col>
+            <Propietat
+                title = {propietat.nom_propietat}
+                subtitle = {localitat.nom_localitat}
+                text={this.state.propietat.normes} 
+                url="http://www.mylink1.com" 
+                caracteristica={propietat.caracteristica}
+                preu={this.state.propietat.preu_base}
+                id={this.state.propietat.idpropietat}
+                src="http://admin.lloguerdavid.me/Media/1234-media/1234-portada.jpg"
+                />
+            </Col>
         
- 
+          </Row>
+        </Container>
+                        
       
-      </div>
+    
     );
     
     

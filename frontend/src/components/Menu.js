@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {Navbar, NavbarBrand, NavbarToggler, Collapse, NavItem, NavLink, Nav, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem} from 'reactstrap';
+import {Navbar, NavbarToggler, Collapse, NavItem, Nav} from 'reactstrap';
 import {Link} from "react-router-dom";
 
 class Menu extends Component {
@@ -22,10 +22,10 @@ class Menu extends Component {
                 <Link className="text-decoration-none text-white-50" to="/cercarpropietat">Cerca Propietat</Link>
               </NavItem>
 
-              {/* NavItem ViewPropietat */}
+              {/* NavItem ViewPropietat
               <NavItem className="mt-2 me-3">
                   <Link className="text-decoration-none text-white-50" to="/viewpropietat">View Propietat</Link>
-              </NavItem>
+              </NavItem> */}
 
               {/* NavItem Contact */}
               <NavItem className="mt-2 me-3">

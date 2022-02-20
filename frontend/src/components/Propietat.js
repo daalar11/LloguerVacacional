@@ -3,14 +3,16 @@ import '../App.css';
 import './Propietat.css';
 
 //Importam els components per utilitzar la interficie component
-import react, { Component } from 'react';
+import { Component } from 'react';
 
 //Importar un component de Bootstrap.
-import {Alert, Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, Button} from 'reactstrap';
+import {Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, Button} from 'reactstrap';
 import {Link} from "react-router-dom";
 
 
 class Propietat extends Component {
+
+ 
 
   render(){
   

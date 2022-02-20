@@ -46,6 +46,7 @@ class Cercarpropietat extends Component {
 
     const { propietats, isLoading, error } = this.state;
 
+    console.log(propietats)
     if (error) {
       return <p>{error.message}</p>;
     }
