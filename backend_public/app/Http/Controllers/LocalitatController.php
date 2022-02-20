@@ -11,12 +11,12 @@ class LocalitatController extends Controller
     //Llistar totes les localitat de la bbdd
     public function listAllLocalitat(Request $request){
 
-        $localitats = Localitat::all();
+        $localitats = Localitat::all()->toArray();
 
         //$localitats = Localitat::orderBy('nomLocalitat', 'desc')->get();
         //$localitats = Localitat::latest()->get();
 
-        return $localitats->toJson();
+        return json_decode(json_encode($localitats),true);
 
     }
 

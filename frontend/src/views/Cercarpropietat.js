@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';//Bootstrap
 import Propietat from '../components/Propietat';
 import Cercador from "../components/Cercador";
 import {Container, Row, Col } from 'reactstrap';
-
+import Filtrador from "../components/Filtrador";
 //Importam Axios
 import axios from 'axios';
 
@@ -14,6 +14,8 @@ class Cercarpropietat extends Component {
     super(props);
 
     this.state = {
+      localitat:  [],
+      caracteristica: [],
       propietats: [],
       isLoading: false,
       error: null,
@@ -21,6 +23,42 @@ class Cercarpropietat extends Component {
   }
 
   //Metode amb la peticio axios a n url.
+
+  carregarLocalitat = () => {
+
+    //var url="api.lloguerdavid.me";
+    var url = "http://127.0.0.1:8000";
+    var request = "/localitats";
+
+    axios.get(url + request)
+    .then(res => {this.setState({
+      localitat: res.data,
+          status: true
+        });
+    })
+    .catch(error => this.setState({
+      error,
+      isLoading: false
+    }));
+  }
+
+  carregarCaracteristica = () => {
+
+    //var url="api.lloguerdavid.me";
+    var url = "http://127.0.0.1:8000";
+    var request = "/caracteristica";
+
+    axios.get(url + request)
+    .then(res => {this.setState({
+      caracteristica: res.data,
+          status: true
+        });
+    })
+    .catch(error => this.setState({
+      error,
+      isLoading: false
+    }));
+  }
   carregarPropietats = () => {
 
     //var url="api.lloguerdavid.me";
@@ -40,7 +78,10 @@ class Cercarpropietat extends Component {
   }
 
   //Metode componentDidMount
-  componentDidMount = () => {this.carregarPropietats();}
+  componentDidMount = () => {
+    this.carregarPropietats();
+    this.carregarCaracteristica();
+    this.carregarLocalitat();}
 
   render() {
 
@@ -67,10 +108,22 @@ class Cercarpropietat extends Component {
         <Container>
           <Row>
             <Col>
-                <Cercador></Cercador>
+                <Cercador localitats={this.state.localitat}></Cercador>
             </Col>
           </Row>
           <Row>
+            <Col className="col-4">
+              {this.state.caracteristica.map(function(caracteristica,key){
+                return(
+                  <Filtrador key= {key}
+                  nomCar={caracteristica.caracteristica}
+                  idCar={caracteristica.id_caracteristica}
+                  >
+
+                  </Filtrador>
+                )
+              })}
+            </Col>
             <Col className="col-8">
 
             {propietats.map(function(propietats, key) {
