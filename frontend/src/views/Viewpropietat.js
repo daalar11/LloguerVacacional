@@ -22,14 +22,14 @@ class Viewpropietat extends Component {
   //Metode amb la peticio axios a n url.
   vistaPropietat = () => {
 
-    //const values = queryString.parse(this.props.location.search);
-    //console.log(values);
+    const values = queryString.parse(this.state.location.search);
+    console.log(values);
 
     var url = "http://127.0.0.1:8000"
-    var request = "/all/1";
-    //var requestP = "/all/" + values.id;
+    //var request = "/all/1";
+    var requestP = "/all/" + values.id;
 
-    axios.get(url + request)
+    axios.get(url + requestP)
     .then(res => {this.setState({
       propietat: res.data,
           status: true
