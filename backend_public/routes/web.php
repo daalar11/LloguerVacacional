@@ -38,6 +38,8 @@ Route::get('/propietat/{idLocalitat}/{places}',[PropietatController::class,'list
 
 Route::get('/{idPropietat}/habitacio',[HabitacioController::class,'listHabitacioByPropietat']);
 
+Route::get('/caracteristica',[\App\Http\Controllers\CaracteristicaController::class,'listAll']);
+
 //Ruta que llista totes les propietats d'una localitat
 Route::get('/propietats/localitat/{idLOCALITAT}',[PropietatController::class,'listAllPropietatByLocalitat']);
 

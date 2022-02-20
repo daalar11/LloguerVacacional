@@ -71,7 +71,7 @@ class Cercarpropietat extends Component {
             </Col>
           </Row>
           <Row>
-            <Col>
+            <Col className="col-8">
 
             {propietats.map(function(propietats, key) {
                           
