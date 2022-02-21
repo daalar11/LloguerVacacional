@@ -43,13 +43,13 @@ class Propietat extends Component {
         <div>
             <h5>Caracteristiques:</h5>
             <CardText>
-            {/*this.props.caracteristica.map(function(caracteristica,key) {
+            {this.props.caracteristica.map(function(caracteristica,key) {
               return(
                 <span className='me-2' key= {key}>
                   {caracteristica.caracteristica}
                 </span>
               )
-            })*/}
+            })}
           </CardText>
           <h6>Preu per nit :</h6>
               <CardText>
