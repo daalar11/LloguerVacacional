@@ -61,7 +61,7 @@ class Viewpropietat extends Component {
     if (isLoading) {
       return <p>Loading ...</p>;
     }
-    
+
     return (
 
       <Container>
@@ -73,8 +73,8 @@ class Viewpropietat extends Component {
             <Propietat
                 title = {propietat.nom_propietat}
                 subtitle = {localitat.nom_localitat}
-                text={this.state.propietat.normes} 
-                url="http://www.mylink1.com" 
+                text={this.state.propietat.normes}
+                url="http://www.mylink1.com"
                 caracteristica={propietat.caracteristica}
                 preu={this.state.propietat.preu_base}
                 id={this.state.propietat.idpropietat}
@@ -84,9 +84,9 @@ class Viewpropietat extends Component {
         
           </Row>
         </Container>
-                        
-      
-    
+
+
+
     );
     
     
