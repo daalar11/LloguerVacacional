@@ -7,6 +7,73 @@
 .contenidor {
     min-height: 700px;
     height: auto;
-    border: 2px solid black;
     width: 100%;
+    
+}
+
+.colsInfo {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.colDades {
+
+    min-height: 500px;
+    height: auto;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+
+}
+
+.rowComentaris{
+    padding: 10px;
+}
+
+.colComentaris {
+    min-height: 250px;
+    height: auto;
+    width: 100%;
+ 
+
+}
+
+.comentariHeader {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
+
+.subRowDades {
+    height: 100%;
+    width: 100%;
+}
+
+.rowDada {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    min-height: 100%;
+}
+
+.colDada {
+    text-align: start;
+
+    min-height: 100%;
+    padding: 5px;
+    border-radius: 10px;
+    margin-right: 4px;
+}
+
+.colNormes {
+    text-align: start;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.mapa {
+    height: 300px;
 }

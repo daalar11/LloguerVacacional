@@ -23,7 +23,7 @@ class Viewpropietat extends Component {
   }
 
   //Metode amb la peticio axios a n url.
-  vistaPropietat = () => {
+  propietatById = () => {
 
     //Agafam el parametres de la URL d'aquesta forma. (No fa falta instalar cap packet, ve a javascript intern)
     const queryParams = new URLSearchParams(window.location.search);
@@ -47,7 +47,7 @@ class Viewpropietat extends Component {
   }
 
   //Metode componentDidMount
-  componentDidMount = () => {this.vistaPropietat();
+  componentDidMount = () => {this.propietatById();
   console.log(this.state.propietat);}
 
   render() {
@@ -80,6 +80,12 @@ class Viewpropietat extends Component {
                 id={this.state.propietat.idpropietat}
                 src="http://admin.lloguerdavid.me/Media/1234-media/1234-portada.jpg"
                 />
+            </Col>
+        
+          </Row>
+          <Row >
+            <Col>
+            Comentaris
             </Col>
         
           </Row>

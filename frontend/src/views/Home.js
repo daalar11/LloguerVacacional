@@ -15,12 +15,7 @@ class Home extends Component {
       
       <Container>
 
-        <Row>
-          <Col>
-            <Carrousel />
-          </Col>
-        </Row>
-        <PropietatExpand prop={titol} />
+        <PropietatExpand />
 
       </Container>
       
