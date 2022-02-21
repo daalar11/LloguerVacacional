@@ -57,7 +57,6 @@ class Propietat extends Component {
               </CardText>
         </div>   
       </div>
-       {/* onClick={()=>{this.pasarIdPropietat(this.props.idPropietat)}} */}
       <div className='d-flex justify-content-center'>
       <Link to={"/viewpropietat?id=" + this.props.id}>
           <Button 
