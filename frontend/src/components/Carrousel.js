@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Carousel, CarouselItem, CarouselControl, CarouselIndicators, CarouselCaption } from 'reactstrap';
 
-import '../App.css';
+//Importar un component de Bootstrap.
+import {Row} from 'reactstrap';
 
 
 
@@ -84,16 +85,22 @@ class MyCarousel extends Component {
       });
 
       return (
-        <Carousel
-          activeIndex={activeIndex}
-          next={this.next}
-          previous={this.previous}
-        >
-          <CarouselIndicators items={items} activeIndex={activeIndex} onClickHandler={this.goToIndex} />
-          {slides}
-          <CarouselControl direction="prev" directionText="Previous" onClickHandler={this.previous} />
-          <CarouselControl direction="next" directionText="Next" onClickHandler={this.next} />
-        </Carousel>
+
+        <Row>
+
+          <Carousel
+            activeIndex={activeIndex}
+            next={this.next}
+            previous={this.previous}
+          >
+            <CarouselIndicators items={items} activeIndex={activeIndex} onClickHandler={this.goToIndex} />
+            {slides}
+            <CarouselControl direction="prev" directionText="Previous" onClickHandler={this.previous} />
+            <CarouselControl direction="next" directionText="Next" onClickHandler={this.next} />
+          </Carousel>
+
+        </Row>
+
       );
     }
 }

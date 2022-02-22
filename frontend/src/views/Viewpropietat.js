@@ -1,13 +1,20 @@
 import React, { Component } from "react";
-import Propietat from "../components/Propietat";
+
+//Imports dels altres components fills
 import Carrousel from "../components/Carrousel";
+import Mapa from "../components/Mapa";
+import DadesPropietat from "../components/DadesPropietat";
+import Comentaris from "../components/CapsaComentaris";
+
 import 'bootstrap/dist/css/bootstrap.min.css';//Bootstrap
-import {Container, Row, Col } from 'reactstrap';
+
+//Css de ViewPropietat
+import '../components/PropietatExpand.css';
+
+//Importar components de Bootstrap.
+import {Container, Row, Col} from 'reactstrap';
 
 import axios from 'axios';
-
-//Importam query string
-//import queryString from 'query-string';
  
 class Viewpropietat extends Component {
 
@@ -65,34 +72,31 @@ class Viewpropietat extends Component {
     return (
 
       <Container>
-          <Row className="mb-3">
-            <Carrousel />
-          </Row>
-          <Row >
-            <Col>
-            <Propietat
-                title = {propietat.nom_propietat}
-                subtitle = {localitat.nom_localitat}
-                text={this.state.propietat.normes}
-                url="http://www.mylink1.com"
-                caracteristica={propietat.caracteristica}
-                preu={this.state.propietat.preu_base}
-                id={this.state.propietat.idpropietat}
-                src="http://admin.lloguerdavid.me/Media/1234-media/1234-portada.jpg"
-                />
-            </Col>
-        
-          </Row>
-          <Row >
-            <Col>
-            Comentaris
-            </Col>
-        
-          </Row>
-        </Container>
+        <Row className='contenidor'>
+          <Col>
+
+              {/* Titol amb el nom de la propietat */}
+              <Row>
+                  <h3 className='text-center'>Nom de la Propietat</h3>
+              </Row>
+              <hr></hr>
+
+              {/* Component Carrousel */}
+              <Carrousel />
+
+              {/* Component DadesPropietat amb tota la info de la casa */}
+              <DadesPropietat />
+
+              {/* Component Mapa Localització propietat*/}
+              <Mapa />
+              
+              {/* Component Capsa de Comentaris */}
+              <Comentaris />
 
 
-
+          </Col> 
+        </Row>
+      </Container>
     );
     
     
