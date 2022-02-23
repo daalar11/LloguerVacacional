@@ -4,7 +4,7 @@ import React, { Component } from "react";
 import Carrousel from "../components/Carrousel";
 import Mapa from "../components/Mapa";
 import DadesPropietat from "../components/DadesPropietat";
-import Comentaris from "../components/CapsaComentaris";
+import CapsaComentaris from "../components/CapsaComentaris";
 
 import 'bootstrap/dist/css/bootstrap.min.css';//Bootstrap
 
@@ -21,12 +21,15 @@ class Viewpropietat extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      propietat: [],
-      localitat:[],
-      isLoading: false,
-      error: null,
-    };
+      this.state = {
+        propietat: [],
+        localitat:[],
+        habitacions: [],
+        caracteristiques: [],
+        comentaris: [],
+        isLoading: false,
+        error: null,
+      };
   }
 
   //Metode amb la peticio axios a n url.
@@ -43,6 +46,9 @@ class Viewpropietat extends Component {
     .then(res => {this.setState({
       propietat: res.data,
       localitat: res.data.localitat,
+      habitacions: res.data.habitacions,
+      caracteristiques: res.data.caracteristica,
+      comentaris: res.data.comentaris,
           status: true
         });
     })
@@ -54,12 +60,11 @@ class Viewpropietat extends Component {
   }
 
   //Metode componentDidMount
-  componentDidMount = () => {this.propietatById();
-  console.log(this.state.propietat);}
+  componentDidMount = () => {this.propietatById();}
 
   render() {
 
-    const { propietat, localitat, isLoading, error } = this.state;
+    const {propietat, localitat, isLoading, error, habitacions, caracteristiques, comentaris} = this.state;
 
     if (error) {
       return <p>{error.message}</p>;
@@ -77,7 +82,7 @@ class Viewpropietat extends Component {
 
               {/* Titol amb el nom de la propietat */}
               <Row>
-                  <h3 className='text-center'>Nom de la Propietat</h3>
+                  <h3 className='text-center'>{propietat.nom_propietat}</h3>
               </Row>
               <hr></hr>
 
@@ -85,14 +90,30 @@ class Viewpropietat extends Component {
               <Carrousel />
 
               {/* Component DadesPropietat amb tota la info de la casa */}
-              <DadesPropietat />
+              <DadesPropietat 
+              title = {propietat.nom_propietat}
+              direccio = {propietat.direccio}
+              plases = {propietat.places}
+              localitat = {localitat.nom_localitat}
+              numeroHabitacions = {habitacions.length}
+              banys = {propietat.banys_propietat}
+              text = {propietat.normes}
+              dsetmana = {propietat.descompte_setmana}
+              dmes = {propietat.descompte_mes}
+              caracteristiques = {caracteristiques}
+              preu = {propietat.preu_base}
+              id = {propietat.idpropietat}
+              />
 
               {/* Component Mapa Localització propietat*/}
-              <Mapa />
-              
-              {/* Component Capsa de Comentaris */}
-              <Comentaris />
+              <Mapa 
+              propietat = {propietat}
+              />
 
+              {/* Component Capsa de Comentaris */}
+              <CapsaComentaris 
+              comentaris = {comentaris}
+              />
 
           </Col> 
         </Row>

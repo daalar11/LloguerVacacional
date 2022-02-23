@@ -6,9 +6,65 @@ import {Card, CardHeader, CardBody, CardFooter, CardText} from 'reactstrap';
 
 import {StarFill, StarHalf, Star } from 'react-bootstrap-icons';
 
+import axios from 'axios';
+
 class Mapa extends Component {
 
-  render(){
+    constructor(props) {
+        super(props)
+        this.state = {
+            client: [],
+          };
+      }
+
+    //Metode amb la peticio axios a n url.
+    clientById = () => {
+
+    var url = "http://127.0.0.1:8000"
+    var request = "/client/" + this.props.client;
+
+    axios.get(url + request)
+        .then(res => {this.setState({
+            client: res.data,
+            });
+        })
+        //Tractam errors
+        .catch(error => this.setState({
+            error,
+            isLoading: false
+        }));
+    }
+
+    //Metode componentDidMount
+    componentDidMount = () => {this.clientById();} 
+
+    //Metode que retorna la mitjana de 3 notes sobre 5
+    calcularMitjana(neteja, ubicacio, estada){
+        return Math.round((((neteja + ubicacio + estada) / 3)/2) * 100) / 100;
+    }
+
+    //Metodes printear estrelles segons valoracions del comentari
+    crearEstrellesPlenes(n){
+        var elements = [];
+        for(let i =0; i < n; i++){
+            elements.push(<StarFill />);
+        }
+        return elements;
+    }
+
+    crearEstrellesBuides(n){
+        var elements = [];
+        for(let i =0; i < 5-n; i++){
+            elements.push(<Star />);
+        }
+        return elements;
+    }
+      
+    render(){
+
+    const {client} = this.state;
+
+    let mitjana = this.calcularMitjana(this.props.ubicacio, this.props.neteja, this.props.estada);
 
     return (
 
@@ -16,18 +72,15 @@ class Mapa extends Component {
 
             <CardHeader className='d-flex justify-content-between'>
         
-                <span>Aleix Font</span>
-                <span>21/02/2022</span>
+                <span>{client.nom} {client.llinatge1}</span>
+                <span>{this.props.data}</span>
         
             </CardHeader>
         
             <CardBody>
                         
                 <CardText className='text-start'>
-                Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto
-                de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a
-                la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos
-                de especimenes.
+                {this.props.text}
                 </CardText>
                 
 
@@ -36,13 +89,15 @@ class Mapa extends Component {
             <CardFooter className='d-flex justify-content-between'>
 
                 <span className='fw-bold'>Valoraració General</span>
+                
                 <span>
-                    <StarFill />
-                    <StarFill />
-                    <StarFill />
-                    <StarHalf />
-                    <Star />
+
+                    {/* Segons la nota mitjana crea estrelles plenes i la resta buides */}
+                    {this.crearEstrellesPlenes(mitjana)}
+                    {this.crearEstrellesBuides(mitjana)}
+
                 </span>
+                
 
             </CardFooter>
         
