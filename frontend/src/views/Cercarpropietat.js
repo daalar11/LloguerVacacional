@@ -1,12 +1,13 @@
 import React, { Component } from "react";
-
+import CasesList from "../components/casesList";
 import 'bootstrap/dist/css/bootstrap.min.css';//Bootstrap
 import Propietat from '../components/Propietat';
-import Cercador from "../components/Cercador";
 import {Container, Row, Col } from 'reactstrap';
-import Filtrador from "../components/Filtrador";
+import Places from "../components/Places";
+import ListCaracateristica from "../components/ListCaracteristica";
 //Importam Axios
 import axios from 'axios';
+import SelectLocalitat from "../components/SelectLocalitat";
 
 class Cercarpropietat extends Component {
 
@@ -17,11 +18,31 @@ class Cercarpropietat extends Component {
       localitat:  [],
       caracteristica: [],
       propietats: [],
+
+      categoriaFiltrada: [],
+      places:null,
+      localitatFiltrada : null,
+
       isLoading: false,
       error: null,
     };
+
+    this.changeCaracteristica= this.changeCaracteristica.bind(this);
+    this.changeLocalitat=this.changeLocalitat.bind(this);
+    this.changePlaces=this.changePlaces.bind(this);
   }
 
+  changeLocalitat(l){
+    this.setState({localitatFiltrada : l});
+  }
+  changePlaces(p){
+    this.setState({places : p});
+  }
+  
+  changeCaracteristica(myCaracteristica ){
+    this.setState({categoriaFiltrada : myCaracteristica});
+ 
+  }
   //Metode amb la peticio axios a n url.
 
   carregarLocalitat = () => {
@@ -85,9 +106,9 @@ class Cercarpropietat extends Component {
 
   render() {
 
-    const { propietats, isLoading, error } = this.state;
+    const { propietats, isLoading, error,localitat,caracteristica } = this.state;
 
-    console.log(propietats)
+  
     if (error) {
       return <p>{error.message}</p>;
     }
@@ -108,44 +129,33 @@ class Cercarpropietat extends Component {
 
         <Container>
           <Row>
-            <Col>
-                <Cercador localitats={this.state.localitat}></Cercador>
+            <Col className="col-4">
+               <Places handleChange={this.changePlaces}></Places>
+            </Col>
+            <Col className="col-4">
+               <SelectLocalitat 
+               handleChange={this.changeLocalitat}
+                localitat={localitat}>
+
+               </SelectLocalitat>
             </Col>
           </Row>
           <Row>
             <Col className="col-4">
-              {this.state.caracteristica.map(function(caracteristica,key){
-                return(
-                  <Filtrador key= {key}
-                  nomCar={caracteristica.caracteristica}
-                  idCar={caracteristica.id_caracteristica}
-                  >
-
-                  </Filtrador>
-                )
-              })}
+                <ListCaracateristica 
+                handleChange={this.changeCaracteristica} 
+                caracteristica={caracteristica}>
+                </ListCaracateristica>
             </Col>
             <Col className="col-8">
+            
+            <CasesList
+            propietats={propietats}
+            places={this.state.places}
+            localitat={this.state.localitatFiltrada}>
 
-            {propietats.map(function(propietats, key) {
-                          
-                          return (
-                            
-                            <Propietat key = {key}
-                            title = {propietats.nom_propietat}
-                            subtitle = {propietats.localitat.nom_localitat}
-                            text={propietats.normes} 
-                            url="http://www.mylink1.com" 
-                            caracteristica={propietats.caracteristica}
-                            preu={propietats.preu_base}
-                            id={propietats.idpropietat}
-                            src="http://admin.lloguerdavid.me/Media/1234-media/1234-portada.jpg"
-                           />
-                            
-
-                          )
-                        })}
-                      
+            </CasesList>
+                     
             </Col>
                   
           </Row>

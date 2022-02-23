@@ -11,9 +11,13 @@ import {Link} from "react-router-dom";
 
 
 class Propietat extends Component {
-
+  constructor(props){
+    super(props);
+}
  
-
+  static defaultProps = {
+    propeitat: {}
+}
   render(){
   
     return (
@@ -55,6 +59,7 @@ class Propietat extends Component {
               <CardText>
                 {this.props.preu}€
               </CardText>
+              {this.props.places}
         </div>   
       </div>
       <div className='d-flex justify-content-center'>
