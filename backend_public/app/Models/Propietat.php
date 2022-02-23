@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Http\Controllers\ComentariPropietatController;
+use App\Http\Controllers\PropietatController;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -37,6 +39,16 @@ class Propietat extends Model
     public function caracteristica()
     {
         return $this->belongsToMany(Caracteristiques::class, 'caracteristiques_propietats','id_pro','id_car');
+    }
+
+    public function comentaris()
+    {
+        return $this->belongsToMany(Client::class, 'review_propietat','id_propietat','id_cli')
+            ->withPivot("comentari")
+            ->withPivot("nota_neteja")
+            ->withPivot("nota_localitzacio")
+            ->withPivot("nota_accesibilitat")
+            ->withPivot("data_comentari");
     }
 
 }

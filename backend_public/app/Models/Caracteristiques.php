@@ -20,6 +20,6 @@ class Caracteristiques extends Model
 
     public function caracteristica()
     {
-        return $this->belongsToMany(Propietat::class, 'caracteristiques_propietats','id_car','id_pro');
+        return $this->belongsToMany(Propietat::class, 'caracteristiques_propietats','id_car','id_pro')->withPivot('comentari');
     }
 }
