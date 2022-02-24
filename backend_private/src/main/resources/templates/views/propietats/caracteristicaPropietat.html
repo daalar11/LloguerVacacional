@@ -55,21 +55,30 @@
         //Aqui podem crear botons custom i indicarli una funcio a executar quan facin click
         customButtons: {
           botoTarifes: { //Identificador del boto
-            text: 'Tarifes', //Text del boto
+            text: 'Inserir nova tarifa', //Text del boto
             click: function () {
-              alert('Redirect a tab tarifes!');
+
+              window.location.replace('http://localhost:8080/views/tarifes/afegir/'+ [[${propietat.idPROPIETAT}]]);
             }
           },
           botoBloqueig: {
-            text: 'Bloqueig',
+            text: 'Inserir nou bloqueig',
             click: function () {
-              alert('Redirect a tab Bloqueig!');
+              window.location.replace('http://localhost:8080/views/bloqueig/afegir/'+ [[${propietat.idPROPIETAT}]]);
             }
           },
           botoReserves: {
-            text: 'Reserves',
+            text: 'Les meves reserves',
             click: function () {
-              alert('Redirect a tab Reserves!');
+
+              //Eliminam els atributs per defecte (Per defecte al calendari)
+              $('#calendari-tab').removeClass("active");
+              $('#calendari').removeClass("active").removeClass("show");
+
+              //Eliminam els atributs per defecte (Per defecte al calendari)
+              $('#reserves-tab').addClass("active");
+              $('#reserves').addClass("active").addClass("show");
+
             }
           },
           botoEspanyol: {
@@ -127,27 +136,6 @@
 
 <header th:insert="plantilla/template :: header"></header>
 
-<!-- ALERT CONFIRMACIO TARIFES -->
-<script th:inline="javascript">
-
-  if ([[${respostaTarifa}]] != null){
-
-    var resposta = [[${respostaTarifa}]];
-    alert(resposta);
-  }
-
-</script>
-
-<!-- ALERT CONFIRMACIO BLOQUEJOS -->
-<script th:inline="javascript">
-
-  if ([[${respostaBloqueig}]] != null){
-
-    var resposta = [[${respostaBloqueig}]] + '\n' + [[${idConflictiu}]];
-    alert(resposta);
-  }
-</script>
-
 <div class="container">
 
   <main>
@@ -158,9 +146,16 @@
         <li class="breadcrumb-item active" aria-current="page">Propietat</li>
       </ol>
     </nav>
-
     <div class="row text-center">
       <p class="fs-1 font-monospace border-dark border-2 border-bottom" th:text="${propietat.nomPropietat}"></p>
+    </div>
+    <!-- Confirmacions de insert de bloqueig i tarifes -->
+    <div th:if="${respostaBloqueig} != null" class="p-2 mt-2 mb-3 border border-danger">
+      <p class="fs-4 text-danger" th:text="${respostaBloqueig}"></p>
+      <p class="fs-4 text-danger" th:text="${idConflictiu}"></p>
+    </div>
+    <div th:if="${respostaTarifa} != null" class="p-2 mt-2 mb-3 border border-danger">
+      <p class="fs-4 text-danger" th:text="${respostaTarifa}"></p>
     </div>
     <div class="row">
 
@@ -172,8 +167,16 @@
             <button class="nav-link text-dark active" id="calendari-tab" data-bs-toggle="tab" data-bs-target="#calendari" type="button" role="tab" aria-controls="calendari" aria-selected="false">Calendari</button>
           </li>
           <li class="nav-item" role="presentation">
-            <button class="nav-link text-dark" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Dades</button>
+            <button class="nav-link text-dark" id="bloqueig-tab" data-bs-toggle="tab" data-bs-target="#bloqueig" type="button" role="tab" aria-controls="bloqueig" aria-selected="false">Dies de Bloqueig</button>
           </li>
+
+          <li class="nav-item" role="presentation">
+            <button class="nav-link text-dark" id="reserves-tab" data-bs-toggle="tab" data-bs-target="#reserves" type="button" role="tab" aria-controls="reserves" aria-selected="false">Reserves</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link text-dark" id="tarifes-tab" data-bs-toggle="tab" data-bs-target="#tarifes" type="button" role="tab" aria-controls="tarifes" aria-selected="false">Tarifes</button>
+          </li>
+
           <li class="nav-item" role="presentation">
             <button class="nav-link text-dark" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Habitacions</button>
           </li>
@@ -181,16 +184,10 @@
             <button class="nav-link text-dark" id="caracteristiques-tab" data-bs-toggle="tab" data-bs-target="#caracteristiques" type="button" role="tab" aria-controls="caracteristiques" aria-selected="false">Caracteristiques</button>
           </li>
           <li class="nav-item" role="presentation">
-            <button class="nav-link text-dark" id="tarifes-tab" data-bs-toggle="tab" data-bs-target="#tarifes" type="button" role="tab" aria-controls="tarifes" aria-selected="false">Tarifes</button>
-          </li>
-          <li class="nav-item" role="presentation">
-            <button class="nav-link text-dark" id="bloqueig-tab" data-bs-toggle="tab" data-bs-target="#bloqueig" type="button" role="tab" aria-controls="bloqueig" aria-selected="false">Dies de Bloqueig</button>
-          </li>
-          <li class="nav-item" role="presentation">
             <button class="nav-link text-dark" id="politica-tab" data-bs-toggle="tab" data-bs-target="#politica" type="button" role="tab" aria-controls="politica" aria-selected="false">Politiques de cancelacio</button>
           </li>
           <li class="nav-item" role="presentation">
-            <button class="nav-link text-dark" id="reserves-tab" data-bs-toggle="tab" data-bs-target="#reserves" type="button" role="tab" aria-controls="reserves" aria-selected="false">Reserves</button>
+            <button class="nav-link text-dark" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Dades</button>
           </li>
           <li class="nav-item" role="presentation">
             <button class="nav-link text-dark" id="fotos-tab" data-bs-toggle="tab" data-bs-target="#fotos" type="button" role="tab" aria-controls="fotos" aria-selected="false">Fotos</button>
@@ -546,7 +543,7 @@
               </div>
             </div>
             <a th:each="tar:${propietat}" class="btn btn-primary mt-3" th:href="@{'/views/bloqueig/afegir/'+ ${tar.idPROPIETAT}} " th:text="'Nou Bloqueig'" title="Crear nou registre"></a>
-            <span th:if="${idConflictiu}!=null" th:text="${idConflictiu}" class="p-2 mt-4 ms-4 border border-danger"></span>
+
 
           </div>
 
