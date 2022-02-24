@@ -40,13 +40,14 @@ class CasesList extends Component {
             )
           })*/}
           <div>
-              <hr/>
+              
               
 	            {
 	                this.props.propietats
 	                .filter( propietat => this.applyFilters(propietat))
 	                .map(function(propietats,key){
                         return(
+                            <>
                             <Propietat key = {key}    
                             title = {propietats.nom_propietat}
                             subtitle = {propietats.localitat.nom_localitat}
@@ -58,6 +59,8 @@ class CasesList extends Component {
                             id={propietats.idpropietat}
                             src="http://admin.lloguerdavid.me/Media/1234-media/1234-portada.jpg"
                             />
+                            <hr></hr>
+                            </>
                         )
                       } )
                 }
