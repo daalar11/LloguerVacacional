@@ -1,7 +1,7 @@
 //Importam els components per utilitzar la interficie component
 import { Component } from 'react';
 
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
+import { MapContainer, TileLayer, CircleMarker } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css';
 
 //Importar un component de Bootstrap.
@@ -11,24 +11,33 @@ class Mapa extends Component {
 
   render(){
 
+    if(this.props.propietat.x === undefined){
+      return (
+        <Row>
+        </Row>
+      );
+    }
+
     return (
 
       <Row>
 
-        <Col className='p-3'>
-
-          <MapContainer className='mapa' center={[51.505, -0.09]} zoom={13} scrollWheelZoom={false}>
+        <Col className='p-3 '>
+          <hr></hr>
+          <MapContainer className='mapa' zoom={10} center={[this.props.propietat.y, this.props.propietat.x]} scrollWheelZoom={true}>
 
               <TileLayer
                   attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               />
 
-              <Marker position={[51.505, -0.09]}>
-                  <Popup>
-                    A pretty CSS3 popup. <br /> Easily customizable.
-                  </Popup>
-              </Marker>
+              <CircleMarker
+              center={[this.props.propietat.y, this.props.propietat.x]}
+              radius={20}
+              fillOpacity={0.5}
+              stroke={false}
+              color={'#80878d'}
+              />
 
           </MapContainer>
 

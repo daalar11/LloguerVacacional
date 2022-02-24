@@ -10,17 +10,17 @@ const items = [
 	  {
 	    src: 'https://picsum.photos/800/400?image=550',
 	    altText: 'Foto 1',
-	    //caption: 'Titol Foto 1'
+	    caption: 'Titol Foto 1'
 	  },
 	  {
 	    src: 'https://picsum.photos/800/400?image=450',
 	    altText: 'Foto 2',
-	    //caption: 'Titol Foto 2'
+	    caption: 'Titol Foto 2'
 	  },
 	  {
 	    src: 'https://picsum.photos/800/400?image=330',
 	    altText: 'Foto 3',
-	    //caption: 'Titol Foto 3'
+	    caption: 'Titol Foto 3'
 	  }
 	];
 

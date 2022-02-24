@@ -36,7 +36,11 @@ Route::get('/all',[PropietatController::class,'listAllByPropietat']);
 Route::get('/all/{Id}',[PropietatController::class,'listAllByPropietatId']);
 Route::get('/propietat/{idLocalitat}/{places}',[PropietatController::class,'listPropietatByPlacesAndLocalitat']);
 
-Route::get('/{idPropietat}/habitacio',[HabitacioController::class,'listHabitacioByPropietat']);
+// ------------- Rutes Habitacions -------------------
+Route::get('/{idPropietat}/habitacions',[HabitacioController::class,'listHabitacioByPropietat']);
+
+Route::get('/{idPropietat}/habitacio',[HabitacioController::class,'listHabitacioByIdPropietat']);
+
 
 Route::get('/caracteristica',[\App\Http\Controllers\CaracteristicaController::class,'listAll']);
 
@@ -72,3 +76,10 @@ Route::get('/propietat/{idPROPIETAT}/tarifes', [\App\Http\Controllers\TarifaCont
 
 //Ruta de llistar un bloqueig en particular de una propietat
 Route::get('/propietat/{idPROPIETAT}/tarifes/{idTARIFA}', [\App\Http\Controllers\TarifaController::class, 'listTarifaByPropietat']);
+
+// -------------- Rutes Comentari Propietat --------------------
+
+Route::get('/propietat/{idPROPIETAT}/comentaris', [\App\Http\Controllers\PropietatController::class, 'listComentsByIdLocalitat']);
+
+// -------------- Rutes Comentari Propietat --------------------
+Route::get('/client/{idClient}', [\App\Http\Controllers\UsuariController::class, 'listUserById']);

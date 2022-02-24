@@ -24,9 +24,17 @@ class HabitacioController extends Controller
     }
     public function listHabitacioByPropietat(Propietat $propietat)
     {
-        print_r($propietat);
+
         $habitacions = Habitacio::where('id_propietat',$propietat->idPROPIETAT)->get();
         //return DB::select("select * from habitacions where id_propietat=".$propietat->primaryKey);
+        return $habitacions->toJson();
+    }
+
+    public function listHabitacioByIdPropietat($idPropietat)
+    {
+
+        $habitacions = Habitacio::where('id_propietat',$idPropietat)->get();
+
         return $habitacions->toJson();
     }
 }
