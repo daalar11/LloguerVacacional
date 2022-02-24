@@ -1,46 +1,52 @@
 //Importam els components per utilitzar la interficie component
 import { Component } from 'react';
+import React from "react";
 
 //Importar un component de Bootstrap.
 import {Button, Row, Col, Label, Form, Input, FormGroup} from 'reactstrap';
 
-import React, { useState } from "react";
-import DatePicker from "react-datepicker";
+import DayPicker from "./DayPicker";
 
-import "react-datepicker/dist/react-datepicker.css";
+const holidays = [
+    new Date("2022-02-22"),
+    new Date("2022-02-21")
+  ];
 
 class DadesPropietat extends Component {
 
-  render(){
+    constructor(props) {
+        super(props);
+    
+          this.state = {
+            
+          };
+      }
 
-    const Example = () => {
-        const [startDate, setStartDate] = useState(new Date());
-        return (
-          <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
-        );
-      };
+  render(){
 
     return (
 
         <Row className='colsInfo'>
-            <Col xs="3" className="mt-4">
+            <Col xs="3" className='mt-1'>
 
                     <Form className='mt-5 text-start  d-flex flex-column justify-content-center'>
+                    <span for="dEntrada" className='fw-bold'>Estableix les dates de la teva estada</span>
+                    <hr></hr>
                         <FormGroup>
-                            <Label for="dEntrada" className='fw-bold'>Data d'entrada</Label>
-                            <DatePicker className='inputDate'/>  
+                            <Label className='text-start fw-bold'>Data Entrada</Label>
+                            <DayPicker /> 
                         </FormGroup>
                         <FormGroup>
-                            <Label for="dSortida" className='fw-bold'>Data de sortida</Label>
-                            <DatePicker className='inputDate'/> 
+                            <Label className='text-start fw-bold'>Data Sortida</Label>
+                            <DayPicker />
                         </FormGroup>
                         <FormGroup>
                             <Label for="preuFinal" className='text-start fw-bold'>Preu Final</Label>
-                            <Input type="number" className='inputDate' step="any" name="preuFinal" id="preuFinal" bsSize='lg' readOnly />
+                            <Input type="number" className='inputDate mt-2' step="any" name="preuFinal" id="preuFinal" bsSize='lg' readOnly />
                         </FormGroup>
                       
     
-                        <Button color="outline-dark" className='text-center fs-5 fw-bold inputDate mt-3 mb-3'>Llogar</Button>
+                        <Button color="outline-dark mt-5" className='text-center fs-5 fw-bold inputDate mt-3 mb-3'>Llogar</Button>
                         
                     </Form>
           
@@ -142,6 +148,23 @@ class DadesPropietat extends Component {
                     <Col className='colNormes'>
                     <p className='text-start fw-bold'>Normes de la casa:</p>
                     <p>{this.props.text}</p>
+                    </Col>
+
+                </Row>
+
+                <Row className='subRowDades'>
+
+                    <Col>
+                        <Row className='rowDada'>
+                            <Col xs="6" className='colDada fw-bold'>Tarifes Actives</Col>
+                            <Col xs="5" className='colDada'>{this.props.dsetmana}%</Col>
+                        </Row>
+                    </Col>
+                    <Col>
+                        <Row className='rowDada'>
+                            <Col xs="6" className='colDada fw-bold'>Habitacions</Col>
+                            <Col xs="5" className='colDada'>{this.props.dmes}%</Col>
+                        </Row>
                     </Col>
 
                 </Row>

@@ -46,7 +46,7 @@ class Mapa extends Component {
     //Metodes printear estrelles segons valoracions del comentari
     crearEstrellesPlenes(n){
         var elements = [];
-        for(let i =0; i < n; i++){
+        for(let i =1; i < n; i++){
             elements.push(<StarFill />);
         }
         return elements;
