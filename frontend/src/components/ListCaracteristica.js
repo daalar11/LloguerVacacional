@@ -2,15 +2,21 @@ import React, { Component } from 'react';
 import {Col,Row ,Input, Label,} from 'reactstrap';
 
 class ListCaracateristica extends Component {
-
+    
 	constructor(props){
 		super(props);
 		this.handleChange = this.handleChange.bind(this);
+        this.state={
+         arrayCar:[]
+        };
 	}
 
-	handleChange(event){
-		this.props.handleChange(event.target.value);
-        console.log(event.target.value);
+	async handleChange(event){
+        
+        await this.setState({arrayCar : ([...this.state.arrayCar,event.target.value])});
+		console.log(this.state.arrayCar)
+        this.props.handleChange(this.state.arrayCar);
+        
 	}
 
 

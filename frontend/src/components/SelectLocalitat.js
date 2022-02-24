@@ -21,6 +21,7 @@ class SelectLocalitat extends Component {
                 <Row>
                     <Label for="select">Localitat: </Label>
                 </Row>
+				<Row>
 	    	<Input type="select" name="select" id="select" onChange={this.handleChange}>
 	    		<option></option>
                 {this.props.localitat.map(function(localitats,key){
@@ -30,6 +31,7 @@ class SelectLocalitat extends Component {
                 })}
 
 	    	</Input>
+			</Row>
             </div>
 	    );
 	}

@@ -39,9 +39,9 @@ class Cercarpropietat extends Component {
     this.setState({places : p});
   }
   
-  changeCaracteristica(myCaracteristica ){
-    this.setState({categoriaFiltrada : myCaracteristica});
- 
+  async changeCaracteristica(myCaracteristica ){
+    await    this.setState({categoriaFiltrada : myCaracteristica});
+    console.log(myCaracteristica,"algo");
   }
   //Metode amb la peticio axios a n url.
 
@@ -129,23 +129,24 @@ class Cercarpropietat extends Component {
 
         <Container>
           <Row>
+          <hr></hr>
             <Col className="col-4">
-               <Places handleChange={this.changePlaces}></Places>
-            </Col>
-            <Col className="col-4">
-               <SelectLocalitat 
-               handleChange={this.changeLocalitat}
+              <Row>
+                <Places handleChange={this.changePlaces}></Places>
+              </Row>
+              <Row>
+                <SelectLocalitat 
+                 handleChange={this.changeLocalitat}
                 localitat={localitat}>
 
-               </SelectLocalitat>
-            </Col>
-          </Row>
-          <Row>
-            <Col className="col-4">
-                <ListCaracateristica 
-                handleChange={this.changeCaracteristica} 
-                caracteristica={caracteristica}>
-                </ListCaracateristica>
+                </SelectLocalitat>
+              </Row>
+              <Row>
+                  <ListCaracateristica 
+                  handleChange={this.changeCaracteristica} 
+                  caracteristica={caracteristica}>
+                  </ListCaracateristica>
+                </Row>
             </Col>
             <Col className="col-8">
             
