@@ -31,9 +31,9 @@ class PropietatController extends Controller
 
     }
 
-    public function listAllByPropietatId($id)
+    public function listAllByPropietatId($idPropietat)
     {
-        $propietat= Propietat::with('habitacions','bloqueig','localitat','tarifa','caracteristica', 'comentaris')->find($id)->toArray();
+        $propietat= Propietat::with('habitacions','bloqueig','localitat','tarifa','caracteristica', 'comentaris')->find($idPropietat)->toArray();
 
         return json_decode(json_encode($propietat),true);
     }

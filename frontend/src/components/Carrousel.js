@@ -4,33 +4,22 @@ import { Carousel, CarouselItem, CarouselControl, CarouselIndicators, CarouselCa
 //Importar un component de Bootstrap.
 import {Row} from 'reactstrap';
 
-
-
-const items = [
-	  {
-	    src: 'https://picsum.photos/800/400?image=550',
-	    altText: 'Foto 1',
-	    caption: 'Titol Foto 1'
-	  },
-	  {
-	    src: 'https://picsum.photos/800/400?image=450',
-	    altText: 'Foto 2',
-	    caption: 'Titol Foto 2'
-	  },
-	  {
-	    src: 'https://picsum.photos/800/400?image=330',
-	    altText: 'Foto 3',
-	    caption: 'Titol Foto 3'
-	  }
-	];
+import axios from 'axios';
 
 class MyCarousel extends Component {
+
 
   constructor(props) {
       super(props);
 
       // Estat amb l'índex de la foto activa
-      this.state = { activeIndex: 0 };
+      this.state = { 
+        idPropietat: this.props.idPropietat,
+        activeIndex: 0,
+        items: [],
+        isLoading: false,
+        error: null,
+       };
 
       // Binding de mètodes del component
       this.next = this.next.bind(this);
@@ -39,6 +28,28 @@ class MyCarousel extends Component {
       this.onExiting = this.onExiting.bind(this);
       this.onExited = this.onExited.bind(this);
     }
+
+    getFotos = () => {
+
+      var url = "http://127.0.0.1:8000"
+      //var request = "/propietat/" + this.state.idPropietat + "/fotos/info";
+      var requestp = "/propietat/2/fotos/info";
+      
+      axios.get(url + requestp)
+      .then(res => {this.setState({
+        items: res.data,
+            status: true
+          });
+      })
+      //Tractam errors
+      .catch(error => this.setState({
+        error,
+        isLoading: false
+      }));
+    }
+
+    //Metode componentDidMount
+    componentDidMount = () => {this.getFotos();}
 
     onExiting() {
       this.animating = true;
@@ -50,13 +61,13 @@ class MyCarousel extends Component {
 
     next() {
       if (this.animating) return;
-      const nextIndex = this.state.activeIndex === items.length - 1 ? 0 : this.state.activeIndex + 1;
+      const nextIndex = this.state.activeIndex === this.state.items.length - 1 ? 0 : this.state.activeIndex + 1;
       this.setState({ activeIndex: nextIndex });
     }
 
     previous() {
       if (this.animating) return;
-      const nextIndex = this.state.activeIndex === 0 ? items.length - 1 : this.state.activeIndex - 1;
+      const nextIndex = this.state.activeIndex === 0 ? this.state.items.length - 1 : this.state.activeIndex - 1;
       this.setState({ activeIndex: nextIndex });
     }
 
@@ -65,10 +76,11 @@ class MyCarousel extends Component {
       this.setState({ activeIndex: newIndex });
     }
 
-
   render() {
   	
-      const { activeIndex } = this.state;
+      const { activeIndex, items, error, isLoading } = this.state;
+
+      console.log(items);
 
       const slides = items.map((item) => {
         return (
@@ -79,10 +91,18 @@ class MyCarousel extends Component {
           >
             {/* Etiqueta imatge, podem dir les dimensions */}
             <img src={item.src} alt={item.altText} width='100%' height='450px'/>
-            <CarouselCaption captionText={item.caption} captionHeader={item.caption} />
+            {/*<CarouselCaption />  AIXO DONA ERROR */}
           </CarouselItem>
         );
       });
+
+      if (error) {
+        return <p>{error.message}</p>;
+      }
+  
+      if (isLoading) {
+        return <p>Loading ...</p>;
+      }
 
       return (
 
@@ -93,7 +113,7 @@ class MyCarousel extends Component {
             next={this.next}
             previous={this.previous}
           >
-            <CarouselIndicators items={items} activeIndex={activeIndex} onClickHandler={this.goToIndex} />
+            <CarouselIndicators items={this.state.items} activeIndex={activeIndex} onClickHandler={this.goToIndex} />
             {slides}
             <CarouselControl direction="prev" directionText="Previous" onClickHandler={this.previous} />
             <CarouselControl direction="next" directionText="Next" onClickHandler={this.next} />

@@ -46,10 +46,7 @@
     justify-content: space-between;
 }
 
-.subRowDades {
-    height: 100%;
-    width: 100%;
-}
+
 
 .rowDada {
     display: flex;
@@ -77,6 +74,7 @@
 .mapa {
     height: 300px;
     border-radius: 10px;
+    z-index: 0;
 
   
 }
@@ -86,6 +84,7 @@
     height: 50px;
     border: 1px solid gray;
     border-radius: 5px;
+    
 }
 
 .labelDate {
@@ -108,3 +107,16 @@
     font-size: 20px;
     
 }
+
+.pPreuFinal {
+    border: 1px solid black;
+    height: 50px;
+    border-radius: 5px;
+    background-color: lightgray;
+}
+
+.DayPickerInput-OverlayWrapper {
+    z-index: 1;
+}
+
+
