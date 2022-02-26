@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HabitacioController;
 use App\Http\Controllers\PropietatController;
+use App\Http\Controllers\FotosController;
 use Illuminate\Support\Facades\Route;
 
 //Linies necessaries per evitar l'error de CORS (permissos) respecte quan demanin serveis d'aquesta API
@@ -33,7 +34,7 @@ Route::get('/', function () {
 //Route::get('/habitacio',[HabitacioController::class,'listAll']);
 //Rutes principals
 Route::get('/all',[PropietatController::class,'listAllByPropietat']);
-Route::get('/all/{Id}',[PropietatController::class,'listAllByPropietatId']);
+Route::get('/all/{idPropietat}',[PropietatController::class,'listAllByPropietatId']);
 Route::get('/propietat/{idLocalitat}/{places}',[PropietatController::class,'listPropietatByPlacesAndLocalitat']);
 
 // ------------- Rutes Habitacions -------------------
@@ -79,7 +80,14 @@ Route::get('/propietat/{idPROPIETAT}/tarifes/{idTARIFA}', [\App\Http\Controllers
 
 // -------------- Rutes Comentari Propietat --------------------
 
-Route::get('/propietat/{idPROPIETAT}/comentaris', [\App\Http\Controllers\PropietatController::class, 'listComentsByIdLocalitat']);
+Route::get('/propietat/{idPROPIETAT}/comentaris', [PropietatController::class, 'listComentsByIdLocalitat']);
 
 // -------------- Rutes Comentari Propietat --------------------
 Route::get('/client/{idClient}', [\App\Http\Controllers\UsuariController::class, 'listUserById']);
+
+// -------------- Rutes Fotos d'una Propietat--------------------
+Route::get('/propietat/{idPropietat}/fotos/secundaries/{filename}', [FotosController::class, 'listFotoByNumber']);
+
+Route::get('/propietat/{idPropietat}/fotos/info', [FotosController::class, 'infoFotos']);
+
+

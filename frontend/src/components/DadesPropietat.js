@@ -3,26 +3,41 @@ import { Component } from 'react';
 import React from "react";
 
 //Importar un component de Bootstrap.
-import {Button, Row, Col, Label, Form, Input, FormGroup} from 'reactstrap';
+import {Button, Row, Col, Label, Form, FormGroup, Collapse, CardBody, Card, CardHeader } from 'reactstrap';
 
 import DayPicker from "./DayPicker";
-
-const holidays = [
-    new Date("2022-02-22"),
-    new Date("2022-02-21")
-  ];
+import dateFnsFormat from 'date-fns/format';
+import dateFnsParse from 'date-fns/parse';
 
 class DadesPropietat extends Component {
 
     constructor(props) {
         super(props);
-    
-          this.state = {
-            
-          };
+        this.toggle = this.toggle.bind(this);
+        this.state = {
+          collapse: 0, 
+          cards: [1]
+        };
       }
+  
+    toggle(e) {
+        let event = e.target.dataset.event;
+        this.setState({ collapse: this.state.collapse === Number(event) ? 0 : Number(event) });
+    }
 
   render(){
+
+    const {cards, collapse} = this.state;
+
+    //Funcio que retorna Si si el valor es 1 i No si el valor es 0
+    function parseValueBany(n) {
+        if (n === 1){
+            return "Sí";
+        } else {
+            return "No";
+        }
+    } 
+    const FORMAT = 'dd-MM-yyyy';
 
     return (
 
@@ -34,7 +49,9 @@ class DadesPropietat extends Component {
                     <hr></hr>
                         <FormGroup>
                             <Label className='text-start fw-bold'>Data Entrada</Label>
-                            <DayPicker /> 
+                            <DayPicker 
+                            placeholder={`${dateFnsFormat(new Date(), FORMAT)}`}
+                            /> 
                         </FormGroup>
                         <FormGroup>
                             <Label className='text-start fw-bold'>Data Sortida</Label>
@@ -42,11 +59,10 @@ class DadesPropietat extends Component {
                         </FormGroup>
                         <FormGroup>
                             <Label for="preuFinal" className='text-start fw-bold'>Preu Final</Label>
-                            <Input type="number" className='inputDate mt-2' step="any" name="preuFinal" id="preuFinal" bsSize='lg' readOnly />
+                            <p className='pPreuFinal'></p>
                         </FormGroup>
-                      
     
-                        <Button color="outline-dark mt-5" className='text-center fs-5 fw-bold inputDate mt-3 mb-3'>Llogar</Button>
+                        <Button color="outline-dark" className='text-center fs-5 fw-bold inputDate mt-3 mb-3'>Llogar</Button>
                         
                     </Form>
           
@@ -130,15 +146,15 @@ class DadesPropietat extends Component {
 
                     <Col className='colNormes'>
                     <p className='text-start fw-bold'>Caracteristiques</p>
-                    <p>
+                    <div className='mt-4 d-flex'>
                         {this.props.caracteristiques.map(function(caracteristica,key) {
                         return(
-                            <span className='me-2' key= {key}>
+                            <span className='me-2 p-2 text-center' key= {key}>
                             {caracteristica.caracteristica}
-                            &nbsp;&nbsp;&nbsp;&nbsp;</span>
+                            </span>
                         )
                         })}
-                    </p>
+                    </div>
                     </Col>
 
                 </Row>
@@ -152,21 +168,38 @@ class DadesPropietat extends Component {
 
                 </Row>
 
+
+                {/* Accordion Habitacions de la propietat */}
                 <Row className='subRowDades'>
 
-                    <Col>
-                        <Row className='rowDada'>
-                            <Col xs="6" className='colDada fw-bold'>Tarifes Actives</Col>
-                            <Col xs="5" className='colDada'>{this.props.dsetmana}%</Col>
-                        </Row>
-                    </Col>
-                    <Col>
-                        <Row className='rowDada'>
-                            <Col xs="6" className='colDada fw-bold'>Habitacions</Col>
-                            <Col xs="5" className='colDada'>{this.props.dmes}%</Col>
-                        </Row>
-                    </Col>
+                        {cards.map(index => {
+                        return (
+                            <Card key={index} style={{padding: 0}} >
+                                <CardHeader
+                                    className='text-start fw-bold'
+                                    onClick={this.toggle}
+                                    data-event={index}>Habitacions {collapse === index?'-':'+'
+                                }
+                                </CardHeader>
+                                <Collapse isOpen={collapse === index}>
+                                <CardBody>
 
+                                    <ul>
+
+                                    {this.props.habitacions.map(function(habitacio, key) {
+                                        return (
+                                            <li className='p-3 text-start' key = {key}>Habitació {key+1} - Bany: {parseValueBany(habitacio.bany)} / Nº Llits Dobles: {habitacio.llit_doble} / Nº Llits Individuals: {habitacio.llit_simple}</li>
+                                        );
+                                    })}
+
+                                    </ul>
+
+                                </CardBody>
+                                </Collapse>
+                            </Card>
+                        )
+                    })}     
+       
                 </Row>
 
             </Col>

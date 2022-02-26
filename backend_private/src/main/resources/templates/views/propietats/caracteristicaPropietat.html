@@ -217,7 +217,7 @@
 
               <div class="card-body ">
 
-                <form id="formCrearPropietat" th:object="${propietat}" th:action="@{/views/propietats/save}" method="post" enctype="multipart/form-data" onsubmit="return validacioPropietat()">
+                <form id="formCrearPropietat" th:object="${propietat}" th:action="@{/views/propietats/save}" method="post" onsubmit="return validacioPropietat()">
 
                   <div class="row">
 
@@ -226,7 +226,7 @@
                       <div class="mb-3">
                         <input type="hidden" th:field="*{idPROPIETAT}" />
                         <label for="nomPropietat" class="form-label">Nom de la propietat <span class="text-danger">*</span></label>
-                        <input type="text" placeholder="ej. Villa Luna" class="form-control" th:field="*{nomPropietat}" id="nomPropietat">
+                        <input type="text" placeholder="ej. Villa Luna" class="form-control" th:field="*{nomPropietat}" id="nomPropietat" readonly>
                         <div id="spannom" class="form-text">Nom de la propietat que figura en l'escriptura</div>
                         <div id="validacioNom" class="form-text"></div>
                       </div>
@@ -348,22 +348,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-12 form-group">
 
-                      <div class="mb-3">
-                        <label for="file" class="form-label">Foto Principal</label>
-
-                        <div class="input-group">
-                          <input type="file" accept="image/jpg" name="file" class="form-control" id="file" />
-                          <div class="input-group-prepend">
-                            <div class="input-group-text">#</div>
-                          </div>
-                        </div>
-                        <div id="fotosSpan" class="form-text">Aqui pots afegir la foto principal de la propietat.</div>
-                        <div id="validacioFoto" class="form-text"></div>
-                      </div>
-
-                    </div>
                     <div class="col-1 mt-2 form-group">
                       <input type="submit" id="boto-submit-propietat" class="btn btn-primary" value="Guardar" />
                     </div>
@@ -640,17 +625,17 @@
               <div class="row">
 
                 <article class="col-12 border m-4 p-4 border-dark"><img
-                        th:src="@{${'/Media/' + nomPropietatSenseEspais + '-media/' + nomPropietatSenseEspais + '-portada.jpg'}}"
+                        th:src="@{${'/Media/' + idPropietat + '-media/' + idPropietat + '-portada.jpg'}}"
                         alt="Foto Portada" class="img-fluid w-100"></article>
 
               </div>
-              <div class="row">
+              <div class="row" th:if="${numeroFotosSecundaries != 0}">
 
                 <!-- Per cada foto secundaria a la carpeta img fara un article.-->
-                <th:block th:if="${numeroFotosSecundaries != 0}" th:each="i: ${#numbers.sequence(1, numeroFotosSecundaries)}">
+                <th:block  th:each="i: ${#numbers.sequence(1, numeroFotosSecundaries)}">
 
                   <article class="col-4 m-4 p-3 border border-danger">
-                    <img th:src="@{${'/Media/' + nomPropietatSenseEspais + '-media/img/' + nomPropietatSenseEspais + '-' + i +'.jpg'}}"
+                    <img th:src="@{${'/Media/' + idPropietat + '-media/img/' + idPropietat + '-' + i +'.jpg'}}"
                             alt="Foto Portada" class="img-fluid w-100">
                   </article>
 
@@ -666,6 +651,34 @@
 
               <div class="card-body ">
 
+                <form th:action="@{/views/propietats/fotoPortada/save}" method="post" enctype="multipart/form-data">
+
+                  <div class="row">
+
+                    <div class="col-12 form-group">
+                      <div class="mb-3">
+                        <input type="hidden" th:field="${propietat.idPROPIETAT}" />
+                        <input type="hidden" class="form-control" th:field="${propietat.nomPropietat}">
+                      </div>
+
+                      <div class="mb-3">
+                        <label for="fotoPortada" class="form-label">Foto de Portada</label>
+                        <input type="file" accept="image/jpg" class="form-control" name="fotoPortada" id="fotoPortada" required>
+                        <div id="fotoPortadaSpan" class="form-text">Afegeix la teva foto principal.</div>
+                      </div>
+
+                    </div>
+
+
+                    <div class="col-1 mt-2 form-group">
+                      <input type="submit" id="boto-submit-foto-portada" class="btn btn-primary" value="Pujar Foto" />
+                    </div>
+
+                  </div>
+                </form>
+
+                <hr>
+
                 <form th:action="@{/views/propietats/fotos/save}" method="post" enctype="multipart/form-data">
 
                   <div class="row">
@@ -677,7 +690,7 @@
                       </div>
 
                       <div class="mb-3">
-                        <label for="fotosSecundaries" class="form-label">Fotos</label>
+                        <label for="fotosSecundaries" class="form-label">Fotos Secundaries</label>
                         <input type="file" accept="image/jpg" class="form-control" name="fotosSecundaries" id="fotosSecundaries" required>
                         <div id="fotosMultipleSpan" class="form-text">Aqui pots afegir totes les fotos que vulguis de la teva propietat (De una en una)</div>
                       </div>

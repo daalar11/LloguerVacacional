@@ -62,6 +62,16 @@ class Viewpropietat extends Component {
   //Metode componentDidMount
   componentDidMount = () => {this.propietatById();}
 
+  nomSenseEspais(n) {
+
+    let string = n;
+
+    string = string.replace(/\s+/g, '')
+
+    return string;
+}
+
+
   render() {
 
     const {propietat, localitat, isLoading, error, habitacions, caracteristiques, comentaris} = this.state;
@@ -73,6 +83,10 @@ class Viewpropietat extends Component {
     if (isLoading) {
       return <p>Loading ...</p>;
     }
+
+    
+
+    
 
     return (
 
@@ -87,7 +101,9 @@ class Viewpropietat extends Component {
               <hr></hr>
 
               {/* Component Carrousel */}
-              <Carrousel />
+              <Carrousel 
+              idPropietat = {propietat.idpropietat}
+              />
 
               {/* Component DadesPropietat amb tota la info de la casa */}
               <DadesPropietat 
@@ -96,6 +112,7 @@ class Viewpropietat extends Component {
               plases = {propietat.places}
               localitat = {localitat.nom_localitat}
               numeroHabitacions = {habitacions.length}
+              habitacions = {habitacions}
               banys = {propietat.banys_propietat}
               text = {propietat.normes}
               dsetmana = {propietat.descompte_setmana}
