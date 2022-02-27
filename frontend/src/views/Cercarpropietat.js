@@ -2,12 +2,14 @@ import React, { Component } from "react";
 import CasesList from "../components/casesList";
 import 'bootstrap/dist/css/bootstrap.min.css';//Bootstrap
 import Propietat from '../components/Propietat';
-import {Container, Row, Col } from 'reactstrap';
+import {Container, Row, Col, Breadcrumb, BreadcrumbItem} from 'reactstrap';
 import Places from "../components/Places";
 import ListCaracateristica from "../components/ListCaracteristica";
 //Importam Axios
 import axios from 'axios';
 import SelectLocalitat from "../components/SelectLocalitat";
+
+import {Link} from "react-router-dom";
 
 class Cercarpropietat extends Component {
 
@@ -120,7 +122,6 @@ class Cercarpropietat extends Component {
     return (
       
       <div>
-        <h2>PAGINA CERCADOR DE PROPIETATS</h2>
 
         <p>
           CERCADOR AMB FILTRES
@@ -128,6 +129,16 @@ class Cercarpropietat extends Component {
 
 
         <Container>
+
+        <Breadcrumb>
+          <BreadcrumbItem>
+            <Link to="/">Home</Link>
+          </BreadcrumbItem>
+          <BreadcrumbItem active>
+            Cercar Propietat
+          </BreadcrumbItem>
+        </Breadcrumb>
+
           <Row>
           <hr></hr>
             <Col className="col-4">

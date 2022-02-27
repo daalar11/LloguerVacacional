@@ -12,9 +12,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';//Bootstrap
 import '../components/PropietatExpand.css';
 
 //Importar components de Bootstrap.
-import {Container, Row, Col} from 'reactstrap';
+import {Row, Col, Breadcrumb, BreadcrumbItem} from 'reactstrap';
 
 import axios from 'axios';
+
+import {Link} from "react-router-dom";
  
 class Viewpropietat extends Component {
 
@@ -84,57 +86,60 @@ class Viewpropietat extends Component {
       return <p>Loading ...</p>;
     }
 
-    
-
-    
+  
 
     return (
-
-      <Container>
+   
         <Row className='contenidor'>
           <Col>
 
-              {/* Titol amb el nom de la propietat */}
-              <Row>
-                  <h3 className='text-center'>{propietat.nom_propietat}</h3>
-              </Row>
-              <hr></hr>
+            <Breadcrumb>
+              <BreadcrumbItem>
+                <Link to="/">Home</Link>
+              </BreadcrumbItem>
+              <BreadcrumbItem>
+                <Link to="/cercarpropietat">Cercar Propietat</Link>
+              </BreadcrumbItem>
+              <BreadcrumbItem active>
+                Propietat
+              </BreadcrumbItem>
+            </Breadcrumb>
 
-              {/* Component Carrousel */}
-              <Carrousel 
-              idPropietat = {propietat.idpropietat}
-              />
+            {/* Component Carrousel */}
+            <Carrousel 
+            idPropietat = {propietat.idpropietat}
+            />
 
-              {/* Component DadesPropietat amb tota la info de la casa */}
-              <DadesPropietat 
-              title = {propietat.nom_propietat}
-              direccio = {propietat.direccio}
-              plases = {propietat.places}
-              localitat = {localitat.nom_localitat}
-              numeroHabitacions = {habitacions.length}
-              habitacions = {habitacions}
-              banys = {propietat.banys_propietat}
-              text = {propietat.normes}
-              dsetmana = {propietat.descompte_setmana}
-              dmes = {propietat.descompte_mes}
-              caracteristiques = {caracteristiques}
-              preu = {propietat.preu_base}
-              id = {propietat.idpropietat}
-              />
+            {/* Component DadesPropietat amb tota la info de la casa */}
+            <DadesPropietat 
+            title = {propietat.nom_propietat}
+            direccio = {propietat.direccio}
+            plases = {propietat.places}
+            localitat = {localitat.nom_localitat}
+            numeroHabitacions = {habitacions.length}
+            habitacions = {habitacions}
+            banys = {propietat.banys_propietat}
+            text = {propietat.normes}
+            dsetmana = {propietat.descompte_setmana}
+            dmes = {propietat.descompte_mes}
+            caracteristiques = {caracteristiques}
+            preu = {propietat.preu_base}
+            id = {propietat.idpropietat}
+            />
 
-              {/* Component Mapa Localització propietat*/}
-              <Mapa 
-              propietat = {propietat}
-              />
+            {/* Component Mapa Localització propietat*/}
+            <Mapa 
+            propietat = {propietat}
+            />
 
-              {/* Component Capsa de Comentaris */}
-              <CapsaComentaris 
-              comentaris = {comentaris}
-              />
+            {/* Component Capsa de Comentaris */}
+            <CapsaComentaris 
+            comentaris = {comentaris}
+            />
 
           </Col> 
         </Row>
-      </Container>
+
     );
     
     

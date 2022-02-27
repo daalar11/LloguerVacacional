@@ -44,7 +44,7 @@ class DadesPropietat extends Component {
         <Row className='colsInfo'>
             <Col xs="3" className='mt-1'>
 
-                    <Form className='mt-5 text-start  d-flex flex-column justify-content-center'>
+                    <Form className='mt-5 text-start  d-flex flex-column justify-content-center' action='/reservar'>
                     <span for="dEntrada" className='fw-bold'>Estableix les dates de la teva estada</span>
                     <hr></hr>
                         <FormGroup>
