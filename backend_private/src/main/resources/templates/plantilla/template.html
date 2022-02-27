@@ -23,6 +23,9 @@
     <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
     <!-- CDN JS DATATABLES DE BOOTSTRAP-->
     <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
+
+
     <title>Lloguer Vacacional</title>
 
 </head>
@@ -31,7 +34,7 @@
 <header th:fragment="header">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
         <div class="container-fluid">
-            <a class="navbar-brand" th:href="@{/}">Home</a>
+
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -54,7 +57,7 @@
 <div th:fragment="footer" class="text-center">
 
     <!-- HTML del Footer -->
-    <div class="container-fluid">
+    <div class="container">
         <hr>
         <p><strong>Copyright IES MANACOR - 2022</strong></p>
     </div>

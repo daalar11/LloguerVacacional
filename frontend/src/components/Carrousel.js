@@ -33,7 +33,7 @@ class MyCarousel extends Component {
 
       var url = "http://127.0.0.1:8000"
       //var request = "/propietat/" + this.state.idPropietat + "/fotos/info";
-      var requestp = "/propietat/2/fotos/info";
+      var requestp = "/propietat/1/fotos/info";
       
       axios.get(url + requestp)
       .then(res => {this.setState({
@@ -79,8 +79,6 @@ class MyCarousel extends Component {
   render() {
   	
       const { activeIndex, items, error, isLoading } = this.state;
-
-      console.log(items);
 
       const slides = items.map((item) => {
         return (

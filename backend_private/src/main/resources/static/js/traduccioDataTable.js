@@ -3,6 +3,8 @@ function veureTaula(){
 
     $('table.table').DataTable({
         responsive: true,
+
+
         autoWidth: false,
         "language": {
             "processing": "Procesando...",
