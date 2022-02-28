@@ -86,8 +86,16 @@ Route::get('/propietat/{idPROPIETAT}/comentaris', [PropietatController::class, '
 Route::get('/client/{idClient}', [\App\Http\Controllers\UsuariController::class, 'listUserById']);
 
 // -------------- Rutes Fotos d'una Propietat--------------------
+
+// Ruta que retorna una foto secundaria en funcio de l'id de la propietat i el nom de la foto
 Route::get('/propietat/{idPropietat}/fotos/secundaries/{filename}', [FotosController::class, 'listFotoByNumber']);
 
+// Ruta que conte el json amb l'estructura que espera el carrousel de la vista de cada propietat
 Route::get('/propietat/{idPropietat}/fotos/info', [FotosController::class, 'infoFotos']);
 
+// Ruta que retorna una foto secundaria en funcio de l'id de la propietat i el nom de la foto
+Route::get('/propietat/{idPropietat}/fotos/portada', [FotosController::class, 'listPortadesByIdPropietat']);
+
+// Ruta que conte el json amb totes les fotos de portada de les propietats existents pel carrousel de la pantalla hoem
+Route::get('/propietat/fotos/info/portades', [FotosController::class, 'infoPortades']);
 

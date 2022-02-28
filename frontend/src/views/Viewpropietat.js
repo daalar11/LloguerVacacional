@@ -29,6 +29,7 @@ class Viewpropietat extends Component {
         habitacions: [],
         caracteristiques: [],
         comentaris: [],
+        fotos: [],
         isLoading: false,
         error: null,
       };
@@ -51,6 +52,29 @@ class Viewpropietat extends Component {
       habitacions: res.data.habitacions,
       caracteristiques: res.data.caracteristica,
       comentaris: res.data.comentaris,
+      fotos: [],
+          status: true
+        });
+    })
+    //Tractam errors
+    .catch(error => this.setState({
+      error,
+      isLoading: false
+    }));
+  }
+
+  getFotos = () => {
+
+    //Agafam el parametres de la URL d'aquesta forma. (No fa falta instalar cap packet, ve a javascript intern)
+    const queryParams = new URLSearchParams(window.location.search);
+    const id = queryParams.get('id');
+
+    var url = "http://127.0.0.1:8000"
+    var request = "/propietat/" + id + "/fotos/info";
+    
+    axios.get(url + request)
+    .then(res => {this.setState({
+      fotos: res.data,
           status: true
         });
     })
@@ -62,21 +86,14 @@ class Viewpropietat extends Component {
   }
 
   //Metode componentDidMount
-  componentDidMount = () => {this.propietatById();}
-
-  nomSenseEspais(n) {
-
-    let string = n;
-
-    string = string.replace(/\s+/g, '')
-
-    return string;
-}
-
+  componentDidMount = () => {
+    this.propietatById();
+    this.getFotos();
+  }
 
   render() {
 
-    const {propietat, localitat, isLoading, error, habitacions, caracteristiques, comentaris} = this.state;
+    const {propietat, localitat, isLoading, error, habitacions, caracteristiques, comentaris, fotos} = this.state;
 
     if (error) {
       return <p>{error.message}</p>;
@@ -107,7 +124,7 @@ class Viewpropietat extends Component {
 
             {/* Component Carrousel */}
             <Carrousel 
-            idPropietat = {propietat.idpropietat}
+            fotos = {fotos}
             />
 
             {/* Component DadesPropietat amb tota la info de la casa */}

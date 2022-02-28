@@ -5,6 +5,7 @@ import cat.iesmanacor.backend_private.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileSystemUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,9 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.util.*;
+
+import org.apache.commons.io.FileUtils;
+
 
 @Controller
 @RequestMapping("/views/propietats")
@@ -209,14 +213,39 @@ public class PropietatController {
         return "redirect:/views/propietats/"+propietari.getId();
     }
 
+    public static void deleteDirectoryLegacyIO(File file) {
+
+        File[] list = file.listFiles();
+        if (list != null) {
+            for (File temp : list) {
+                //recursive delete
+                System.out.println("Visit " + temp);
+                deleteDirectoryLegacyIO(temp);
+            }
+        }
+
+        if (file.delete()) {
+            System.out.printf("Delete : %s%n", file);
+        } else {
+            System.err.printf("Unable to delete file or directory : %s%n", file);
+        }
+
+    }
+
     //Metode que elimina una propietat.
     @GetMapping("/delete/{idPROPIETAT}")
-    public String eliminar(HttpSession httpSession, @PathVariable("idPROPIETAT") Long idPROPIETAT) {
+    public String eliminar(HttpSession httpSession, @PathVariable("idPROPIETAT") Long idPROPIETAT) throws IOException {
 
         Propietari propietari = propietariService.findPropietariByCorreu(((Propietari) httpSession.getAttribute("usuari")).getCorreu());
         propietatService.eliminar(idPROPIETAT);
-        System.out.println("Sha eliminat la propietat amb exit");
 
+        File carpeta = new File("/Media/"+ idPROPIETAT + "-media/");
+        if (carpeta.exists()) {
+
+            FileUtils.deleteDirectory(carpeta);
+
+
+        }
         return "redirect:/views/propietats/"+propietari.getId();
     }
 

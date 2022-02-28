@@ -2,6 +2,7 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 
 <head>
+
   <div th:replace="plantilla/template :: head(type='tag')"></div>
   <!-- Validacio Formulari de Crear Nova Propietat i Editar Propietat -->
   <script type="text/javascript" th:src="@{/js/ValidacionsFormularis/validacionsFormularis.js}"></script>
@@ -135,10 +136,14 @@
     .fc-event-title{
       color:black;
       font-weight: bold;
-
       opacity: 1;
       margin-top: 20px;
     }
+
+    #googleMap {
+      border-radius: 10px;
+    }
+
   </style>
 
 </head>
@@ -180,14 +185,12 @@
           <li class="nav-item" role="presentation">
             <button class="nav-link text-dark" id="bloqueig-tab" data-bs-toggle="tab" data-bs-target="#bloqueig" type="button" role="tab" aria-controls="bloqueig" aria-selected="false">Dies de Bloqueig</button>
           </li>
-
           <li class="nav-item" role="presentation">
             <button class="nav-link text-dark" id="reserves-tab" data-bs-toggle="tab" data-bs-target="#reserves" type="button" role="tab" aria-controls="reserves" aria-selected="false">Reserves</button>
           </li>
           <li class="nav-item" role="presentation">
             <button class="nav-link text-dark" id="tarifes-tab" data-bs-toggle="tab" data-bs-target="#tarifes" type="button" role="tab" aria-controls="tarifes" aria-selected="false">Tarifes</button>
           </li>
-
           <li class="nav-item" role="presentation">
             <button class="nav-link text-dark" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Habitacions</button>
           </li>
@@ -213,7 +216,7 @@
 
             <div class="row">
 
-              <div id='calendar' class="mt-3"></div>
+              <div id='calendar' class="mt-3 rounded"></div>
 
             </div>
 
@@ -237,7 +240,7 @@
                       <div class="mb-3">
                         <input type="hidden" th:field="*{idPROPIETAT}" />
                         <label for="nomPropietat" class="form-label">Nom de la propietat <span class="text-danger">*</span></label>
-                        <input type="text" placeholder="ej. Villa Luna" class="form-control" th:field="*{nomPropietat}" id="nomPropietat" readonly>
+                        <input type="text" placeholder="ej. Villa Luna" class="form-control" th:field="*{nomPropietat}" id="nomPropietat">
                         <div id="spannom" class="form-text">Nom de la propietat que figura en l'escriptura</div>
                         <div id="validacioNom" class="form-text"></div>
                       </div>
@@ -682,7 +685,7 @@
 
 
                     <div class="col-1 mt-2 form-group">
-                      <input type="submit" id="boto-submit-foto-portada" class="btn btn-primary" value="Pujar Foto" />
+                      <input type="submit" id="boto-submit-foto-portada" class="btn btn-primary" value="Pujar Portada" />
                     </div>
 
                   </div>
@@ -708,9 +711,8 @@
 
                     </div>
 
-
                     <div class="col-1 mt-2 form-group">
-                      <input type="submit" id="boto-submit-fotos" class="btn btn-primary" value="Pujar Foto" />
+                      <input type="submit" id="boto-submit-fotos" class="btn btn-primary" value="Foto Nova" />
                     </div>
 
                   </div>

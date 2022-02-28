@@ -4,8 +4,6 @@
 <head>
     <div th:replace="plantilla/template :: head(type='tag')"></div>
 
-
-
 </head>
 
 <body>
@@ -32,14 +30,11 @@
 
         <hr>
 
-        <!-- <div class="row text-center">
-            <p class="fs-1 font-monospace border-dark border-2 border-bottom" th:text="${titolLlistarPropietats}"></p>
-        </div> -->
-
         <div class="row">
-            <div class="col-12">
 
-                <table id="table_id" class="table table-striped" style="width:100%">
+            <div class="card p-3 mt-3 mb-3 bg-light">
+
+                <table id="table_id" class="table table-striped">
 
                     <!-- CAPÇALERA DE LA TAULA -->
                     <thead class="thead-dark">
@@ -73,6 +68,7 @@
                     </tr>
                     </tbody>
                 </table>
+
             </div>
         </div>
 
