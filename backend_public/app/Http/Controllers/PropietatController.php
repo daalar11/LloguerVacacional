@@ -47,5 +47,12 @@ class PropietatController extends Controller
         return $propietats->toJson();
     }
 
+    public function diesNoDisponibles($idPropietat)
+    {
+        $propietat= Propietat::with('bloqueig','tarifa', 'reserva')->find($idPropietat)->toArray();
+
+        return json_decode(json_encode($propietat),true);
+    }
+
 
 }

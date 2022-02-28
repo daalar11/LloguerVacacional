@@ -99,3 +99,5 @@ Route::get('/propietat/{idPropietat}/fotos/portada', [FotosController::class, 'l
 // Ruta que conte el json amb totes les fotos de portada de les propietats existents pel carrousel de la pantalla hoem
 Route::get('/propietat/fotos/info/portades', [FotosController::class, 'infoPortades']);
 
+// -------------- Rutes dies no Disponible pel dayPicker --------------------
+Route::get('/propietat/{idPropietat}/nodisponible/info', [PropietatController::class, 'diesNoDisponibles']);

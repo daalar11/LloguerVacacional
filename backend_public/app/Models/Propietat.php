@@ -36,6 +36,10 @@ class Propietat extends Model
         return $this->hasMany(Tarifa::class,'id_propietat');
     }
 
+    public function reserva(){
+        return $this->hasMany(Reserva::class,'id_propietat');
+    }
+
     public function caracteristica()
     {
         return $this->belongsToMany(Caracteristiques::class, 'caracteristiques_propietats','id_pro','id_car');

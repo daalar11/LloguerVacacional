@@ -134,6 +134,17 @@ export default class DayPicker extends React.Component {
     this.switchLocale = this.switchLocale.bind(this);
     this.handleDayChange = this.handleDayChange.bind(this);
     this.state = {
+      
+        disabled: [
+          {
+            before: new Date()
+          },
+          {
+            after: new Date(2022, 2, 5),
+            before: new Date(2022, 2, 15)
+          },
+          new Date(2022, 1, 28),     
+        ],
       selectedDay: undefined,
       locale: 'en',
     };
@@ -162,7 +173,7 @@ export default class DayPicker extends React.Component {
         return dateFnsFormat(date, format, { locale });
       }
 
-    const { selectedDay, locale } = this.state;
+    const { selectedDay, locale, disabled } = this.state;
     const FORMAT = 'dd-MM-yyyy';
     return (
       <div>
@@ -195,19 +206,7 @@ export default class DayPicker extends React.Component {
           numberOfMonths: 2,
           pagedNavigation: true,
           fixedWeeks: true,
-          modifiers: {
-            disabled: [
-              {
-                before: new Date()
-              },
-              {
-                after: new Date(2022, 2, 5),
-                before: new Date(2022, 2, 15)
-              },
-              new Date(2022, 1, 28),
-              
-            ]
-          }
+          modifiers: {disabled},
           
         }}
         />
