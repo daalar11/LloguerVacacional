@@ -4,19 +4,15 @@ import { Carousel, CarouselItem, CarouselControl, CarouselIndicators, CarouselCa
 //Importar un component de Bootstrap.
 import {Row} from 'reactstrap';
 
-import axios from 'axios';
-
 class MyCarousel extends Component {
-
 
   constructor(props) {
       super(props);
 
       // Estat amb l'índex de la foto activa
       this.state = { 
-        idPropietat: this.props.idPropietat,
         activeIndex: 0,
-        items: [],
+        items: props.fotos,
         isLoading: false,
         error: null,
        };
@@ -29,27 +25,9 @@ class MyCarousel extends Component {
       this.onExited = this.onExited.bind(this);
     }
 
-    getFotos = () => {
-
-      var url = "http://127.0.0.1:8000"
-      //var request = "/propietat/" + this.state.idPropietat + "/fotos/info";
-      var requestp = "/propietat/1/fotos/info";
-      
-      axios.get(url + requestp)
-      .then(res => {this.setState({
-        items: res.data,
-            status: true
-          });
-      })
-      //Tractam errors
-      .catch(error => this.setState({
-        error,
-        isLoading: false
-      }));
+    componentWillReceiveProps(props) {
+      this.setState({items: props.fotos});
     }
-
-    //Metode componentDidMount
-    componentDidMount = () => {this.getFotos();}
 
     onExiting() {
       this.animating = true;
