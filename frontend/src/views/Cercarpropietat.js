@@ -11,12 +11,15 @@ import SelectLocalitat from "../components/SelectLocalitat";
 
 import {Link} from "react-router-dom";
 
+import ReactPaginate from 'react-paginate';
+
 class Cercarpropietat extends Component {
 
   constructor(props) {
     super(props);
 
     this.state = {
+
       localitat:  [],
       caracteristica: [],
       propietats: [],
@@ -89,11 +92,13 @@ class Cercarpropietat extends Component {
     var request = "/all";
 
     axios.get(url + request)
-    .then(res => {this.setState({
-      propietats: res.data,
-          status: true
-        });
-    })
+    .then(res => 
+      {
+                  this.setState({
+                    propietats: res.data,
+                        status: true,
+                      });
+                })
     .catch(error => this.setState({
       error,
       isLoading: false
@@ -102,9 +107,12 @@ class Cercarpropietat extends Component {
 
   //Metode componentDidMount
   componentDidMount = () => {
+ 
     this.carregarPropietats();
     this.carregarCaracteristica();
-    this.carregarLocalitat();}
+    this.carregarLocalitat();
+  }
+    
 
   render() {
 
@@ -172,6 +180,11 @@ class Cercarpropietat extends Component {
             </Col>
                   
           </Row>
+         
+            <div>
+              
+            </div>
+
         </Container>
  
         

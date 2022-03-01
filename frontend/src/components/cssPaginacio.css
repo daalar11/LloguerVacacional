@@ -1,0 +1,18 @@
+#page-numbers {
+    list-style: none;
+    display: flex;
+  }
+  
+  #page-numbers > li {
+    font-size: 1.25em;
+    
+    
+    padding-top: 0.25rem;
+    padding-bottom: 0.50rem;
+    margin: 2px;
+    text-align: center;
+    color: black;
+    text-decoration: none;
+    border: 1px solid black;
+  }
+  
