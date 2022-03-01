@@ -22,6 +22,11 @@ class Menu extends Component {
                 <Link className="text-decoration-none text-white-50" to="/cercarpropietat">Cerca Propietat</Link>
               </NavItem>
 
+              {/* NavItem MisReservas */}
+              <NavItem className="mt-2 me-3">
+                <Link className="text-decoration-none text-white-50" to="/misreservas">Mis Reservas</Link>
+              </NavItem>
+
               {/* NavItem ViewPropietat
               <NavItem className="mt-2 me-3">
                   <Link className="text-decoration-none text-white-50" to="/viewpropietat">View Propietat</Link>

@@ -5,6 +5,7 @@ import cat.iesmanacor.backend_private.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileSystemUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,9 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.util.*;
+
+import org.apache.commons.io.FileUtils;
+
 
 @Controller
 @RequestMapping("/views/propietats")
@@ -125,15 +129,18 @@ public class PropietatController {
 
         model.addAttribute("id", idUsuari);
 
-        //MODEL ESPECIAL PER VISUALITZAR FOTOS
-        String nomPropietatSenseEspais = propietat.getNomPropietat().replace(" ", "");
-        model.addAttribute("nomPropietatSenseEspais", nomPropietatSenseEspais);
-
         //Per saber el numero de fitxers que hi ha dins un directory
-        String path = "/Media/"+ propietat.getNomPropietat().replace(" ", "") + "-media/img/";
+        String path = "/Media/"+ idPROPIETAT + "-media/img/";
         File subcarpeta = new File(path);
-        int numeroFitxers =  Objects.requireNonNull(subcarpeta.list()).length;
-        model.addAttribute("numeroFotosSecundaries", numeroFitxers);
+
+        if (subcarpeta.exists()) {
+
+            int numeroFitxers = Objects.requireNonNull(subcarpeta.list()).length;
+            model.addAttribute("numeroFotosSecundaries", numeroFitxers);
+
+        } else {
+            model.addAttribute("numeroFotosSecundaries", 0);
+        }
 
         if (respostaTarifa != null) {
             //Per saber si una tarifa s'ha aceptat o no s'ha pogut introduir
@@ -196,73 +203,49 @@ public class PropietatController {
 
     //Metode que s'executa quan es fa el submit del formulari crearPropietat
     @PostMapping("/save")
-    public String guardar(HttpSession httpSession, @RequestParam(name = "file") MultipartFile foto, @Validated @ModelAttribute Propietat p, BindingResult result) throws IOException{
+    public String guardar(HttpSession httpSession, @Validated @ModelAttribute Propietat p, BindingResult result) throws IOException{
 
         Propietari propietari = propietariService.findPropietariByCorreu(((Propietari) httpSession.getAttribute("usuari")).getCorreu());
         p.setPropietari(propietari);
-        InputStream in = foto.getInputStream();
-
-        //CODI PER OBTENIR L'EXTENSIO D'UNA IMATGE
-        String nomImatge = foto.getOriginalFilename();
-        String extension = "";
-        assert nomImatge != null;
-        int i = nomImatge.lastIndexOf('.');
-        if (i > 0) {
-            extension = nomImatge.substring(i+1);
-        }
-        //model.addAttribute("extensioImatge", extension);
-
-        //Modificam el nom de l'imatge al dessitjat.
-        String nomModificatImatge = p.getNomPropietat().replace(" ", "")+"-portada." + extension;
-
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        byte[] readBuf = new byte[4096];
-        while (in.available() > 0){
-            int bytesRead = in.read(readBuf);
-            out.write(readBuf, 0, bytesRead);
-        }
-
-        //Cream una carpeta per la Media de la propietat, el nom de la carpeta sera nomPropietat-img
-        File carpeta = new File("/Media/"+ p.getNomPropietat().replace(" ", "") + "-media/img/");
-        if (!carpeta.exists()){
-            if (carpeta.mkdirs()){
-                System.out.println("Shan crear les carpetes");
-            } else {
-                System.out.println("No s'ha creat les carpetes");
-            }
-        }
-
-        //Definim path de la foto (Path relatiu)
-        String ruta = "/Media/" + p.getNomPropietat().replace(" ", "") + "-media/";
-
-        //Ruta completa
-        String filename = ruta + nomModificatImatge;
-
-        //El condicional es per veure si han pujar una foto o no.
-        if (!nomModificatImatge.equals("")) {
-
-            OutputStream outputStream = new FileOutputStream(filename);
-            out.writeTo(outputStream);
-        }
-
-        if (result.hasErrors()) {
-
-            return "redirect:/views/propietats/configurar/" + p.getIdPROPIETAT();
-        }
 
         propietatService.guardar(p);
 
         return "redirect:/views/propietats/"+propietari.getId();
     }
 
+    public static void deleteDirectoryLegacyIO(File file) {
+
+        File[] list = file.listFiles();
+        if (list != null) {
+            for (File temp : list) {
+                //recursive delete
+                System.out.println("Visit " + temp);
+                deleteDirectoryLegacyIO(temp);
+            }
+        }
+
+        if (file.delete()) {
+            System.out.printf("Delete : %s%n", file);
+        } else {
+            System.err.printf("Unable to delete file or directory : %s%n", file);
+        }
+
+    }
+
     //Metode que elimina una propietat.
     @GetMapping("/delete/{idPROPIETAT}")
-    public String eliminar(HttpSession httpSession, @PathVariable("idPROPIETAT") Long idPROPIETAT) {
+    public String eliminar(HttpSession httpSession, @PathVariable("idPROPIETAT") Long idPROPIETAT) throws IOException {
 
         Propietari propietari = propietariService.findPropietariByCorreu(((Propietari) httpSession.getAttribute("usuari")).getCorreu());
         propietatService.eliminar(idPROPIETAT);
-        System.out.println("Sha eliminat la propietat amb exit");
 
+        File carpeta = new File("/Media/"+ idPROPIETAT + "-media/");
+        if (carpeta.exists()) {
+
+            FileUtils.deleteDirectory(carpeta);
+
+
+        }
         return "redirect:/views/propietats/"+propietari.getId();
     }
 
@@ -270,11 +253,18 @@ public class PropietatController {
     @PostMapping("/fotos/save")
     public String guardarFoto(@RequestParam(name = "fotosSecundaries") MultipartFile fotoSecundaria, @Validated @ModelAttribute Propietat p) throws IOException{
 
+        int numeroFitxers = 0;
+        int numeroFitxerSum = numeroFitxers + 1;
+
         //Per saber el numero de fitxers que hi ha dins un directory
-        String path = "/Media/"+ p.getNomPropietat().replace(" ", "") + "-media/img/";
+        String path = "/Media/"+ p.getIdPROPIETAT() + "-media/img/";
         File subcarpeta = new File(path);
-        int numeroFitxers =  Objects.requireNonNull(subcarpeta.listFiles()).length;
-        int numeroFitxerSum = numeroFitxers+1;
+
+        if (subcarpeta.exists()) {
+
+            numeroFitxers = Objects.requireNonNull(subcarpeta.listFiles()).length;
+            numeroFitxerSum = numeroFitxers + 1;
+        }
 
         InputStream in = fotoSecundaria.getInputStream();
 
@@ -287,7 +277,7 @@ public class PropietatController {
             extension = nomImatge.substring(i+1);
         }
 
-        String nomModificatImatge = p.getNomPropietat().replace(" ", "")+"-" + numeroFitxerSum +"." + extension;
+        String nomModificatImatge = p.getIdPROPIETAT()+"-" + numeroFitxerSum +"." + extension;
 
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         byte[] readBuf = new byte[4096];
@@ -297,7 +287,7 @@ public class PropietatController {
         }
 
         //Cream una carpeta per la Media de la propietat, el nom de la carpeta sera nomPropietat-img
-        File carpeta = new File("/Media/"+ p.getNomPropietat().replace(" ", "") + "-media/img/");
+        File carpeta = new File("/Media/"+ p.getIdPROPIETAT() + "-media/img/");
         if (!carpeta.exists()){
             if (carpeta.mkdirs()){
                 System.out.println("Shan crear les carpetes");
@@ -307,12 +297,65 @@ public class PropietatController {
         }
 
         //Definim path de la foto (Path relatiu)
-        String ruta = "/Media/" + p.getNomPropietat().replace(" ", "") + "-media/img/";
+        String ruta = "/Media/" + p.getIdPROPIETAT() + "-media/img/";
         String filename = ruta + nomModificatImatge;
 
         OutputStream outputStream = new FileOutputStream(filename);
         out.writeTo(outputStream);
 
         return "redirect:/views/propietats/configurar/"+p.getIdPROPIETAT();
+    }
+
+    //Metode que guarda fotos secundaries de la propietat.
+    @PostMapping("/fotoPortada/save")
+    public String guardarFotoPortada(@RequestParam(name = "fotoPortada") MultipartFile fotoPortada, @Validated @ModelAttribute Propietat p) throws IOException{
+
+        InputStream in = fotoPortada.getInputStream();
+
+        //CODI PER OBTENIR L'EXTENSIO D'UNA IMATGE
+        String nomImatge = fotoPortada.getOriginalFilename();
+        String extension = "";
+        assert nomImatge != null;
+        int i = nomImatge.lastIndexOf('.');
+        if (i > 0) {
+            extension = nomImatge.substring(i+1);
+        }
+        //model.addAttribute("extensioImatge", extension);
+
+        //Modificam el nom de l'imatge al dessitjat.
+        String nomModificatImatge = p.getIdPROPIETAT()+"-portada." + extension;
+
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        byte[] readBuf = new byte[4096];
+        while (in.available() > 0){
+            int bytesRead = in.read(readBuf);
+            out.write(readBuf, 0, bytesRead);
+        }
+
+        //Cream una carpeta per la Media de la propietat, el nom de la carpeta sera nomPropietat-img
+        File carpeta = new File("/Media/"+ p.getIdPROPIETAT() + "-media/img/");
+        if (!carpeta.exists()){
+            if (carpeta.mkdirs()){
+                System.out.println("Shan crear les carpetes");
+            } else {
+                System.out.println("No s'ha creat les carpetes");
+            }
+        }
+
+        //Definim path de la foto (Path relatiu)
+        String ruta = "/Media/" + p.getIdPROPIETAT() + "-media/";
+
+        //Ruta completa
+        String filename = ruta + nomModificatImatge;
+
+        //El condicional es per veure si han pujar una foto o no.
+        if (!nomModificatImatge.equals("")) {
+
+            OutputStream outputStream = new FileOutputStream(filename);
+            out.writeTo(outputStream);
+        }
+
+        return "redirect:/views/propietats/configurar/" + p.getIdPROPIETAT();
+
     }
 }//FI CONTROLADOR

@@ -12,9 +12,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';//Bootstrap
 import '../components/PropietatExpand.css';
 
 //Importar components de Bootstrap.
-import {Container, Row, Col} from 'reactstrap';
+import {Row, Col, Breadcrumb, BreadcrumbItem} from 'reactstrap';
 
 import axios from 'axios';
+
+import {Link} from "react-router-dom";
  
 class Viewpropietat extends Component {
 
@@ -27,6 +29,7 @@ class Viewpropietat extends Component {
         habitacions: [],
         caracteristiques: [],
         comentaris: [],
+        fotos: [],
         isLoading: false,
         error: null,
       };
@@ -49,6 +52,29 @@ class Viewpropietat extends Component {
       habitacions: res.data.habitacions,
       caracteristiques: res.data.caracteristica,
       comentaris: res.data.comentaris,
+      fotos: [],
+          status: true
+        });
+    })
+    //Tractam errors
+    .catch(error => this.setState({
+      error,
+      isLoading: false
+    }));
+  }
+
+  getFotos = () => {
+
+    //Agafam el parametres de la URL d'aquesta forma. (No fa falta instalar cap packet, ve a javascript intern)
+    const queryParams = new URLSearchParams(window.location.search);
+    const id = queryParams.get('id');
+
+    var url = "http://127.0.0.1:8000"
+    var request = "/propietat/" + id + "/fotos/info";
+    
+    axios.get(url + request)
+    .then(res => {this.setState({
+      fotos: res.data,
           status: true
         });
     })
@@ -60,11 +86,14 @@ class Viewpropietat extends Component {
   }
 
   //Metode componentDidMount
-  componentDidMount = () => {this.propietatById();}
+  componentDidMount = () => {
+    this.propietatById();
+    this.getFotos();
+  }
 
   render() {
 
-    const {propietat, localitat, isLoading, error, habitacions, caracteristiques, comentaris} = this.state;
+    const {propietat, localitat, isLoading, error, habitacions, caracteristiques, comentaris, fotos} = this.state;
 
     if (error) {
       return <p>{error.message}</p>;
@@ -74,50 +103,60 @@ class Viewpropietat extends Component {
       return <p>Loading ...</p>;
     }
 
-    return (
+  
 
-      <Container>
+    return (
+   
         <Row className='contenidor'>
           <Col>
 
-              {/* Titol amb el nom de la propietat */}
-              <Row>
-                  <h3 className='text-center'>{propietat.nom_propietat}</h3>
-              </Row>
-              <hr></hr>
+            <Breadcrumb>
+              <BreadcrumbItem>
+                <Link to="/">Home</Link>
+              </BreadcrumbItem>
+              <BreadcrumbItem>
+                <Link to="/cercarpropietat">Cercar Propietat</Link>
+              </BreadcrumbItem>
+              <BreadcrumbItem active>
+                Propietat
+              </BreadcrumbItem>
+            </Breadcrumb>
 
-              {/* Component Carrousel */}
-              <Carrousel />
+            {/* Component Carrousel */}
+            <Carrousel 
+            fotos = {fotos}
+            />
 
-              {/* Component DadesPropietat amb tota la info de la casa */}
-              <DadesPropietat 
-              title = {propietat.nom_propietat}
-              direccio = {propietat.direccio}
-              plases = {propietat.places}
-              localitat = {localitat.nom_localitat}
-              numeroHabitacions = {habitacions.length}
-              banys = {propietat.banys_propietat}
-              text = {propietat.normes}
-              dsetmana = {propietat.descompte_setmana}
-              dmes = {propietat.descompte_mes}
-              caracteristiques = {caracteristiques}
-              preu = {propietat.preu_base}
-              id = {propietat.idpropietat}
-              />
+            {/* Component DadesPropietat amb tota la info de la casa */}
+            <DadesPropietat 
+            title = {propietat.nom_propietat}
+            direccio = {propietat.direccio}
+            plases = {propietat.places}
+            localitat = {localitat.nom_localitat}
+            numeroHabitacions = {habitacions.length}
+            habitacions = {habitacions}
+            banys = {propietat.banys_propietat}
+            text = {propietat.normes}
+            dsetmana = {propietat.descompte_setmana}
+            dmes = {propietat.descompte_mes}
+            caracteristiques = {caracteristiques}
+            preu = {propietat.preu_base}
+            id = {propietat.idpropietat}
+            />
 
-              {/* Component Mapa Localització propietat*/}
-              <Mapa 
-              propietat = {propietat}
-              />
+            {/* Component Mapa Localització propietat*/}
+            <Mapa 
+            propietat = {propietat}
+            />
 
-              {/* Component Capsa de Comentaris */}
-              <CapsaComentaris 
-              comentaris = {comentaris}
-              />
+            {/* Component Capsa de Comentaris */}
+            <CapsaComentaris 
+            comentaris = {comentaris}
+            />
 
           </Col> 
         </Row>
-      </Container>
+
     );
     
     

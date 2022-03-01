@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HabitacioController;
 use App\Http\Controllers\PropietatController;
+use App\Http\Controllers\FotosController;
 use Illuminate\Support\Facades\Route;
 
 //Linies necessaries per evitar l'error de CORS (permissos) respecte quan demanin serveis d'aquesta API
@@ -33,7 +34,7 @@ Route::get('/', function () {
 //Route::get('/habitacio',[HabitacioController::class,'listAll']);
 //Rutes principals
 Route::get('/all',[PropietatController::class,'listAllByPropietat']);
-Route::get('/all/{Id}',[PropietatController::class,'listAllByPropietatId']);
+Route::get('/all/{idPropietat}',[PropietatController::class,'listAllByPropietatId']);
 Route::get('/propietat/{idLocalitat}/{places}',[PropietatController::class,'listPropietatByPlacesAndLocalitat']);
 
 // ------------- Rutes Habitacions -------------------
@@ -79,7 +80,24 @@ Route::get('/propietat/{idPROPIETAT}/tarifes/{idTARIFA}', [\App\Http\Controllers
 
 // -------------- Rutes Comentari Propietat --------------------
 
-Route::get('/propietat/{idPROPIETAT}/comentaris', [\App\Http\Controllers\PropietatController::class, 'listComentsByIdLocalitat']);
+Route::get('/propietat/{idPROPIETAT}/comentaris', [PropietatController::class, 'listComentsByIdLocalitat']);
 
 // -------------- Rutes Comentari Propietat --------------------
 Route::get('/client/{idClient}', [\App\Http\Controllers\UsuariController::class, 'listUserById']);
+
+// -------------- Rutes Fotos d'una Propietat--------------------
+
+// Ruta que retorna una foto secundaria en funcio de l'id de la propietat i el nom de la foto
+Route::get('/propietat/{idPropietat}/fotos/secundaries/{filename}', [FotosController::class, 'listFotoByNumber']);
+
+// Ruta que conte el json amb l'estructura que espera el carrousel de la vista de cada propietat
+Route::get('/propietat/{idPropietat}/fotos/info', [FotosController::class, 'infoFotos']);
+
+// Ruta que retorna una foto secundaria en funcio de l'id de la propietat i el nom de la foto
+Route::get('/propietat/{idPropietat}/fotos/portada', [FotosController::class, 'listPortadesByIdPropietat']);
+
+// Ruta que conte el json amb totes les fotos de portada de les propietats existents pel carrousel de la pantalla hoem
+Route::get('/propietat/fotos/info/portades', [FotosController::class, 'infoPortades']);
+
+// -------------- Rutes dies no Disponible pel dayPicker --------------------
+Route::get('/propietat/{idPropietat}/nodisponible/info', [PropietatController::class, 'diesNoDisponibles']);

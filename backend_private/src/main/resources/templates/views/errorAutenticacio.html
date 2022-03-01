@@ -6,7 +6,13 @@
 <body>
 <header th:replace="plantilla/template :: header"></header>
 <main class="container text-center">
-  <h1>Aquesta pantalla no es del teu usuari</h1>
+  <div class="container">
+
+
+    <h1>ERROR EN LA SESSIÓ</h1>
+    <a th:href="@{'/'}">Tornar al login -></a>
+
+  </div>
 </main>
 <footer>
   <div th:replace="plantilla/template :: footer"></div>

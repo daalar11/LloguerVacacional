@@ -33,7 +33,7 @@
 
             <div class="card-body ">
 
-                <form id="formCrearPropietat" th:object="${propietat}" th:action="@{/views/propietats/save}" method="post" enctype="multipart/form-data" onsubmit="return validacioPropietat()">
+                <form id="formCrearPropietat" th:object="${propietat}" th:action="@{/views/propietats/save}" method="post" onsubmit="return validacioPropietat()">
                 <div class="row">
                     <div class="col-12 form-group mb-3">
                         <label for="propietari" class="form-label">Propietari </label>
@@ -175,22 +175,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 form-group">
 
-                        <div class="mb-3">
-                            <label for="file" class="form-label">Foto Principal</label>
-
-                            <div class="input-group">
-                                <input type="file" accept="image/jpg" name="file" class="form-control" id="file" />
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text">#</div>
-                                </div>
-                            </div>
-                            <div id="fotosSpan" class="form-text">Aqui pots afegir la foto principal de la propietat.</div>
-                            <div id="validacioFoto" class="form-text"></div>
-                        </div>
-
-                    </div>
                     <div class="col-1 mt-2 form-group">
                         <input type="submit" id="boto-submit" class="btn btn-primary" value="Guardar" />
                     </div>
