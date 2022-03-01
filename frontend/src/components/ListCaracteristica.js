@@ -10,11 +10,21 @@ class ListCaracateristica extends Component {
          arrayCar:[]
         };
 	}
-
+    removeItem(arrayCar,value){
+        return arrayCar=arrayCar.filter(item=>item!==value);
+    }
 	async handleChange(event){
-        
-        await this.setState({arrayCar : ([...this.state.arrayCar,event.target.value])});
-		console.log(this.state.arrayCar)
+        if(event.target.checked){           
+                await this.setState({arrayCar : ([...this.state.arrayCar,event.target.value])});
+                //console.log(this.state.arrayCar);  
+            }else{
+                for (var i=0;i<this.state.arrayCar.length;i++){
+                    
+                    if(this.state.arrayCar[i]==event.target.value){
+                        await this.setState({arrayCar: this.removeItem(this.state.arrayCar,this.state.arrayCar[i])});
+                    }
+                }
+        }       
         this.props.handleChange(this.state.arrayCar);
         
 	}

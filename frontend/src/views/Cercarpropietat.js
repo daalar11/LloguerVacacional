@@ -41,7 +41,7 @@ class Cercarpropietat extends Component {
   
   async changeCaracteristica(myCaracteristica ){
     await    this.setState({categoriaFiltrada : myCaracteristica});
-    console.log(myCaracteristica,"algo");
+    //console.log(myCaracteristica,"algo");
   }
   //Metode amb la peticio axios a n url.
 
@@ -153,7 +153,8 @@ class Cercarpropietat extends Component {
             <CasesList
             propietats={propietats}
             places={this.state.places}
-            localitat={this.state.localitatFiltrada}>
+            localitat={this.state.localitatFiltrada}
+            caracteristica={this.state.categoriaFiltrada}>
 
             </CasesList>
                      
