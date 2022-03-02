@@ -107,7 +107,7 @@ class Viewpropietat extends Component {
 
     return (
    
-        <Row className='contenidor'>
+        <Row className='contenidor p-4'>
           <Col>
 
             <Breadcrumb>
