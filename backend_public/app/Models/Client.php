@@ -13,6 +13,8 @@ class Client extends Model
 
     protected $primaryKey ='id';
 
+
+
     public function comentaris()
     {
         return $this->belongsToMany(Propietat::class, 'review_propietat','id_cli','id_propietat')
