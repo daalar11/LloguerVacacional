@@ -111,13 +111,14 @@ class Cercarpropietat extends Component {
     this.carregarPropietats();
     this.carregarCaracteristica();
     this.carregarLocalitat();
+    
   }
     
 
   render() {
 
     const { propietats, isLoading, error,localitat,caracteristica } = this.state;
-
+    console.log(this.state.propietats);
   
     if (error) {
       return <p>{error.message}</p>;

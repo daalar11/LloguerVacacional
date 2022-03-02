@@ -28,28 +28,71 @@ class CasesList extends Component {
     
     applyFilters(propietat){
            let caracteristiques=[]
-           let x=0;
-           for (const iterador2 in propietat.caracteristica){
-            x++;
-            }
-            for(let i=0;i<x;i++){
-                caracteristiques.push(propietat.caracteristica[i].caracteristica)
-            }
-            //console.log(caracteristiques);
-            if(propietat.places &&this.props.places&&propietat.localitat.nom_localitat&&this.props.localitat){
+           let caracteristicaPropietat=[];
+           let x=0; 
+           for(const carac in propietat.caracteristica){
+            caracteristicaPropietat.push(propietat.caracteristica[carac].caracteristica);
+           }
+            //console.log(caracteristicaPropietat,"carac");
+         
+            
+                const filtres=this.props.caracteristica;
+            
+            //console.log(filtres);
+            if(propietat.places &&this.props.places&&propietat.localitat.nom_localitat&&this.props.localitat&&filtres.length!=0){
+              let f=true; 
+              //console.log(caracteristiques) 
+                for(const carac in filtres){
+                  //console.log(filtres[carac]);
+                  if(caracteristicaPropietat.indexOf(filtres[carac])==-1){
+                    //console.log(caracteristiques[carac])
+                    return false;
+                  }
+                }
+               // console.log(propietat.caracteristica,"console og");
+              return parseInt(propietat.places)===parseInt(this.props.places) && propietat.localitat.nom_localitat==this.props.localitat;
+            }else if(propietat.places &&this.props.places&&filtres.length!=0){
+              let f=true; 
+              //console.log(caracteristiques) 
+                for(const carac in filtres){
+                  //console.log(filtres[carac]);
+                  if(caracteristicaPropietat.indexOf(filtres[carac])==-1){
+                    //console.log(caracteristiques[carac])
+                    return false;
+                  }
+                }
+                return parseInt(propietat.places)===parseInt(this.props.places)
+            }else if(propietat.localitat.nom_localitat&&this.props.localitat&&filtres.length!=0){
+              let f=true; 
+              //console.log(caracteristiques) 
+                for(const carac in filtres){
+                  //console.log(filtres[carac]);
+                  if(caracteristicaPropietat.indexOf(filtres[carac])==-1){
+                    //console.log(caracteristiques[carac])
+                    return false;
+                  }
+                }
+                return propietat.localitat.nom_localitat==this.props.localitat;	
+            } else if(propietat.places &&this.props.places&&propietat.localitat.nom_localitat&&this.props.localitat){
                 return parseInt(propietat.places)===parseInt(this.props.places) && propietat.localitat.nom_localitat==this.props.localitat;	
             }else if(propietat.places &&this.props.places){
 			    return parseInt(propietat.places)===parseInt(this.props.places);
             }else if(propietat.localitat.nom_localitat&&this.props.localitat){
                 //console.log(propietat.localitat.nom_localitat==this.props.localitat,"localitat")
                 return propietat.localitat.nom_localitat==this.props.localitat;	
-            }else if(this.checkCar(propietat)===true){   
-                //console.log(caracteristiques,this.props.caracteristica, caracteristiques.includes(this.props.caracteristica[0]));
-              //console.log(propietat.caracteristica.includes(this.props.caracteristica))
-                //console.log(propietat.caracteristica[0].caracteristica)
-                //console.log( propietat.caracteristica[0].caracteristica==this.props.caracteristica[0])
-                return propietat.caracteristica[0].caracteristica==this.props.caracteristica[0]
-                return this.checkCar(propietat);
+            }else if(filtres.length!=0){ 
+              let f=true; 
+              //console.log(caracteristiques) 
+                for(const carac in filtres){
+                  //console.log(filtres[carac]);
+                  if(caracteristicaPropietat.indexOf(filtres[carac])==-1){
+                    //console.log(caracteristiques[carac])
+                    return false;
+                  }
+                }
+               // console.log(propietat.caracteristica,"console og");
+                return true;
+                
                
             }else{
                 return true;
@@ -67,6 +110,8 @@ class CasesList extends Component {
             for (const iterador2 in propietat.caracteristica){
                 x++;
             }
+
+            
             
             for(let i=0;i<y;i++){    
                 for(let j=0;j<x;j++){
@@ -97,8 +142,7 @@ class CasesList extends Component {
           this.carregarLocalitat();
       }
     const { todos, currentPage, todosPerPage,stateNumbers } = this.state;
-    console.log(todos,this.props.propietats);
-    // Logic for displaying propietats
+  
     const indexOfLastTodo = currentPage * todosPerPage;
     const indexOfFirstTodo = indexOfLastTodo - todosPerPage;
     const currentTodos = todos.filter( propietat => this.applyFilters(propietat)) 
