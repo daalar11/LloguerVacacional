@@ -134,7 +134,6 @@ export default class DayPicker extends React.Component {
     this.switchLocale = this.switchLocale.bind(this);
     this.handleDayChange = this.handleDayChange.bind(this);
     this.state = {
-      
         disabled: [
           {
             before: new Date()

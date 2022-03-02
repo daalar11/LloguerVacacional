@@ -14,20 +14,7 @@ class Reservar extends Component {
       
       <Row className="text-center">
 
-        <Breadcrumb>
-            <BreadcrumbItem>
-            <Link to="/">Home</Link>
-            </BreadcrumbItem>
-            <BreadcrumbItem>
-            <Link to="/cercarpropietat">Cercar Propietat</Link>
-            </BreadcrumbItem>
-            <BreadcrumbItem>
-            <Link to="/viewpropietat">Propietat</Link>
-            </BreadcrumbItem>
-            <BreadcrumbItem active>
-            Reservar Propietat
-            </BreadcrumbItem>
-        </Breadcrumb>
+        
 
         PAGINA RESERVAR
       

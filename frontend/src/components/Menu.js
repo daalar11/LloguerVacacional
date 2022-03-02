@@ -8,13 +8,8 @@ class Menu extends Component {
       
         <div>
         <Navbar dark expand="md" fixed="top" light className="navb d-flex justify-content-center border-bottom">
-
-        
-          
           
           <NavbarToggler onClick={function noRefCheck(){}} />
-
-      
 
             <Nav className="me-auto " navbar>
 
@@ -39,11 +34,9 @@ class Menu extends Component {
               </NavItem>
 
             </Nav>
-             
-         
 
           {/* NavItem Login */}
-          <Link className="mt-2 text-decoration-none text-white-50" to="/login">Login</Link>
+          <Link className="mt-2 text-decoration-none text-dark" to="/login">Login</Link>
 
         </Navbar>
       </div>

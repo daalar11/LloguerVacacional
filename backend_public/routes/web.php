@@ -108,3 +108,5 @@ Route::get('/propietat/{idPropietat}/nodisponible/info', [PropietatController::c
 
 // -------------- Rutes crear usuari --------------------
 Route::post('/register', [\App\Http\Controllers\UsuariController::class, 'create']);
+
+Route::post('/login', [\App\Http\Controllers\UsuariController::class, 'login']);
