@@ -14,7 +14,7 @@ class Places extends Component {
 
   render() {
     return (
-      <div>
+      <div className='px-4'>
 
           <Row>
           <Label for="places">Nº de places: </Label>

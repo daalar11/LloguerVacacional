@@ -111,13 +111,14 @@ class Cercarpropietat extends Component {
     this.carregarPropietats();
     this.carregarCaracteristica();
     this.carregarLocalitat();
+    
   }
     
 
   render() {
 
     const { propietats, isLoading, error,localitat,caracteristica } = this.state;
-
+    console.log(this.state.propietats);
   
     if (error) {
       return <p>{error.message}</p>;
@@ -149,7 +150,7 @@ class Cercarpropietat extends Component {
 
           <Row>
           <hr></hr>
-            <Col className="col-4">
+            <Col className="col-4 mt-2 border border-2 rounded">
               <Row>
                 <Places handleChange={this.changePlaces}></Places>
               </Row>

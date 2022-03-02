@@ -5,14 +5,27 @@
   
   #page-numbers > li {
     font-size: 1.25em;
-    
-    
-    padding-top: 0.25rem;
-    padding-bottom: 0.50rem;
+    padding-top: 2px;
+    padding-bottom: 3px;
     margin: 2px;
     text-align: center;
     color: black;
     text-decoration: none;
     border: 1px solid black;
+    border-radius: 6%;
+    padding-left: 7px;
+    padding-right: 7px;
+  }
+
+  #page-numbers > li:hover {
+    font-size: 1.25em;
+    margin: 2px;
+    text-align: center;
+    color: white;
+    background-color: black;
+    text-decoration: none;
+    border: 1px solid black;
+    box-shadow: 3px 3px 5px grey;
+    border-radius: 6%;
   }
   
