@@ -151,7 +151,8 @@ class CasesList extends Component {
     const renderTodos = currentTodos
     
     .map((todo, index) => {
-        return <Propietat key = {index}    
+        return <>
+        <Propietat key = {index}    
         title = {todo.nom_propietat}
         subtitle = {todo.localitat.nom_localitat}
         text={todo.normes} 
@@ -160,8 +161,10 @@ class CasesList extends Component {
         caracteristica={todo.caracteristica}
         preu={todo.preu_base}
         id={todo.idpropietat}
-        src="http://admin.lloguerdavid.me/Media/1234-media/1234-portada.jpg"
-        />;
+        src={'http://localhost:8000/propietat/'+todo.idpropietat+'/fotos/portada'}
+        />
+        <hr></hr>
+        </>;
       });
             // Logic for displaying page numbers
       const pageNumbers = [];
@@ -172,7 +175,7 @@ class CasesList extends Component {
        const renderPageNumbers = pageNumbers
       .map(number => {
         return (
-          <li className="col-1"
+          <li 
             key={number}
             id={number}
             onClick={this.handleClick}

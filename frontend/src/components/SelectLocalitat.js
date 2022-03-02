@@ -17,7 +17,7 @@ class SelectLocalitat extends Component {
 
 	render() {
 	    return (
-            <div>
+            <div className='px-4'>
                 <Row>
                     <Label for="select">Localitat: </Label>
                 </Row>

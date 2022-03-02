@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Col,Row ,Input, Label,} from 'reactstrap';
-
+import './ListCaracteristica.css';
 class ListCaracateristica extends Component {
     
 	constructor(props){
@@ -32,7 +32,7 @@ class ListCaracateristica extends Component {
 
 	render() {
 	    return (
-            <div>
+            <div >
                 <Row>
                     <Label for="select">Caracteristiques : </Label>
                 </Row>
@@ -42,13 +42,12 @@ class ListCaracateristica extends Component {
                         return(
                             
                             <Row key={key}>
-                                <Col className='col-6'>
+                                <Col className='col-12 d-flex flex-row'>
                                     <Input type="checkbox" name="select" id={caracteristica.id_caracteristica} value={caracteristica.caracteristica} onInput={this.handleChange}>
                                     
                                     </Input>
-                                </Col>
-                                <Col className='col-6'>
-                                    <Label for={caracteristica.id_caracteristica}> 
+                                
+                                    <Label className='mx-2' for={caracteristica.id_caracteristica}> 
                                     {caracteristica.caracteristica}
                                     </Label>
                                 </Col>

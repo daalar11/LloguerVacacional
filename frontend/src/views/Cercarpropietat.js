@@ -150,7 +150,7 @@ class Cercarpropietat extends Component {
 
           <Row>
           <hr></hr>
-            <Col className="col-4">
+            <Col className="col-4 mt-2 border border-2 rounded">
               <Row>
                 <Places handleChange={this.changePlaces}></Places>
               </Row>
