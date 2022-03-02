@@ -7,39 +7,40 @@ class Menu extends Component {
     return (
       
         <div>
-        <Navbar color="dark" dark expand="md" fixed="top" light>
+        <Navbar dark expand="md" fixed="top" light className="navb d-flex justify-content-center border-bottom">
 
         
-          <Link className="mt-2 me-3 text-decoration-none text-white-50" to="/">Home</Link>
+          
           
           <NavbarToggler onClick={function noRefCheck(){}} />
 
-          <Collapse navbar>
-            <Nav className="me-auto" navbar>
+      
+
+            <Nav className="me-auto " navbar>
+
+              {/* NavItem Home */}
+              <NavItem className="mt-2 me-3">
+                <Link className="mt-2 me-3 text-decoration-none text-dark" to="/">Home</Link>
+              </NavItem>
 
               {/* NavItem CercarPropietats */}
               <NavItem className="mt-2 me-3">
-                <Link className="text-decoration-none text-white-50" to="/cercarpropietat">Cerca Propietat</Link>
+                <Link className="text-decoration-none text-dark" to="/cercarpropietat">Cerca Propietat</Link>
               </NavItem>
 
               {/* NavItem MisReservas */}
               <NavItem className="mt-2 me-3">
-                <Link className="text-decoration-none text-white-50" to="/misreservas">Mis Reservas</Link>
+                <Link className="text-decoration-none text-dark" to="/misreservas">Mis Reservas</Link>
               </NavItem>
-
-              {/* NavItem ViewPropietat
-              <NavItem className="mt-2 me-3">
-                  <Link className="text-decoration-none text-white-50" to="/viewpropietat">View Propietat</Link>
-              </NavItem> */}
 
               {/* NavItem Contact */}
               <NavItem className="mt-2 me-3">
-                <Link className="text-decoration-none text-white-50" to="/contact">Contact</Link>
+                <Link className="text-decoration-none text-dark" to="/contact">Contact</Link>
               </NavItem>
 
             </Nav>
              
-          </Collapse>
+         
 
           {/* NavItem Login */}
           <Link className="mt-2 text-decoration-none text-white-50" to="/login">Login</Link>

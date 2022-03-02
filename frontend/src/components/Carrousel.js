@@ -12,7 +12,7 @@ class MyCarousel extends Component {
       // Estat amb l'índex de la foto activa
       this.state = { 
         activeIndex: 0,
-        items: [],
+        items: props.fotos,
         isLoading: false,
         error: null,
        };
@@ -66,7 +66,7 @@ class MyCarousel extends Component {
             key={item.src}
           >
             {/* Etiqueta imatge, podem dir les dimensions */}
-            <img src={item.src} alt={item.altText} width='100%' height='450px'/>
+            <img src={item.src} alt={item.altText} width='100%' height='350px'/>
             {/*<CarouselCaption />  AIXO DONA ERROR */}
           </CarouselItem>
         );

@@ -83,7 +83,10 @@ Route::get('/propietat/{idPROPIETAT}/tarifes/{idTARIFA}', [\App\Http\Controllers
 Route::get('/propietat/{idPROPIETAT}/comentaris', [PropietatController::class, 'listComentsByIdLocalitat']);
 
 // -------------- Rutes Comentari Propietat --------------------
-Route::get('/client/{idClient}', [\App\Http\Controllers\UsuariController::class, 'listUserById']);
+Route::get('/client/{idUsuari}', [\App\Http\Controllers\UsuariController::class, 'listUserById']);
+
+// -------------- Rutes Comentari Propietat --------------------
+Route::get('/client', [\App\Http\Controllers\UsuariController::class, 'listClients']);
 
 // -------------- Rutes Fotos d'una Propietat--------------------
 
@@ -100,4 +103,8 @@ Route::get('/propietat/{idPropietat}/fotos/portada', [FotosController::class, 'l
 Route::get('/propietat/fotos/info/portades', [FotosController::class, 'infoPortades']);
 
 // -------------- Rutes dies no Disponible pel dayPicker --------------------
+
 Route::get('/propietat/{idPropietat}/nodisponible/info', [PropietatController::class, 'diesNoDisponibles']);
+
+// -------------- Rutes crear usuari --------------------
+Route::post('/register', [\App\Http\Controllers\UsuariController::class, 'create']);

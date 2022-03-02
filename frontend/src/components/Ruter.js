@@ -39,7 +39,7 @@ class Ruter extends Component {
         <Menu/>
 
         {/* Content de la pagina (Contingut del MAIN) */}
-        <Container className="content mt-5"> {/*Seccio Content*/}
+        <Container className="content mt-4"> {/*Seccio Content*/}
 
           {/* Rutes del Navbar */}
           <Routes>

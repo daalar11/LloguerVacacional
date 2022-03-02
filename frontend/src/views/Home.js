@@ -9,6 +9,9 @@ import axios from 'axios';
 
 import {Link} from "react-router-dom";
 
+//Css de ViewPropietat
+import '../components/PropietatExpand.css';
+
 class Home extends Component {
 
   constructor(props) {
@@ -59,33 +62,55 @@ class Home extends Component {
 
     return (
       
-      <Row>
+      <Row className="p-4 bg-opacity-50">
 
         <Breadcrumb>
           <BreadcrumbItem active>
             Home
           </BreadcrumbItem>
         </Breadcrumb>
+        <br></br>
+        <hr></hr>
+        <br></br>
 
-        <Carrousel 
-        fotos = {fotos}
-        
-        />
-        <Col xs="12" className="mt-5">
+        <Row className="  ">
 
-          Cerca Una Casa!
-          <br></br>
-          <Link to="/cercarpropietat">Cercador</Link>
+          <Col xs="9">
 
-        </Col>
-        <Col xs="12" className="mt-5">
+            <Carrousel
+            fotos = {fotos}
+            />
 
-          Dona d'alta la teva propia propietat i comença a alquilar!
-          <br></br>
-          <a href="http://localhost:8080/">BackOffice!</a>
+          </Col>
 
-        </Col>
-      
+        </Row>
+
+        <br></br>
+        <hr></hr>
+        <br></br>
+
+        <Row className="d-flex justify-content-end">
+          <Col xs="9" className="colCercaCases">
+
+            <span className="text-white fs-2 bg-danger">Cerca Una Casa!<br></br><Link to="/cercarpropietat">Cercador</Link></span>
+            
+
+          </Col>
+        </Row>
+
+        <br></br>
+        <hr className=""></hr>
+        <br></br>
+
+        <Row className="d-flex justify-content-start">
+          <Col xs="9" className="colBackoffice">
+
+            Dona d'alta la teva propia propietat i comença a alquilar!
+            <br></br>
+            <a href="http://localhost:8080/">BackOffice!</a>
+
+          </Col>
+        </Row>
       </Row>  
       
     );
