@@ -3,6 +3,7 @@
 use App\Http\Controllers\HabitacioController;
 use App\Http\Controllers\PropietatController;
 use App\Http\Controllers\FotosController;
+use App\Http\Controllers\ReservaController;
 use Illuminate\Support\Facades\Route;
 
 //Linies necessaries per evitar l'error de CORS (permissos) respecte quan demanin serveis d'aquesta API
@@ -33,6 +34,7 @@ Route::get('/', function () {
 //Route::get('/propietat',[PropietatController::class,'listAll']);
 //Route::get('/habitacio',[HabitacioController::class,'listAll']);
 //Rutes principals
+Route::get('/all2/{idPropietat}/{d_inici}/{d_fi}',[ReservaController::class,'calcPrice']);
 Route::get('/all',[PropietatController::class,'listAllByPropietat']);
 Route::get('/all/{idPropietat}',[PropietatController::class,'listAllByPropietatId']);
 Route::get('/propietat/{idLocalitat}/{places}',[PropietatController::class,'listPropietatByPlacesAndLocalitat']);
