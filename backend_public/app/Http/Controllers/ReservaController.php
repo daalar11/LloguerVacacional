@@ -19,14 +19,13 @@ class ReservaController extends Controller
         $tarifa= Tarifa::where('id_propietat',$idPropietat)->get()->toArray();
         $propietat= Propietat::find($idPropietat)->toArray();
         $preu=0;
-        //print_r($d_fi)." ";
 
         $d_fi= new DateTime($d_fi);
-
         $d_inici= new DateTime($d_inici);
-       // print_r($tarifa[0]['d_inici']);
+
         $diesTarifa=0;
         $diesReserva=0;
+
         for($i = $d_inici; $i <= $d_fi; $i->modify('+1 day')){
             $diesReserva++;
             for($j=0; $j<(count($tarifa));$j++){
@@ -35,19 +34,13 @@ class ReservaController extends Controller
                     $diesTarifa++;
                }
             }
-            //print_r($i);
         }
-        //print_r($diesReserva);
+
         if($diesReserva>$diesTarifa){
             $diesReserva=$diesReserva-$diesTarifa;
             $preu+=($diesReserva*$propietat['preu_base']);
         }
-        //print_r($propietat['preu_base']);
-       print_r($preu);
-       //print_r($tarifa[0]['d_inici']);
-
-           // print_r($preu);
-        //print_r(count($tarifa));
-        //print_r($preu);
+       $preuFinal['valor']=$preu;
+       return  json_decode(json_encode($preuFinal),true);
     }
 }
