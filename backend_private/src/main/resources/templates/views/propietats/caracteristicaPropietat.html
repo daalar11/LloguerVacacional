@@ -166,12 +166,12 @@
       <p class="fs-1 font-monospace border-dark border-2 border-bottom" th:text="${propietat.nomPropietat}"></p>
     </div>
     <!-- Confirmacions de insert de bloqueig i tarifes -->
-    <div th:if="${respostaBloqueig} != null" class="p-2 mt-2 mb-3 border border-danger">
-      <p class="fs-4 text-danger" th:text="${respostaBloqueig}"></p>
+    <div th:if="${respostaBloqueig} != null and ${respostaBloqueig} == 0" class="p-2 mt-2 mb-3 border border-danger">
+      <p class="fs-4 text-danger">Error a l'introduir el bloqueig, comprova que les dates siguin valides</p>
       <p class="fs-4 text-danger" th:text="${idConflictiu}"></p>
     </div>
-    <div th:if="${respostaTarifa} != null" class="p-2 mt-2 mb-3 border border-danger">
-      <p class="fs-4 text-danger" th:text="${respostaTarifa}"></p>
+    <div th:if="${respostaTarifa} != null and ${respostaTarifa} == 0" class="p-2 mt-2 mb-3 border border-danger">
+      <p class="fs-4 text-danger">Error en inserir la tarifa, coprova que les dates siguin valides</p>
     </div>
     <div class="row">
 

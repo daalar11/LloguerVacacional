@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name="ADMINISTRADOR")
+@Table(name="administrador")
 @PrimaryKeyJoinColumn(name="id")
 public class Administrador extends Usuari implements Serializable {
 

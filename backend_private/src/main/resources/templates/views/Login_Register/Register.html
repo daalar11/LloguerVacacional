@@ -3,7 +3,8 @@
 
 <head>
   <div th:replace="plantilla/template :: head(type='tag')"></div>
-  <!-- Validacio Formulari de Crear Nova Propietat i Editar Propietat -->
+
+  <!-- Validacio Formulari -->
   <script type="text/javascript" th:src="@{/js/ValidacionsFormularis/validacionsFormularis.js}"></script>
 
   <style>
@@ -11,18 +12,10 @@
     html {
       height: 100%;
     }
-
-
     body {
-      /* The image used */
       background-image: url("https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/quay-tower-1585643071.jpg?resize=980:*");
-
-      /* Full height */
       height: 100%;
       min-height: 100%;
-
-
-      /* Center and scale the image nicely */
       background-position: center;
       background-repeat: no-repeat;
       background-size: cover;
@@ -39,10 +32,10 @@
     <div class="col-2">
 
     </div>
-    <form th:object="${propietari}" th:action="@{/autenticate/save}" class="col-8 mt-5 p-4 border-start border-end shadow-lg bg-body rounded" method="post" onsubmit="return validacioRegister()">
+    <form th:object="${propietari}" th:action="@{/autenticate/save}" class="col-8 mt-5 p-5 border-start border-end shadow-lg bg-body rounded" method="post" onsubmit="return validacioRegister()">
       <div class="row">
         <div class="col-12">
-          <h3 class="text-center mt-3">Registret com a Propietari</h3>
+          <h3 class="text-center mt-3">Registre de propietaris</h3>
         </div>
       </div>
       <div class="row mt-4 text-center">
@@ -93,9 +86,7 @@
         <div class="col-12 mb-4 text-center">
           <input type="submit" class="btn btn-primary" value="Guardar" id="boto-submit-register" />
           <br><a class="mt-4" th:href="@{/}">Ja tens un usuari propietari? Inicia sessió!</a>
-
         </div>
-
       </div>
     </form>
     <div class="col-2"></div>
@@ -107,20 +98,17 @@
 </footer>
 
 <script th:inline="javascript">
-
   $(document).ready(function() {
 
     $("#boto-submit-register").click(function () {
 
       validarFormRegister();
 
-      console.log(campsCorrectes)
       if (campsCorrectes !== 6){
         campsCorrectes = 0;
       }
     });
   });
-
 </script>
 
 </body>

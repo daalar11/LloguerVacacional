@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name="USUARI")
+@Table(name="usuari")
 @Inheritance(strategy = InheritanceType.JOINED) //Es una clase pare de generalitzacio
 public class Usuari implements Serializable {
 

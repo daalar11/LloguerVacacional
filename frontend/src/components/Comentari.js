@@ -40,13 +40,13 @@ class Mapa extends Component {
 
     //Metode que retorna la mitjana de 3 notes sobre 5
     calcularMitjana(neteja, ubicacio, estada){
-        return Math.round((((neteja + ubicacio + estada) / 3)/2) * 100) / 100;
+        return Math.round(((neteja + ubicacio + estada) / 3)/2);
     }
 
     //Metodes printear estrelles segons valoracions del comentari
     crearEstrellesPlenes(n){
         var elements = [];
-        for(let i =1; i < n; i++){
+        for(let i =0; i < n; i++){
             elements.push(<StarFill />);
         }
         return elements;

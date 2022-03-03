@@ -1,14 +1,15 @@
 package cat.iesmanacor.backend_private.entitats;
 
 import com.sun.istack.NotNull;
+import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+@Data
 @Entity
-@Table(name="BLOQUEIG")
+@Table(name="bloqueig")
 public class Bloqueig implements Serializable {
 
     private static final long serialVersionUID=1L;
@@ -32,32 +33,4 @@ public class Bloqueig implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dataFinal;
 
-    //Constructor Buit
-    public Bloqueig() {}
-
-    //Getters i Setters
-    public Long getIdBLOQUEIG() {
-        return idBLOQUEIG;
-    }
-    public void setIdBLOQUEIG(Long idBLOQUEIG) {
-        this.idBLOQUEIG = idBLOQUEIG;
-    }
-    public Propietat getPropietat() {
-        return propietat;
-    }
-    public void setPropietat(Propietat propietat) {
-        this.propietat = propietat;
-    }
-    public LocalDate getDataInici() {
-        return dataInici;
-    }
-    public void setDataInici(LocalDate dataInici) {
-        this.dataInici = dataInici;
-    }
-    public LocalDate getDataFinal() {
-        return dataFinal;
-    }
-    public void setDataFinal(LocalDate dataFinal) {
-        this.dataFinal = dataFinal;
-    }
 }

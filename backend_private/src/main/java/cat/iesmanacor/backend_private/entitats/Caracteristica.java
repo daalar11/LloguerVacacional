@@ -9,7 +9,7 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name = "CARACTERISTIQUES")
+@Table(name = "caracteristiques")
 @EqualsAndHashCode(exclude="propietats")
 public class Caracteristica implements Serializable {
 
@@ -23,11 +23,7 @@ public class Caracteristica implements Serializable {
     @Column(name="caracteristica", nullable=false)
     private String caracteristica;
 
-    //@JoinTable(
-    //name= "caracteristiques_propietats",
-    //joinColumns = @JoinColumn(name="id_car"),
-    //inverseJoinColumns = @JoinColumn(name="id_pro"))
-    @ManyToMany(fetch = FetchType.EAGER,mappedBy = "caracteristicas")
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "caracteristicas")
     List <Propietat> propietats = new ArrayList<>();
 
     @Override

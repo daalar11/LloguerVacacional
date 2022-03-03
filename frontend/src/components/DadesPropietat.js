@@ -45,26 +45,25 @@ class DadesPropietat extends Component {
             <Col xs="3" className='mt-1'>
 
                     <Form className='mt-5 text-start  d-flex flex-column justify-content-center' action='/reservar'>
-                    <span for="dEntrada" className='fw-bold'>Estableix les dates de la teva estada</span>
-                    <hr></hr>
-                        <FormGroup>
-                            <Label className='text-start fw-bold'>Data Entrada</Label>
-                            <DayPicker 
-                            placeholder={`${dateFnsFormat(new Date(), FORMAT)}`}
-                            /> 
-                        </FormGroup>
-                        <FormGroup>
-                            <Label className='text-start fw-bold'>Data Sortida</Label>
-                            <DayPicker />
-                        </FormGroup>
-                        <FormGroup>
-                            <Label for="preuFinal" className='text-start fw-bold'>Preu Final</Label>
-                            <p className='pPreuFinal'></p>
-                        </FormGroup>
-    
-                        <input type='submit' color="outline-dark" className='text-center fs-5 fw-bold inputDate mt-3 mb-3' value="Llogar" />
+
+                        <span className='fw-bold'>Estableix les dates de la teva estada</span>
+                        <hr></hr>
+                        
+                        <Label className='text-start fw-bold'>Data Entrada</Label>
+                        <DayPicker 
+                        placeholder={`${dateFnsFormat(new Date(), FORMAT)}`}
+                        />
+                     
+                        <Label className='text-start fw-bold mt-4'>Data Sortida</Label>
+                        <DayPicker />
+                    
+                    
+                        <span className='text-start fw-bold mt-4'>Preu: <span></span></span>
+                        <input type='submit' color="dark" className='mt-4 fw-bold bg-dark text-white rounded' value="Llogar" />
                         
                     </Form>
+
+                    <p className='text-start text-black-75 mt-4'>Selecciona els dies que desitjaries llogar la propietat per coneixer el preu de l'estada.<br></br><br></br>Clicka llogar per anar a la pantalla de la teva reserva</p>
           
             </Col>
             <Col xs="8" className="colDades">

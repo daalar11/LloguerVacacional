@@ -1,10 +1,13 @@
 package cat.iesmanacor.backend_private.entitats;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
+@Data
 @Entity
-@Table(name="HABITACIONS")
+@Table(name="habitacions")
 public class Habitacio implements Serializable {
 
     private static final long serialVersionUID=1L;
@@ -36,38 +39,4 @@ public class Habitacio implements Serializable {
                 '}';
     }
 
-    //Constructor Buit
-    public Habitacio() {}
-
-    //Getters I Setters
-    public Long getIdHABITACIONS() {
-        return idHABITACIONS;
-    }
-    public void setIdHABITACIONS(Long idHABITACIONS) {
-        this.idHABITACIONS = idHABITACIONS;
-    }
-    public int getBany() {
-        return bany;
-    }
-    public void setBany(int bany) {
-        this.bany = bany;
-    }
-    public int getLlit_Doble() {
-        return llit_Doble;
-    }
-    public void setLlit_Doble(int llit_Doble) {
-        this.llit_Doble = llit_Doble;
-    }
-    public int getLlit_simple() {
-        return llit_simple;
-    }
-    public void setLlit_simple(int llit_simple) {
-        this.llit_simple = llit_simple;
-    }
-    public Propietat getPropietat() {
-        return propietat;
-    }
-    public void setPropietat(Propietat propietat) {
-        this.propietat = propietat;
-    }
 }

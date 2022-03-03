@@ -21,7 +21,7 @@ function InputComentari() {
   const onSubmit = data => axios.post('http://localhost:8000/propietat/comentar', 
   {
         idPropietat: idPropietat,
-        idClient: 2,
+        idClient: 5,
         comentari: data.comentari,
         notaUbicacio: data.notaUbicacio,
         notaEstada: data.notaEstada,
@@ -31,6 +31,7 @@ function InputComentari() {
     .then(function (response){
 
         console.log(response);
+        window.location.reload();
         
     }).catch(err => console.log(err))
 
@@ -45,9 +46,12 @@ function InputComentari() {
                 
                 <textarea
                 {...register("comentari", {
-                    required: true
+                    required: true,
+                    minLength: 1,
+                    maxLength: 399,
                 })}
                 type="textarea" name='comentari' className="form-control" id="comentari" rows="3"/>
+                {errors.comentari && <span className="text-danger">Escriu el teu comentari</span>}
                 
             </div>                                  
             <Row>
@@ -58,9 +62,12 @@ function InputComentari() {
                         <span className="input-group-text">Ubicació</span>
                         <input
                         {...register("notaUbicacio", {
-                            required: true
+                            required: true,
+                            min: 0,
+                            max: 10,
                         })}
                         type="number"name='notaUbicacio' className="form-control" aria-label="Username" aria-describedby="basic-addon1" />
+                        {errors.notaUbicacio && <span className="text-danger">Nota no valida</span>}
                     </div>
                 </Col>
                 <Col>
@@ -68,9 +75,12 @@ function InputComentari() {
                         <span className="input-group-text">Estada</span>
                         <input
                         {...register("notaEstada", {
-                            required: true
+                            required: true,
+                            min: 0,
+                            max: 10,
                         })}
                         type="number" name='notaEstada' className="form-control" aria-label="Username" aria-describedby="basic-addon1" />
+                        {errors.notaEstada && <span className="text-danger">Nota no valida</span>}
                     </div>
                 </Col>
                 <Col>
@@ -78,9 +88,13 @@ function InputComentari() {
                         <span className="input-group-text" id="basic-addon1">Neteja</span>
                         <input
                         {...register("notaNeteja", {
-                            required: true
+                            required: true,
+                            min: 0,
+                            max: 10,
                         })}
                         type="number" name="notaNeteja" className="form-control" aria-label="Username" aria-describedby="basic-addon1" />
+                        {errors.notaNeteja && <span className="text-danger">Nota no valida</span>}
+
                     </div>
                 </Col>
                 <Col xs="3" className='text-end'>

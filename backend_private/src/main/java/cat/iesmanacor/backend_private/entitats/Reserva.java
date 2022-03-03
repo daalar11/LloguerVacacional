@@ -8,9 +8,8 @@ import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
-@Table(name = "RESERVA")
+@Table(name = "reserva")
 public class Reserva implements Serializable {
-
 
     private static final long serialVersionUID=1L;
 
@@ -18,12 +17,6 @@ public class Reserva implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idRESERVA", columnDefinition = "INT")
     private Long idReserva;
-
-    /*
-    @ManyToOne
-    @JoinColumn(name = "dni_client")
-    private Client client;
-     */
 
     @ManyToOne
     @JoinColumn(name = "id_propietat")

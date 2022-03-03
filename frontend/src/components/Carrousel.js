@@ -66,7 +66,7 @@ class MyCarousel extends Component {
             key={item.src}
           >
             {/* Etiqueta imatge, podem dir les dimensions */}
-            <img src={item.src} alt={item.altText} width='100%' height='350px'/>
+            <img src={item.src} alt={item.altText} width='100%' height='500px'/>
             {/*<CarouselCaption />  AIXO DONA ERROR */}
           </CarouselItem>
         );

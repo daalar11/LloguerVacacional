@@ -30,12 +30,6 @@
                 selectable: 'true', //Fa els dies seleccionables (Tambe en grups (Arrastrant))
                 unselectAuto: 'true', //Si esta a true es deseleccionaran els dies seleccionats fent click a cualsevol banda
 
-                //DayClick -> Quan es clica una data
-                /*dateClick: function() {
-                  $(this).css('border', '2px solid black');
-                  $("#modal").show();
-                },*/
-
                 //Configuracions marcador setmana de l'any
                 weekNumbers: 'true',
                 weekText: 'S',
@@ -49,29 +43,11 @@
                 },
                 footerToolbar: {
                     left: 'botoEspanyol botoCatala botoIngles',
-                    center: 'dayGridMonth today',//center: 'dayGridMonth timeGridWeek timeGridDay',
-                    right: 'botoTarifes botoBloqueig botoReserves'
+                    center: '',//center: 'dayGridMonth timeGridWeek timeGridDay',
+                    right: 'dayGridMonth today'
                 },
                 //Aqui podem crear botons custom i indicarli una funcio a executar quan facin click
                 customButtons: {
-                    botoTarifes: { //Identificador del boto
-                        text: 'Tarifes', //Text del boto
-                        click: function () {
-                            alert('Redirect a tab tarifes!');
-                        }
-                    },
-                    botoBloqueig: {
-                        text: 'Bloqueig',
-                        click: function () {
-                            alert('Redirect a tab Bloqueig!');
-                        }
-                    },
-                    botoReserves: {
-                        text: 'Reserves',
-                        click: function () {
-                            alert('Redirect a tab Reserves!');
-                        }
-                    },
                     botoEspanyol: {
                         text: 'Español',
                         click: function () {
@@ -93,7 +69,6 @@
                 },
                 textColor: "blue", //Color del text !NO FUNCIONA
                 eventSources: [
-
                     {
                         //Per GET arriben els bloquejos
                         method: "GET", //Metode d'obtencio de les dades
@@ -103,12 +78,7 @@
                         backgroundColor: "green", //Color del background
                         borderColor: "black", //Color del border !NO FUNCIONA
                     }
-
                 ],
-
-
-
-
             });
             calendar.render();
         })
@@ -121,7 +91,6 @@
 <header th:insert="plantilla/template :: header"></header>
 
 <div class="container p-5 mt-5 border-start border-end shadow-lg bg-body rounded">
-
     <main>
 
         <!-- BREADCRUMB -->
@@ -134,11 +103,8 @@
         </nav>
 
         <div class="row">
-
             <div class="card bg-light mt-3 mb-3">
-
                 <div class="card-header bg-light fw-bold">Afegir Tarifes</div>
-
                 <div class="card-body bg-light">
 
                     <form th:object="${tarifes}" th:action="@{/views/tarifes/save}" method="post" onsubmit="return validacioTarifa()">
@@ -179,19 +145,16 @@
                                 </div>
                             </div>
                         </div>
+
                     </form>
                     <hr>
                     <a class="nav-link" th:href="@{'/views/propietats/configurar/' + ${propietats.idPROPIETAT}}">Tornar enrere -></a>
-
                 </div>
-
             </div>
         </div>
-
         <div class="row">
             <div id='calendar' class="mt-3"></div>
         </div>
-
     </main>
 
     <footer th:include="plantilla/template :: footer">

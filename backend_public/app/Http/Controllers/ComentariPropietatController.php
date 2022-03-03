@@ -24,13 +24,12 @@ class ComentariPropietatController extends Controller
         $comentari = new ComentariPropietat();
 
         $comentari->id_propietat = $request->input('idPropietat');
-        $comentari->id_client = $request->input('idClient');
+        $comentari->id_cli = $request->input('idClient');
         $comentari->comentari = $request->input('comentari');
-        $comentari->data_comentari = $request->input('nom');
+        $comentari->data_comentari = date('Y-m-d');
         $comentari->nota_localitzacio = $request->input('notaUbicacio');
         $comentari->nota_neteja = $request->input('notaNeteja');
         $comentari->nota_accesibilitat = $request->input('notaEstada');
-
 
         if($comentari -> save()) {
 

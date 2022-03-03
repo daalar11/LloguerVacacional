@@ -69,9 +69,6 @@ class UsuariController extends Controller
 
         return $resposta;
 
-
-
-
     }
 
     public function login(Request $request){
@@ -79,7 +76,7 @@ class UsuariController extends Controller
         $correu = $request->input('correu');
         $contrasenya = $request->input('contrasenya');
 
-        $result = Usuari::join('client', 'usuari.id', '=', 'client.id')->where('usuari.correu', '=',  $correu)->first();
+        $result = Usuari::join('client', 'usuari.id', '=', 'client.id')->select('id', 'dni', 'nom', 'llinatge1', 'llinatge2', 'correu')->where('usuari.correu', '=',  $correu)->first();
 
         $resposta = array();
 

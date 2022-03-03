@@ -145,12 +145,12 @@ export default class DayPicker extends React.Component {
           new Date(2022, 1, 28),     
         ],
       selectedDay: undefined,
-      locale: 'en',
+      locale: 'es',
     };
   }
 
   switchLocale(e) {
-    const locale = e.target.value || 'en';
+    const locale = e.target.value || 'es';
     this.setState({ locale });
   }
 
@@ -176,8 +176,8 @@ export default class DayPicker extends React.Component {
     const { selectedDay, locale, disabled } = this.state;
     const FORMAT = 'dd-MM-yyyy';
     return (
-      <div>
-        <p>
+      <span>
+        {/*<p>
           <select value={locale} onChange={this.switchLocale}>
             <option value="en">English</option>
             <option value="ru">Русский (Russian)</option>
@@ -185,9 +185,8 @@ export default class DayPicker extends React.Component {
             <option value="es">Español</option>
             <option value="ca">Català</option>
           </select>
-        </p>
+        </p>*/}
         <DayPickerInput
-        className="inputDate text-center"
         onDayChange={this.handleDayChange}
         formatDate={formatDate}
         format={FORMAT}
@@ -207,12 +206,10 @@ export default class DayPicker extends React.Component {
           pagedNavigation: true,
           fixedWeeks: true,
           modifiers: {disabled},
-        
-          
         }}
         />
-        {selectedDay && <p>Day: {selectedDay.toLocaleDateString()}</p>}
-      </div>
+        {selectedDay && <p>Dia: {selectedDay.toLocaleDateString()}</p>}
+      </span>
     );
   }
 }

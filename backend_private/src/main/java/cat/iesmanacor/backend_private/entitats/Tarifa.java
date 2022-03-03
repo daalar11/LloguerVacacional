@@ -1,13 +1,15 @@
 package cat.iesmanacor.backend_private.entitats;
 
 import com.sun.istack.NotNull;
+import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+@Data
 @Entity
-@Table(name="TARIFA")
+@Table(name="tarifa")
 public class Tarifa implements Serializable {
 
     private static final long serialVersionUID=1L;
@@ -35,44 +37,4 @@ public class Tarifa implements Serializable {
 
     private boolean activa;
 
-    //Constructor Buit
-    public Tarifa() {}
-
-    //Getters i Setters
-    public Long getIdTARIFA() {
-        return idTARIFA;
-    }
-    public void setIdTARIFA(Long idTARIFA) {
-        this.idTARIFA = idTARIFA;
-    }
-    public float getPreu() {
-        return preu;
-    }
-    public void setPreu(float preu) {
-        this.preu = preu;
-    }
-    public Propietat getPropietat() {
-        return propietat;
-    }
-    public void setPropietat(Propietat propietat) {
-        this.propietat = propietat;
-    }
-    public LocalDate getDataInici() {
-        return dataInici;
-    }
-    public void setDataInici(LocalDate dataInici) {
-        this.dataInici = dataInici;
-    }
-    public LocalDate getDataFinal() {
-        return dataFinal;
-    }
-    public void setDataFinal(LocalDate dataFinal) {
-        this.dataFinal = dataFinal;
-    }
-    public boolean isActiva() {
-        return activa;
-    }
-    public void setActiva(boolean activa) {
-        this.activa = activa;
-    }
 }

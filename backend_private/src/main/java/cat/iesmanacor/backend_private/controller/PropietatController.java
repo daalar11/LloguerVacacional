@@ -145,16 +145,16 @@ public class PropietatController {
         if (respostaTarifa != null) {
             //Per saber si una tarifa s'ha aceptat o no s'ha pogut introduir
             if (respostaTarifa == 0) {
-                model.addAttribute("respostaTarifa", "No s'ha pogut introduir la tarifa \nComprova que les dates siguin valides");
+                model.addAttribute("respostaTarifa", 0);
             } else if (respostaTarifa == 1) {
-                model.addAttribute("respostaTarifa", "Dates valides \nS'ha introduit la nova tarifa");
+                model.addAttribute("respostaTarifa", 1);
             }
         }
         if (respostaBloqueig != null) {
             if (respostaBloqueig == 0) {
-                model.addAttribute("respostaBloqueig", "No s'ha pogut introduir el bloqueig\nComprova que les dates siguin valides");
+                model.addAttribute("respostaBloqueig", 0);
             } else if (respostaBloqueig == 1) {
-                model.addAttribute("respostaBloqueig", "Dates valides \nS'ha introduit un nou bloqueig");
+                model.addAttribute("respostaBloqueig", 1);
             }
         }
         if (idConflictiu != null) {
