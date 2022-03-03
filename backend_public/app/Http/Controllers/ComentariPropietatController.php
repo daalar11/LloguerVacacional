@@ -15,4 +15,32 @@ class ComentariPropietatController extends Controller
         return $comentaris->toJson();
 
     }
+
+    public function insertComentari(Request $request){
+
+        $resposta = array();
+
+        //Insert d'un nou client a la taula usuaris
+        $comentari = new ComentariPropietat();
+
+        $comentari->id_propietat = $request->input('idPropietat');
+        $comentari->id_client = $request->input('idClient');
+        $comentari->comentari = $request->input('comentari');
+        $comentari->data_comentari = $request->input('nom');
+        $comentari->nota_localitzacio = $request->input('notaUbicacio');
+        $comentari->nota_neteja = $request->input('notaNeteja');
+        $comentari->nota_accesibilitat = $request->input('notaEstada');
+
+
+        if($comentari -> save()) {
+
+            array_push($resposta, 0, "Comentari guardat amb exit");
+
+        } else {
+            array_push($resposta, 1, "Insert del comentari no fet");
+        }
+
+        return $resposta;
+
+    }
 }

@@ -18,10 +18,29 @@ function Login() {
     correu: data.correu,
     contrasenya: data.contrasenya,
     
-  })
+  }).then(function (response){
 
-  
-  
+    console.log(response);
+
+    //Si response = 0 vol dir que sha fet el registre amb exit
+    if (response.data[0] == 0){
+
+        console.log("Login Correcte")
+        window.location.href = "http://localhost:3000/";
+
+    } if (response.data[0] == 1) {
+        
+        //Falta aplicar canvis a la pantalla (ex: lletres varmelles amb missatge)
+        console.log("L'usuari no existeix");
+
+    } if (response.data[0] == 2) {
+        
+      //Falta aplicar canvis a la pantalla (ex: lletres varmelles amb missatge)
+      console.log("Contrassenya incorrecte");
+
+  }}).catch(err => console.log(err))
+
+
   return (
 
     <Row className='pt-5'>
@@ -58,7 +77,7 @@ function Login() {
                     minLength: 1,
                  
                   })}
-                  type="text"
+                  type="password"
                   />
                   {errors.contrasenya && <span className="text-danger">Indica la teva contrassenya</span>}
 

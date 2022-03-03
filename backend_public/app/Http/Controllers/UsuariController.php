@@ -31,26 +31,45 @@ class UsuariController extends Controller
 
     public function create(Request $request){
 
+        $resposta = array();
+
         //Insert d'un nou client a la taula usuaris
         $usuari = new Usuari();
 
-        $dni = $request->input('dni');
+        $pas1 = $request->input('contrasenya');
+        $pas2 = $request->input('contrasenya2');
 
-        $usuari->dni = $request->input('dni');
-        $usuari->nom = $request->input('nom');
-        $usuari->llinatge1 = $request->input('llinatge1');
-        $usuari->llinatge2 = $request->input('llinatge2');
-        $usuari->contrasenya = bcrypt($request->input('contrasenya'));
-        $usuari->correu = $request->input('correu');
-        $usuari->eliminat = 0;
+        if ($pas1 !== $pas2){
 
-        $usuari -> save();
+            array_push($resposta, 1, "Les contrassenyes no coincideixen");
 
-        //Un cop hem inserit el nou usuari l'inserim a la taula client
-        $result = Usuari::select('usuari.id')->where('usuari.dni', '=',  $dni)->first();
-        $client = new Client();
-        $client->id = $result->id;
-        $client -> save();
+        } else {
+
+            $dni = $request->input('dni');
+
+            $usuari->dni = $request->input('dni');
+            $usuari->nom = $request->input('nom');
+            $usuari->llinatge1 = $request->input('llinatge1');
+            $usuari->llinatge2 = $request->input('llinatge2');
+            $usuari->contrasenya = bcrypt($request->input('contrasenya'));
+            $usuari->correu = $request->input('correu');
+            $usuari->eliminat = 0;
+
+            $usuari -> save();
+
+            //Un cop hem inserit el nou usuari l'inserim a la taula client
+            $result = Usuari::select('usuari.id')->where('usuari.dni', '=',  $dni)->first();
+            $client = new Client();
+            $client->id = $result->id;
+            $client -> save();
+
+            array_push($resposta, 0, "Usuari Registrat amb exit");
+
+        }
+
+        return $resposta;
+
+
 
 
     }
@@ -60,8 +79,7 @@ class UsuariController extends Controller
         $correu = $request->input('correu');
         $contrasenya = $request->input('contrasenya');
 
-        //Un cop hem inserit el nou usuari l'inserim a la taula client
-        $result = Usuari::select('*')->where('usuari.correu', '=',  $correu)->first();
+        $result = Usuari::join('client', 'usuari.id', '=', 'client.id')->where('usuari.correu', '=',  $correu)->first();
 
         $resposta = array();
 
@@ -69,10 +87,10 @@ class UsuariController extends Controller
         if ($result != null){
 
             $passHasheada = $result->contrasenya;
-            
+
             if (Hash::check($contrasenya, $passHasheada)) {
 
-                array_push($resposta, 0, "Contrassenya incorrecte", $result);
+                array_push($resposta, 0, "Credencials Correctes Log In Inminent", $result);
 
             } else {
 

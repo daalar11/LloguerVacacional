@@ -13,30 +13,38 @@ import {Link} from "react-router-dom";
 function Register() {
 
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const onSubmit = data => axios.post('http://localhost:8000/register', {
+  const onSubmit = data => axios.post('http://localhost:8000/register', 
+  {
+        dni: data.dni,
+        nom: data.nom,
+        llinatge1: data.llinatge1,
+        llinatge2: data.llinatge2,
+        contrasenya: data.contrasenya,
+        correu: data.correu,
+        contrasenya2: data.contrasenya2
+        
+    })
+    .then(function (response){
 
-    dni: data.dni,
-    nom: data.nom,
-    llinatge1: data.llinatge1,
-    llinatge2: data.llinatge2,
-    contrasenya: data.contrasenya,
-    correu: data.correu
+        console.log(response);
 
-  })
+        //Si response = 0 vol dir que sha fet el registre amb exit
+        if (response.data[0] == 0){
 
-  const validarPass = () => {
+            console.log("Usuari registrat correctament")
+            window.location.href = "http://localhost:3000/login";
 
-    let pass1 = document.querySelector('#contrasenya').value;
-    let pass2 = document.querySelector('#pass2').value;
+        } if (response.data[0] == 1) {
+            
+            //Falta aplicar canvis a la pantalla (ex: lletres varmelles amb missatge)
+            console.log("Les contrassenyes no coincideixen.");
 
-    if (pass1 =! pass2){
-        console.log("Les contrassenyes no coincideixen");
-        return false;
-    } else {
-        console.log("Les contrassenyes coincideixen.")
-        return true;
-    }
-  }
+        } else {
+            console.log("ERROR EN LA RESPOSTA")
+        }
+        
+    }).catch(err => console.log(err))
+
 
   return (
 
@@ -48,7 +56,7 @@ function Register() {
         
             <h4 className='text-center mt-5'>Completa el registre i comença a llogar!</h4>
 
-            <Form action="/" method="post" onSubmit={handleSubmit(onSubmit, validarPass)}>
+            <Form onSubmit={handleSubmit(onSubmit)}>
 
             <Row className="d-flex justify-content-center p-5">
 
@@ -128,8 +136,12 @@ function Register() {
                     <FormGroup className="fr d-flex flex-column align-items-start">
                         <Label className='text-start fw-bold'>Repeteix la contrassenya <span className="text-danger">*</span></Label>
                         <input
-                        id="pass2"
-                        name="pass2"
+                        {...register("contrasenya2", {
+                            required: true,
+                            minLength: 3
+                        })}
+                        id="contrasenya2"
+                        name="contrasenya2"
                         type="password"
                         />      
                     </FormGroup>

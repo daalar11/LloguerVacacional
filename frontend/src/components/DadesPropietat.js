@@ -62,7 +62,7 @@ class DadesPropietat extends Component {
                             <p className='pPreuFinal'></p>
                         </FormGroup>
     
-                        <Button color="outline-dark" className='text-center fs-5 fw-bold inputDate mt-3 mb-3'>Llogar</Button>
+                        <input type='submit' color="outline-dark" className='text-center fs-5 fw-bold inputDate mt-3 mb-3' value="Llogar" />
                         
                     </Form>
           

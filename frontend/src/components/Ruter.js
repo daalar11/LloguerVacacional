@@ -51,7 +51,7 @@ class Ruter extends Component {
             <Route path="/contact" element={<Contact />} />
             <Route path="/register" element={<Register />} />
             <Route path="/reservar" element={<Reservar />} />
-            <Route path="/misreservas" element={<MisReservas />} />
+            {/*<Route path="/misreservas" element={<MisReservas />} />*/}
             
           </Routes>
           

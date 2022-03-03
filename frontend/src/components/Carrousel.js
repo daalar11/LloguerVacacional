@@ -12,7 +12,7 @@ class MyCarousel extends Component {
       // Estat amb l'índex de la foto activa
       this.state = { 
         activeIndex: 0,
-        items: props.fotos,
+        items: [],
         isLoading: false,
         error: null,
        };

@@ -156,6 +156,7 @@ export default class DayPicker extends React.Component {
 
   handleDayChange(day) {
     this.setState({ selectedDay: day });
+    console.log(day)
   }
 
   render() {
@@ -192,12 +193,12 @@ export default class DayPicker extends React.Component {
         format={FORMAT}
         placeholder={this.props.placeholder}
         dayPickerProps={{
-          locale: locale,
+          /*locale: locale,
           months: MONTHS[locale],
           weekdaysLong: WEEKDAYS_LONG[locale],
           weekdaysShort: WEEKDAYS_SHORT[locale],
           firstDayOfWeek: FIRST_DAY_OF_WEEK[locale],
-          labels: LABELS[locale],
+          labels: LABELS[locale],*/
           showWeekNumbers: true,
           firstDayOfWeek: 1,
           showOutsideDays: true,
@@ -206,6 +207,7 @@ export default class DayPicker extends React.Component {
           pagedNavigation: true,
           fixedWeeks: true,
           modifiers: {disabled},
+        
           
         }}
         />

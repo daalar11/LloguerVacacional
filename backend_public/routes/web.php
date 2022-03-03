@@ -84,10 +84,11 @@ Route::get('/propietat/{idPROPIETAT}/tarifes/{idTARIFA}', [\App\Http\Controllers
 
 Route::get('/propietat/{idPROPIETAT}/comentaris', [PropietatController::class, 'listComentsByIdLocalitat']);
 
-// -------------- Rutes Comentari Propietat --------------------
+Route::post('/propietat/comentar', [\App\Http\Controllers\ComentariPropietatController::class, 'insertComentari']);
+
+// -------------- Rutes Client Propietat --------------------
 Route::get('/client/{idUsuari}', [\App\Http\Controllers\UsuariController::class, 'listUserById']);
 
-// -------------- Rutes Comentari Propietat --------------------
 Route::get('/client', [\App\Http\Controllers\UsuariController::class, 'listClients']);
 
 // -------------- Rutes Fotos d'una Propietat--------------------
