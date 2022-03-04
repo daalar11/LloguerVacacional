@@ -6,6 +6,9 @@ import './Propietat.js';
 // -- CSS IMPORTS --
 import 'bootstrap/dist/css/bootstrap.min.css';//Css de bootstrap
 
+
+import '../components/PropietatExpand.css';
+
 // -- IMPORTS REACT ROUTER DOM
 import {Route, BrowserRouter as Router, Routes} from "react-router-dom";
 
@@ -22,7 +25,13 @@ import Register from "../views/Register";
 import Reservar from "../views/Reservar";
 import MisReservas from "../views/MisReservas";
 
+import {UserContext} from '../App.js';
+
 class Ruter extends Component {
+
+  constructor(props) {
+    super(props);
+  }
 
   // -- COMENÇA EL METODE RENDER
   render() {
@@ -36,7 +45,11 @@ class Ruter extends Component {
         
 
         {/* Component Menu (HEADER-NAVBAR) */}
-        <Menu/>
+        <UserContext.Consumer>
+        {idUsuariLogeat => (
+        <Menu idUsuariLogeat={idUsuariLogeat} />
+        )}
+        </UserContext.Consumer>
 
         {/* Content de la pagina (Contingut del MAIN) */}
         <Container className="content mt-4"> {/*Seccio Content*/}

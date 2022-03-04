@@ -166,3 +166,15 @@
     border: 2px solid black;
 }
 
+.itemnav {
+    padding: 10px;
+    border-right: 1px solid lightgray;
+    border-left: 1px solid lightgray;
+}
+
+
+
+.itemnav:hover > a{
+    background-color: rgb(248, 248, 248);
+}
+

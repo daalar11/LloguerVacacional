@@ -7,6 +7,8 @@ import {Button, Row, Col, Form, Input} from 'reactstrap';
 import Comentari from './Comentari';
 import InputComentari from './InputComentari';
 
+import {UserContext} from '../App.js';
+
 class Comentaris extends Component {
 
     constructor(props) {
@@ -50,7 +52,11 @@ class Comentaris extends Component {
                         <Col xs="12" className='comentariHeader fw-bold'>
                             Has estat a la propietat? Deixa la teva review per tal d'ajudar als futurs inquilins!
                         </Col>
-                        <InputComentari />
+                        <UserContext.Consumer>
+                        {(idUsuariLogeat) => (
+                        <InputComentari idClient={idUsuariLogeat} />
+                        )}
+                        </UserContext.Consumer>
                         
                     </Row> 
 

@@ -10,7 +10,7 @@ import axios from 'axios';
 
 import {Link} from "react-router-dom";
 
-function InputComentari() {
+function InputComentari(props) {
 
     //Agafam el parametres de la URL d'aquesta forma. (No fa falta instalar cap packet, ve a javascript intern)
     const queryParams = new URLSearchParams(window.location.search);
@@ -21,7 +21,7 @@ function InputComentari() {
   const onSubmit = data => axios.post('http://localhost:8000/propietat/comentar', 
   {
         idPropietat: idPropietat,
-        idClient: 5,
+        idClient: sessionStorage.getItem("idUsuariLogeat"),
         comentari: data.comentari,
         notaUbicacio: data.notaUbicacio,
         notaEstada: data.notaEstada,
@@ -35,13 +35,12 @@ function InputComentari() {
         
     }).catch(err => console.log(err))
 
-
   return (
 
     <form onSubmit={handleSubmit(onSubmit)}>
         <Col xs="12">
             
-            
+        
             <div className="form-group mb-2 mt-2">
                 
                 <textarea

@@ -20,14 +20,13 @@ function Login() {
     
   }).then(function (response){
 
-    console.log(response);
-
     //Si response = 0 vol dir que sha fet el registre amb exit
     if (response.data[0] == 0){
-
-        console.log("Login Correcte")
+    
+        sessionStorage.setItem("idUsuariLogeat", response.data[2].id)
+        console.log(sessionStorage.getItem("idUsuariLogeat"))
         window.location.href = "http://localhost:3000/";
-
+        
     } if (response.data[0] == 1) {
         
         //Falta aplicar canvis a la pantalla (ex: lletres varmelles amb missatge)

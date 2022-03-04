@@ -73,10 +73,10 @@ class UsuariController extends Controller
 
     public function login(Request $request){
 
-        $correu = $request->input('correu');
-        $contrasenya = $request->input('contrasenya');
+        $correu = $request->get('correu');
+        $contrasenya = $request->get('contrasenya');
 
-        $result = Usuari::join('client', 'usuari.id', '=', 'client.id')->select('id', 'dni', 'nom', 'llinatge1', 'llinatge2', 'correu')->where('usuari.correu', '=',  $correu)->first();
+        $result = Usuari::join('client', 'usuari.id', '=', 'client.id')->where('usuari.correu', '=',  $correu)->first();
 
         $resposta = array();
 

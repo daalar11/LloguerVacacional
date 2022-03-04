@@ -17,6 +17,10 @@ import {Row, Col, Breadcrumb, BreadcrumbItem} from 'reactstrap';
 import axios from 'axios';
 
 import {Link} from "react-router-dom";
+
+//Importam el context
+import {UserContext} from '../App.js';
+import ThemedButton from '../components/BotoTema';
  
 class Viewpropietat extends Component {
 
@@ -53,7 +57,7 @@ class Viewpropietat extends Component {
       caracteristiques: res.data.caracteristica,
       comentaris: res.data.comentaris,
       fotos: [],
-          status: true
+      status: true
         });
     })
     //Tractam errors
@@ -103,13 +107,10 @@ class Viewpropietat extends Component {
       return <p>Loading ...</p>;
     }
 
-  
-
     return (
-   
+        
         <Row className='contenidor p-4'>
           <Col>
-
             <Breadcrumb>
               <BreadcrumbItem>
                 <Link to="/">Home</Link>
@@ -127,7 +128,7 @@ class Viewpropietat extends Component {
             fotos = {fotos}
             />
 
-            {/* Component DadesPropietat amb tota la info de la casa */}
+            
             <DadesPropietat 
             title = {propietat.nom_propietat}
             direccio = {propietat.direccio}
@@ -142,7 +143,11 @@ class Viewpropietat extends Component {
             caracteristiques = {caracteristiques}
             preu = {propietat.preu_base}
             id = {propietat.idpropietat}
+      
             />
+      
+  
+           
 
             {/* Component Mapa Localització propietat*/}
             <Mapa 
@@ -154,8 +159,10 @@ class Viewpropietat extends Component {
             comentaris = {comentaris}
             />
 
+
           </Col> 
         </Row>
+    
 
     );
     
