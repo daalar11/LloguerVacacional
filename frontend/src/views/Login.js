@@ -1,7 +1,7 @@
 //Css de ViewPropietat
 import '../components/PropietatExpand.css';
 
-import React from "react";
+import React, {useState} from "react";
 import { useForm } from "react-hook-form";
 
 import {Link} from "react-router-dom";
@@ -12,6 +12,8 @@ import axios from 'axios';
 
 function Login() {
 
+  const error = useState(0);
+
   const { register, handleSubmit, formState: { errors } } = useForm();
   const onSubmit = data => axios.post('http://localhost:8000/login', {
 
@@ -20,25 +22,23 @@ function Login() {
     
   }).then(function (response){
 
-    //Si response = 0 vol dir que sha fet el registre amb exit
+    //Si les creedencials son correctes i s'inicia sessió
     if (response.data[0] == 0){
     
         sessionStorage.setItem("idUsuariLogeat", response.data[2].id)
-        console.log(sessionStorage.getItem("idUsuariLogeat"))
         window.location.href = "http://localhost:3000/";
         
-    } if (response.data[0] == 1) {
-        
-        //Falta aplicar canvis a la pantalla (ex: lletres varmelles amb missatge)
-        console.log("L'usuari no existeix");
-
-    } if (response.data[0] == 2) {
-        
-      //Falta aplicar canvis a la pantalla (ex: lletres varmelles amb missatge)
-      console.log("Contrassenya incorrecte");
-
+    } 
+    //En el cas de que l'usuari no existeixi
+    if (response.data[0] == 1) {
+        alert(response.data[1]);
+    } 
+    //En cas de que la contrassenya sigui incorrecte
+    if (response.data[0] == 2) {
+      alert(response.data[1]);
   }}).catch(err => console.log(err))
 
+  
 
   return (
 
@@ -50,7 +50,6 @@ function Login() {
         
           <h4 className='text-center mt-5 mb-3'>Inicia Sessió</h4>
           <Form className='p-4 text-start  d-flex flex-column justify-content-center' action="/" onSubmit={handleSubmit(onSubmit)}>
-            
             <FormGroup className='fr'>
                 <Label className='text-start fw-bold'>Correu Electronic</Label>
                
@@ -58,7 +57,7 @@ function Login() {
                   {...register("correu", {
                     required: true,
                  
-                })}
+                  })}
                   type="email"
                   placeholder="example@gmail.com"
                   id = "correu"
@@ -67,6 +66,8 @@ function Login() {
                   {errors.correu && <span className="text-danger">Introdueix el correu electronic del teu compte</span>}
            
             </FormGroup>
+            
+
             <FormGroup className='fr'>
                 <Label for="preuFinal" className='text-start fw-bold'>Contrassenya</Label>
                

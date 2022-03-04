@@ -41,7 +41,7 @@ class UsuariController extends Controller
 
         if ($pas1 !== $pas2){
 
-            array_push($resposta, 1, "Les contrassenyes no coincideixen");
+            array_push($resposta, 1, "Ep! Les contrassenyes no coincideixen, comprova que les haguis escrit be.");
 
         } else {
 
@@ -61,9 +61,14 @@ class UsuariController extends Controller
             $result = Usuari::select('usuari.id')->where('usuari.dni', '=',  $dni)->first();
             $client = new Client();
             $client->id = $result->id;
-            $client -> save();
 
-            array_push($resposta, 0, "Usuari Registrat amb exit");
+            if ($client -> save()){
+
+                array_push($resposta, 0, "Nou usuari registrat, ja pots iniciar sessió i començar a llogar!");
+
+            } else {
+                array_push($resposta, 2, "Ja existeix un usuari amb les credencials introduides, comprova que no tenguis cap usuari.");
+            }
 
         }
 

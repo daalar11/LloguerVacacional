@@ -31,17 +31,22 @@ function Register() {
         //Si response = 0 vol dir que sha fet el registre amb exit
         if (response.data[0] == 0){
 
-            console.log("Usuari registrat correctament")
+            alert(response.data[1])
             window.location.href = "http://localhost:3000/login";
 
-        } if (response.data[0] == 1) {
+        } 
+        if (response.data[0] == 1) {
             
             //Falta aplicar canvis a la pantalla (ex: lletres varmelles amb missatge)
-            console.log("Les contrassenyes no coincideixen.");
+            alert(response.data[1]);
 
-        } else {
-            console.log("ERROR EN LA RESPOSTA")
         }
+        if (response.data[0] == 2) {
+            
+            //Falta aplicar canvis a la pantalla (ex: lletres varmelles amb missatge)
+            alert(response.data[1]);
+
+        } 
         
     }).catch(err => console.log(err))
 

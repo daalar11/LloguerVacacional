@@ -23,7 +23,7 @@ class Comentaris extends Component {
     // -- RETURN DEL METODE RENDER
     return (
 
-            <Row className='rowComentaris'>
+            <Row>
                 <Col xs="12" className="colComentaris">
 
                     <Row>
@@ -48,17 +48,14 @@ class Comentaris extends Component {
                     })}
 
                     <hr></hr>
-                    <Row>
-                        <Col xs="12" className='comentariHeader fw-bold'>
-                            Has estat a la propietat? Deixa la teva review per tal d'ajudar als futurs inquilins!
-                        </Col>
-                        <UserContext.Consumer>
-                        {(idUsuariLogeat) => (
-                        <InputComentari idClient={idUsuariLogeat} />
-                        )}
-                        </UserContext.Consumer>
-                        
-                    </Row> 
+                    
+                    {/* Aixo es l'input del comentari, com que el component necessita acedir al contexte li proporcionam acces */}
+                    <UserContext.Consumer>
+                    {(idUsuariLogeat) => (
+                    <InputComentari idClient={idUsuariLogeat} />
+                    )}
+                    </UserContext.Consumer>
+                    
 
                 </Col>
             </Row>

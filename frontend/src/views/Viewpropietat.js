@@ -17,10 +17,6 @@ import {Row, Col, Breadcrumb, BreadcrumbItem} from 'reactstrap';
 import axios from 'axios';
 
 import {Link} from "react-router-dom";
-
-//Importam el context
-import {UserContext} from '../App.js';
-import ThemedButton from '../components/BotoTema';
  
 class Viewpropietat extends Component {
 
@@ -106,11 +102,13 @@ class Viewpropietat extends Component {
     if (isLoading) {
       return <p>Loading ...</p>;
     }
+    console.log(propietat)
 
     return (
         
         <Row className='contenidor p-4'>
           <Col>
+
             <Breadcrumb>
               <BreadcrumbItem>
                 <Link to="/">Home</Link>
@@ -122,13 +120,12 @@ class Viewpropietat extends Component {
                 Propietat
               </BreadcrumbItem>
             </Breadcrumb>
-
+            
             {/* Component Carrousel */}
             <Carrousel 
             fotos = {fotos}
             />
 
-            
             <DadesPropietat 
             title = {propietat.nom_propietat}
             direccio = {propietat.direccio}
@@ -143,11 +140,7 @@ class Viewpropietat extends Component {
             caracteristiques = {caracteristiques}
             preu = {propietat.preu_base}
             id = {propietat.idpropietat}
-      
             />
-      
-  
-           
 
             {/* Component Mapa Localització propietat*/}
             <Mapa 
@@ -158,7 +151,6 @@ class Viewpropietat extends Component {
             <CapsaComentaris 
             comentaris = {comentaris}
             />
-
 
           </Col> 
         </Row>

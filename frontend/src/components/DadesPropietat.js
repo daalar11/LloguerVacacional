@@ -41,7 +41,7 @@ class DadesPropietat extends Component {
 
     return (
 
-        <Row className='colsInfo'>
+        <Row className='d-flex justify-content-between p-2'>
             <Col xs="3" className='mt-1'>
 
                     <Form className='mt-5 text-start  d-flex flex-column justify-content-center' action='/reservar'>

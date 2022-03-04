@@ -18,6 +18,7 @@ class Menu extends Component {
       };
   }
 
+  //Metode que elimina la sessio i recarrega la pagina
   tancarSessio = () => {
 
     sessionStorage.removeItem("idUsuariLogeat");
@@ -28,14 +29,12 @@ class Menu extends Component {
   render() {
 
     const {idUsuari} = this.state;
-    console.log(idUsuari)
 
+    //Condicio Usuari No Logeat
     if (idUsuari == null){
-
 
       return (
       
-        <div>
         <Navbar dark expand="md" fixed="top" light className="navb d-flex justify-content-center border-bottom">
           
           {/* NavItem Home */}
@@ -50,11 +49,6 @@ class Menu extends Component {
               {/* NavItem CercarPropietats */}
               <NavItem className="me-4 itemnav">
                 <Link className="text-decoration-none text-dark p-2 rounded" to="/cercarpropietat">Cerca Propietat</Link>
-              </NavItem>
-
-              {/* NavItem MisReservas */}
-              <NavItem className="me-4 itemnav">
-                <Link className="text-decoration-none text-dark p-2 rounded" to="/misreservas">Mis Reservas</Link>
               </NavItem>
 
               {/* NavItem Contact */}
@@ -72,16 +66,12 @@ class Menu extends Component {
           </NavItem>
 
         </Navbar>
-      </div>
-
-);
-
+      
+      );
     } else {
-
 
       return (
       
-        <div className="p-4">
         <Navbar dark expand="md" fixed="top" light className="navb d-flex justify-content-center border-bottom">
           
           {/* NavItem Home */}
@@ -112,23 +102,15 @@ class Menu extends Component {
 
           {/* NavItem Login */}
           <NavItem className="mt-2 me-3 list-unstyled">
-          <Link className="mt-2 text-decoration-none text-dark" to="/login">
-            <img onClick={this.tancarSessio} src={Loggout} width="85" height="25" />
-          </Link>
+            <Link className="mt-2 text-decoration-none text-dark" to="#">
+              <img onClick={this.tancarSessio} src={Loggout} width="85" height="25" />
+            </Link>
           </NavItem>
-
         </Navbar>
-      </div>
-);
+      );
+    }//Fi else
 
-
-
-    }
-
-
-    
-   
-  }
+  }//Fi render
 }
  
 export default Menu;
