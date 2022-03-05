@@ -136,6 +136,7 @@
 .navb {
     background-color: white;
     padding: 10px;
+    box-shadow: 2px 10px 20px 3px lightgray;
     
 }
 
@@ -159,4 +160,19 @@
     background-color: rgb(248, 248, 248);
     box-shadow: 0 0 5px rgba(0,0,0,.05), 2px 2px 5px rgba(0,0,0,.1);
 }
+
+.rowFooter {
+    height: 250px;
+    background-color: rgba(32, 32, 32, 0.829);
+    box-shadow: 0px -10px 20px 0px rgb(95, 92, 92);
+}
+
+.margin {
+    margin: 80px;
+  
+    
+    
+}
+
+
 

@@ -2,16 +2,10 @@
 import { Component } from 'react';
 import React from "react";
 
+import CapsaReserva from './CapsaReserva';
+
 //Importar un component de Bootstrap.
-import {Button, Row, Col, Label, Form, FormGroup, Collapse, CardBody, Card, CardHeader } from 'reactstrap';
-
-import DayPicker from "./DayPicker";
-import dateFnsFormat from 'date-fns/format';
-import dateFnsParse from 'date-fns/parse';
-
-import axios from 'axios';
-
- 
+import {Row, Col, Collapse, CardBody, Card, CardHeader } from 'reactstrap';
 
 class DadesPropietat extends Component {
 
@@ -21,38 +15,8 @@ class DadesPropietat extends Component {
         this.state = {
           collapse: 0, 
           cards: [1],
-          diesNoDisponibles: [],
-          isLoading: false,
-          error: null,
         };
       }
-
-    getDiesNoDisponibles = () => {
-
-        //Agafam el parametres de la URL d'aquesta forma. (No fa falta instalar cap packet, ve a javascript intern)
- const queryParams = new URLSearchParams(window.location.search);
- const id = queryParams.get('id');
- const url = "http://127.0.0.1:8000"
-
-    var request = "/propietat/" + id + "/nodisponible/info";
-    
-    axios.get(url + request)
-    .then(res => {this.setState({
-        diesNoDisponibles: res.data,
-            status: true
-        });
-    })
-    //Tractam errors
-    .catch(error => this.setState({
-        error,
-        isLoading: false
-    }));
-    }
-
-    //Metode componentDidMount
-  componentDidMount = () => {
-    this.getDiesNoDisponibles();
-  }
   
     toggle(e) {
         let event = e.target.dataset.event;
@@ -61,7 +25,7 @@ class DadesPropietat extends Component {
 
   render(){
 
-    const {cards, collapse, isLoading, error, diesNoDisponibles} = this.state;
+    const {cards, collapse, isLoading, error} = this.state;
 
     if (error) {
       return <p>{error.message}</p>;
@@ -79,45 +43,14 @@ class DadesPropietat extends Component {
             return "No";
         }
     } 
-    const FORMAT = 'dd-MM-yyyy';
+  
 
     return (
 
         <Row className='d-flex justify-content-between p-2'>
-            <Col xs="3" className='mt-1'>
+            
+            <CapsaReserva />
 
-                    <Form className='mt-5 text-start  d-flex flex-column justify-content-center' action='/reservar'>
-
-                        <span className='fw-bold'>Estableix les dates de la teva estada</span>
-                        <hr></hr>
-                        <Label className='text-start fw-bold'>Data Entrada</Label>
-
-                        {/* Input data entrada */}
-                        <DayPicker 
-                        placeholder={`${dateFnsFormat(new Date(), FORMAT)}`}
-                        diesNoDisponibles={diesNoDisponibles}
-                        />
-                     
-                        <Label className='text-start fw-bold mt-4'>Data Sortida</Label>
-
-                        {/* Input data sortida */}
-                        <DayPicker 
-                        placeholder={`${dateFnsFormat(new Date(), FORMAT)}`}
-                        diesNoDisponibles={diesNoDisponibles}
-                        />
-                    
-                    
-                        <span className='text-start fw-bold mt-4'>Preu: <span className='ms-2 text-danger' id='preu'>714€</span></span>
-                        <input type='submit' color="dark" className='mt-4 fw-bold bg-dark text-white rounded' value="Llogar" />
-                        
-                    </Form>
-
-                    <p className='text-start text-black-75 mt-4'>
-                        Selecciona els dies que desitjaries llogar la propietat per coneixer el preu de l'estada.<br></br><br></br>
-                        Clica llogar per anar a la pantalla de la teva reserva
-                    </p>
-          
-            </Col>
             <Col xs="8" className="colDades">
 
                 <Row className='subRowDades mt-2'>

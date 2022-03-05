@@ -62,7 +62,7 @@ class Home extends Component {
 
     return (
       
-      <Row className="p-4 bg-opacity-50">
+      <Row className="bg-opacity-50">
 
         <Breadcrumb>
           <BreadcrumbItem active>

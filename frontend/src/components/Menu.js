@@ -30,6 +30,9 @@ class Menu extends Component {
 
     const {idUsuari} = this.state;
 
+    
+    
+
     //Condicio Usuari No Logeat
     if (idUsuari == null){
 

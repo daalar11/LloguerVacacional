@@ -1,6 +1,7 @@
 // -- COMPONENTS IMPORTS --
 import React, { Component } from 'react';
 import Menu from "./Menu";//Header
+import Footer from "./Footer";//Footer
 
 // -- CSS IMPORTS --
 import 'bootstrap/dist/css/bootstrap.min.css';//Css de bootstrap
@@ -42,7 +43,7 @@ class Ruter extends Component {
         </UserContext.Consumer>
 
         {/* Content de la pagina (Contingut del MAIN) */}
-        <Container className="content"> {/*Seccio Content*/}
+        <Container className="content margin"> {/*Seccio Content*/}
 
           {/* Rutes del Navbar */}
           <Routes>
@@ -58,7 +59,10 @@ class Ruter extends Component {
             
           </Routes>
           
+          
+          
         </Container>{/* Fi div Content */}
+        <Footer />
      
     </Router>
     );//FI DEL RETURN DEL RENDER

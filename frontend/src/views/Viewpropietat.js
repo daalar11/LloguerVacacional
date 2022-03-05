@@ -111,7 +111,7 @@ const url = "http://127.0.0.1:8000"
 
     return (
         
-        <Row className='contenidor p-4'>
+        <Row className='contenidor'>
           <Col>
 
             <Breadcrumb>

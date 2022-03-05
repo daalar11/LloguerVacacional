@@ -140,7 +140,9 @@ export default class DayPicker extends React.Component {
     };
   }
 
-  
+  componentWillReceiveProps(props) {
+    this.setState({disabled: props.diesNoDisponibles});
+  }
 
   switchLocale(e) {
     const locale = e.target.value || 'es';

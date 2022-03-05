@@ -26,7 +26,6 @@ class MyCarousel extends Component {
     }
 
     componentWillReceiveProps(props) {
-      console.log(props.diesNoDisponibles)
       this.setState({items: props.fotos});
     }
 
