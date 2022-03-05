@@ -132,11 +132,6 @@ class Cercarpropietat extends Component {
       
       <div>
 
-        <p>
-          CERCADOR AMB FILTRES
-        </p>
-
-
         <Container>
 
         <Breadcrumb>

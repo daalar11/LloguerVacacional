@@ -2,10 +2,12 @@
 import React, { Component } from 'react';
 
 //Importar un component de Bootstrap.
-import {Button, Row, Col, Form, Input} from 'reactstrap';
+import {Row, Col} from 'reactstrap';
 
 import Comentari from './Comentari';
 import InputComentari from './InputComentari';
+
+import {UserContext} from '../App.js';
 
 class Comentaris extends Component {
 
@@ -17,11 +19,11 @@ class Comentaris extends Component {
     render() {
 
     const coms  = this.props.comentaris;
-   
+
     // -- RETURN DEL METODE RENDER
     return (
 
-            <Row className='rowComentaris'>
+            <Row>
                 <Col xs="12" className="colComentaris">
 
                     <Row>
@@ -30,9 +32,12 @@ class Comentaris extends Component {
 
                     <hr></hr>
 
+                    {coms.length == 0 &&
+                        <p className='fw-bold'>Aquesta propietat encara no te cap comentari...</p>
+                    }
+
                     {/* Component Capsa de Comentaris */}
                     {coms.map(function(comentari, key) {
-                          
                           return (
                             <Comentari key = {key}
                             text={comentari.pivot.comentari}
@@ -46,17 +51,16 @@ class Comentaris extends Component {
                     })}
 
                     <hr></hr>
-                    <Row>
-                        <Col xs="12" className='comentariHeader fw-bold'>
-                            Has estat a la propietat? Deixa la teva review per tal d'ajudar als futurs inquilins!
-                        </Col>
-                        <InputComentari />
-                        
-                    </Row> 
-
+                    
+                    {/* Aixo es l'input del comentari, com que el component necessita acedir al contexte li proporcionam acces */}
+                    <UserContext.Consumer>
+                    {(idUsuariLogeat) => (
+                    <InputComentari idClient={idUsuariLogeat} />
+                    )}
+                    </UserContext.Consumer>
+                    
                 </Col>
             </Row>
-      
       
     );//FI DEL RETURN DEL RENDER
   }//FI DEL RENDER

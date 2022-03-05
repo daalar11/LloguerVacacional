@@ -9,6 +9,10 @@ import DayPicker from "./DayPicker";
 import dateFnsFormat from 'date-fns/format';
 import dateFnsParse from 'date-fns/parse';
 
+import axios from 'axios';
+
+ 
+
 class DadesPropietat extends Component {
 
     constructor(props) {
@@ -16,9 +20,39 @@ class DadesPropietat extends Component {
         this.toggle = this.toggle.bind(this);
         this.state = {
           collapse: 0, 
-          cards: [1]
+          cards: [1],
+          diesNoDisponibles: [],
+          isLoading: false,
+          error: null,
         };
       }
+
+    getDiesNoDisponibles = () => {
+
+        //Agafam el parametres de la URL d'aquesta forma. (No fa falta instalar cap packet, ve a javascript intern)
+ const queryParams = new URLSearchParams(window.location.search);
+ const id = queryParams.get('id');
+ const url = "http://127.0.0.1:8000"
+
+    var request = "/propietat/" + id + "/nodisponible/info";
+    
+    axios.get(url + request)
+    .then(res => {this.setState({
+        diesNoDisponibles: res.data,
+            status: true
+        });
+    })
+    //Tractam errors
+    .catch(error => this.setState({
+        error,
+        isLoading: false
+    }));
+    }
+
+    //Metode componentDidMount
+  componentDidMount = () => {
+    this.getDiesNoDisponibles();
+  }
   
     toggle(e) {
         let event = e.target.dataset.event;
@@ -27,7 +61,15 @@ class DadesPropietat extends Component {
 
   render(){
 
-    const {cards, collapse} = this.state;
+    const {cards, collapse, isLoading, error, diesNoDisponibles} = this.state;
+
+    if (error) {
+      return <p>{error.message}</p>;
+    }
+
+    if (isLoading) {
+      return <p>Loading ...</p>;
+    }
 
     //Funcio que retorna Si si el valor es 1 i No si el valor es 0
     function parseValueBany(n) {
@@ -41,29 +83,39 @@ class DadesPropietat extends Component {
 
     return (
 
-        <Row className='colsInfo'>
+        <Row className='d-flex justify-content-between p-2'>
             <Col xs="3" className='mt-1'>
 
                     <Form className='mt-5 text-start  d-flex flex-column justify-content-center' action='/reservar'>
 
                         <span className='fw-bold'>Estableix les dates de la teva estada</span>
                         <hr></hr>
-                        
                         <Label className='text-start fw-bold'>Data Entrada</Label>
+
+                        {/* Input data entrada */}
                         <DayPicker 
                         placeholder={`${dateFnsFormat(new Date(), FORMAT)}`}
+                        diesNoDisponibles={diesNoDisponibles}
                         />
                      
                         <Label className='text-start fw-bold mt-4'>Data Sortida</Label>
-                        <DayPicker />
+
+                        {/* Input data sortida */}
+                        <DayPicker 
+                        placeholder={`${dateFnsFormat(new Date(), FORMAT)}`}
+                        diesNoDisponibles={diesNoDisponibles}
+                        />
                     
                     
-                        <span className='text-start fw-bold mt-4'>Preu: <span></span></span>
+                        <span className='text-start fw-bold mt-4'>Preu: <span className='ms-2 text-danger' id='preu'>714€</span></span>
                         <input type='submit' color="dark" className='mt-4 fw-bold bg-dark text-white rounded' value="Llogar" />
                         
                     </Form>
 
-                    <p className='text-start text-black-75 mt-4'>Selecciona els dies que desitjaries llogar la propietat per coneixer el preu de l'estada.<br></br><br></br>Clicka llogar per anar a la pantalla de la teva reserva</p>
+                    <p className='text-start text-black-75 mt-4'>
+                        Selecciona els dies que desitjaries llogar la propietat per coneixer el preu de l'estada.<br></br><br></br>
+                        Clica llogar per anar a la pantalla de la teva reserva
+                    </p>
           
             </Col>
             <Col xs="8" className="colDades">
@@ -146,6 +198,12 @@ class DadesPropietat extends Component {
                     <Col className='colNormes'>
                     <p className='text-start fw-bold'>Caracteristiques</p>
                     <div className='mt-4 d-flex'>
+        
+                        {/* Si la propietat no te caracteristiques es displayara el seguent paragraf */}
+                        {this.props.caracteristiques.length == 0 &&
+                            <p>El propietari no ha definit cap caracteristica</p>
+                        }
+
                         {this.props.caracteristiques.map(function(caracteristica,key) {
                         return(
                             <span className='me-2 p-2 text-center' key= {key}>
@@ -166,7 +224,6 @@ class DadesPropietat extends Component {
                     </Col>
 
                 </Row>
-
 
                 {/* Accordion Habitacions de la propietat */}
                 <Row className='subRowDades'>

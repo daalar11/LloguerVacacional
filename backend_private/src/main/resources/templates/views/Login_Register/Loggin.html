@@ -24,7 +24,7 @@
 <body>
 <header th:insert="plantilla/template :: header"></header>
 
-<main class="container">
+<main class="container mt-5">
     <div class="row">
         <div class="col-4"></div>
         <form class="col-4 mt-5 border-start border-end shadow-lg bg-body rounded p-5" th:object="${usuari}" th:action="@{/autenticate/autenticate}" method="post" onsubmit="return validacioLogin()">
