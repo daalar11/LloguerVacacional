@@ -4,7 +4,7 @@ import { Component } from 'react';
 //Importar un component de Bootstrap.
 import {Card, CardHeader, CardBody, CardFooter, CardText} from 'reactstrap';
 
-import {StarFill, StarHalf, Star } from 'react-bootstrap-icons';
+import {StarFill, Star } from 'react-bootstrap-icons';
 
 import axios from 'axios';
 

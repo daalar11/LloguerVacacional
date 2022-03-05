@@ -44,7 +44,6 @@ class DadesPropietat extends Component {
         }
     } 
   
-
     return (
 
         <Row className='d-flex justify-content-between p-2'>

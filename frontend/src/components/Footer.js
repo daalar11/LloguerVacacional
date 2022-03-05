@@ -4,8 +4,8 @@ import {Row, Col} from 'reactstrap';
 import '../components/PropietatExpand.css';
 import { FaFacebookF, FaInstagram, FaTwitterSquare, FaComments, FaPeopleCarry, FaCopyright } from 'react-icons/fa';
 
-
-
+//Import Traduccions
+import { withTranslation } from 'react-i18next';
 
 class Footer extends Component {
 
@@ -25,18 +25,18 @@ class Footer extends Component {
 
             <Col xs="5" className="d-flex flex-column me-2 ms-2 ">
 
-                <span className="fs-5">About Us</span>
+                <span className="fs-5">{this.props.t('footer.title1')}</span>
                 <hr></hr>
                 <ul className="list-unstyled">
-                    <li className="mb-2"><FaComments /> <a className="text-decoration-none text-white" href="https://www.facebook.com/">Contacte </a></li>
-                    <li className="mb-2"><FaPeopleCarry /> <a className="text-decoration-none text-white" href="https://www.facebook.com/">Politica de la Companyia</a></li>
-                    <li><FaCopyright /> <a className="text-decoration-none text-white" href="https://www.facebook.com/"> CopyRight </a></li>
+                    <li className="mb-2"><FaComments /> <a className="text-decoration-none text-white" href="https://www.facebook.com/">{this.props.t('footer.contact')} </a></li>
+                    <li className="mb-2"><FaPeopleCarry /> <a className="text-decoration-none text-white" href="https://www.facebook.com/">{this.props.t('footer.politica')}</a></li>
+                    <li><FaCopyright /> <a className="text-decoration-none text-white" href="https://www.facebook.com/"> {this.props.t('footer.copyright')} </a></li>
                 </ul>   
                 
             </Col>
             <Col xs="5" className="d-flex flex-column">
 
-                <span className="fs-5">Xarxes Socials</span>
+                <span className="fs-5">{this.props.t('footer.title2')}</span>
                 <hr></hr>
                 <ul className="list-unstyled">
                     <li className="mb-2"><FaFacebookF /> <a className="text-decoration-none text-white" href="https://www.facebook.com/">Facebook</a></li>
@@ -56,4 +56,4 @@ class Footer extends Component {
   }//Fi render
 }
  
-export default Footer;
+export default withTranslation()(Footer);

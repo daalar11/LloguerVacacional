@@ -4,9 +4,14 @@ import {Link} from "react-router-dom";
 
 //Importam els logos del header
 import Logo from '../media-front/logo.PNG';
-import Loggout from '../media-front/loggout.PNG';
-import LoginLogo from '../media-front/login.PNG';
-import Login from "../views/Login";
+
+import { DoorClosedFill, DoorOpenFill } from 'react-bootstrap-icons';
+
+//Imports Traduccions
+import { withTranslation } from 'react-i18next';
+
+//Boto canviar idioma
+import BotoIdioma from "./BotoIdioma";
 
 class Menu extends Component {
 
@@ -30,9 +35,6 @@ class Menu extends Component {
 
     const {idUsuari} = this.state;
 
-    
-    
-
     //Condicio Usuari No Logeat
     if (idUsuari == null){
 
@@ -49,22 +51,28 @@ class Menu extends Component {
 
             <Nav className="text-center mt-2" navbar>
 
+            
+
               {/* NavItem CercarPropietats */}
-              <NavItem className="me-4 itemnav">
-                <Link className="text-decoration-none text-dark p-2 rounded" to="/cercarpropietat">Cerca Propietat</Link>
+              <NavItem className="itemnav">
+                <Link className="text-decoration-none text-dark" to="/cercarpropietat">{this.props.t('header.cercarPropietats')}</Link>
               </NavItem>
 
               {/* NavItem Contact */}
-              <NavItem className="me-4 itemnav">
-                <Link className="text-decoration-none text-dark p-2 rounded" to="/contact">Contact</Link>
+              <NavItem className="itemnav">
+                <Link className="text-decoration-none text-dark" to="/contact">{this.props.t('header.contact')}</Link>
               </NavItem>
 
             </Nav>
 
+          {/* Component boto per canviar l'idioma */}
+          <BotoIdioma />
+
           {/* NavItem Login */}
           <NavItem className="mt-2 me-3 list-unstyled">
           <Link className="mt-2 text-decoration-none text-dark" to="/login">
-            <img src={LoginLogo} width="85" height="25" />
+            <span>{this.props.t('header.login')} </span><DoorClosedFill className="mb-1" width="30" height="30"/>
+            
           </Link>
           </NavItem>
 
@@ -87,26 +95,29 @@ class Menu extends Component {
             <Nav className="text-center mt-2" navbar>
 
               {/* NavItem CercarPropietats */}
-              <NavItem className="me-4 itemnav">
-                <Link className="text-decoration-none text-dark p-2 rounded" to="/cercarpropietat">Cerca Propietat</Link>
+              <NavItem className="itemnav">
+                <Link className="text-decoration-none text-dark" to="/cercarpropietat">{this.props.t('header.cercarPropietats')}</Link>
               </NavItem>
 
               {/* NavItem MisReservas */}
-              <NavItem className="me-4 itemnav">
-                <Link className="text-decoration-none text-dark p-2 rounded" to="/misreservas">Mis Reservas</Link>
+              <NavItem className="itemnav">
+                <Link className="text-decoration-none text-dark" to="/misreservas">{this.props.t('header.misreservas')}</Link>
               </NavItem>
 
               {/* NavItem Contact */}
-              <NavItem className="me-4 itemnav">
-                <Link className="text-decoration-none text-dark p-2 rounded" to="/contact">Contact</Link>
+              <NavItem className="itemnav">
+                <Link className="text-decoration-none text-dark" to="/contact">{this.props.t('header.contact')}</Link>
               </NavItem>
 
             </Nav>
 
+          {/* Component boto per canviar l'idioma */}
+          <BotoIdioma />
+
           {/* NavItem Login */}
           <NavItem className="mt-2 me-3 list-unstyled">
             <Link className="mt-2 text-decoration-none text-dark" to="#">
-              <img onClick={this.tancarSessio} src={Loggout} width="85" height="25" />
+            <span>{this.props.t('header.loggout')} </span><DoorOpenFill className="mb-1" width="30" height="30"/>
             </Link>
           </NavItem>
         </Navbar>
@@ -116,4 +127,4 @@ class Menu extends Component {
   }//Fi render
 }
  
-export default Menu;
+export default withTranslation()(Menu)

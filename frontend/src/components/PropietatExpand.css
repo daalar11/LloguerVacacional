@@ -149,30 +149,47 @@
     border: 2px ;
 }
 
-/* Classes del header */
+/* Classes del header (Botons items navbar) */
 .itemnav {
     padding: 10px;
-    border-right: 1px solid lightgray;
-    border-left: 1px solid lightgray;
 }
 
-.itemnav:hover > a{
+.itemnav:not(:last-child) {
+    border-right: 1px solid lightgray;
+}
+
+.itemnav:hover{
     background-color: rgb(248, 248, 248);
     box-shadow: 0 0 5px rgba(0,0,0,.05), 2px 2px 5px rgba(0,0,0,.1);
 }
 
+
+/* Footer */
 .rowFooter {
     height: 250px;
     background-color: rgba(32, 32, 32, 0.829);
     box-shadow: 0px -10px 20px 0px rgb(95, 92, 92);
 }
 
+/* Classe per recuperar el margin del header fixed top */
 .margin {
     margin: 80px;
-  
-    
-    
 }
 
+/* Botons Idioma */
+.botolng > button{
+    background-color: white;
+    border: 1px lightgray !important
+}
+
+.botolng > button:nth-child(-n + 2) {
+    border-right: 2px solid lightgray !important;
+}
+
+/* Botons Idioma */
+.botolng > button:hover {
+    background-color: rgb(248, 248, 248);
+    box-shadow: 0 0 5px rgba(0,0,0,.05), 2px 2px 5px rgba(0,0,0,.1);
+}
 
 

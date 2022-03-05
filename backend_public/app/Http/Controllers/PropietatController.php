@@ -6,6 +6,7 @@ use App\Models\Reserva;
 use Illuminate\Http\Request;
 use App\Activity;
 use App\Item;
+use Illuminate\Support\Facades\Date;
 
 //Controlador de les propietats
 class PropietatController extends Controller
@@ -59,17 +60,22 @@ class PropietatController extends Controller
 
         for ($i = 0; $i<count($bloqueigArray);$i++){
 
-            //$dataEntrada = $bloqueigArray[$i]['d_inici'];
-            //$dataSortida = $bloqueigArray[$i]['d_fi'];
+            $dataEntrada = strtotime($bloqueigArray[$i]['d_inici']);
+            $dataSortida = strtotime($bloqueigArray[$i]['d_fi']);
 
-            $dataEntrada = str_replace('-', ', ', $bloqueigArray[$i]['d_inici']);
-            $dataSortida = str_replace('-', ', ', $bloqueigArray[$i]['d_fi']);
+            $dataEntradaParseada = date( 'Y, m, d', $dataEntrada );
+            $dataSortidaParseada = date( 'Y, m, d', $dataSortida );
+
+            //$dataEntrada = str_replace('-', ', ', $bloqueigArray[$i]['d_inici']);
+            //$dataSortida = str_replace('-', ', ', $bloqueigArray[$i]['d_fi']);
 
 
             $bloqueig = array(
-                "after" => 'new Date(' . $dataEntrada . ')',
-                "before" => 'new Date(' . $dataSortida . ')'
+                "after" => \date($dataEntradaParseada),
+                "before" => \date($dataSortidaParseada)
             );
+
+            //'new Date(' . $dataSortidaParseada . ')'
 
             $diesNoDisponibles[] = $bloqueig;
         }
@@ -81,16 +87,16 @@ class PropietatController extends Controller
 
 
             $reserva = array(
-                "after" => 'new Date(' . $dataEntrada . ')',
-                "before" => 'new Date(' . $dataSortida . ')'
+                "after" => new Date($dataEntrada),
+                "before" => new Date($dataSortida)
             );
 
             $diesNoDisponibles[] = $reserva;
         }
 
-        return json_decode(json_encode($diesNoDisponibles),true);
+        //return json_decode(json_encode($diesNoDisponibles),true);
 
-        //return $diesNoDisponibles;
+        return $diesNoDisponibles;
     }
 
     public function preuPerDia(){}

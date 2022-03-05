@@ -239,13 +239,13 @@ public class PropietatController {
         Propietari propietari = propietariService.findPropietariByCorreu(((Propietari) httpSession.getAttribute("usuari")).getCorreu());
         propietatService.eliminar(idPROPIETAT);
 
-        File carpeta = new File("/Media/"+ idPROPIETAT + "-media/");
+        /*File carpeta = new File("/Media/"+ idPROPIETAT + "-media/");
         if (carpeta.exists()) {
 
             FileUtils.deleteDirectory(carpeta);
 
 
-        }
+        }*/
         return "redirect:/views/propietats/"+propietari.getId();
     }
 
