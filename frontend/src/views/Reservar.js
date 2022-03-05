@@ -78,7 +78,7 @@ class Reservar extends Component {
       <Col xs="6" className='login rounded mt-5 shadow-lg p-3 mb-5'>
       
         <h4 className='text-center mt-5 mb-3'>Dades de la reserva</h4>
-        <Form className='p-4 text-start  d-flex flex-column justify-content-center' action="/" onSubmit>
+        <Form className='p-4 text-start  d-flex flex-column justify-content-center' method='POST' action="http://localhost:8000/reserva">
         <FormGroup className='fr'>
                 <input 
                 hidden
@@ -143,21 +143,32 @@ class Reservar extends Component {
 
           <FormGroup className='fr'>
               <Label for="preuFinal" className='text-start fw-bold'>Nom i cognoms: </Label>
-             
-                <input
-                type="text"
-                readOnly
-                value={this.state.client['nom'] +" "+this.state.client['llinatge1']+" "+ this.state.client['llinatge2']}
-                />
+             {this.state.client['llinatge2']!=undefined &&
+             <input
+             type="text"
+             readOnly
+             value={this.state.client['nom'] +" "+this.state.client['llinatge1']+" "+ this.state.client['llinatge2']}
+             />
+             }
+              {this.state.client['llinatge2']===undefined &&
+             <input
+             type="text"
+             readOnly
+             value={this.state.client['nom'] +" "+this.state.client['llinatge1']}
+             />
+             }
+              
           </FormGroup>
 
           <FormGroup className='fr'>
-              <Label for="reserva" className='text-start fw-bold'>Dia de la reserva: </Label>
+              <Label for="today" className='text-start fw-bold'>Dia de la reserva: </Label>
              
                 <input
                 type="text"
                 readOnly
                 value={this.state.today}
+                name="today"
+                id="today"
                 />
           </FormGroup>
 

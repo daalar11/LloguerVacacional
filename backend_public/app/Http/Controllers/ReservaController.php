@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Propietat;
+use App\Models\Reserva;
 use App\Models\Tarifa;
 use DateInterval;
 use DatePeriod;
@@ -40,7 +41,13 @@ class ReservaController extends Controller
             $diesReserva=$diesReserva-$diesTarifa;
             $preu+=($diesReserva*$propietat['preu_base']);
         }
+        if($diesReserva>=30&&$propietat['descompte_mes']>0){
+            $preu=$preu*(1-($propietat['descompte_mes']/100));
+        }else if($diesReserva>=7&&$propietat['descompte_setmana']>0){
+            $preu=$preu*(1-($propietat['descompte_setmana']/100));
+        }
        $preuFinal['valor']=$preu;
        return  json_decode(json_encode($preuFinal),true);
     }
+
 }

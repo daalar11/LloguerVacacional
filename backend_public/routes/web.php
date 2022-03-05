@@ -113,3 +113,5 @@ Route::get('/propietat/{idPropietat}/nodisponible/info', [PropietatController::c
 Route::post('/register', [\App\Http\Controllers\UsuariController::class, 'create']);
 
 Route::post('/login', [\App\Http\Controllers\UsuariController::class, 'login']);
+Route::post('/reserva', [\App\Http\Controllers\RedsysController::class, 'reservar']);
+Route::get('/confirmarReserva',[\App\Http\Controllers\RedsysController::class,'payReserva']);

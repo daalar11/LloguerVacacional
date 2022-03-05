@@ -26,5 +26,8 @@ class Client extends Model
             ->withPivot("nota_accesibilitat")
             ->withPivot("data_comentari");
     }
+    public function reserva(){
+        return $this->hasMany(Reserva::class,'id_cli');
+    }
 
 }

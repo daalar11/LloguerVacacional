@@ -12,9 +12,13 @@ class Reserva extends Model
 
     protected $table ="reserva";
     protected $primaryKey ='idreserva';
-    public $timestamps = true;
+    public $timestamps = false;
 
     public function propietat(){
         return $this->belongsTo(Propietat::class,'id_propietat');
+    }
+
+    public function client(){
+        return $this->belongsTo(Client::class,'id_cli');
     }
 }
