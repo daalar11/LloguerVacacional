@@ -16,6 +16,7 @@ class App extends Component {
 
     this.state = {
       idUsuariLogeat: sessionStorage.getItem("idUsuariLogeat"),
+      idioma: 'ca',
       toggleUser: this.toggleUser,
     };
 

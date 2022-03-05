@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 
 //Importar un component de Bootstrap.
-import {Button, Row, Col, Form, Input} from 'reactstrap';
+import {Row, Col} from 'reactstrap';
 
 import Comentari from './Comentari';
 import InputComentari from './InputComentari';
@@ -19,7 +19,7 @@ class Comentaris extends Component {
     render() {
 
     const coms  = this.props.comentaris;
-   
+
     // -- RETURN DEL METODE RENDER
     return (
 
@@ -32,9 +32,12 @@ class Comentaris extends Component {
 
                     <hr></hr>
 
+                    {coms.length == 0 &&
+                        <p className='fw-bold'>Aquesta propietat encara no te cap comentari...</p>
+                    }
+
                     {/* Component Capsa de Comentaris */}
                     {coms.map(function(comentari, key) {
-                          
                           return (
                             <Comentari key = {key}
                             text={comentari.pivot.comentari}
@@ -56,10 +59,8 @@ class Comentaris extends Component {
                     )}
                     </UserContext.Consumer>
                     
-
                 </Col>
             </Row>
-      
       
     );//FI DEL RETURN DEL RENDER
   }//FI DEL RENDER

@@ -132,7 +132,7 @@ class Reservar extends Component {
               <Label className='text-start fw-bold'>Correu Electronic: </Label>
              
                 <input 
-                 readOnly
+                readOnly
                 value={this.state.client['correu'] }
                 type="email"
                 placeholder="example@gmail.com"

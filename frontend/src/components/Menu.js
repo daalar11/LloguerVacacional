@@ -35,7 +35,7 @@ class Menu extends Component {
 
       return (
       
-        <Navbar dark expand="md" fixed="top" light className="navb d-flex justify-content-center border-bottom">
+        <Navbar expand="md" fixed="top" light className="navb d-flex justify-content-center border-bottom">
           
           {/* NavItem Home */}
           <NavItem className="mt-2 me-3 list-unstyled">
@@ -72,7 +72,7 @@ class Menu extends Component {
 
       return (
       
-        <Navbar dark expand="md" fixed="top" light className="navb d-flex justify-content-center border-bottom">
+        <Navbar expand="md" fixed="top" light className="navb d-flex justify-content-center border-bottom">
           
           {/* NavItem Home */}
           <NavItem className="mt-2 me-3 list-unstyled">

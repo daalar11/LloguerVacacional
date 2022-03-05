@@ -1,7 +1,8 @@
 <?php
 namespace App\Http\Controllers;
-use App\Models\Habitacio;
+use App\Models\Bloqueig;
 use App\Models\Propietat;
+use App\Models\Reserva;
 use Illuminate\Http\Request;
 use App\Activity;
 use App\Item;
@@ -49,10 +50,50 @@ class PropietatController extends Controller
 
     public function diesNoDisponibles($idPropietat)
     {
-        $propietat= Propietat::with('bloqueig','tarifa', 'reserva')->find($idPropietat)->toArray();
+        $propietat= Propietat::with('bloqueig', 'reserva')->find($idPropietat)->toArray();
 
-        return json_decode(json_encode($propietat),true);
+        $bloqueigArray = Bloqueig::where('id_propietat',$idPropietat)->get()->toArray();
+        $reservaArray = Reserva::where('id_propietat',$idPropietat)->get()->toArray();
+
+        $diesNoDisponibles = array();
+
+        for ($i = 0; $i<count($bloqueigArray);$i++){
+
+            //$dataEntrada = $bloqueigArray[$i]['d_inici'];
+            //$dataSortida = $bloqueigArray[$i]['d_fi'];
+
+            $dataEntrada = str_replace('-', ', ', $bloqueigArray[$i]['d_inici']);
+            $dataSortida = str_replace('-', ', ', $bloqueigArray[$i]['d_fi']);
+
+
+            $bloqueig = array(
+                "after" => 'new Date(' . $dataEntrada . ')',
+                "before" => 'new Date(' . $dataSortida . ')'
+            );
+
+            $diesNoDisponibles[] = $bloqueig;
+        }
+
+        for ($j = 0; $j<count($reservaArray);$j++){
+
+            $dataEntrada = str_replace('-', ', ', $reservaArray[$i]['d_arribada']);
+            $dataSortida = str_replace('-', ', ', $reservaArray[$i]['d_sortida']);
+
+
+            $reserva = array(
+                "after" => 'new Date(' . $dataEntrada . ')',
+                "before" => 'new Date(' . $dataSortida . ')'
+            );
+
+            $diesNoDisponibles[] = $reserva;
+        }
+
+        return json_decode(json_encode($diesNoDisponibles),true);
+
+        //return $diesNoDisponibles;
     }
+
+    public function preuPerDia(){}
 
 
 }

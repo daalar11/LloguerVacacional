@@ -134,20 +134,13 @@ export default class DayPicker extends React.Component {
     this.switchLocale = this.switchLocale.bind(this);
     this.handleDayChange = this.handleDayChange.bind(this);
     this.state = {
-        disabled: [
-          {
-            before: new Date()
-          },
-          {
-            after: new Date(2022, 2, 5),
-            before: new Date(2022, 2, 15)
-          },
-          new Date(2022, 1, 28),     
-        ],
+        disabled: [],
       selectedDay: undefined,
       locale: 'es',
     };
   }
+
+  
 
   switchLocale(e) {
     const locale = e.target.value || 'es';
@@ -174,6 +167,7 @@ export default class DayPicker extends React.Component {
       }
 
     const { selectedDay, locale, disabled } = this.state;
+    console.log(disabled)
     const FORMAT = 'dd-MM-yyyy';
     return (
       <span>

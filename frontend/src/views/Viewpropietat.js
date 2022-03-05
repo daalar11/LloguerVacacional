@@ -17,6 +17,8 @@ import {Row, Col, Breadcrumb, BreadcrumbItem} from 'reactstrap';
 import axios from 'axios';
 
 import {Link} from "react-router-dom";
+
+
  
 class Viewpropietat extends Component {
 
@@ -35,14 +37,16 @@ class Viewpropietat extends Component {
       };
   }
 
+  
+
   //Metode amb la peticio axios a n url.
   propietatById = () => {
 
-    //Agafam el parametres de la URL d'aquesta forma. (No fa falta instalar cap packet, ve a javascript intern)
-    const queryParams = new URLSearchParams(window.location.search);
-    const id = queryParams.get('id');
+     //Agafam el parametres de la URL d'aquesta forma. (No fa falta instalar cap packet, ve a javascript intern)
+const queryParams = new URLSearchParams(window.location.search);
+const id = queryParams.get('id');
+const url = "http://127.0.0.1:8000"
 
-    var url = "http://127.0.0.1:8000"
     var request = "/all/" + id;
 
     axios.get(url + request)
@@ -65,11 +69,12 @@ class Viewpropietat extends Component {
 
   getFotos = () => {
 
-    //Agafam el parametres de la URL d'aquesta forma. (No fa falta instalar cap packet, ve a javascript intern)
-    const queryParams = new URLSearchParams(window.location.search);
-    const id = queryParams.get('id');
+     //Agafam el parametres de la URL d'aquesta forma. (No fa falta instalar cap packet, ve a javascript intern)
+const queryParams = new URLSearchParams(window.location.search);
+const id = queryParams.get('id');
+const url = "http://127.0.0.1:8000"
 
-    var url = "http://127.0.0.1:8000"
+    
     var request = "/propietat/" + id + "/fotos/info";
     
     axios.get(url + request)
