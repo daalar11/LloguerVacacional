@@ -10,6 +10,7 @@ use DatePeriod;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Facades\DB;
 
 class ReservaController extends Controller
 {
@@ -49,6 +50,22 @@ class ReservaController extends Controller
        $preuFinal['valor']=$preu;
        return  json_decode(json_encode($preuFinal),true);
         //return $preu;
+    }
+
+    public function listReservaByIdClient($idClient){
+        $reserva=Reserva::where('id_cli',$idClient)->get()->toArray();
+        return json_decode(json_encode($reserva),true);
+    }
+    public function cancelarReservaNoPagada(Request $request){
+        $idPropietat=$request->get('idPropietat');
+        $idCli=$request->get('idCli');
+        $dInici=$request->get('dInici');
+        $affected= DB::table('reserva')->where('id_propietat',$idPropietat)
+            ->where('id_cli',$idCli)
+            ->where('d_arribada',$dInici)
+            ->where('pagada',0)
+            ->delete();
+        return redirect("http://localhost:3000/misreservas");
     }
 
 }
