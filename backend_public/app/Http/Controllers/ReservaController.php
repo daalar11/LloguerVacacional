@@ -50,4 +50,9 @@ class ReservaController extends Controller
        return  json_decode(json_encode($preuFinal),true);
     }
 
+    public function listReservaByIdClient($idClient){
+        $reserva=Reserva::where('id_cli',$idClient)->get()->toArray();
+        return json_decode(json_encode($reserva),true);
+    }
+
 }
