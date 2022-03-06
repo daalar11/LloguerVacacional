@@ -38,6 +38,7 @@ Route::get('/all2/{idPropietat}/{d_inici}/{d_fi}',[ReservaController::class,'cal
 Route::get('/all',[PropietatController::class,'listAllByPropietat']);
 Route::get('/all/{idPropietat}',[PropietatController::class,'listAllByPropietatId']);
 Route::get('/propietat/{idLocalitat}/{places}',[PropietatController::class,'listPropietatByPlacesAndLocalitat']);
+Route::get('/cancelarReserva',[ReservaController::class,'cancelarReservaNoPagada']);
 
 // ------------- Rutes Habitacions -------------------
 Route::get('/{idPropietat}/habitacions',[HabitacioController::class,'listHabitacioByPropietat']);

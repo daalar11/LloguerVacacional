@@ -20,7 +20,7 @@ class RedsysController extends Controller
             ->where('d_arribada',$dInici)
             ->update(array('pagada'=>1));
 
-        return redirect("http://localhost:3000/");
+        return redirect("http://localhost:3000/misreservas");
     }
     public function reservar(Request $request){
         $miObj = new RedsysAPI;
@@ -43,14 +43,13 @@ class RedsysController extends Controller
         $reserva->preu_final=$preu;
 
         $reserva->save();
-
         $fuc="999008881";
         $terminal="1";
         $moneda="978";
         $trans="0";
         $url="https://sis-t.redsys.es:25443/sis/realizarPago";
         $urlOK="http://localhost:8000/confirmarReserva?idPropietat=".$idPropietat."&idCli=".$idClient."&dInici=".$dinici;
-        $urlKO="http://localhost:3000/";
+        $urlKO="http://localhost:8000/cancelarReserva?idPropietat=".$idPropietat."&idCli=".$idClient."&dInici=".$dinici;
         $id=date('ymdHis');
         $amount=$preu*100;
 

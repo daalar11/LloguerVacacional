@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import 'bootstrap/dist/css/bootstrap.min.css';//Bootstrap
-import {Row, Breadcrumb, BreadcrumbItem} from 'reactstrap';
+import {Row, Breadcrumb, BreadcrumbItem,Col,Table, Button} from 'reactstrap';
 
 import {Link} from "react-router-dom";
 
@@ -14,13 +14,14 @@ class Home extends Component {
 
       this.state = {
         reserves: [],
+        propietat:[],
         isLoading: false,
         error: null,
       };
   }
 
   getReservesByUsuari = () => {
-    var idClient=localStorage.getItem('idUsuariLogeat');
+    var idClient=sessionStorage.getItem('idUsuariLogeat');
     var url = "http://127.0.0.1:8000"
     var request = "/misReservas/"+idClient;
     
@@ -36,24 +37,94 @@ class Home extends Component {
       isLoading: false
     }));
   }
+  getPropietat = () => {
+    var url = "http://127.0.0.1:8000"
+    var request = "/all/"+this.state.reserves.id_propietat;
+    
+     axios.get(url + request)
+    .then(res => {this.setState({
+      propietat: res.data,
+          status: true
+        });
+    })
+    //Tractam errors
+    .catch(error => this.setState({
+      error,
+      isLoading: false
+    }));
+  }
+    componentDidMount = () => {
+      this.getReservesByUsuari();
+      this.getPropietat();
+
+  }
 
   render() {
-   console.log(localStorage.getItem('idUsuariLogeat'));
-   console.log(this.state.reserves)
+
+   const reserves=this.state.reserves.map((reserva,index)=>{
+    return(
+    
+    <tr key={index}>
+      <th scope="row">
+        {reserva.idreserva}
+      </th>
+      <td>{reserva.d_arribada}</td>
+      <td>{reserva.d_sortida}</td>
+      <td>{reserva.preu_final} €</td>
+      <td>
+        <Link  to={"/viewpropietat?id="+reserva.id_propietat}>
+      <Button className="btn btn-dark">
+        Anar a casa
+        </Button>
+        </Link>
+        </td>
+    </tr>
+   )
+  });
 
     return (
       
       <Row className="p-4 bg-opacity-50">
-
-        <Breadcrumb>
-          <BreadcrumbItem>
-            <Link to="/">Home</Link>
-          </BreadcrumbItem>
-          <BreadcrumbItem active>
-            Mis Reservas
-          </BreadcrumbItem>
-        </Breadcrumb>
-       
+        <Col className="col-12">
+          <Breadcrumb>
+            <BreadcrumbItem>
+              <Link to="/">Home</Link>
+            </BreadcrumbItem>
+            <BreadcrumbItem active>
+              Mis Reservas
+            </BreadcrumbItem>
+          </Breadcrumb>
+        </Col>
+        <Col className="col-12">
+<Table
+ hover
+ responsive
+>
+  <thead>
+    <tr>
+      <th>
+        Id reserva
+      </th>
+      <th>
+        Data arribada
+      </th>
+      <th>
+        Data sortida
+      </th>
+      <th>
+        Preu
+      </th>
+      <th>
+        Casa
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    
+    {reserves}
+  </tbody>
+</Table>
+        </Col>
       </Row>  
       
     );
