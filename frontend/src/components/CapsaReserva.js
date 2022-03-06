@@ -3,7 +3,7 @@ import { Component } from 'react';
 import React from "react";
 
 //Importar un component de Bootstrap.
-import {Col, Label, Form} from 'reactstrap';
+import {Col, Form} from 'reactstrap';
 
 import DayPicker from "./DayPicker";
 import dateFnsFormat from 'date-fns/format';
@@ -17,10 +17,27 @@ class CapsaReserva extends Component {
         super(props);
         this.state = {
           diesNoDisponibles: [],
+          arribada: "",
+          sortida: "", 
           isLoading: false,
           error: null,
         };
+
+        this.changeArribada=this.changeArribada.bind(this);
+        this.changeSortida=this.changeSortida.bind(this);
+
       }
+
+    changeArribada(dataArribada){
+      //const dataParseada = dataArribada.getFullYear() + '-' + dataArribada.getMonth() + 1 +'-'+ dataArribada.getDate();
+      this.setState({arribada : dataArribada});
+      console.log(this.state.arribada)
+    }
+
+    changeSortida(dataSortida){
+      //const dataParseada = dataSortida.getFullYear() + '-' + dataSortida.getMonth() + 1 +'-'+ dataSortida.getDate();
+      this.setState({sortida : dataSortida});
+    }
 
     getDiesNoDisponibles = () => {
 
@@ -44,6 +61,7 @@ class CapsaReserva extends Component {
     }));
     }
 
+
     //Metode componentDidMount
   componentDidMount = () => {
     this.getDiesNoDisponibles();
@@ -61,35 +79,24 @@ class CapsaReserva extends Component {
       return <p>Loading ...</p>;
     }
 
-    const FORMAT = 'dd-MM-yyyy';
-
     if (sessionStorage.getItem("idUsuariLogeat")==null){
 
     return (
 
         <Col xs="3" className='mt-1'>
 
-            <Form className='mt-5 text-start  d-flex flex-column justify-content-center' action='#'>
+            <Form className='mt-5 text-start  d-flex flex-column justify-content-center' action='/login'>
 
                 <span className='fw-bold'>Estableix les dates de la teva estada</span>
                 <hr></hr>
 
                 {/* Input data entrada */}
                 <DayPicker 
-                placeholder={`${dateFnsFormat(new Date(), FORMAT)}`}
                 diesNoDisponibles={diesNoDisponibles}
-                />
-            
-                <span className='text-start fw-bold mt-4'><input type='submit'  className='p-2 bg-light' value="Calcular Preu" /> - Preu <span className='ms-2 text-danger' id='preu'>714€</span></span>
+                handleChangeArribada={this.changeArribada}
+                handleChangeSortida={this.changeSortida}
+                />                
                 
-                
-            </Form>
-
-            <Form className='mt-5 text-start  d-flex flex-column justify-content-center' action='/login'>
-
-                <input type="hidden" name='data-entrada' />
-                <input type="hidden" name="data-sortida" />
-
                 <input type='submit' color="dark" className='mt-4 fw-bold bg-dark text-white rounded' value="Llogar" />
                 
             </Form>
@@ -101,39 +108,24 @@ class CapsaReserva extends Component {
         
         </Col>
         
-             
-    
-
     );
     } else {
         return (
              <Col xs="3" className='mt-1'>
 
-            <Form className='mt-5 text-start  d-flex flex-column justify-content-center' action='/reservar'>
+              <Form className='mt-5 text-start  d-flex flex-column justify-content-center' action='/login'>
 
                 <span className='fw-bold'>Estableix les dates de la teva estada</span>
                 <hr></hr>
-                <Label className='text-start fw-bold'>Data Entrada</Label>
 
                 {/* Input data entrada */}
                 <DayPicker 
-                placeholder={`${dateFnsFormat(new Date(), FORMAT)}`}
                 diesNoDisponibles={diesNoDisponibles}
                 />
-                
-                <Label className='text-start fw-bold mt-4'>Data Sortida</Label>
 
-                {/* Input data sortida */}
-                <DayPicker 
-                placeholder={`${dateFnsFormat(new Date(), FORMAT)}`}
-                diesNoDisponibles={diesNoDisponibles}
-                />
-            
-            
-                <span className='text-start fw-bold mt-4'>Preu: <span className='ms-2 text-danger' id='preu'>714€</span></span>
                 <input type='submit' color="dark" className='mt-4 fw-bold bg-dark text-white rounded' value="Llogar" />
-                
-            </Form>
+
+              </Form>
 
             <p className='text-start text-black-75 mt-4'>
                 Selecciona els dies que desitjaries llogar la propietat per coneixer el preu de l'estada.<br></br><br></br>

@@ -82,13 +82,18 @@ class PropietatController extends Controller
 
         for ($j = 0; $j<count($reservaArray);$j++){
 
-            $dataEntrada = str_replace('-', ', ', $reservaArray[$i]['d_arribada']);
-            $dataSortida = str_replace('-', ', ', $reservaArray[$i]['d_sortida']);
+            //$dataEntrada = str_replace('-', ', ', $reservaArray[$i]['d_arribada']);
+            //$dataSortida = str_replace('-', ', ', $reservaArray[$i]['d_sortida']);
 
+            $dataEntrada = strtotime($reservaArray[$j]['d_arribada']);
+            $dataSortida = strtotime($reservaArray[$j]['d_sortida']);
+
+            $dataEntradaParseada = date( 'Y, m, d', $dataEntrada );
+            $dataSortidaParseada = date( 'Y, m, d', $dataSortida );
 
             $reserva = array(
-                "after" => new Date($dataEntrada),
-                "before" => new Date($dataSortida)
+                "after" => \date($dataEntradaParseada),
+                "before" => \date($dataSortidaParseada)
             );
 
             $diesNoDisponibles[] = $reserva;
@@ -98,8 +103,6 @@ class PropietatController extends Controller
 
         return $diesNoDisponibles;
     }
-
-    public function preuPerDia(){}
 
 
 }

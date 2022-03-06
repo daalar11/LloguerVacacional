@@ -116,7 +116,7 @@ class Menu extends Component {
 
           {/* NavItem Login */}
           <NavItem className="mt-2 me-3 list-unstyled">
-            <Link className="mt-2 text-decoration-none text-dark" to="#">
+            <Link className="mt-2 text-decoration-none text-dark" onClick={this.tancarSessio} to="#">
             <span>{this.props.t('header.loggout')} </span><DoorOpenFill className="mb-1" width="30" height="30"/>
             </Link>
           </NavItem>

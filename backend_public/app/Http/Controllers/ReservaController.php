@@ -48,6 +48,7 @@ class ReservaController extends Controller
         }
        $preuFinal['valor']=$preu;
        return  json_decode(json_encode($preuFinal),true);
+        //return $preu;
     }
 
 }
