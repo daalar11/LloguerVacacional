@@ -69,28 +69,27 @@ class CapsaReserva extends Component {
 
         <Col xs="3" className='mt-1'>
 
-            <Form className='mt-5 text-start  d-flex flex-column justify-content-center' action='/login'>
+            <Form className='mt-5 text-start  d-flex flex-column justify-content-center' action='#'>
 
                 <span className='fw-bold'>Estableix les dates de la teva estada</span>
                 <hr></hr>
-                <Label className='text-start fw-bold'>Data Entrada</Label>
 
                 {/* Input data entrada */}
                 <DayPicker 
                 placeholder={`${dateFnsFormat(new Date(), FORMAT)}`}
                 diesNoDisponibles={diesNoDisponibles}
                 />
+            
+                <span className='text-start fw-bold mt-4'><input type='submit'  className='p-2 bg-light' value="Calcular Preu" /> - Preu <span className='ms-2 text-danger' id='preu'>714€</span></span>
                 
-                <Label className='text-start fw-bold mt-4'>Data Sortida</Label>
+                
+            </Form>
 
-                {/* Input data sortida */}
-                <DayPicker 
-                placeholder={`${dateFnsFormat(new Date(), FORMAT)}`}
-                diesNoDisponibles={diesNoDisponibles}
-                />
-            
-            
-                <span className='text-start fw-bold mt-4'>Preu: <span className='ms-2 text-danger' id='preu'>714€</span></span>
+            <Form className='mt-5 text-start  d-flex flex-column justify-content-center' action='/login'>
+
+                <input type="hidden" name='data-entrada' />
+                <input type="hidden" name="data-sortida" />
+
                 <input type='submit' color="dark" className='mt-4 fw-bold bg-dark text-white rounded' value="Llogar" />
                 
             </Form>

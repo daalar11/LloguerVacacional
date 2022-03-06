@@ -1,211 +1,132 @@
 import React from 'react';
+import moment from 'moment';
+import Helmet from 'react-helmet';
 
 import DayPickerInput from 'react-day-picker/DayPickerInput';
-import { DateUtils } from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 
-import './PropietatExpand.css';
-
 import dateFnsFormat from 'date-fns/format';
-import dateFnsParse from 'date-fns/parse';
 
-const WEEKDAYS_SHORT = {
-  ru: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
-  it: ['Do', 'Lu', 'Ma', 'Me', 'Gi', 'Ve', 'Sa'],
-  es: ['Do','Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa'],
-  ca: ['Dg','Dl', 'Di', 'Dm', 'Dj', 'Dv', 'Ds'],
-};
-const MONTHS = {
-  ru: [
-    'Январь',
-    'Февраль',
-    'Март',
-    'Апрель',
-    'Май',
-    'Июнь',
-    'Июль',
-    'Август',
-    'Сентябрь',
-    'Октябрь',
-    'Ноябрь',
-    'Декабрь',
-  ],
-  it: [
-    'Gennaio',
-    'Febbraio',
-    'Marzo',
-    'Aprile',
-    'Maggio',
-    'Giugno',
-    'Luglio',
-    'Agosto',
-    'Settembre',
-    'Ottobre',
-    'Novembre',
-    'Dicembre',
-  ],
-  es: [
-    'Enero',
-    'Febrero',
-    'Marzo',
-    'Abril',
-    'Mayo',
-    'Junio',
-    'Julio',
-    'Agosto',
-    'Septiembre',
-    'Octubre',
-    'Noviembre',
-    'Diciembre',
-  ],
-  ca: [
-    'Gener',
-    'Febrer',
-    'Març',
-    'Abril',
-    'Maig',
-    'Juny',
-    'Juliol',
-    'Agost',
-    'Setembre',
-    'Octubre',
-    'Novembre',
-    'Decembre',
-  ],
-};
+import { formatDate, parseDate } from 'react-day-picker/moment';
 
-const WEEKDAYS_LONG = {
-  ru: [
-    'Воскресенье',
-    'Понедельник',
-    'Вторник',
-    'Среда',
-    'Четверг',
-    'Пятница',
-    'Суббота',
-  ],
-  it: [
-    'Domenica',
-    'Lunedì',
-    'Martedì',
-    'Mercoledì',
-    'Giovedì',
-    'Venerdì',
-    'Sabato',
-  ],
-  es: [
-    'Domingo',
-    'Lunes',
-    'Martes',
-    'Miercoles',
-    'Jueves',
-    'Viernes',
-    'Sabado',
-  ],
-  ca: [
-    'Diumenge',
-    'Dilluns',
-    'Dimarts',
-    'Dimecres',
-    'Dijous',
-    'Divendres',
-    'Dissabte',
-  ],
-};
-
-const FIRST_DAY_OF_WEEK = {
-  ru: 1,
-  it: 1,
-  es: 1,
-  ca: 1,
-};
-// Translate aria-labels
-const LABELS = {
-  ru: { nextMonth: 'следующий месяц', previousMonth: 'предыдущий месяц' },
-  it: { nextMonth: 'Prossimo mese', previousMonth: 'Mese precedente' },
-  es: { nextMonth: 'Mes anterior', previousMonth: 'Proximo mes' },
-  ca: { nextMonth: 'Mes anterior', previousMonth: 'Seguent mes' },
-};
-  
-
-export default class DayPicker extends React.Component {
+export default class Example extends React.Component {
   constructor(props) {
     super(props);
-    this.switchLocale = this.switchLocale.bind(this);
-    this.handleDayChange = this.handleDayChange.bind(this);
+    this.handleFromChange = this.handleFromChange.bind(this);
+    this.handleToChange = this.handleToChange.bind(this);
     this.state = {
-        disabled: [],
-      selectedDay: undefined,
-      locale: 'es',
+      from: undefined,
+      to: undefined,
+      disabledDays: [],
     };
   }
 
-  componentWillReceiveProps(props) {
-    this.setState({disabled: props.diesNoDisponibles});
+  showFromMonth() {
+    const { from, to } = this.state;
+    if (!from) {
+      return;
+    }
+    if (moment(to).diff(moment(from), 'months') < 2) {
+      this.to.getDayPicker().showMonth(from);
+    }
   }
 
-  switchLocale(e) {
-    const locale = e.target.value || 'es';
-    this.setState({ locale });
+  handleFromChange(from) {
+    // Change the from date and focus the "to" input field
+    this.setState({ from });
   }
 
-  handleDayChange(day) {
-    this.setState({ selectedDay: day });
-    console.log(day)
+  handleToChange(to) {
+    this.setState({ to }, this.showFromMonth);
   }
+  
 
   render() {
 
-    function parseDate(str, format, locale) {
-        const parsed = dateFnsParse(str, format, new Date(), { locale });
-        if (DateUtils.isDate(parsed)) {
-          return parsed;
-        }
-        return undefined;
-      }
-
     function formatDate(date, format, locale) {
-        return dateFnsFormat(date, format, { locale });
-      }
+      return dateFnsFormat(date, format, { locale });
+    }
+    
 
-    const { selectedDay, locale, disabled } = this.state;
-    console.log(disabled)
+    const { from, to } = this.state;
+    const modifiers = { start: from, end: to };
     const FORMAT = 'dd-MM-yyyy';
     return (
-      <span>
-        {/*<p>
-          <select value={locale} onChange={this.switchLocale}>
-            <option value="en">English</option>
-            <option value="ru">Русский (Russian)</option>
-            <option value="it">Italian</option>
-            <option value="es">Español</option>
-            <option value="ca">Català</option>
-          </select>
-        </p>*/}
+      <div className="InputFromTo m-auto">
         <DayPickerInput
-        onDayChange={this.handleDayChange}
-        formatDate={formatDate}
-        format={FORMAT}
-        placeholder={this.props.placeholder}
-        dayPickerProps={{
-          /*locale: locale,
-          months: MONTHS[locale],
-          weekdaysLong: WEEKDAYS_LONG[locale],
-          weekdaysShort: WEEKDAYS_SHORT[locale],
-          firstDayOfWeek: FIRST_DAY_OF_WEEK[locale],
-          labels: LABELS[locale],*/
-          showWeekNumbers: true,
-          firstDayOfWeek: 1,
-          showOutsideDays: true,
-          fixedWeeks: true,
-          numberOfMonths: 2,
-          pagedNavigation: true,
-          fixedWeeks: true,
-          modifiers: {disabled},
-        }}
-        />
-        {selectedDay && <p>Dia: {selectedDay.toLocaleDateString()}</p>}
-      </span>
+          value={from}
+          placeholder="Arribada"
+          formatDate={formatDate}
+          format={FORMAT}
+          dayPickerProps={{
+            selectedDays: [from, { from, to }],
+            disabledDays: [
+              { before: new Date() },
+              { after: to },
+              {
+                after: new Date(2022, 2, 7),
+                before: new Date(2022, 2, 10)
+              }
+            ],
+            toMonth: to,
+            modifiers,
+            numberOfMonths: 2,
+            onDayClick: () => this.to.getInput().focus(),
+          }}
+          onDayChange={this.handleFromChange}
+        />{' '}
+        {' '}
+        <span className="InputFromTo-to">
+          <DayPickerInput
+            ref={el => (this.to = el)}
+            value={to}
+            placeholder="Sortida"
+            formatDate={formatDate}
+            format={FORMAT}
+            dayPickerProps={{
+              selectedDays: [from, { from, to }],
+              disabledDays: [
+                { before: from },
+                {
+                  after: new Date(2022, 2, 7),
+                  before: new Date(2022, 2, 10)
+                }
+              ],
+              modifiers,
+              month: from,
+              fromMonth: from,
+              numberOfMonths: 2,
+            }}
+            onDayChange={this.handleToChange}
+          />
+        </span>
+        <Helmet>
+          <style>{`
+            .InputFromTo .DayPicker-Day--selected:not(.DayPicker-Day--start):not(.DayPicker-Day--end):not(.DayPicker-Day--outside) {
+              background-color: #f0f8ff !important;
+              color: #4a90e2;
+            }
+            .InputFromTo .DayPicker-Day {
+              border-radius: 0 !important;
+            }
+            .InputFromTo .DayPicker-Day--start {
+              border-top-left-radius: 50% !important;
+              border-bottom-left-radius: 50% !important;
+            }
+            .InputFromTo .DayPicker-Day--end {
+              border-top-right-radius: 50% !important;
+              border-bottom-right-radius: 50% !important;
+            }
+            .InputFromTo .DayPickerInput-Overlay {
+              width: 550px;
+            }
+            .InputFromTo-to .DayPickerInput-Overlay {
+              margin-left: -198px;
+            }
+          `}
+          </style>
+        </Helmet>
+      </div>
     );
   }
 }
