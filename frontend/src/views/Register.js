@@ -1,21 +1,13 @@
-//Css de ViewPropietat
-import '../components/PropietatExpand.css';
-
 import React from "react";
 import { useForm } from "react-hook-form";
-
 import {Row, Col, Form, FormGroup, Label, Input} from 'reactstrap';
-
 import axios from 'axios';
-
 import {Link} from "react-router-dom";
-
-//Traduccions
-import { useTranslation, Trans } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
 function Register() {
 
-const { t, i18n } = useTranslation();
+const { t } = useTranslation();
 
   const { register, handleSubmit, formState: { errors } } = useForm();
   const onSubmit = data => axios.post('http://localhost:8000/register', 
@@ -31,8 +23,6 @@ const { t, i18n } = useTranslation();
     })
     .then(function (response){
 
-        console.log(response);
-
         //Si response = 0 vol dir que sha fet el registre amb exit
         if (response.data[0] == 0){
 
@@ -41,20 +31,13 @@ const { t, i18n } = useTranslation();
 
         } 
         if (response.data[0] == 1) {
-            
-            //Falta aplicar canvis a la pantalla (ex: lletres varmelles amb missatge)
             alert(response.data[1]);
-
         }
-        if (response.data[0] == 2) {
-            
-            //Falta aplicar canvis a la pantalla (ex: lletres varmelles amb missatge)
+        if (response.data[0] == 2) {   
             alert(response.data[1]);
-
         } 
         
     }).catch(err => console.log(err))
-
 
   return (
 
@@ -62,7 +45,7 @@ const { t, i18n } = useTranslation();
 
         <Col xs="2" />
     
-        <Col xs="8" className='login rounded mt-5 shadow-lg'>
+        <Col xs="8">
         
             <h4 className='text-center mt-5'>{t('register.title')}</h4>
 
@@ -80,6 +63,7 @@ const { t, i18n } = useTranslation();
                             maxLength: 9,
                             pattern: /^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKE]$/i,
                         })}
+                        className="border border-dark"
                         id="dni"
                         name="dni"
                         type="text"
@@ -96,6 +80,7 @@ const { t, i18n } = useTranslation();
                             minLength: 2,
                             maxLength: 50
                         })}
+                        className="border border-dark"
                         id="llinatge1"
                         name="llinatge1"
                         type="text"
@@ -107,6 +92,7 @@ const { t, i18n } = useTranslation();
                         <Label className='text-start fw-bold'>{t('register.pass')} <span className="text-danger">*</span></Label>
                         <input 
                         {...register("contrasenya")}
+                        className="border border-dark"
                         id="contrasenya"
                         name="contrasenya"
                         type="password"
@@ -123,6 +109,7 @@ const { t, i18n } = useTranslation();
                             required: true,
                             minLength: 3
                         })}
+                        className="border border-dark"
                         id="nom"
                         name="nom"
                         type="text"
@@ -137,6 +124,7 @@ const { t, i18n } = useTranslation();
                             required: true,
                             minLength: 3
                         })}
+                        className="border border-dark"
                         id="llinatge2"
                         name="llinatge2"
                         type="text"
@@ -150,6 +138,7 @@ const { t, i18n } = useTranslation();
                             required: true,
                             minLength: 3
                         })}
+                        className="border border-dark"
                         id="contrasenya2"
                         name="contrasenya2"
                         type="password"
@@ -167,6 +156,7 @@ const { t, i18n } = useTranslation();
                         minLength: 3,
                         pattern: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
                     })}
+                    className="border border-dark"
                     id="correu"
                     name="correu"
                     type="email"
@@ -176,7 +166,7 @@ const { t, i18n } = useTranslation();
             
                 </FormGroup>
                 
-                <Input className="boto-submit-register mt-5" type="submit" value={t('register.registrar')}/>
+                <Input className="mt-4 btn btn-outline-dark" type="submit" value={t('register.registrar')}/>
                 <p className="mt-4">{t('register.tensUser')} <Link to="/login">{t('register.login')}</Link></p> 
 
             </Row>
@@ -184,9 +174,7 @@ const { t, i18n } = useTranslation();
             </Form>
         </Col>
         <Col xs="2"/>
-
     </Row>
-
   );
 }
 

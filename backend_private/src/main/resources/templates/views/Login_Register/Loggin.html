@@ -6,28 +6,14 @@
 
     <script type="text/javascript" th:src="@{/js/ValidacionsFormularis/validacionsFormularis.js}"></script>
 
-    <style>
-        html {
-            height: 100%;
-        }
-        body {
-            background-image: url("https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/quay-tower-1585643071.jpg?resize=980:*");
-            height: 100%;
-            min-height: 100%;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
-    </style>
-
 </head>
-<body>
+<body class="d-block">
 <div th:insert="plantilla/template :: header" class="position-sticky top-0 navb p-0"></div>
 
-<main class="container mt-5">
+<main class="container">
     <div class="row">
         <div class="col-4"></div>
-        <form class="col-4 mt-5 border-start border-end shadow-lg bg-body rounded p-5" th:object="${usuari}" th:action="@{/autenticate/autenticate}" method="post" onsubmit="return validacioLogin()">
+        <form class="col-4 border-start border-end shadow-lg bg-body rounded p-5" th:object="${usuari}" th:action="@{/autenticate/autenticate}" method="post" onsubmit="return validacioLogin()">
             <div class="row">
                 <div class="col-12">
                     <h3 class="text-center mt-3">Inicia Sessió</h3>

@@ -21,6 +21,12 @@ i18n
     resources: {
         ca: {
           translation: {
+                breadcrumb: {
+                    home: "Pàgina Principal",
+                    cercar: "Cercar Cases",
+                    vistacasa: "Vista de la casa",
+                    reservar: "Reservar"
+                },
                 login: {
                     title: "Iniciar sessió",
                     email: "Correu Electronic",
@@ -58,11 +64,61 @@ i18n
                     politica: "Politica de la companyia",
                     copyright: "Drets d'autor",
                     title2: "Xarxes Socials",
+                    dev: "Desenvolupadors",
+                    institucio: "Institució"
+                },
+                viewpropietat: {
+                    titolDates: "Estableix les dates de la teva estada",
+                    arribada: "Arribada",
+                    sortida: "Sortida",
+                    preu: "Preu",
+                    llogarboto: "Llogar Propietat",
+                    selecc: "Selecciona els dies que desitjaries llogar la propietat per coneixer el preu de l'estada.",
+                    clica: "Clica llogar per anar a la pantalla de la teva reserva",
+                    p1: "Selecciona els dies que desitjaries llogar la propietat per coneixer el preu de l'estada",
+                    p2: "Recorda que has d'",
+                    p3: "sessio amb el teu compte per poder reservar una propietat!", 
+                    direccio: "Direcció:",
+                    plases: "Nº de Places:",
+                    banys: "Nº de Banys:",
+                    localitat: "Localitat:",
+                    habitacions: "Nº d'Habitacions:",
+                    preudia: "Preu/Dia:",
+                    descomptem: "Descompte Més:",
+                    descomptes: "Descompte Setmana:",
+                    caract: "Caracteristiques:",
+                    normes: "Normes de la casa:",
+                    hab: "Habitacions",
+                    errorCar: "El propietari no ha definit cap caracteristica",
+                    titlecom: "Comentaris",
+                    noComent: "Aquesta propietat encara no te cap comentari...",
+                    valoracio: "Valoració General",
+                    comentariError: "Per deixar la teva opinio de la propietat es necessari iniciar sessió amb el teu compte",
+                    hasestat: "Has estat a la propietat? Deixa la teva review per tal d'ajudar als futurs inquilins!",
+                    valor: "Valora de 1 a 10",
+                    escriu: "Escriu el teu comentari",
+                    ubi: "Ubicació",
+                    notaNovalida: "Nota no valida",
+                    estada: "Estada",
+                    neteja: "Neteja",
+                    comentar: "Comentar",
+                    habitacio: "Habitació:",
+                    llitsd: "Nº de Llits Dobles:",
+                    llitss: "Nº de Llits Individuals:",
+                    bany: "Bany",
+    
+    
                 }
           }
         },  
         en: {
         translation: {
+            breadcrumb: {
+                home: "Home Page",
+                cercar: "Search",
+                vistacasa: "View",
+                reservar: "Booking"
+            },
             login: {
                 title: "Log In",
                 email: "Email",
@@ -99,11 +155,20 @@ i18n
                 politica: "Company Policies",
                 copyright: "Copyright",
                 title2: "Social Networks",
-            }
+                dev: "Developers",
+                institucio: "Educ. Center"
+            },
+            
         }
         },
         es: {
         translation: {
+            breadcrumb: {
+                home: "Pagina Principal",
+                cercar: "Buscar Casas",
+                vistacasa: "Vista",
+                reservar: "Reservar"
+            },
             login: {
                 title: "Iniciar Session",
                 email: "Correo Electronico",
@@ -140,6 +205,8 @@ i18n
                 politica: "Politica de la compañia",
                 copyright: "Derechos de autor",
                 title2: "Redes Sociales",
+                dev: "Desarrolladores",
+                institucio: "Centro Educ."
             }
         }
         }

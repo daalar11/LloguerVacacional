@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import {Row, Col} from 'reactstrap';
 
-import '../components/PropietatExpand.css';
-import { FaFacebookF, FaInstagram, FaTwitterSquare, FaComments, FaPeopleCarry, FaCopyright } from 'react-icons/fa';
+import { FaFacebookF, FaInstagram, FaTwitterSquare, FaComments, FaPeopleCarry, FaCopyright, FaPersonBooth } from 'react-icons/fa';
 
 //Import Traduccions
 import { withTranslation } from 'react-i18next';
@@ -11,19 +10,28 @@ class Footer extends Component {
 
   constructor(props) {
     super(props);
-
-      this.state = {
-     
-      };
   }
   
   render() {
    
       return (
 
-        <Row className="d-flex justify-content-around align-items-center text-white rowFooter mt-4">
+        <Row className="footer d-flex flex-lg-row flex-md-column ps-xs-5 justify-content-around align-items-center text-white mt-4 p-4">
 
-            <Col xs="5" className="d-flex flex-column me-2 ms-2 ">
+            <Col xs="2" />
+            <Col md="12" lg="2" className="d-flex flex-column text-start">
+
+                <span className="fs-5"><FaPersonBooth />   {this.props.t('footer.dev')}</span>
+                <hr></hr>
+
+                <ul className="list-unstyled">
+                    <li className="mb-2">Almodovar Arenas</li>
+                    <li className="mb-2">Aleix Font Comes</li>
+                    <li className="mb-2">Ies Manacor</li>
+                </ul>
+              
+            </Col>
+            <Col md="12" lg="2" className="d-flex flex-column text-start">
 
                 <span className="fs-5">{this.props.t('footer.title1')}</span>
                 <hr></hr>
@@ -34,7 +42,7 @@ class Footer extends Component {
                 </ul>   
                 
             </Col>
-            <Col xs="5" className="d-flex flex-column">
+            <Col md="12" lg="2" className="d-flex flex-column text-start">
 
                 <span className="fs-5">{this.props.t('footer.title2')}</span>
                 <hr></hr>
@@ -45,14 +53,10 @@ class Footer extends Component {
                 </ul>   
                 
             </Col>
-
+            <Col xs="2" />
 
         </Row>
-
-
       );
-   
-
   }//Fi render
 }
  

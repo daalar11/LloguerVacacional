@@ -1,15 +1,8 @@
-//Css de ViewPropietat
-import '../components/PropietatExpand.css';
-
 import React, {useState} from "react";
 import { useForm } from "react-hook-form";
-
 import {Link} from "react-router-dom";
-
 import {Row, Col, Form, FormGroup, Label, Input} from 'reactstrap';
-
 import axios from 'axios';
-
 import { useTranslation } from 'react-i18next';
 
 function Login() {
@@ -46,9 +39,9 @@ function Login() {
 
     <Row className='pt-5'>
 
-        <Col xs="4" />
+        <Col xs="3" />
       
-        <Col xs="4" className='col-4 mt-5 border-start border-end shadow-lg bg-body rounded p-5 login' >
+        <Col xs="6" className='pb-3' >
         
           <h4 className='text-center mt-2 mb-5'>{t('login.title')}</h4>
           <Form className='text-start  d-flex flex-column justify-content-center' action="/" onSubmit={handleSubmit(onSubmit)}>
@@ -94,7 +87,7 @@ function Login() {
           {t('login.preguntaRegister')} <Link to="/register">{t('login.register')}</Link>
   
         </Col>
-        <Col xs="4"/>
+        <Col xs="3"/>
 
       </Row>
 

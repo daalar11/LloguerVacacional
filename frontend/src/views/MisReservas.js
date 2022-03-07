@@ -5,8 +5,7 @@ import {Row, Breadcrumb, BreadcrumbItem,Col,Table, Button} from 'reactstrap';
 
 import {Link} from "react-router-dom";
 
-//Css de ViewPropietat
-import '../components/PropietatExpand.css';
+
 import axios from 'axios';
 class Home extends Component {
   constructor(props) {

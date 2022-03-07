@@ -9,6 +9,8 @@ import InputComentari from './InputComentari';
 
 import {UserContext} from '../App.js';
 
+import { withTranslation } from 'react-i18next';
+
 class Comentaris extends Component {
 
     constructor(props) {
@@ -27,13 +29,13 @@ class Comentaris extends Component {
                 <Col xs="12" className="colComentaris">
 
                     <Row>
-                        <Col xs="12" className='text-start fw-bold mt-2'>Secció de Comentaris</Col>
+                        <Col xs="12" className='text-start fw-bold mt-2'>{this.props.t('viewpropietat.titlecom')}</Col>
                     </Row>
 
                     <hr></hr>
 
                     {coms.length == 0 &&
-                        <p className='fw-bold'>Aquesta propietat encara no te cap comentari...</p>
+                        <p className='fw-bold'>{this.props.t('viewpropietat.noComent')}</p>
                     }
 
                     {/* Component Capsa de Comentaris */}
@@ -66,4 +68,4 @@ class Comentaris extends Component {
   }//FI DEL RENDER
 }//FI DEL COMPONENT
 
-export default Comentaris;// - Export del component
+export default withTranslation()(Comentaris);// - Export del component

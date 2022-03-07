@@ -64,10 +64,8 @@ class Reservar extends Component {
   
   componentDidMount = () => {
    this.datesByUrl();
-
   }
   render() {
-    console.log(this.state.client);
     
     return (
       

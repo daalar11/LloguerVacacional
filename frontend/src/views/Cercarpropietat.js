@@ -1,18 +1,13 @@
 import React, { Component } from "react";
 import CasesList from "../components/casesList";
-import 'bootstrap/dist/css/bootstrap.min.css';//Bootstrap
 import Propietat from '../components/Propietat';
 import {Container, Row,Card, Col, Breadcrumb, BreadcrumbItem,Collapse,AccordionItem,AccordionHeader,UncontrolledAccordion, CardHeader, CardBody} from 'reactstrap';
 import Places from "../components/Places";
 import ListCaracateristica from "../components/ListCaracteristica";
-//Importam Axios
 import axios from 'axios';
 import SelectLocalitat from "../components/SelectLocalitat";
-
 import {Link} from "react-router-dom";
-
 import ReactPaginate from 'react-paginate';
-
 
 class Cercarpropietat extends Component {
 
@@ -99,12 +94,11 @@ class Cercarpropietat extends Component {
     var request = "/all";
 
     axios.get(url + request)
-    .then(res => 
-      {
-                  this.setState({
-                    propietats: res.data,
-                        status: true,
-                      });
+    .then(res => {
+          this.setState({
+            propietats: res.data,
+                status: true,
+              });
                 })
     .catch(error => this.setState({
       error,
@@ -114,18 +108,14 @@ class Cercarpropietat extends Component {
 
   //Metode componentDidMount
   componentDidMount = () => {
- 
     this.carregarPropietats();
     this.carregarCaracteristica();
     this.carregarLocalitat();
-    
   }
     
-
   render() {
 
     const { propietats, isLoading, error,localitat,caracteristica,collapse,cards } = this.state;
-    console.log(this.state.propietats);
   
     if (error) {
       return <p>{error.message}</p>;

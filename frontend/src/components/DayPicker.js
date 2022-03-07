@@ -7,37 +7,29 @@ import 'react-day-picker/lib/style.css';
 
 import dateFnsFormat from 'date-fns/format';
 
-import { formatDate, parseDate } from 'react-day-picker/moment';
-
 import axios from 'axios';
 
 import {Link} from "react-router-dom";
 import {Button} from 'reactstrap';
 
+import { withTranslation } from 'react-i18next';
+
 
 const FORMAT = 'dd-MM-yyyy';
 
-export default class DayPicker extends React.Component {
+class DayPicker extends React.Component {
   constructor(props) {
     super(props);
     this.handleFromChange = this.handleFromChange.bind(this);
     this.handleToChange = this.handleToChange.bind(this);
     this.state = {
-      preu: null,
+      preu: 0,
       from: null,
       to: null,
       disabledDays: [],
       disabledParsed: [],
       
     };
-  }
-
-  handleChangeArribada(dataArribada){
-    this.props.handleChangeArribada(dataArribada.target.value);
-  }
-
-  handleChangeSortida(dataSortida){
-    this.props.handleChangeSortida(dataSortida.target.value);
   }
 
   showFromMonth() {
@@ -63,7 +55,6 @@ export default class DayPicker extends React.Component {
 
       let afterDay = new Date (after);
       let beforeDay = new Date (before);
-
 
       afterDay.setDate(afterDay.getDate() - 1);
       beforeDay.setDate(beforeDay.getDate() + 1);
@@ -133,7 +124,7 @@ export default class DayPicker extends React.Component {
       <div className="InputFromTo m-auto">
         <DayPickerInput
           value={from}
-          placeholder="Arribada"
+          placeholder={this.props.t('viewpropietat.arribada')}
           formatDate={this.formatDate}
           format={FORMAT}
           dayPickerProps={{
@@ -151,7 +142,7 @@ export default class DayPicker extends React.Component {
           <DayPickerInput
             ref={el => (this.to = el)}
             value={to}
-            placeholder="Sortida"
+            placeholder={this.props.t('viewpropietat.sortida')}
             formatDate={this.formatDate}
             format={FORMAT}
             dayPickerProps={{
@@ -166,7 +157,7 @@ export default class DayPicker extends React.Component {
           />
         </span>
         <br></br>
-        <p className='text-start fw-bold mt-5'>Preu <span className='ms-2 text-danger' id='preu'>{preu}€</span></p>
+        <p className='text-start fw-bold mt-5'>{this.props.t('viewpropietat.preu')} <span className='ms-2 text-danger' id='preu'>{preu}€</span></p>
         {sessionStorage.getItem("idUsuariLogeat") != null &&
         <Link to={"/reservar?id=" + id + "&date1=" + fromParseat + "&date2=" + toParseat}>
           <Button
@@ -174,8 +165,12 @@ export default class DayPicker extends React.Component {
           color="dark"
           size="lg"
           >
-            Llogar Propietat
-          </Button></Link>}
+
+            {this.props.t('viewpropietat.llogarboto')}
+          </Button>
+          
+          </Link>}
+          
         <Helmet>
           <style>{`
             .InputFromTo .DayPicker-Day--selected:not(.DayPicker-Day--start):not(.DayPicker-Day--end):not(.DayPicker-Day--outside) {
@@ -206,6 +201,12 @@ export default class DayPicker extends React.Component {
     );
   }
 }
+
+export default withTranslation()(DayPicker);
+
+
+
+
 
 
 

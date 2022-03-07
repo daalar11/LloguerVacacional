@@ -6,16 +6,8 @@ import Mapa from "../components/Mapa";
 import DadesPropietat from "../components/DadesPropietat";
 import CapsaComentaris from "../components/CapsaComentaris";
 
-import 'bootstrap/dist/css/bootstrap.min.css';//Bootstrap
-
-//Css de ViewPropietat
-import '../components/PropietatExpand.css';
-
-//Importar components de Bootstrap.
 import {Row, Col, Breadcrumb, BreadcrumbItem} from 'reactstrap';
-
 import axios from 'axios';
-
 import {Link} from "react-router-dom";
  
 class Viewpropietat extends Component {
@@ -66,11 +58,10 @@ class Viewpropietat extends Component {
   getFotos = () => {
 
      //Agafam el parametres de la URL d'aquesta forma. (No fa falta instalar cap packet, ve a javascript intern)
-const queryParams = new URLSearchParams(window.location.search);
-const id = queryParams.get('id');
-const url = "http://127.0.0.1:8000"
+    const queryParams = new URLSearchParams(window.location.search);
+    const id = queryParams.get('id');
+    const url = "http://127.0.0.1:8000"
 
-    
     var request = "/propietat/" + id + "/fotos/info";
     
     axios.get(url + request)
@@ -103,7 +94,6 @@ const url = "http://127.0.0.1:8000"
     if (isLoading) {
       return <p>Loading ...</p>;
     }
-    console.log(propietat)
 
     return (
         

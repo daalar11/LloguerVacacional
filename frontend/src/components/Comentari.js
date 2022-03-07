@@ -1,12 +1,11 @@
 //Importam els components per utilitzar la interficie component
 import { Component } from 'react';
-
 //Importar un component de Bootstrap.
 import {Card, CardHeader, CardBody, CardFooter, CardText} from 'reactstrap';
-
 import {StarFill, Star } from 'react-bootstrap-icons';
-
 import axios from 'axios';
+
+import { withTranslation } from 'react-i18next';
 
 class Mapa extends Component {
 
@@ -88,7 +87,7 @@ class Mapa extends Component {
         
             <CardFooter className='d-flex justify-content-between'>
 
-                <span className='fw-bold'>Valoraració General</span>
+                <span className='fw-bold'>{this.props.t('viewpropietat.valoracio')}</span>
                 
                 <span>
 
@@ -107,4 +106,4 @@ class Mapa extends Component {
   }
 }
 
-export default Mapa;
+export default withTranslation()(Mapa);

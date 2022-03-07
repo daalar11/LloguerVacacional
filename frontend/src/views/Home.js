@@ -1,16 +1,9 @@
 import React, { Component } from "react";
-
 import 'bootstrap/dist/css/bootstrap.min.css';//Bootstrap
 import {Row, Col, Breadcrumb, BreadcrumbItem} from 'reactstrap';
-
 import Carrousel from "../components/Carrousel";
-
 import axios from 'axios';
-
 import {Link} from "react-router-dom";
-
-//Css de ViewPropietat
-import '../components/PropietatExpand.css';
 
 class Home extends Component {
 
@@ -84,7 +77,6 @@ class Home extends Component {
 
           </Col>
           
-
         </Row>
 
         <br></br>
@@ -103,8 +95,6 @@ class Home extends Component {
             </Row>
           </Col>
           <Col xl="8"  xs="12"className="colCercaCases ">
-
-            
 
           </Col>
          

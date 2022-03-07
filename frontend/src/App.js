@@ -13,13 +13,11 @@ class App extends Component {
 
   constructor(props) {
     super(props);
-
     this.state = {
       idUsuariLogeat: sessionStorage.getItem("idUsuariLogeat"),
       idioma: 'ca',
       toggleUser: this.toggleUser,
     };
-
   }
 
   toggleUser = async (id) => {
@@ -34,17 +32,11 @@ class App extends Component {
     // -- RETURN DEL METODE RENDER
     return (
       
-      <div className="App body">
-       
-        
+      <div className="App">
           <UserContext.Provider value={this.state}>
-
             <Ruter />{/* Component principal de l'aplicació */}
-
           </UserContext.Provider>
-  
       </div>
-      
     );//FI DEL RETURN DEL RENDER
   }//FI DEL RENDER
 }//FI DEL COMPONENT

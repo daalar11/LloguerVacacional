@@ -3,13 +3,13 @@ import { Component } from 'react';
 import React from "react";
 
 //Importar un component de Bootstrap.
-import {Col, Form} from 'reactstrap';
+import {Col} from 'reactstrap';
 
 import DayPicker from "./DayPicker";
-import dateFnsFormat from 'date-fns/format';
-import dateFnsParse from 'date-fns/parse';
 
 import axios from 'axios';
+
+import { withTranslation } from 'react-i18next';
 
 class CapsaReserva extends Component {
 
@@ -17,27 +17,10 @@ class CapsaReserva extends Component {
         super(props);
         this.state = {
           diesNoDisponibles: [],
-          arribada: "",
-          sortida: "", 
           isLoading: false,
           error: null,
         };
-
-        this.changeArribada=this.changeArribada.bind(this);
-        this.changeSortida=this.changeSortida.bind(this);
-
       }
-
-    changeArribada(dataArribada){
-      //const dataParseada = dataArribada.getFullYear() + '-' + dataArribada.getMonth() + 1 +'-'+ dataArribada.getDate();
-      this.setState({arribada : dataArribada});
-      console.log(this.state.arribada)
-    }
-
-    changeSortida(dataSortida){
-      //const dataParseada = dataSortida.getFullYear() + '-' + dataSortida.getMonth() + 1 +'-'+ dataSortida.getDate();
-      this.setState({sortida : dataSortida});
-    }
 
     getDiesNoDisponibles = () => {
 
@@ -83,11 +66,9 @@ class CapsaReserva extends Component {
 
     return (
 
-        <Col xs="3" className='mt-1'>
+        <Col xs="3" className='mt-4'>
 
-         
-
-                <span className='fw-bold'>Estableix les dates de la teva estada</span>
+                <span className='fw-bold'>{this.props.t('viewpropietat.titolDates')}</span>
                 <hr></hr>
 
                 {/* Input data entrada */}
@@ -98,8 +79,8 @@ class CapsaReserva extends Component {
                 />                
 
             <p className='text-start text-black-75 mt-4'>
-                Selecciona els dies que desitjaries llogar la propietat per coneixer el preu de l'estada.<br></br><br></br>
-                Recorda que has de <span className='fw-bold'><a className='text-dark' href='http://localhost:3000/login'>iniciar sessió</a></span> amb el teu compte per poder reservar una propietat!
+            {this.props.t('viewpropietat.p1')}<br></br><br></br>
+            {this.props.t('viewpropietat.p2')} <span className='fw-bold'><a className='text-dark' href='http://localhost:3000/login'>{this.props.t('login.title')}</a></span> {this.props.t('viewpropietat.p3')}
             </p>
         
         </Col>
@@ -111,7 +92,7 @@ class CapsaReserva extends Component {
 
            
 
-                <span className='fw-bold'>Estableix les dates de la teva estada</span>
+                <span className='fw-bold'>{this.props.t('viewpropietat.titolDates')}</span>
                 <hr></hr>
 
                 {/* Input data entrada */}
@@ -124,8 +105,8 @@ class CapsaReserva extends Component {
            
 
             <p className='text-start text-black-75 mt-4'>
-                Selecciona els dies que desitjaries llogar la propietat per coneixer el preu de l'estada.<br></br><br></br>
-                Clica llogar per anar a la pantalla de la teva reserva
+            {this.props.t('viewpropietat.selecc')}<br></br><br></br>
+            {this.props.t('viewpropietat.clica')}
             </p>
         
         </Col>
@@ -134,4 +115,4 @@ class CapsaReserva extends Component {
   }
 }
 
-export default CapsaReserva;
+export default withTranslation()(CapsaReserva);

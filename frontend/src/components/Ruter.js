@@ -3,10 +3,6 @@ import React, { Component } from 'react';
 import Menu from "./Menu";//Header
 import Footer from "./Footer";//Footer
 
-// -- CSS IMPORTS --
-import 'bootstrap/dist/css/bootstrap.min.css';//Css de bootstrap
-import '../components/PropietatExpand.css';
-
 // -- IMPORTS REACT ROUTER DOM
 import {Route, BrowserRouter as Router, Routes} from "react-router-dom";
 

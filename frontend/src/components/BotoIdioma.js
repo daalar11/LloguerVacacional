@@ -1,14 +1,11 @@
-//Css de ViewPropietat
-import '../components/PropietatExpand.css';
-
 import React from "react";
-
 import { useTranslation } from 'react-i18next';
 
+//Idiomes de la web
 const lngs = {
-  en: { nativeName: 'English' },
+  ca: { nativeName: 'Català' },
   es: { nativeName: 'Español' },
-  ca: { nativeName: 'Català' }
+  en: { nativeName: 'English' }
 };
 
 function BotoIdioma() {
@@ -17,7 +14,7 @@ function BotoIdioma() {
 
   return (
 
-    <div className='botolng'>
+    <div className='botolng text-end'>
         {Object.keys(lngs).map((lng) => (
         <button key={lng} className="p-2 botoIdioma" style={{ fontWeight: i18n.resolvedLanguage === lng ? 'bold' : 'normal' }} type="submit" onClick={() => i18n.changeLanguage(lng)}>
             {lngs[lng].nativeName}

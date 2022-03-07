@@ -1,11 +1,7 @@
-//Importam els components per utilitzar la interficie component
-import { Component } from 'react';
-import React from "react";
-
+import React, { Component } from 'react';
 import CapsaReserva from './CapsaReserva';
-
-//Importar un component de Bootstrap.
 import {Row, Col, Collapse, CardBody, Card, CardHeader } from 'reactstrap';
+import { withTranslation } from 'react-i18next';
 
 class DadesPropietat extends Component {
 
@@ -50,90 +46,90 @@ class DadesPropietat extends Component {
             
             <CapsaReserva />
 
-            <Col xs="8" className="colDades">
+            <Col xs="8" className="d-flex justify-content-between flex-nowrap flex-column">
 
-                <Row className='subRowDades mt-2'>
+                <Row>
                     <Col className='mt-5'>
                         <h4 className='text-start'>{this.props.title}</h4>
                     </Col>
                     <hr></hr>
                 </Row>
 
-                <Row className='subRowDades'>
+                <Row>
                     <Col>
                         <Row className='rowDada'>
-                            <Col xs="6" className='colDada fw-bold'>Direcció:</Col>
+                            <Col xs="6" className='colDada fw-bold'>{this.props.t('viewpropietat.direccio')} </Col>
                             <Col xs="5" className='colDada'>{this.props.direccio}</Col>
                         </Row>
                     </Col>
                     <Col>
                         <Row className='rowDada'>
-                            <Col xs="6" className='colDada fw-bold'>Localitat:</Col>
+                            <Col xs="6" className='colDada fw-bold'>{this.props.t('viewpropietat.localitat')}</Col>
                             <Col xs="5" className='colDada'>{this.props.localitat}</Col>
                         </Row>
                     </Col>
 
                 </Row>
-                <Row className='subRowDades'>
+                <Row>
 
                     <Col>
                         <Row className='rowDada'>
-                            <Col xs="6" className='colDada fw-bold'>Nº Plaçes:</Col>
+                            <Col xs="6" className='colDada fw-bold'>{this.props.t('viewpropietat.plases')} </Col>
                             <Col xs="5" className='colDada'>{this.props.plases}</Col>
                         </Row>
                     </Col>
                     <Col>
                         <Row className='rowDada'>
-                            <Col xs="6" className='colDada fw-bold'>Nº Habitacions:</Col>
+                            <Col xs="6" className='colDada fw-bold'>{this.props.t('viewpropietat.habitacions')} </Col>
                             <Col xs="5" className='colDada'>{this.props.numeroHabitacions}</Col>
                         </Row>
                     </Col>
 
                 </Row>
 
-                <Row className='subRowDades'>
+                <Row>
 
                     <Col>
                         <Row className='rowDada'> 
-                            <Col xs="6" className='colDada fw-bold'>Nº Banys: </Col>
+                            <Col xs="6" className='colDada fw-bold'>{this.props.t('viewpropietat.banys')} </Col>
                             <Col xs="5" className='colDada'>{this.props.banys}</Col>
                         </Row>
                     </Col>
                     <Col>
                         <Row className='rowDada'>
-                            <Col xs="6" className='colDada fw-bold'>Preu Base/Dia:</Col>
+                            <Col xs="6" className='colDada fw-bold'>{this.props.t('viewpropietat.preudia')} </Col>
                             <Col xs="5" className='colDada'>{this.props.preu}€</Col>
                         </Row>
                     </Col>
 
                 </Row>
 
-                <Row className='subRowDades'>
+                <Row>
 
                     <Col>
                         <Row className='rowDada'>
-                            <Col xs="6" className='colDada fw-bold'>Descompte Setmana:</Col>
+                            <Col xs="6" className='colDada fw-bold'>{this.props.t('viewpropietat.descomptes')} </Col>
                             <Col xs="5" className='colDada'>{this.props.dsetmana}%</Col>
                         </Row>
                     </Col>
                     <Col>
                         <Row className='rowDada'>
-                            <Col xs="6" className='colDada fw-bold'>Descompte Més:</Col>
+                            <Col xs="6" className='colDada fw-bold'>{this.props.t('viewpropietat.descomptem')} </Col>
                             <Col xs="5" className='colDada'>{this.props.dmes}%</Col>
                         </Row>
                     </Col>
 
                 </Row>
 
-                <Row className='subRowDades'>
+                <Row>
 
-                    <Col className='colNormes'>
-                    <p className='text-start fw-bold'>Caracteristiques</p>
+                    <Col className='mt-2'>
+                    <p className='text-start fw-bold'>{this.props.t('viewpropietat.caract')} </p>
                     <div className='mt-4 d-flex'>
         
                         {/* Si la propietat no te caracteristiques es displayara el seguent paragraf */}
                         {this.props.caracteristiques.length == 0 &&
-                            <p>El propietari no ha definit cap caracteristica</p>
+                            <p>{this.props.t('viewpropietat.errorCar')}</p>
                         }
 
                         {this.props.caracteristiques.map(function(caracteristica,key) {
@@ -148,17 +144,17 @@ class DadesPropietat extends Component {
 
                 </Row>
 
-                <Row className='subRowDades mb-3'>
+                <Row className='mb-3'>
 
-                    <Col className='colNormes'>
-                    <p className='text-start fw-bold'>Normes de la casa:</p>
+                    <Col className='text-start'>
+                    <p className='fw-bold'>{this.props.t('viewpropietat.normes')}</p>
                     <p>{this.props.text}</p>
                     </Col>
 
                 </Row>
 
                 {/* Accordion Habitacions de la propietat */}
-                <Row className='subRowDades'>
+                <Row>
 
                         {cards.map(index => {
                         return (
@@ -166,7 +162,7 @@ class DadesPropietat extends Component {
                                 <CardHeader
                                     className='text-start fw-bold'
                                     onClick={this.toggle}
-                                    data-event={index}>Habitacions {collapse === index?'-':'+'
+                                    data-event={index}>{this.props.t('viewpropietat.hab')} {collapse === index?'-':'+'
                                 }
                                 </CardHeader>
                                 <Collapse isOpen={collapse === index}>
@@ -197,4 +193,4 @@ class DadesPropietat extends Component {
   }
 }
 
-export default DadesPropietat;
+export default withTranslation()(DadesPropietat);
