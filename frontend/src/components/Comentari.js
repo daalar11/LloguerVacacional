@@ -19,7 +19,8 @@ class Mapa extends Component {
     //Metode amb la peticio axios a n url.
     clientById = () => {
 
-    var url = "http://127.0.0.1:8000"
+    //var url = "http://127.0.0.1:8000"
+    var url = "https://api.lloguerdavid.me";
     var request = "/client/" + this.props.client;
 
     axios.get(url + request)

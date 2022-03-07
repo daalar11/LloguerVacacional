@@ -33,10 +33,10 @@ class Propietat extends Component {
     <CardBody className='col-xl-7  col-sm-4 d-flex flex-column justify-content-between'
     height='100%'>
       <Row className='d-flex flex-row justify-content-between ms-2 me-3'>
-          <CardTitle xs="12"tag="h2">
+          <CardTitle xl="4" xs="12"tag="h2">
           {this.props.title}
           </CardTitle>
-          <CardSubtitle xs="12" className="mt-2 text-muted" tag="h4">
+          <CardSubtitle xl="4" xs="12" className="mt-2 text-muted" tag="h4">
           Població: {this.props.subtitle}
           </CardSubtitle>
       </Row>

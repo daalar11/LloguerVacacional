@@ -55,7 +55,8 @@ class Cercarpropietat extends Component {
   carregarLocalitat = () => {
 
     //var url="api.lloguerdavid.me";
-    var url = "http://127.0.0.1:8000";
+    //var url = "http://127.0.0.1:8000";
+    var url = "https://api.lloguerdavid.me";
     var request = "/localitats";
 
     axios.get(url + request)
@@ -73,7 +74,8 @@ class Cercarpropietat extends Component {
   carregarCaracteristica = () => {
 
     //var url="api.lloguerdavid.me";
-    var url = "http://127.0.0.1:8000";
+   // var url = "http://127.0.0.1:8000";
+    var url = "https://api.lloguerdavid.me";
     var request = "/caracteristica";
 
     axios.get(url + request)
@@ -89,8 +91,8 @@ class Cercarpropietat extends Component {
   }
   carregarPropietats = () => {
 
-    //var url="api.lloguerdavid.me";
-    var url = "http://127.0.0.1:8000";
+    var url="https://api.lloguerdavid.me";
+    //var url = "http://127.0.0.1:8000";
     var request = "/all";
 
     axios.get(url + request)

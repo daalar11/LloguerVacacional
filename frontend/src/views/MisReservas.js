@@ -21,7 +21,8 @@ class Home extends Component {
 
   getReservesByUsuari = () => {
     var idClient=sessionStorage.getItem('idUsuariLogeat');
-    var url = "http://127.0.0.1:8000"
+   // var url = "http://127.0.0.1:8000"
+    var url = "https://api.lloguerdavid.me";
     var request = "/misReservas/"+idClient;
     
     axios.get(url + request)
@@ -37,7 +38,8 @@ class Home extends Component {
     }));
   }
   getPropietat = () => {
-    var url = "http://127.0.0.1:8000"
+    //var url = "http://127.0.0.1:8000"
+    var url = "https://api.lloguerdavid.me";
     var request = "/all/"+this.state.reserves.id_propietat;
     
      axios.get(url + request)
