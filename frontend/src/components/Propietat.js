@@ -6,7 +6,7 @@ import './Propietat.css';
 import { Component } from 'react';
 
 //Importar un component de Bootstrap.
-import {Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, Button} from 'reactstrap';
+import {Card,Row, CardImg, CardText, CardBody, CardTitle, CardSubtitle, Button} from 'reactstrap';
 import {Link} from "react-router-dom";
 
 
@@ -24,29 +24,29 @@ class Propietat extends Component {
       
   <Card className='tamanyCard mb-2'>
     <div className='row'>
-    <div className='col-5'>
+    <div className='col-xl-5 col-sm-8 col-xs-8'>
     <CardImg
       src={this.props.src}
-      height='324'
+      height='100%'
       />
     </div>
-    <CardBody className='col-7 d-flex flex-column justify-content-between'
-    height='325px'>
-      <div className='d-flex flex-row justify-content-between ms-2 me-3'>
-          <CardTitle tag="h2" >
+    <CardBody className='col-xl-7  col-sm-4 d-flex flex-column justify-content-between'
+    height='100%'>
+      <Row className='d-flex flex-row justify-content-between ms-2 me-3'>
+          <CardTitle xs="12"tag="h2">
           {this.props.title}
           </CardTitle>
-          <CardSubtitle className="mt-2 text-muted" tag="h4">
+          <CardSubtitle xs="12" className="mt-2 text-muted" tag="h4">
           Població: {this.props.subtitle}
           </CardSubtitle>
-      </div>
+      </Row>
       <div className='d-flex justify-content-between flex-row flex-wrap'>
-      <CardText className='d-flex justify-content-between'>
+      <CardText className='d-flex justify-content-between d-sm-none d-md-block' >
             {this.props.text} 
         </CardText>
         <div>
-            <h5>Caracteristiques:</h5>
-            <CardText>
+            <h5 className='d-sm-none d-md-block'>Caracteristiques:</h5>
+            <CardText className='d-sm-none d-md-block'>
             {this.props.caracteristica.map(function(caracteristica,key) {
               return(
                 <span className='me-2' key= {key}>
@@ -59,7 +59,10 @@ class Propietat extends Component {
               <CardText>
                 {this.props.preu}€
               </CardText>
+              <h6  xs="12">Places:</h6>
+              <div xs="12">
               {this.props.places}
+              </div>
         </div>   
       </div>
       <div className='d-flex justify-content-center'>
