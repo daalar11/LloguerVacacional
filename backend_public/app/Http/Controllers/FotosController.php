@@ -18,7 +18,7 @@ class FotosController extends Controller
             $path = $absolute_path . '\\' . $filename;
 
             //Si la foto que cerca no exiteix
-            if(!File::exists($path)) {
+            if(!File::exists(realpath($path))) {
                 return response()->json(['message' => 'Image not found.' . $path], 404);
             }
 

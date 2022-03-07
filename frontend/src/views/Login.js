@@ -19,7 +19,7 @@ function Login() {
   const { t } = useTranslation();
 
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const onSubmit = data => axios.post('http://localhost:8000/login', {
+  const onSubmit = data => axios.post('https://api.lloguerdavid.me/login', {
 
     correu: data.correu,
     contrasenya: data.contrasenya,
@@ -30,7 +30,7 @@ function Login() {
     if (response.data[0] == 0){
     
         sessionStorage.setItem("idUsuariLogeat", response.data[2].id)
-        window.location.href = "http://localhost:3000/";
+        window.location.href = "https://www.lloguerdavid.me/";
         
     } 
     //En el cas de que l'usuari no existeixi

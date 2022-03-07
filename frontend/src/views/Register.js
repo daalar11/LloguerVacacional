@@ -18,7 +18,8 @@ function Register() {
 const { t, i18n } = useTranslation();
 
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const onSubmit = data => axios.post('http://localhost:8000/register', 
+ // const onSubmit = data => axios.post('http://localhost:8000/register', 
+  const onSubmit = data => axios.post('https://api.lloguerdavid.me/register', 
   {
         dni: data.dni,
         nom: data.nom,
@@ -37,7 +38,8 @@ const { t, i18n } = useTranslation();
         if (response.data[0] == 0){
 
             alert(response.data[1])
-            window.location.href = "http://localhost:3000/login";
+            window.location.href = "https://www.lloguerdavid.me/login";
+           // window.location.href = "http://localhost:3000/login";
 
         } 
         if (response.data[0] == 1) {
