@@ -69,11 +69,11 @@ class FotosController extends Controller
 
         $file = File::get($path);
         $type = File::mimeType($path);
-
+        print_r($path);
         $response = Response::make($file, 200);
         $response->header("Content-Type", $type);
 
-        return $response;
+       // return $response;
 
     }
 
