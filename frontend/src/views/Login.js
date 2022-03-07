@@ -46,21 +46,22 @@ function Login() {
 
     <Row className='pt-5'>
 
-        <Col xs="3" />
+        <Col xs="4" />
       
-        <Col xs="6" className='login rounded mt-5 shadow-lg p-3 mb-5'>
+        <Col xs="4" className='col-4 mt-5 border-start border-end shadow-lg bg-body rounded p-5 login' >
         
-          <h4 className='text-center mt-5 mb-3'>{t('login.title')}</h4>
-          <Form className='p-4 text-start  d-flex flex-column justify-content-center' action="/" onSubmit={handleSubmit(onSubmit)}>
+          <h4 className='text-center mt-2 mb-5'>{t('login.title')}</h4>
+          <Form className='text-start  d-flex flex-column justify-content-center' action="/" onSubmit={handleSubmit(onSubmit)}>
             <FormGroup className='fr'>
                 <Label className='text-start fw-bold'>{t('login.email')}</Label>
                
-                  <input 
+                  <input
                   {...register("correu", {
                     required: true,
                  
                   })}
                   type="email"
+                  className='border border-dark '
                   placeholder="example@gmail.com"
                   id = "correu"
                   name='correu'
@@ -79,6 +80,7 @@ function Login() {
                     minLength: 1,
                  
                   })}
+                  className='border border-dark '
                   type="password"
                   />
                   {errors.contrasenya && <span className="text-danger">{t('login.errorPass')}</span>}
@@ -86,13 +88,13 @@ function Login() {
                
             </FormGroup>
 
-            <Input className="boto-submit-register mt-5" type="submit" value='Log In'/>
+            <Input className="boto-submit-register mt-3 mb-2" type="submit" value='Log In'/>
                 
           </Form>
           {t('login.preguntaRegister')} <Link to="/register">{t('login.register')}</Link>
   
         </Col>
-        <Col xs="3"/>
+        <Col xs="4"/>
 
       </Row>
 

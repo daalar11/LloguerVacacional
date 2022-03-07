@@ -34,14 +34,15 @@ class App extends Component {
     // -- RETURN DEL METODE RENDER
     return (
       
-      <div className="App">
+      <div className="App body">
+       
         
           <UserContext.Provider value={this.state}>
 
             <Ruter />{/* Component principal de l'aplicació */}
 
           </UserContext.Provider>
-
+  
       </div>
       
     );//FI DEL RETURN DEL RENDER

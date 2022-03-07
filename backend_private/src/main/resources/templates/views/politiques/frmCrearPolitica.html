@@ -10,86 +10,82 @@
 
 <body>
 
-<header th:replace="plantilla/template :: header"></header>
+<div th:insert="plantilla/template :: header" class="position-sticky top-0 navb p-0"></div>
 
-<div class="container p-5 margin border-start border-end shadow-lg bg-body rounded">
+<main class="container p-5 margin border-start border-end shadow-lg bg-body rounded">
 
-  <main>
+  <!-- BREADCRUMB -->
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a th:href="@{'/views/propietats/' + ${id}}">Llista de Propietats</a></li>
+      <li class="breadcrumb-item"><a th:href="@{'/views/propietats/configurar/' + ${idPROPIETAT}}">Propietat</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Politiques de Cancelacio</li>
+    </ol>
+  </nav>
 
-    <!-- BREADCRUMB -->
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a th:href="@{'/views/propietats/' + ${id}}">Llista de Propietats</a></li>
-        <li class="breadcrumb-item"><a th:href="@{'/views/propietats/configurar/' + ${idPROPIETAT}}">Propietat</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Politiques de Cancelacio</li>
-      </ol>
-    </nav>
+  <div class="row">
 
-    <div class="row">
+    <div class="card bg-light mt-3 mb-3">
 
-      <div class="card bg-light mt-3 mb-3">
+      <div class="card-header bg-light fw-bold">Nova Politica</div>
 
-        <div class="card-header bg-light fw-bold">Nova Politica</div>
+      <div class="card-body bg-light">
 
-        <div class="card-body bg-light">
-
-          <form th:object="${politica}" th:action="@{/views/propietats/politiques/save}" method="post" onsubmit="return validacioPolitica()">
-            <div class="mb-3">
-              <label for="casa" class="form-label">Id propietat </label>
-              <select type="text" class="form-control" id="casa" th:field="*{propietat}" readonly>
-                <option th:each="propietat:${propietats}"
-                        th:value="${propietat.idPROPIETAT}"
-                        th:text="${propietat.nomPropietat}"></option>
-              </select>
+        <form th:object="${politica}" th:action="@{/views/propietats/politiques/save}" method="post" onsubmit="return validacioPolitica()">
+          <div class="mb-3">
+            <label for="casa" class="form-label">Id propietat </label>
+            <select type="text" class="form-control" id="casa" th:field="*{propietat}" readonly>
+              <option th:each="propietat:${propietats}"
+                      th:value="${propietat.idPROPIETAT}"
+                      th:text="${propietat.nomPropietat}"></option>
+            </select>
+          </div>
+          <div class="row">
+            <div class="mb-3 col-6">
+              <input type="hidden" th:field="*{idPolitica}">
+              <label for="antelacio" class="form-label">Dies d'antelació <span class="text-danger">*</span></label>
+              <input type="number" class="form-control" id="antelacio" th:field="*{dies}">
+              <div id="validacioAntelacio" class="form-text"></div>
             </div>
-            <div class="row">
-              <div class="mb-3 col-6">
-                <input type="hidden" th:field="*{idPolitica}">
-                <label for="antelacio" class="form-label">Dies d'antelació <span class="text-danger">*</span></label>
-                <input type="number" class="form-control" id="antelacio" th:field="*{dies}">
-                <div id="validacioAntelacio" class="form-text"></div>
-              </div>
-              <div class="mb-3 col-6">
-                <label for="perdut" class="form-label">Percentatge perdut (%) <span class="text-danger">*</span></label>
-                <input type="number" class="form-control" id="perdut" th:field="*{perdut}">
-                <div id="validacioPerdut" class="form-text"></div>
-              </div>
-              <div class="mb-3 col-4 form-check form-switch">
-                <label class="form-check-label" for="activa">Estat de la politica (Desactivar <- -> Activar)</label>
-                <input class="form-check-input" type="checkbox" id="activa" th:field="*{activa}">
-              </div>
+            <div class="mb-3 col-6">
+              <label for="perdut" class="form-label">Percentatge perdut (%) <span class="text-danger">*</span></label>
+              <input type="number" class="form-control" id="perdut" th:field="*{perdut}">
+              <div id="validacioPerdut" class="form-text"></div>
             </div>
+            <div class="mb-3 col-4 form-check form-switch">
+              <label class="form-check-label" for="activa">Estat de la politica (Desactivar <- -> Activar)</label>
+              <input class="form-check-input" type="checkbox" id="activa" th:field="*{activa}">
+            </div>
+          </div>
 
-            <input type="submit" class="btn btn-primary" value="Afegir" id="boto-submit-politica" />
-          </form>
-        </div>
-
+          <input type="submit" class="btn btn-primary" value="Afegir" id="boto-submit-politica" />
+        </form>
       </div>
+
     </div>
-  </main>
+  </div>
+</main>
 
-  <footer>
-    <div th:replace="plantilla/template :: footer"></div>
-  </footer>
+<script th:inline="javascript">
 
-  <script th:inline="javascript">
+  $(document).ready(function() {
 
-    $(document).ready(function() {
+    $("#boto-submit-politica").click(function () {
+      validarFormPolitica();
 
-      $("#boto-submit-politica").click(function () {
-        validarFormPolitica();
+      console.log(campsCorrectes);
 
-        console.log(campsCorrectes);
-
-        if (campsCorrectes !== 2){
-          campsCorrectes = 0;
-        }
-      });
+      if (campsCorrectes !== 2){
+        campsCorrectes = 0;
+      }
     });
+  });
 
-  </script>
+</script>
 
-</div>
+<footer>
+  <div th:replace="plantilla/template :: footer"></div>
+</footer>
 </body>
 
 </html>

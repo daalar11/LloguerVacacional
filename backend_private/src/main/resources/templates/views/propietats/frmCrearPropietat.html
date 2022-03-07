@@ -14,190 +14,185 @@
 
 <body>
 
-<header th:insert="plantilla/template :: header"></header>
+<div th:insert="plantilla/template :: header" class="position-sticky top-0 navb p-0"></div>
 
-<div class="container p-4 mb-4 margin border-start border-end shadow-lg bg-body rounded">
-    <main>
+<main class="container p-4 mb-4 margin border-start border-end shadow-lg bg-body rounded">
 
-        <!-- BREADCRUMB -->
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a th:href="@{'/views/propietats/' + ${idUsuari}}">Llista de Propietats</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Crear Nova Propietat</li>
-            </ol>
-        </nav>
+    <!-- BREADCRUMB -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a th:href="@{'/views/propietats/' + ${idUsuari}}">Llista de Propietats</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Crear Nova Propietat</li>
+        </ol>
+    </nav>
 
-        <div class="card  mt-3 mb-3 bg-light">
+    <div class="card  mt-3 mb-3 bg-light">
 
-            <div class="card-header bg-light fw-bold">Dona d'alta una propietat</div>
+        <div class="card-header bg-light fw-bold">Dona d'alta una propietat</div>
 
-            <div class="card-body ">
+        <div class="card-body ">
 
-                <form id="formCrearPropietat" th:object="${propietat}" th:action="@{/views/propietats/save}" method="post" onsubmit="return validacioPropietat()">
-                <div class="row">
-                    <div class="col-12 form-group mb-3">
-                        <label for="propietari" class="form-label">Propietari </label>
-                        <select type="text" class="form-control" id="propietari" aria-describedby="emailHelp" th:field="*{propietari}" readonly>
-                            <option th:each="us:${propietari}"
-                                    th:value="${us.Id}"
-                                    th:text="${us.Nom}"></option>
-                        </select>
-                        <div id="spanpropietari" class="form-text">Indica quin usuari esta donant d'alta la propietat.</div>
-                    </div>
+            <form id="formCrearPropietat" th:object="${propietat}" th:action="@{/views/propietats/save}" method="post" onsubmit="return validacioPropietat()">
+            <div class="row">
+                <div class="col-12 form-group mb-3">
+                    <label for="propietari" class="form-label">Propietari </label>
+                    <select type="text" class="form-control" id="propietari" aria-describedby="emailHelp" th:field="*{propietari}" readonly>
+                        <option th:each="us:${propietari}"
+                                th:value="${us.Id}"
+                                th:text="${us.Nom}"></option>
+                    </select>
+                    <div id="spanpropietari" class="form-text">Indica quin usuari esta donant d'alta la propietat.</div>
                 </div>
-                <div class="row">
+            </div>
+            <div class="row">
 
-                    <div class="col-12 form-group">
+                <div class="col-12 form-group">
 
-                        <div class="mb-3">
-                            <label for="nomPropietat" class="form-label">Nom de la propietat <span class="text-danger">*</span></label>
-                            <input type="text" placeholder="ej. Villa Luna" class="form-control" th:field="*{nomPropietat}" id="nomPropietat">
-                            <div id="spannom" class="form-text">Nom de la propietat que figura en l'escriptura</div>
-                            <div id="validacioNom" class="form-text"></div>
+                    <div class="mb-3">
+                        <label for="nomPropietat" class="form-label">Nom de la propietat <span class="text-danger">*</span></label>
+                        <input type="text" placeholder="ej. Villa Luna" class="form-control" th:field="*{nomPropietat}" id="nomPropietat">
+                        <div id="spannom" class="form-text">Nom de la propietat que figura en l'escriptura</div>
+                        <div id="validacioNom" class="form-text"></div>
+                    </div>
+
+                </div>
+                <div class="col-3 form-group">
+
+                    <div class="mb-3">
+                        <label for="localitat" class="form-label">Localitat <span class="text-danger">*</span></label>
+                        <select class="form-control" id="localitat" th:field="*{localitat}">
+                            <option value="0" selected>-- Tria la localitat --</option>
+                            <option th:each="localitat:${localitats}"
+                                    th:value="${localitat.idLOCALITAT}"
+                                    th:text="${localitat.nomLocalitat}"></option>
+                        </select>
+                        <div id="localitatspan" class="form-text">Selecciona la localitat on es localitza la propietat</div>
+                        <div id="validacioLocalitat" class="form-text"></div>
+                    </div>
+
+                </div>
+                <div class="col-3 form-group">
+
+                    <div class="mb-3">
+                        <label for="places" class="form-label">Nº places: <span class="text-danger">*</span></label>
+                        <input type="text" placeholder="ej. Major 50" class="form-control" id="places"  th:field="*{places}">
+                        <div id="validacioPlaces" class="form-text"></div>
+                    </div>
+
+                </div>
+                <div class="col-6 form-group">
+
+                    <div class="mb-3">
+                        <label for="direccio" class="form-label">Direccio <span class="text-danger">*</span></label>
+                        <input type="text" placeholder="ej. Major 50" class="form-control" id="direccio"  th:field="*{direccio}">
+                        <div id="direcciospan" class="form-text">Direccio de la casa amb format Carrer Numero</div>
+                        <div id="validacioDireccio" class="form-text"></div>
+                    </div>
+
+                </div>
+                <div class="col-3 form-group">
+
+                    <label for="preuBase" class="form-label">Preu Base <span class="text-danger">*</span></label>
+
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">€</div>
                         </div>
-
+                        <input type="number" step="any" class="form-control" id="preuBase" th:field="*{preuBase}">
                     </div>
-                    <div class="col-3 form-group">
+                    <div id="preuBasespan" class="form-text">Preu base per dia de la propietat.</div>
+                    <div id="validacioPreu" class="form-text"></div>
 
-                        <div class="mb-3">
-                            <label for="localitat" class="form-label">Localitat <span class="text-danger">*</span></label>
-                            <select class="form-control" id="localitat" th:field="*{localitat}">
-                                <option value="0" selected>-- Tria la localitat --</option>
-                                <option th:each="localitat:${localitats}"
-                                        th:value="${localitat.idLOCALITAT}"
-                                        th:text="${localitat.nomLocalitat}"></option>
-                            </select>
-                            <div id="localitatspan" class="form-text">Selecciona la localitat on es localitza la propietat</div>
-                            <div id="validacioLocalitat" class="form-text"></div>
-                        </div>
+                </div>
+                <div class="col-3 form-group">
 
-                    </div>
-                    <div class="col-3 form-group">
+                    <label for="banys" class="form-label">Banys Comunitaris <span class="text-danger">*</span></label>
+                    <input type="number" class="form-control" id="banys" th:field="*{banysPropietat}">
+                    <div id="banysSpan" class="form-text">Indica quants de banys compartits (generals) te la teva propietat.</div>
+                    <div id="validacioBanys" class="form-text"></div>
 
-                        <div class="mb-3">
-                            <label for="places" class="form-label">Nº places: <span class="text-danger">*</span></label>
-                            <input type="text" placeholder="ej. Major 50" class="form-control" id="places"  th:field="*{places}">
-                            <div id="validacioPlaces" class="form-text"></div>
-                        </div>
+                </div>
+                <div class="col-3 form-group">
+                    <label for="latitud" class="form-label">Latitud de la propietat <span class="text-danger">*</span></label>
+                    <input type="text" th:field="*{y}" id="latitud" class="form-control" readonly/>
+                    <div id="validaciolat" class="form-text"></div>
+                </div>
+                <div class="col-3 form-group">
+                    <label for="longitud" class="form-label">Longitud de la propietat <span class="text-danger">*</span></label>
+                    <input type="text" th:field="*{x}" id="longitud" class="form-control" readonly/>
+                    <div id="validaciolon" class="form-text"></div>
+                </div>
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="row">
+                                <div class="col-12 form-group">
 
-                    </div>
-                    <div class="col-6 form-group">
+                                    <div class="mb-3">
+                                        <label for="descompteSetmana" class="form-label">Descompte Setmanal</label>
 
-                        <div class="mb-3">
-                            <label for="direccio" class="form-label">Direccio <span class="text-danger">*</span></label>
-                            <input type="text" placeholder="ej. Major 50" class="form-control" id="direccio"  th:field="*{direccio}">
-                            <div id="direcciospan" class="form-text">Direccio de la casa amb format Carrer Numero</div>
-                            <div id="validacioDireccio" class="form-text"></div>
-                        </div>
-
-                    </div>
-                    <div class="col-3 form-group">
-
-                        <label for="preuBase" class="form-label">Preu Base <span class="text-danger">*</span></label>
-
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text">€</div>
-                            </div>
-                            <input type="number" step="any" class="form-control" id="preuBase" th:field="*{preuBase}">
-                        </div>
-                        <div id="preuBasespan" class="form-text">Preu base per dia de la propietat.</div>
-                        <div id="validacioPreu" class="form-text"></div>
-
-                    </div>
-                    <div class="col-3 form-group">
-
-                        <label for="banys" class="form-label">Banys Comunitaris <span class="text-danger">*</span></label>
-                        <input type="number" class="form-control" id="banys" th:field="*{banysPropietat}">
-                        <div id="banysSpan" class="form-text">Indica quants de banys compartits (generals) te la teva propietat.</div>
-                        <div id="validacioBanys" class="form-text"></div>
-
-                    </div>
-                    <div class="col-3 form-group">
-                        <label for="latitud" class="form-label">Latitud de la propietat <span class="text-danger">*</span></label>
-                        <input type="text" th:field="*{y}" id="latitud" class="form-control" readonly/>
-                        <div id="validaciolat" class="form-text"></div>
-                    </div>
-                    <div class="col-3 form-group">
-                        <label for="longitud" class="form-label">Longitud de la propietat <span class="text-danger">*</span></label>
-                        <input type="text" th:field="*{x}" id="longitud" class="form-control" readonly/>
-                        <div id="validaciolon" class="form-text"></div>
-                    </div>
-                    <div class="col-12">
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="row">
-                                    <div class="col-12 form-group">
-
-                                        <div class="mb-3">
-                                            <label for="descompteSetmana" class="form-label">Descompte Setmanal</label>
-
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">%</div>
-                                                </div>
-                                                <input type="number" class="form-control" id="descompteSetmana" th:field="*{descompteSetmana}">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">%</div>
                                             </div>
-                                            <div id="descompteSetmanaspan" class="form-text">Descompte aplicat en cas de lloguers majors a una setmana</div>
-                                            <div id="validacioDescompteS" class="form-text"></div>
+                                            <input type="number" class="form-control" id="descompteSetmana" th:field="*{descompteSetmana}">
                                         </div>
-
+                                        <div id="descompteSetmanaspan" class="form-text">Descompte aplicat en cas de lloguers majors a una setmana</div>
+                                        <div id="validacioDescompteS" class="form-text"></div>
                                     </div>
-                                    <div class="col-12 form-group">
 
-                                        <div class="mb-3">
-                                            <label for="descompteMes" class="form-label">Descompte Mensual</label>
+                                </div>
+                                <div class="col-12 form-group">
 
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">%</div>
-                                                </div>
-                                                <input type="number" class="form-control" id="descompteMes" th:field="*{descompteMes}">
+                                    <div class="mb-3">
+                                        <label for="descompteMes" class="form-label">Descompte Mensual</label>
+
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">%</div>
                                             </div>
-                                            <div id="descompteMesspan" class="form-text">Descompte aplicat en cas de lloguers majors d'un mes</div>
-                                            <div id="validacioDescompteM" class="form-text"></div>
+                                            <input type="number" class="form-control" id="descompteMes" th:field="*{descompteMes}">
                                         </div>
-
+                                        <div id="descompteMesspan" class="form-text">Descompte aplicat en cas de lloguers majors d'un mes</div>
+                                        <div id="validacioDescompteM" class="form-text"></div>
                                     </div>
-                                    <div class="col-12 form-group">
 
-                                        <div class="mb-3">
-                                            <label for="w3review" class="form-label">Normes</label><br>
-                                            <textarea class="form-control" id="w3review"  th:field="*{normes}" rows="4" cols="50">Prohibit fumar</textarea>
-                                            <div id="normesspan" class="form-text">Aqui pots indicar les normes que dessitjis sobre la teva propietat.</div>
-                                        </div>
+                                </div>
+                                <div class="col-12 form-group">
 
+                                    <div class="mb-3">
+                                        <label for="w3review" class="form-label">Normes</label><br>
+                                        <textarea class="form-control" id="w3review"  th:field="*{normes}" rows="4" cols="50">Prohibit fumar</textarea>
+                                        <div id="normesspan" class="form-text">Aqui pots indicar les normes que dessitjis sobre la teva propietat.</div>
                                     </div>
+
                                 </div>
                             </div>
-                            <div class="col-6">
-                                <div id="googleMap" style="width:100%;height:400px;"></div>
-                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div id="googleMap" style="width:100%;height:400px;"></div>
                         </div>
                     </div>
-
-                    <div class="col-1 mt-2 form-group">
-                        <input type="submit" id="boto-submit" class="btn btn-primary" value="Guardar" />
-                    </div>
-                    <div class="col-1 form-group">
-
-                        <a class="nav-link" th:href="@{/views/propietats/}">
-                            <input type="button" class="btn btn-danger" value="Cancelar">
-                        </a>
-                    </div>
-
                 </div>
 
-            </form>
+                <div class="col-1 mt-2 form-group">
+                    <input type="submit" id="boto-submit" class="btn btn-primary" value="Guardar" />
+                </div>
+                <div class="col-1 form-group">
+
+                    <a class="nav-link" th:href="@{/views/propietats/}">
+                        <input type="button" class="btn btn-danger" value="Cancelar">
+                    </a>
+                </div>
 
             </div>
-        </div>
-    </main>
-</div>
 
-<footer>
-    <div th:replace="plantilla/template :: footer"></div>
-</footer>
+        </form>
+
+        </div>
+    </div>
+</main>
+
 <!-- Codi JavaScript -->
 <script th:inline="javascript">
 
@@ -220,6 +215,9 @@
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBCKiIqCdZGrVxx06LSbe7uG3zXOq1Cz5k&callback=myMap"></script>
 
+<footer>
+    <div th:replace="plantilla/template :: footer"></div>
+</footer>
 
 </body>
 

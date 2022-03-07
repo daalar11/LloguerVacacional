@@ -37,11 +37,14 @@
             padding-bottom: 20px;
             padding-top: 15px;
             box-shadow: 0 7px 20px 3px gray;
-
+            position: sticky;
+            top: 0;
+            right: 0;
+            z-index: 1000;
         }
 
         .margin {
-            margin-top: 120px;
+            margin-top: 35px;
         }
 
         /* Classes del header */
@@ -69,14 +72,18 @@
 
 
 
+
+
+
+
     </style>
 
 </head>
 
 <!-- Fragment Header (NavBar) -->
-<header th:fragment="header">
+<header th:fragment="header" >
 
-    <nav class="navb d-flex justify-content-center border-bottom navbar navbar-expand-md navbar-light fixed-top">
+    <nav class="navb d-flex justify-content-center border-bottom navbar navbar-expand-md navbar-light ">
         <div class="container-fluid">
 
 

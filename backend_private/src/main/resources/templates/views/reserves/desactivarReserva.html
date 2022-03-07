@@ -7,74 +7,71 @@
 
 <body>
 
-<header th:insert="plantilla/template :: header"></header>
+<div th:insert="plantilla/template :: header" class="position-sticky top-0 navb p-0"></div>
 
-<div id="container mt-5 margin border-start border-end shadow-lg bg-body rounded">
+<main class="container p-4 mb-4 margin border-start border-end shadow-lg bg-body rounded">
 
-    <main>
+    <!-- BREADCRUMB -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a th:href="@{'/views/propietats/' + ${id}}">Llista de Propietats</a></li>
+            <li class="breadcrumb-item"><a th:href="@{'/views/propietats/configurar/' + ${idPROPIETAT}}">Propietat</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Cancelar Reserva</li>
+        </ol>
+    </nav>
 
-        <!-- BREADCRUMB -->
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a th:href="@{'/views/propietats/' + ${id}}">Llista de Propietats</a></li>
-                <li class="breadcrumb-item"><a th:href="@{'/views/propietats/configurar/' + ${idPROPIETAT}}">Propietat</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Cancelar Reserva</li>
-            </ol>
-        </nav>
+    <div class="row">
 
-        <div class="row">
+        <div class="card bg-light mt-3 mb-3">
 
-            <div class="card bg-light mt-3 mb-3">
+            <div class="card-header bg-light">Cancelar Reserva</div>
 
-                <div class="card-header bg-light">Afegir Tarifes</div>
+            <div class="card-body bg-light">
 
-                <div class="card-body bg-light">
-
-                    <form th:object="${reserva}" th:action="@{/views/reserves/cancelar}" method="post">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="mb-3">
-                                    <input type="hidden" th:field="*{idReserva}" />
-                                    <input type="hidden" th:field="*{propietat}" />
-                                    <input type="hidden" th:field="*{dataReserva}" />
-                                    <input type="hidden" th:field="*{dArribada}" />
-                                    <input type="hidden" th:field="*{dSortida}" />
-                                    <input type="hidden" th:field="*{copiaNormes}" />
-                                    <input type="hidden" th:field="*{preuFinal}" />
-                                    <div class="form-check form-switch">
-                                        <input class="form-check-input" th:field="*{cancelada}" type="checkbox" id="flexSwitchCheckChecked" checked>
-                                        <label class="form-check-label" for="flexSwitchCheckChecked">Activa per cancelar la tarifa.</label>
-                                    </div>
-                                </div>
-                                <div class="col-1 mt-5 form-group">
-                                    <input type="submit" class="btn btn-primary" value="Guardar" id="boto-submit-reserva" />
+                <form th:object="${reserva}" th:action="@{/views/reserves/cancelar}" method="post">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="mb-3">
+                                <input type="hidden" th:field="*{idReserva}" />
+                                <input type="hidden" th:field="*{propietat}" />
+                                <input type="hidden" th:field="*{dataReserva}" />
+                                <input type="hidden" th:field="*{dArribada}" />
+                                <input type="hidden" th:field="*{dSortida}" />
+                                <input type="hidden" th:field="*{copiaNormes}" />
+                                <input type="hidden" th:field="*{preuFinal}" />
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" th:field="*{cancelada}" type="checkbox" id="flexSwitchCheckChecked" checked>
+                                    <label class="form-check-label" for="flexSwitchCheckChecked">Activa per cancelar la reserva</label>
                                 </div>
                             </div>
+                            <div class="col-1 mt-5 form-group">
+                                <input type="submit" class="btn btn-primary" value="Guardar" id="boto-submit-reserva" />
+                            </div>
                         </div>
-                    </form>
-                    <hr>
-                    <a class="nav-link" th:href="@{'/views/propietats/configurar/' + ${reserva.getPropietat().getIdPROPIETAT()}}">Tornar enrere -></a>
-
-                </div>
+                    </div>
+                </form>
+                <hr>
+                <a class="nav-link" th:href="@{'/views/propietats/configurar/' + ${reserva.getPropietat().getIdPROPIETAT()}}">Tornar enrere -></a>
 
             </div>
+
         </div>
-    </main>
+    </div>
+</main>
 
-    <footer>
-        <div th:replace="plantilla/template :: footer"></div>
-    </footer>
+<footer>
+    <div th:replace="plantilla/template :: footer"></div>
+</footer>
 
-    <!-- Codi JavaScript -->
-    <script th:inline="javascript">
+<!-- Codi JavaScript -->
+<script th:inline="javascript">
 
-        $(document).ready(function() {
+    $(document).ready(function() {
 
-        });
+    });
 
-    </script>
+</script>
 
-</div>
 </body>
 
 </html>

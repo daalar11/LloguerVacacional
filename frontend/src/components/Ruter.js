@@ -43,7 +43,7 @@ class Ruter extends Component {
         </UserContext.Consumer>
 
         {/* Content de la pagina (Contingut del MAIN) */}
-        <Container className="content margin"> {/*Seccio Content*/}
+        <Container className="content margin contenidor p-3 rounded"> {/*Seccio Content*/}
 
           {/* Rutes del Navbar */}
           <Routes>

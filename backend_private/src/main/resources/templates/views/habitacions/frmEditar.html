@@ -8,93 +8,90 @@
   <script type="text/javascript" th:src="@{/js/ValidacionsFormularis/validacionsFormularis.js}"></script>
 </head>
 <body>
-<header th:replace="plantilla/template :: header"></header>
+<div th:insert="plantilla/template :: header" class="position-sticky top-0 navb p-0"></div>
 
-<div class="container p-5 margin border-start border-end shadow-lg bg-body rounded">
+<main class="container p-5 margin border-start border-end shadow-lg bg-body rounded">
 
-  <main>
+  <!-- BREADCRUMB -->
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a th:href="@{'/views/propietats/' + ${id}}">Llista de Propietats</a></li>
+      <li class="breadcrumb-item"><a th:href="@{'/views/propietats/configurar/' + ${idPROPIETAT}}">Propietat</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Editar Habitacio</li>
+    </ol>
+  </nav>
 
-    <!-- BREADCRUMB -->
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a th:href="@{'/views/propietats/' + ${id}}">Llista de Propietats</a></li>
-        <li class="breadcrumb-item"><a th:href="@{'/views/propietats/configurar/' + ${idPROPIETAT}}">Propietat</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Editar Habitacio</li>
-      </ol>
-    </nav>
+  <div th:fragment="editarHabitacio" class="row">
 
-    <div th:fragment="editarHabitacio" class="row">
+    <div class="card bg-light mt-3 mb-3">
 
-      <div class="card bg-light mt-3 mb-3">
+      <div class="card-header bg-light fw-bold">Editar Habitacions</div>
 
-        <div class="card-header bg-light fw-bold">Editar Habitacions</div>
+      <div class="card-body bg-light">
 
-        <div class="card-body bg-light">
+        <form th:object="${habitacio}" th:action="@{/views/habitacions/save}" method="post" onsubmit="return validacioHabitacio()">
 
-          <form th:object="${habitacio}" th:action="@{/views/habitacions/save}" method="post" onsubmit="return validacioHabitacio()">
-
-            <div class="mb-3">
-              <label for="casa" class="form-label">Propietat</span></label>
-              <select type="text" class="form-control" id="casa" aria-describedby="emailHelp" th:field="*{propietat}" readonly>
-                <option th:each="propietats:${propietat}"
-                        th:value="${propietats.idPROPIETAT}"
-                        th:text="${propietats.nomPropietat}"></option>
-              </select>
-            </div>
-
-            <div class="mb-3">
-              <input type="hidden" th:field="*{idHABITACIONS}">
-              <label for="bany" class="form-label">Banys <span class="text-danger">*</span></label>
-              <select type="text" class="form-control" id="bany" aria-describedby="emailHelp" th:field="*{bany}">
-                <option th:value="1"
-                        th:text="Si"></option>
-                <option th:value="0"
-                        th:text="No"></option>
-              </select>
-            </div>
-          <div class="row">
-            <div class="mb-3 col-6">
-              <label for="llitDoble" class="form-label">Llits dobles <span class="text-danger">*</span></label>
-              <input type="number" class="form-control" id="llitDoble" aria-describedby="emailHelp" th:field="*{llit_Doble}">
-              <div id="validacioDoble" class="form-text"></div>
-            </div>
-
-            <div class="mb-3 col-6">
-              <label for="llitSimple" class="form-label">Llits simples <span class="text-danger">*</span></label>
-              <input type="number" class="form-control" id="llitSimple" aria-describedby="emailHelp" th:field="*{llit_simple}">
-              <div id="validacioSimple" class="form-text"></div>
-            </div>
+          <div class="mb-3">
+            <label for="casa" class="form-label">Propietat</span></label>
+            <select type="text" class="form-control" id="casa" aria-describedby="emailHelp" th:field="*{propietat}" readonly>
+              <option th:each="propietats:${propietat}"
+                      th:value="${propietats.idPROPIETAT}"
+                      th:text="${propietats.nomPropietat}"></option>
+            </select>
           </div>
-            <div id="errorLlits" class="form-text mb-4 p-3"></div>
-            <input type="submit" class="btn btn-primary" value="Guardar" id="boto-submit-habitacio"/>
-          </form>
+
+          <div class="mb-3">
+            <input type="hidden" th:field="*{idHABITACIONS}">
+            <label for="bany" class="form-label">Banys <span class="text-danger">*</span></label>
+            <select type="text" class="form-control" id="bany" aria-describedby="emailHelp" th:field="*{bany}">
+              <option th:value="1"
+                      th:text="Si"></option>
+              <option th:value="0"
+                      th:text="No"></option>
+            </select>
+          </div>
+        <div class="row">
+          <div class="mb-3 col-6">
+            <label for="llitDoble" class="form-label">Llits dobles <span class="text-danger">*</span></label>
+            <input type="number" class="form-control" id="llitDoble" aria-describedby="emailHelp" th:field="*{llit_Doble}">
+            <div id="validacioDoble" class="form-text"></div>
+          </div>
+
+          <div class="mb-3 col-6">
+            <label for="llitSimple" class="form-label">Llits simples <span class="text-danger">*</span></label>
+            <input type="number" class="form-control" id="llitSimple" aria-describedby="emailHelp" th:field="*{llit_simple}">
+            <div id="validacioSimple" class="form-text"></div>
+          </div>
         </div>
-
+          <div id="errorLlits" class="form-text mb-4 p-3"></div>
+          <input type="submit" class="btn btn-primary" value="Guardar" id="boto-submit-habitacio"/>
+        </form>
       </div>
+
     </div>
-  </main>
+  </div>
+</main>
 
-  <footer>
-    <div th:replace="plantilla/template :: footer"></div>
-  </footer>
+<script th:inline="javascript">
 
-  <script th:inline="javascript">
+  $(document).ready(function() {
 
-    $(document).ready(function() {
+    $("#boto-submit-habitacio").click(function () {
 
-      $("#boto-submit-habitacio").click(function () {
+      validarFormHabitacio();
 
-        validarFormHabitacio();
-
-        if (campsCorrectes !== 3){
-          campsCorrectes = 0;
-        }
-      });
+      if (campsCorrectes !== 3){
+        campsCorrectes = 0;
+      }
     });
+  });
 
-  </script>
+</script>
 
-</div>
+<footer>
+  <div th:replace="plantilla/template :: footer"></div>
+</footer>
+
 </body>
 
 </html>

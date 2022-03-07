@@ -85,7 +85,7 @@ class CapsaReserva extends Component {
 
         <Col xs="3" className='mt-1'>
 
-            <Form className='mt-5 text-start  d-flex flex-column justify-content-center' action='/login'>
+         
 
                 <span className='fw-bold'>Estableix les dates de la teva estada</span>
                 <hr></hr>
@@ -96,10 +96,6 @@ class CapsaReserva extends Component {
                 handleChangeArribada={this.changeArribada}
                 handleChangeSortida={this.changeSortida}
                 />                
-                
-                <input type='submit' color="dark" className='mt-4 fw-bold bg-dark text-white rounded' value="Llogar" />
-                
-            </Form>
 
             <p className='text-start text-black-75 mt-4'>
                 Selecciona els dies que desitjaries llogar la propietat per coneixer el preu de l'estada.<br></br><br></br>
@@ -113,7 +109,7 @@ class CapsaReserva extends Component {
         return (
              <Col xs="3" className='mt-1'>
 
-              <Form className='mt-5 text-start  d-flex flex-column justify-content-center' action='/login'>
+           
 
                 <span className='fw-bold'>Estableix les dates de la teva estada</span>
                 <hr></hr>
@@ -123,9 +119,9 @@ class CapsaReserva extends Component {
                 diesNoDisponibles={diesNoDisponibles}
                 />
 
-                <input type='submit' color="dark" className='mt-4 fw-bold bg-dark text-white rounded' value="Llogar" />
+              
 
-              </Form>
+           
 
             <p className='text-start text-black-75 mt-4'>
                 Selecciona els dies que desitjaries llogar la propietat per coneixer el preu de l'estada.<br></br><br></br>

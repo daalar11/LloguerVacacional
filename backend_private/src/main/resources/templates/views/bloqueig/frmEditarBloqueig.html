@@ -10,91 +10,89 @@
 
 <body>
 
-<header th:insert="plantilla/template :: header"></header>
+<div th:insert="plantilla/template :: header" class="position-sticky top-0 navb p-0"></div>
 
-<div class="container p-5 margin border-start border-end shadow-lg bg-body rounded">
-    <main>
+<main class="container p-5 margin border-start border-end shadow-lg bg-body rounded">
 
-        <!-- BREADCRUMB -->
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a th:href="@{'/views/propietats/' + ${id}}">Llista de Propietats</a></li>
-                <li class="breadcrumb-item"><a th:href="@{'/views/propietats/configurar/' + ${idPROPIETAT}}">Propietat</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Editar Bloqueig</li>
-            </ol>
-        </nav>
+    <!-- BREADCRUMB -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a th:href="@{'/views/propietats/' + ${id}}">Llista de Propietats</a></li>
+            <li class="breadcrumb-item"><a th:href="@{'/views/propietats/configurar/' + ${idPROPIETAT}}">Propietat</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Editar Bloqueig</li>
+        </ol>
+    </nav>
 
-        <div class="row">
+    <div class="row">
 
-            <!-- Principi Card -->
-            <div class="card bg-light mt-3 mb-3">
+        <!-- Principi Card -->
+        <div class="card bg-light mt-3 mb-3">
 
-                <!-- Card Header (Titol) -->
-                <div class="card-header bg-light fw-bold">Editar Bloqueig</div>
+            <!-- Card Header (Titol) -->
+            <div class="card-header bg-light fw-bold">Editar Bloqueig</div>
 
-                <!-- Card Body -->
-                <div class="card-body bg-light">
+            <!-- Card Body -->
+            <div class="card-body bg-light">
 
-                    <!-- Formulari Editar Bloqueig -->
-                    <form th:object="${bloqueig}" th:action="@{/views/bloqueig/save}" method="post" onsubmit="return validacioBloqueig()">
-                        <!-- Camp ID (Hidden) + Nom de la Propietat. -->
-                        <div class="mb-3">
-                            <input type="hidden" th:field="*{idBLOQUEIG}">
-                            <label for="casa" class="form-label">Propietat</label>
-                            <select type="text" class="form-control" id="casa" th:field="*{propietat}" readonly>
-                                <option th:each="propietat:${propietat}"
-                                        th:value="${propietat.idPROPIETAT}"
-                                        th:text="${propietat.nomPropietat}"></option>
-                            </select>
-                        </div>
-                        <!-- Camp Data Inici -->
-                        <div class="mb-3">
-                            <label for="dataIni" class="form-label">Data Inici <span class="text-danger">*</span></label>
-                            <input type="date" class="form-control" id="dataIni" th:field="*{dataInici}">
-                            <div id="dataIniSpan" class="form-text">Indica quin dia comença el bloqueig</div>
-                            <div id="validacioDataIni" class="form-text"></div>
-                        </div>
-                        <!-- Camp Data Final -->
-                        <div class="mb-3">
-                            <label for="dataFi" class="form-label">Data Final <span class="text-danger">*</span></label>
-                            <input type="date" class="form-control" id="dataFi" th:field="*{dataFinal}">
-                            <div id="dataFiSpan" class="form-text">Indica quin dia que finalitza el bloqueig</div>
-                            <div id="validacioDataFi" class="form-text"></div>
-                        </div>
+                <!-- Formulari Editar Bloqueig -->
+                <form th:object="${bloqueig}" th:action="@{/views/bloqueig/save}" method="post" onsubmit="return validacioBloqueig()">
+                    <!-- Camp ID (Hidden) + Nom de la Propietat. -->
+                    <div class="mb-3">
+                        <input type="hidden" th:field="*{idBLOQUEIG}">
+                        <label for="casa" class="form-label">Propietat</label>
+                        <select type="text" class="form-control" id="casa" th:field="*{propietat}" readonly>
+                            <option th:each="propietat:${propietat}"
+                                    th:value="${propietat.idPROPIETAT}"
+                                    th:text="${propietat.nomPropietat}"></option>
+                        </select>
+                    </div>
+                    <!-- Camp Data Inici -->
+                    <div class="mb-3">
+                        <label for="dataIni" class="form-label">Data Inici <span class="text-danger">*</span></label>
+                        <input type="date" class="form-control" id="dataIni" th:field="*{dataInici}">
+                        <div id="dataIniSpan" class="form-text">Indica quin dia comença el bloqueig</div>
+                        <div id="validacioDataIni" class="form-text"></div>
+                    </div>
+                    <!-- Camp Data Final -->
+                    <div class="mb-3">
+                        <label for="dataFi" class="form-label">Data Final <span class="text-danger">*</span></label>
+                        <input type="date" class="form-control" id="dataFi" th:field="*{dataFinal}">
+                        <div id="dataFiSpan" class="form-text">Indica quin dia que finalitza el bloqueig</div>
+                        <div id="validacioDataFi" class="form-text"></div>
+                    </div>
 
-                        <div class="col-1 mt-2 form-group">
-                            <input type="submit" class="btn btn-primary" id="boto-submit-bloqueig" value="Guardar" />
-                        </div>
-                    </form>
-                    <hr>
-                    <a class="nav-link" th:href="@{'/views/propietats/configurar/' + ${bloqueig.getPropietat().getIdPROPIETAT()}}">Tornar enrere -></a>
-                </div>
-
+                    <div class="col-1 mt-2 form-group">
+                        <input type="submit" class="btn btn-primary" id="boto-submit-bloqueig" value="Guardar" />
+                    </div>
+                </form>
+                <hr>
+                <a class="nav-link" th:href="@{'/views/propietats/configurar/' + ${bloqueig.getPropietat().getIdPROPIETAT()}}">Tornar enrere -></a>
             </div>
+
         </div>
-    </main>
+    </div>
+</main>
 
-    <footer>
-        <div th:replace="plantilla/template :: footer"></div>
-    </footer>
+<script th:inline="javascript">
 
-    <script th:inline="javascript">
+    $(document).ready(function() {
 
-        $(document).ready(function() {
+        $("#boto-submit-bloqueig").click(function () {
 
-            $("#boto-submit-bloqueig").click(function () {
+            validarFormBloqueig();
 
-                validarFormBloqueig();
-
-                if (campsCorrectes !== 2){
-                    campsCorrectes = 0;
-                }
-            });
+            if (campsCorrectes !== 2){
+                campsCorrectes = 0;
+            }
         });
+    });
 
-    </script>
+</script>
 
-</div>
+<footer>
+    <div th:replace="plantilla/template :: footer"></div>
+</footer>
+
 </body>
 
 </html>

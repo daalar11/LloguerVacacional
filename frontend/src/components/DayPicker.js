@@ -11,6 +11,10 @@ import { formatDate, parseDate } from 'react-day-picker/moment';
 
 import axios from 'axios';
 
+import {Link} from "react-router-dom";
+import {Button} from 'reactstrap';
+
+
 const FORMAT = 'dd-MM-yyyy';
 
 export default class DayPicker extends React.Component {
@@ -20,8 +24,8 @@ export default class DayPicker extends React.Component {
     this.handleToChange = this.handleToChange.bind(this);
     this.state = {
       preu: null,
-      from: undefined,
-      to: undefined,
+      from: null,
+      to: null,
       disabledDays: [],
       disabledParsed: [],
       
@@ -90,8 +94,11 @@ export default class DayPicker extends React.Component {
     const id = queryParams.get('id');
     const url = "http://127.0.0.1:8000"
 
-    var request = "/all2/" + id + "/" + this.state.from +"/" + this.state.to;
-    var requestp = "/all2/" + id + "/" + "2022-03-13" +"/" + "2022-03-18";
+    const arribada = `${dateFnsFormat(new Date(this.state.from), 'yyyy-MM-dd')}`
+    const sortida = `${dateFnsFormat(new Date(this.state.to), 'yyyy-MM-dd')}`
+
+    var request = "/all2/" + id + "/" + arribada +"/" +  sortida;
+
     
     axios.get(url + request)
     .then(res => {this.setState({
@@ -99,32 +106,28 @@ export default class DayPicker extends React.Component {
             status: true
         });
     })
-    console.log("El preu es", this.state.preu)
+
   }
 
   handleFromChange(from) {
-    // Change the from date and focus the "to" input field
-    //const dataParseada = from.getFullYear() + '-' + from.getMonth() + 1 +'-'+ from.getDate();
-    
     this.setState({ from });
-    console.log(this.state.from)
   }
 
-  handleToChange(to) {
-    
-    //const dataParseada = to.getFullYear() + '-' + to.getMonth() + 1 +'-'+ to.getDate();
-    this.setState({ to }, this.showFromMonth);
-
-    //this.calcularPreu();
-
-    console.log("Data sortida es", this.state.to)
+  async handleToChange(to) {
+    await this.setState({ to }, this.showFromMonth);
+    this.calcularPreu();
   }
 
   render() {
 
-  
     const { from, to, preu } = this.state;
     const modifiers = { start: from, end: to };
+    const fromParseat = `${dateFnsFormat(new Date(from), 'yyyy-MM-dd')}`;
+    const toParseat = `${dateFnsFormat(new Date(to), 'yyyy-MM-dd')}`;
+
+    const queryParams = new URLSearchParams(window.location.search);
+    const id = queryParams.get('id');
+
     
     return (
       <div className="InputFromTo m-auto">
@@ -163,7 +166,16 @@ export default class DayPicker extends React.Component {
           />
         </span>
         <br></br>
-        <span className='text-start fw-bold mt-5'>Preu <span className='ms-2 text-danger' id='preu'>{preu}€</span></span>
+        <p className='text-start fw-bold mt-5'>Preu <span className='ms-2 text-danger' id='preu'>{preu}€</span></p>
+        {sessionStorage.getItem("idUsuariLogeat") != null &&
+        <Link to={"/reservar?id=" + id + "&date1=" + fromParseat + "&date2=" + toParseat}>
+          <Button
+          className='mt-4'
+          color="dark"
+          size="lg"
+          >
+            Llogar Propietat
+          </Button></Link>}
         <Helmet>
           <style>{`
             .InputFromTo .DayPicker-Day--selected:not(.DayPicker-Day--start):not(.DayPicker-Day--end):not(.DayPicker-Day--outside) {
