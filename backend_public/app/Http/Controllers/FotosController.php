@@ -60,11 +60,11 @@ class FotosController extends Controller
     public function listPortadesByIdPropietat($idPropietat)
     {
         $path = realpath("/Media/" . $idPropietat . "-media/" . $idPropietat . "-portada.jpg");
-
+        print_r($path);
 
         //Si la foto que cerca no exiteix
         if(!File::exists($path)) {
-            return response()->json(['message' => "Image not found.' . $path"], 404);
+            //return response()->json(['message' => "Image not found.' . $path"], 404);
         }
 
         $file = File::get($path);
