@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import CasesList from "../components/casesList";
 import 'bootstrap/dist/css/bootstrap.min.css';//Bootstrap
 import Propietat from '../components/Propietat';
-import {Container, Row, Col, Breadcrumb, BreadcrumbItem} from 'reactstrap';
+import {Container, Row,Card, Col, Breadcrumb, BreadcrumbItem,Collapse,AccordionItem,AccordionHeader,UncontrolledAccordion, CardHeader, CardBody} from 'reactstrap';
 import Places from "../components/Places";
 import ListCaracateristica from "../components/ListCaracteristica";
 //Importam Axios
@@ -12,6 +12,7 @@ import SelectLocalitat from "../components/SelectLocalitat";
 import {Link} from "react-router-dom";
 
 import ReactPaginate from 'react-paginate';
+
 
 class Cercarpropietat extends Component {
 
@@ -30,13 +31,19 @@ class Cercarpropietat extends Component {
 
       isLoading: false,
       error: null,
-    };
 
+      collapse: 0, 
+          cards: [1],
+    };
+    this.toggle = this.toggle.bind(this);
     this.changeCaracteristica= this.changeCaracteristica.bind(this);
     this.changeLocalitat=this.changeLocalitat.bind(this);
     this.changePlaces=this.changePlaces.bind(this);
   }
-
+  toggle(e) {
+    let event = e.target.dataset.event;
+    this.setState({ collapse: this.state.collapse === Number(event) ? 0 : Number(event) });
+}
   changeLocalitat(l){
     this.setState({localitatFiltrada : l});
   }
@@ -117,7 +124,7 @@ class Cercarpropietat extends Component {
 
   render() {
 
-    const { propietats, isLoading, error,localitat,caracteristica } = this.state;
+    const { propietats, isLoading, error,localitat,caracteristica,collapse,cards } = this.state;
     console.log(this.state.propietats);
   
     if (error) {
@@ -145,25 +152,41 @@ class Cercarpropietat extends Component {
 
           <Row>
           <hr></hr>
-            <Col className="col-4 mt-2 border border-2 rounded">
-              <Row>
-                <Places handleChange={this.changePlaces}></Places>
-              </Row>
-              <Row>
-                <SelectLocalitat 
-                 handleChange={this.changeLocalitat}
-                localitat={localitat}>
+            <Col xs="12" xl="4" className=" mt-2 border border-2 rounded">
+            {cards.map(index => {
+              return(
+              <Card key={index}>
+                   
+                  <CardHeader onClick={this.toggle}
+                                 data-event={index}     >
+                    Filtratges
+                  </CardHeader>
+                  <Collapse isOpen={collapse === index}>
+                    <CardBody>
+                  <Row>
+                    <Places handleChange={this.changePlaces}></Places>
+                  </Row>
+                  <Row>
+                    <SelectLocalitat 
+                    handleChange={this.changeLocalitat}
+                    localitat={localitat}>
 
-                </SelectLocalitat>
-              </Row>
-              <Row>
-                  <ListCaracateristica 
-                  handleChange={this.changeCaracteristica} 
-                  caracteristica={caracteristica}>
-                  </ListCaracateristica>
-                </Row>
+                    </SelectLocalitat>
+                  </Row>
+                  <Row>
+                      <ListCaracateristica 
+                      handleChange={this.changeCaracteristica} 
+                      caracteristica={caracteristica}>
+                      </ListCaracateristica>
+                    </Row>
+                    </CardBody>
+                    </Collapse>
+                    
+                </Card>
+                  )
+                 })} 
             </Col>
-            <Col className="col-8">
+            <Col xl="8"xs="12">
             
             <CasesList
             propietats={propietats}

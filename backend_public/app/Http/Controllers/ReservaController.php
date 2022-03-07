@@ -18,7 +18,7 @@ class ReservaController extends Controller
      * @throws \Exception
      */
     public function calcPrice($idPropietat, $d_inici, $d_fi){
-        $tarifa= Tarifa::where('id_propietat',$idPropietat)->get()->toArray();
+        $tarifa= Tarifa::where('id_propietat',$idPropietat)->where('activa',1)->get()->toArray();
         $propietat= Propietat::find($idPropietat)->toArray();
         $preu=0;
 
@@ -34,6 +34,7 @@ class ReservaController extends Controller
                if($i>=new DateTime($tarifa[$j]['d_inici'])&&$i<=new DateTime($tarifa[$j]['d_fi'])){
                    $preu+=$tarifa[$j]['preu'];
                     $diesTarifa++;
+
                }
             }
         }
