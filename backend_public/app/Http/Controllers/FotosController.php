@@ -15,7 +15,7 @@ class FotosController extends Controller
     {
             $absolute_path = realpath("/Media/" . $idPropietat . "-media/img/");
 
-            $path = $absolute_path . '\\' . $filename;
+            $path = $absolute_path . '/' . $filename;
 
             //Si la foto que cerca no exiteix
             if(!File::exists($path)) {
