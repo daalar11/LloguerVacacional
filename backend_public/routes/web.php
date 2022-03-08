@@ -7,10 +7,10 @@ use App\Http\Controllers\ReservaController;
 use Illuminate\Support\Facades\Route;
 
 //Linies necessaries per evitar l'error de CORS (permissos) respecte quan demanin serveis d'aquesta API
-//header('Access-Control-Allow-Origin: *');
-//header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method");
-//header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
-//header("Allow: GET, POST, OPTIONS, PUT, DELETE");
+header('Access-Control-Allow-Origin: *');
+header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method");
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+header("Allow: GET, POST, OPTIONS, PUT, DELETE");
 /*
 |--------------------------------------------------------------------------
 | Web Routes
