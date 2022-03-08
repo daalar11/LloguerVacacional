@@ -27,7 +27,7 @@ class FotosController extends Controller
 
             $response = Response::make($file, 200);
             $response->header("Content-Type", $type);
-
+            ob_end_clean();
             return $response;
 
     }
@@ -54,6 +54,7 @@ class FotosController extends Controller
 
             $info[] = $foto;
         }
+        ob_end_clean();
         return $info;
     }
 
@@ -97,6 +98,7 @@ class FotosController extends Controller
 
             $info[] = $foto;
         }
+        ob_end_clean();
         return $info;
     }
 
