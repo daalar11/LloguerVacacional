@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'paths' => ['*'],
+    'paths' => ['https://api.lloguerdavid.me/*'],
 
     'allowed_methods' => ['*'],
 
