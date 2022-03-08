@@ -6,7 +6,6 @@ class SelectLocalitat extends Component {
 	constructor(props){
 		super(props);
 		this.handleChange = this.handleChange.bind(this);
-        console.log(this.props.localitat)
 	}
 
 	handleChange(event){

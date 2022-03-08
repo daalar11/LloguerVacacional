@@ -71,15 +71,15 @@ class DayPicker extends React.Component {
   }
 
   componentWillReceiveProps(props) {
-    //console.log(this.state.disabledDays)
+   
     this.setState({disabledDays: props.diesNoDisponibles});
     this.setState({disabledParsed: this.formatearDiesNoDisponibles()});
-    //console.log(this.state.disabledParsed)
+    
   }
 
   calcularPreu = () => {
         
-    console.log("Calculant preu...")
+    
 
     //Agafam el parametres de la URL d'aquesta forma. (No fa falta instalar cap packet, ve a javascript intern)
     const queryParams = new URLSearchParams(window.location.search);

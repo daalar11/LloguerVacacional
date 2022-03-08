@@ -16,7 +16,6 @@ class ListCaracateristica extends Component {
 	async handleChange(event){
         if(event.target.checked){           
                 await this.setState({arrayCar : ([...this.state.arrayCar,event.target.value])});
-                //console.log(this.state.arrayCar);  
             }else{
                 for (var i=0;i<this.state.arrayCar.length;i++){
                     

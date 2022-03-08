@@ -23,7 +23,7 @@ class MyCarousel extends Component {
       this.goToIndex = this.goToIndex.bind(this);
       this.onExiting = this.onExiting.bind(this);
       this.onExited = this.onExited.bind(this);
-      console.log(this.state.items);
+ 
     }
 
     async componentWillReceiveProps(props) {

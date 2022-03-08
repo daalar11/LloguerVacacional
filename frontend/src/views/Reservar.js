@@ -29,7 +29,6 @@ class Reservar extends Component {
     this.setState({d_fi:d_fi});
     //const url="https://api.lloguerdavid.me";
     const url = "http://127.0.0.1:8000"
-    console.log(Date.now())
     axios.get(url + "/all/"+idPropietat)
       .then(res => {this.setState({
         propietat: res.data
@@ -62,7 +61,7 @@ class Reservar extends Component {
         isLoading: false
       }));
 
-      console.log(sessionStorage.getItem("idUsuariLogeat"))
+     
   }
   
   componentDidMount = () => {

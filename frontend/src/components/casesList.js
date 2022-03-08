@@ -26,48 +26,48 @@ class CasesList extends Component {
       }
     
     applyFilters(propietat){
-           //let caracteristiques=[]
+       
            let caracteristicaPropietat=[];
            let x=0; 
            for(const carac in propietat.caracteristica){
             caracteristicaPropietat.push(propietat.caracteristica[carac].caracteristica);
            }
-            //console.log(caracteristicaPropietat,"carac");
+          
          
             
                 const filtres=this.props.caracteristica;
             
-            //console.log(filtres);
+            
             if(propietat.places &&this.props.places&&propietat.localitat.nom_localitat&&this.props.localitat&&filtres.length!=0){
               let f=true; 
-              //console.log(caracteristiques) 
+             
                 for(const carac in filtres){
-                  //console.log(filtres[carac]);
+                
                   if(caracteristicaPropietat.indexOf(filtres[carac])==-1){
-                    //console.log(caracteristiques[carac])
+                  
                     return false;
                   }
                 }
-               // console.log(propietat.caracteristica,"console og");
+              
               return parseInt(propietat.places)===parseInt(this.props.places) && propietat.localitat.nom_localitat==this.props.localitat;
             }else if(propietat.places &&this.props.places&&filtres.length!=0){
               let f=true; 
-              //console.log(caracteristiques) 
+            
                 for(const carac in filtres){
-                  //console.log(filtres[carac]);
+                 
                   if(caracteristicaPropietat.indexOf(filtres[carac])==-1){
-                    //console.log(caracteristiques[carac])
+                    
                     return false;
                   }
                 }
                 return parseInt(propietat.places)===parseInt(this.props.places)
             }else if(propietat.localitat.nom_localitat&&this.props.localitat&&filtres.length!=0){
               let f=true; 
-              //console.log(caracteristiques) 
+            
                 for(const carac in filtres){
-                  //console.log(filtres[carac]);
+                 
                   if(caracteristicaPropietat.indexOf(filtres[carac])==-1){
-                    //console.log(caracteristiques[carac])
+                  
                     return false;
                   }
                 }
@@ -77,19 +77,19 @@ class CasesList extends Component {
             }else if(propietat.places &&this.props.places){
 			    return parseInt(propietat.places)===parseInt(this.props.places);
             }else if(propietat.localitat.nom_localitat&&this.props.localitat){
-                //console.log(propietat.localitat.nom_localitat==this.props.localitat,"localitat")
+              
                 return propietat.localitat.nom_localitat==this.props.localitat;	
             }else if(filtres.length!=0){ 
               let f=true; 
-              //console.log(caracteristiques) 
+             
                 for(const carac in filtres){
-                  //console.log(filtres[carac]);
+                  
                   if(caracteristicaPropietat.indexOf(filtres[carac])==-1){
-                    //console.log(caracteristiques[carac])
+                   
                     return false;
                   }
                 }
-               // console.log(propietat.caracteristica,"console og");
+               
                 return true;
                 
                
@@ -116,7 +116,7 @@ class CasesList extends Component {
                 for(let j=0;j<x;j++){
                     
                     if(propietat.caracteristica[j].caracteristica==this.props.caracteristica[i]){
-                        //console.log("z",z,"prop",this.props.caracteristica[i],"casa",propietat.caracteristica[j].caracteristica);
+                       
                         return true;
                     }
                 }
