@@ -14,7 +14,6 @@ import {Button} from 'reactstrap';
 
 import { withTranslation } from 'react-i18next';
 
-
 const FORMAT = 'dd-MM-yyyy';
 
 class DayPicker extends React.Component {
@@ -23,7 +22,7 @@ class DayPicker extends React.Component {
     this.handleFromChange = this.handleFromChange.bind(this);
     this.handleToChange = this.handleToChange.bind(this);
     this.state = {
-      preu: 0,
+      preu: null,
       from: null,
       to: null,
       disabledDays: [],
@@ -63,7 +62,9 @@ class DayPicker extends React.Component {
 
     }
 
+
     diesParseats.push({"before": new Date()})
+    diesParseats.push({"before": new Date(this.state.from)})
 
     return diesParseats;
 

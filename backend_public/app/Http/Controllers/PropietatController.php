@@ -1,18 +1,17 @@
 <?php
 namespace App\Http\Controllers;
+
 use App\Models\Bloqueig;
 use App\Models\Propietat;
 use App\Models\Reserva;
-use Illuminate\Http\Request;
 use App\Activity;
 use App\Item;
-use Illuminate\Support\Facades\Date;
 
 //Controlador de les propietats
 class PropietatController extends Controller
 {
     //Funcio que llista totes les propietats.
-    public function listAll(Request $request){
+    public function listAll(){
 
         //Cream la variable propietats i utilitzam el metode all()
         $propietats= Propietat::all();
@@ -22,7 +21,7 @@ class PropietatController extends Controller
     }
     public function listPropietatByPlacesAndLocalitat($idLocalitat,$places){
         $propietat = Propietat::where('id_localitat',$idLocalitat)->where("places",$places)->get()->toArray();
-        //return DB::select("select * from habitacions where id_propietat=".$propietat->primaryKey);
+
         return json_decode(json_encode($propietat),true);
     }
     public function listAllByPropietat()
@@ -66,24 +65,15 @@ class PropietatController extends Controller
             $dataEntradaParseada = date( 'Y, m, d', $dataEntrada );
             $dataSortidaParseada = date( 'Y, m, d', $dataSortida );
 
-            //$dataEntrada = str_replace('-', ', ', $bloqueigArray[$i]['d_inici']);
-            //$dataSortida = str_replace('-', ', ', $bloqueigArray[$i]['d_fi']);
-
-
             $bloqueig = array(
                 "after" => \date($dataEntradaParseada),
                 "before" => \date($dataSortidaParseada)
             );
 
-            //'new Date(' . $dataSortidaParseada . ')'
-
             $diesNoDisponibles[] = $bloqueig;
         }
 
         for ($j = 0; $j<count($reservaArray);$j++){
-
-            //$dataEntrada = str_replace('-', ', ', $reservaArray[$i]['d_arribada']);
-            //$dataSortida = str_replace('-', ', ', $reservaArray[$i]['d_sortida']);
 
             $dataEntrada = strtotime($reservaArray[$j]['d_arribada']);
             $dataSortida = strtotime($reservaArray[$j]['d_sortida']);
@@ -98,8 +88,6 @@ class PropietatController extends Controller
 
             $diesNoDisponibles[] = $reserva;
         }
-
-        //return json_decode(json_encode($diesNoDisponibles),true);
 
         return $diesNoDisponibles;
     }

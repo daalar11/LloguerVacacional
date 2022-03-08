@@ -22,7 +22,7 @@ class Propietat extends Component {
   
     return (
       
-  <Card className='tamanyCard mb-2'>
+  <Card className='tamanyCard text-start mb-2'>
     <div className='row'>
     <div className='col-xl-5 col-sm-8 col-xs-8'>
     <CardImg
@@ -32,20 +32,17 @@ class Propietat extends Component {
     </div>
     <CardBody className='col-xl-7  col-sm-4 d-flex flex-column justify-content-between'
     height='100%'>
-      <Row className='d-flex flex-row justify-content-between ms-2 me-3'>
-          <CardTitle xl="4" xs="12"tag="h2">
-          {this.props.title}
+      <Row className='d-flex flex-row justify-content-between'>
+          <CardTitle xl="4" xs="12"tag="h2" className='mb-3'>
+          {this.props.title} - {this.props.subtitle}
           </CardTitle>
-          <CardSubtitle xl="4" xs="12" className="mt-2 text-muted" tag="h4">
-          Població: {this.props.subtitle}
-          </CardSubtitle>
       </Row>
       <div className='d-flex justify-content-between flex-row flex-wrap'>
-      <CardText className='d-flex justify-content-between d-sm-none d-md-block' >
-            {this.props.text} 
-        </CardText>
+      
         <div>
-            <h5 className='d-sm-none d-md-block'>Caracteristiques:</h5>
+      
+            <h5 className='d-sm-none mb-3 d-md-block'>Caracteristiques: </h5>
+            
             <CardText className='d-sm-none d-md-block'>
             {this.props.caracteristica.map(function(caracteristica,key) {
               return(
@@ -55,14 +52,11 @@ class Propietat extends Component {
               )
             })}
           </CardText>
-          <h6>Preu per nit :</h6>
-              <CardText>
-                {this.props.preu}€
-              </CardText>
-              <h6  xs="12">Places:</h6>
-              <div xs="12">
-              {this.props.places}
-              </div>
+          <h5>Preu per nit: {this.props.preu}€</h5>
+          <h5 xs="12">Places: {this.props.places}</h5>
+          <div xs="12">
+          
+          </div>
         </div>   
       </div>
       <div className='d-flex justify-content-center'>

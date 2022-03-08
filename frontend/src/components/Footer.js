@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {Row, Col} from 'reactstrap';
+import {Container, Row, Col} from 'reactstrap';
 
 import { FaFacebookF, FaInstagram, FaTwitterSquare, FaComments, FaPeopleCarry, FaCopyright, FaPersonBooth } from 'react-icons/fa';
 
@@ -15,7 +15,7 @@ class Footer extends Component {
   render() {
    
       return (
-
+<div className="container-fluid">
         <Row className="footer d-flex flex-lg-row flex-md-column ps-xs-5 justify-content-around align-items-center text-white mt-4 p-4">
 
             <Col xs="2" />
@@ -25,7 +25,7 @@ class Footer extends Component {
                 <hr></hr>
 
                 <ul className="list-unstyled">
-                    <li className="mb-2">Almodovar Arenas</li>
+                    <li className="mb-2">David Almodovar Arenas</li>
                     <li className="mb-2">Aleix Font Comes</li>
                     <li className="mb-2">Ies Manacor</li>
                 </ul>
@@ -36,9 +36,9 @@ class Footer extends Component {
                 <span className="fs-5">{this.props.t('footer.title1')}</span>
                 <hr></hr>
                 <ul className="list-unstyled">
-                    <li className="mb-2"><FaComments /> <a className="text-decoration-none text-white" href="https://www.facebook.com/">{this.props.t('footer.contact')} </a></li>
-                    <li className="mb-2"><FaPeopleCarry /> <a className="text-decoration-none text-white" href="https://www.facebook.com/">{this.props.t('footer.politica')}</a></li>
-                    <li><FaCopyright /> <a className="text-decoration-none text-white" href="https://www.facebook.com/"> {this.props.t('footer.copyright')} </a></li>
+                    <li className="mb-2"><FaComments /> <a className="text-decoration-none text-white" href="#">{this.props.t('footer.contact')} </a></li>
+                    <li className="mb-2"><FaPeopleCarry /> <a className="text-decoration-none text-white" href="#">{this.props.t('footer.politica')}</a></li>
+                    <li><FaCopyright /> <a className="text-decoration-none text-white" href="#"> {this.props.t('footer.copyright')} </a></li>
                 </ul>   
                 
             </Col>
@@ -56,6 +56,7 @@ class Footer extends Component {
             <Col xs="2" />
 
         </Row>
+        </div>
       );
   }//Fi render
 }

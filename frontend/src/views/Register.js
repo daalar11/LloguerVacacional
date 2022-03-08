@@ -28,8 +28,8 @@ const { t } = useTranslation();
         if (response.data[0] == 0){
 
             alert(response.data[1])
-            window.location.href = "https://www.lloguerdavid.me/login";
-           // window.location.href = "http://localhost:3000/login";
+           // window.location.href = "https://www.lloguerdavid.me/login";
+            window.location.href = "http://localhost:3000/login";
 
         } 
         if (response.data[0] == 1) {

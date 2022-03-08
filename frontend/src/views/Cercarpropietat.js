@@ -48,15 +48,14 @@ class Cercarpropietat extends Component {
   
   async changeCaracteristica(myCaracteristica ){
     await    this.setState({categoriaFiltrada : myCaracteristica});
-    //console.log(myCaracteristica,"algo");
   }
   //Metode amb la peticio axios a n url.
 
   carregarLocalitat = () => {
 
     //var url="api.lloguerdavid.me";
-    //var url = "http://127.0.0.1:8000";
-    var url = "https://api.lloguerdavid.me";
+    var url = "http://localhost:8000";
+    //var url = "https://api.lloguerdavid.me";
     var request = "/localitats";
 
     axios.get(url + request)
@@ -74,8 +73,8 @@ class Cercarpropietat extends Component {
   carregarCaracteristica = () => {
 
     //var url="api.lloguerdavid.me";
-   // var url = "http://127.0.0.1:8000";
-    var url = "https://api.lloguerdavid.me";
+   var url = "http://localhost:8000";
+    //var url = "https://api.lloguerdavid.me";
     var request = "/caracteristica";
 
     axios.get(url + request)
@@ -91,8 +90,8 @@ class Cercarpropietat extends Component {
   }
   carregarPropietats = () => {
 
-    var url="https://api.lloguerdavid.me";
-    //var url = "http://127.0.0.1:8000";
+    //var url="https://api.lloguerdavid.me";
+    var url = "http://localhost:8000";
     var request = "/all";
 
     axios.get(url + request)
@@ -126,7 +125,6 @@ class Cercarpropietat extends Component {
     if (isLoading) {
       return <p>Loading ...</p>;
     }
-
     return (
       
       <div>
@@ -144,7 +142,7 @@ class Cercarpropietat extends Component {
 
           <Row>
           <hr></hr>
-            <Col xs="12" xl="4" className=" mt-2 border border-2 rounded">
+            <Col xs="12" xl="4" className=" mt-2 rounded">
             {cards.map(index => {
               return(
               <Card key={index}>

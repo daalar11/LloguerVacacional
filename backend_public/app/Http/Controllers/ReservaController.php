@@ -5,11 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Propietat;
 use App\Models\Reserva;
 use App\Models\Tarifa;
-use DateInterval;
-use DatePeriod;
 use DateTime;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 
 class ReservaController extends Controller
@@ -49,8 +46,8 @@ class ReservaController extends Controller
             $preu=$preu*(1-($propietat['descompte_setmana']/100));
         }
        $preuFinal['valor']=$preu;
+
        return  json_decode(json_encode($preuFinal),true);
-        //return $preu;
     }
 
     public function listReservaByIdClient($idClient){

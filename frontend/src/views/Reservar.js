@@ -27,8 +27,8 @@ class Reservar extends Component {
     const idPropietat = queryParams.get('id');
     this.setState({d_inici:d_inici});
     this.setState({d_fi:d_fi});
-    const url="https://api.lloguerdavid.me";
-    //var url = "http://127.0.0.1:8000"
+    //const url="https://api.lloguerdavid.me";
+    const url = "http://127.0.0.1:8000"
     console.log(Date.now())
     axios.get(url + "/all/"+idPropietat)
       .then(res => {this.setState({

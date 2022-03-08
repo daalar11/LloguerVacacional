@@ -12,7 +12,7 @@ function Login() {
   const { t } = useTranslation();
 
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const onSubmit = data => axios.post('https://api.lloguerdavid.me/login', {
+  const onSubmit = data => axios.post('http://localhost:8000/login', {
 
     correu: data.correu,
     contrasenya: data.contrasenya,
@@ -23,7 +23,8 @@ function Login() {
     if (response.data[0] == 0){
     
         sessionStorage.setItem("idUsuariLogeat", response.data[2].id)
-        window.location.href = "https://www.lloguerdavid.me/";
+        window.location.href = "http://localhost:3000/";
+        //window.location.href = "https://www.lloguerdavid.me/";
         
     } 
     //En el cas de que l'usuari no existeixi
@@ -65,7 +66,7 @@ function Login() {
             
 
             <FormGroup className='fr'>
-                <Label for="preuFinal" className='text-start fw-bold'>{t('login.pass')}</Label>
+                <Label className='text-start fw-bold'>{t('login.pass')}</Label>
                
                   <input
                   {...register("contrasenya", {
@@ -81,7 +82,7 @@ function Login() {
                
             </FormGroup>
 
-            <Input className="boto-submit-register mt-3 mb-2" type="submit" value='Log In'/>
+            <Input className="btn btn-outline-dark mt-3 mb-2" type="submit" value='Log In'/>
                 
           </Form>
           {t('login.preguntaRegister')} <Link to="/register">{t('login.register')}</Link>

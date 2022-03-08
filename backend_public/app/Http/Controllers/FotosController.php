@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use FilesystemIterator;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Response;
 
@@ -60,7 +59,6 @@ class FotosController extends Controller
     public function listPortadesByIdPropietat($idPropietat)
     {
         $path = realpath("/Media/" . $idPropietat . "-media/" . $idPropietat . "-portada.jpg");
-        print_r($path);
 
         //Si la foto que cerca no exiteix
         if(!File::exists($path)) {
@@ -69,12 +67,11 @@ class FotosController extends Controller
 
         $file = File::get($path);
         $type = File::mimeType($path);
-        print_r($path);
+
         $response = Response::make($file, 200);
         $response->header("Content-Type", $type);
 
         return $response;
-
     }
 
     public function infoPortades()

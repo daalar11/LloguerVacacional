@@ -161,7 +161,7 @@ class CasesList extends Component {
         caracteristica={todo.caracteristica}
         preu={todo.preu_base}
         id={todo.idpropietat}
-        src={'https://api.lloguerdavid.me/propietat/'+todo.idpropietat+'/fotos/portada'}
+        src={'http://localhost:8000/propietat/'+todo.idpropietat+'/fotos/portada'}
         />
         <hr></hr>
         </>;
@@ -186,14 +186,21 @@ class CasesList extends Component {
       });
     return (
             <div>
-                <div>
-                    Pagina actual: {this.state.currentPage}
+                <div className="mt-2">
+                 
                     {renderTodos}
                 </div>
-                <Row>
+                <Row className="d-flex justify-content-between">
+                  <Col xs="8">
                     <ul id="page-numbers">
                         {renderPageNumbers}
                     </ul>
+                    </Col>
+                    <Col>
+                      <span>Pagina actual: {this.state.currentPage}</span>
+                    </Col>
+
+                   
                 </Row>
 
             </div>

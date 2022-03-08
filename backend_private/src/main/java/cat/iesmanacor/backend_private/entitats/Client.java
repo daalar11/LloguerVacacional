@@ -15,4 +15,7 @@ public class Client extends Usuari implements Serializable {
         super(id, dni, nom, llinatge1, llinatge2, correu, contrasenya, eliminat);
     }
 
+    public Client() {
+
+    }
 }
