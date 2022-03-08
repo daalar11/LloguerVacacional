@@ -98,36 +98,7 @@ class CasesList extends Component {
             }
         }
         
-        
-        checkCar(propietat){
-            let y=0;
-            let x=0;  
-            let z=0;
-            for(const iterador in this.props.caracteristica){
-                y++;
-            }
-            for (const iterador2 in propietat.caracteristica){
-                x++;
-            }
-
-            
-            
-            for(let i=0;i<y;i++){    
-                for(let j=0;j<x;j++){
-                    
-                    if(propietat.caracteristica[j].caracteristica==this.props.caracteristica[i]){
-                       
-                        return true;
-                    }
-                }
-            }
-              
-            if(z == y && z != 0){
-              return true;  
-            }else{
-                return false;
-            }  
-        }
+     
 
         
          componentDidMount = () => {
