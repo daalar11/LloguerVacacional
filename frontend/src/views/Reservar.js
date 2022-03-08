@@ -51,7 +51,7 @@ class Reservar extends Component {
         error,
         isLoading: false
       }));
-      axios.get(url + "/client/"+2)
+      axios.get(url + "/client/"+sessionStorage.getItem("idUsuariLogeat"))
       .then(res => {this.setState({
         client: res.data
         
@@ -61,6 +61,8 @@ class Reservar extends Component {
         error,
         isLoading: false
       }));
+
+      console.log(sessionStorage.getItem("idUsuariLogeat"))
   }
   
   componentDidMount = () => {
@@ -192,7 +194,7 @@ class Reservar extends Component {
           </FormGroup>
 
           <FormGroup className='fr'>
-              <Label for="reserva" className='text-start fw-bold'>Preu final: </Label>
+              <Label for="reserva" className='text-start fw-bold'>Preu final €: </Label>
              
                 <input
                 type="text"

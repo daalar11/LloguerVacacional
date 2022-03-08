@@ -48,8 +48,8 @@ class RedsysController extends Controller
         $moneda="978";
         $trans="0";
         $url="https://sis-t.redsys.es:25443/sis/realizarPago";
-        $urlOK="https://api.lloguerdavid.me/confirmarReserva?idPropietat=".$idPropietat."&idCli=".$idClient."&dInici=".$dinici;
-        $urlKO="https://api.lloguerdavid.me/cancelarReserva?idPropietat=".$idPropietat."&idCli=".$idClient."&dInici=".$dinici;
+        $urlOK="http://localhost:8000/confirmarReserva?idPropietat=".$idPropietat."&idCli=".$idClient."&dInici=".$dinici;
+        $urlKO="http://localhost:8000/cancelarReserva?idPropietat=".$idPropietat."&idCli=".$idClient."&dInici=".$dinici;
         $id=date('ymdHis');
         $amount=$preu*100;
 

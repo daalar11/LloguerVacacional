@@ -16,7 +16,7 @@ function InputComentari() {
     const idPropietat = queryParams.get('id');
 
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const onSubmit = data => axios.post('https://api.lloguerdavid.me/propietat/comentar', 
+    const onSubmit = data => axios.post('http://localhost:8000/propietat/comentar', 
     {
         idPropietat: idPropietat,
         idClient: sessionStorage.getItem("idUsuariLogeat"),

@@ -10,8 +10,8 @@ function Register() {
 const { t } = useTranslation();
 
   const { register, handleSubmit, formState: { errors } } = useForm();
- // const onSubmit = data => axios.post('http://localhost:8000/register', 
-  const onSubmit = data => axios.post('https://api.lloguerdavid.me/register', 
+ const onSubmit = data => axios.post('http://localhost:8000/register', 
+ // const onSubmit = data => axios.post('https://api.lloguerdavid.me/register', 
   {
         dni: data.dni,
         nom: data.nom,

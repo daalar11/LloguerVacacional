@@ -33,8 +33,8 @@ class Viewpropietat extends Component {
     //Agafam el parametres de la URL d'aquesta forma. (No fa falta instalar cap packet, ve a javascript intern)
     const queryParams = new URLSearchParams(window.location.search);
     const id = queryParams.get('id');
-    //const url = "http://127.0.0.1:8000"
-    const url = "https://api.lloguerdavid.me"
+    const url = "http://127.0.0.1:8000"
+    //const url = "https://api.lloguerdavid.me"
 
     var request = "/all/" + id;
 
@@ -61,8 +61,7 @@ class Viewpropietat extends Component {
      //Agafam el parametres de la URL d'aquesta forma. (No fa falta instalar cap packet, ve a javascript intern)
     const queryParams = new URLSearchParams(window.location.search);
     const id = queryParams.get('id');
-    //const url = "http://127.0.0.1:8000"
-    const url = "https://api.lloguerdavid.me"
+    const url = "http://127.0.0.1:8000"
 
     var request = "/propietat/" + id + "/fotos/info";
     
@@ -110,7 +109,7 @@ class Viewpropietat extends Component {
                 <Link to="/cercarpropietat">Cercar Propietat</Link>
               </BreadcrumbItem>
               <BreadcrumbItem active>
-                Propietat
+                Propietat 
               </BreadcrumbItem>
             </Breadcrumb>
             
