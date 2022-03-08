@@ -2,7 +2,8 @@ import { createPath } from "history";
 import React, { Component } from "react";
 import {Col,Row} from 'reactstrap';
 import Propietat from "./Propietat";
-import './cssPaginacio.css'; 
+//Imports Traduccions
+import { withTranslation } from 'react-i18next';
 
 class CasesList extends Component {
      constructor(props){
@@ -167,7 +168,7 @@ class CasesList extends Component {
                     </ul>
                     </Col>
                     <Col>
-                      <span>Pagina actual: {this.state.currentPage}</span>
+                      <span> {this.props.t('cercarcases.paginaactual')} {this.state.currentPage}</span>
                     </Col>
 
                    
@@ -182,4 +183,4 @@ class CasesList extends Component {
   }
 }
  
-export default CasesList;
+export default withTranslation()(CasesList);

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import {Col,Row ,Input, Label,} from 'reactstrap';
-import './ListCaracteristica.css';
+//Imports Traduccions
+import { withTranslation } from 'react-i18next';
+
 class ListCaracateristica extends Component {
     
 	constructor(props){
@@ -28,12 +30,11 @@ class ListCaracateristica extends Component {
         
 	}
 
-
 	render() {
 	    return (
             <div >
                 <Row>
-                    <Label for="select">Caracteristiques : </Label>
+                    <Label for="select"> {this.props.t('viewpropietat.caract')}</Label>
                 </Row>
                 <Row>
                     {this.props.caracteristica.map((caracteristica,key)=>{
@@ -65,4 +66,4 @@ class ListCaracateristica extends Component {
 }
 
 
-export default ListCaracateristica;
+export default withTranslation()(ListCaracateristica);

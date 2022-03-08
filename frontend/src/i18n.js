@@ -106,8 +106,22 @@ i18n
                     llitsd: "Nº de Llits Dobles:",
                     llitss: "Nº de Llits Individuals:",
                     bany: "Bany",
-    
-    
+                },
+                home: {
+                    copdull: "Pega un copdull a les nostres cases disponibles per llogar",
+                    millors: "Son les millors",
+                    botollogar: "Comença a llogar",
+                    deixarclaus: "Vols posar alguna de les teves propietats a la nostra disposició?",
+                    deixans: "Dona-t d'alta com a propietari i deixans la resta a nosaltres",
+                    botopropietari: "Fes-te Propietari"
+                },
+                cercarcases: {
+                    botofiltres: "Filtratges",
+                    caract: "Caracteristiques de la casa",
+                    perupernit: "Preu per nit: ",
+                    plaçes: "Plaçes: ",
+                    paginaactual: "Pagina: ",
+                    boto: "LLogar"
                 }
           }
         },  

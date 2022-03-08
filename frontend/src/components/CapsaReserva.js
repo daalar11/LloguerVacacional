@@ -67,7 +67,7 @@ class CapsaReserva extends Component {
 
     return (
 
-        <Col xs="3" className='mt-4'>
+        <Col xs="3" className='mt-5'>
 
                 <span className='fw-bold'>{this.props.t('viewpropietat.titolDates')}</span>
                 <hr></hr>

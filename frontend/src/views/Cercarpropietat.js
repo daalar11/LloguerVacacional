@@ -8,6 +8,8 @@ import axios from 'axios';
 import SelectLocalitat from "../components/SelectLocalitat";
 import {Link} from "react-router-dom";
 import ReactPaginate from 'react-paginate';
+//Imports Traduccions
+import { withTranslation } from 'react-i18next';
 
 class Cercarpropietat extends Component {
 
@@ -142,14 +144,14 @@ class Cercarpropietat extends Component {
 
           <Row>
           <hr></hr>
-            <Col xs="12" xl="4" className=" mt-2 rounded">
+            <Col xs="12" xl="3" className=" mt-2 rounded">
             {cards.map(index => {
               return(
               <Card key={index}>
                    
                   <CardHeader onClick={this.toggle}
                                  data-event={index}     >
-                    Filtratges
+                   {this.props.t('cercarcases.botofiltres')}
                   </CardHeader>
                   <Collapse isOpen={collapse === index}>
                     <CardBody>
@@ -176,7 +178,7 @@ class Cercarpropietat extends Component {
                   )
                  })} 
             </Col>
-            <Col xl="8"xs="12">
+            <Col xl="9"xs="12">
             
             <CasesList
             propietats={propietats}
@@ -202,4 +204,4 @@ class Cercarpropietat extends Component {
   }
 }
  
-export default Cercarpropietat;
+export default withTranslation()(Cercarpropietat);

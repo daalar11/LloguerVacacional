@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import {Col,Row ,Input, Label,} from 'reactstrap';
+//Imports Traduccions
+import { withTranslation } from 'react-i18next';
 
 class SelectLocalitat extends Component {
 
@@ -18,7 +20,7 @@ class SelectLocalitat extends Component {
 	    return (
             <div className='px-4'>
                 <Row>
-                    <Label for="select">Localitat: </Label>
+                    <Label for="select">{this.props.t('viewpropietat.localitat')}</Label>
                 </Row>
 				<Row>
 	    	<Input type="select" name="select" id="select" onChange={this.handleChange}>
@@ -37,4 +39,4 @@ class SelectLocalitat extends Component {
 }
 
 
-export default SelectLocalitat;
+export default withTranslation()(SelectLocalitat);

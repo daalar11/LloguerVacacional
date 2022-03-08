@@ -1,13 +1,14 @@
 //Importam el css (app.css)
 import '../App.css';
-import './Propietat.css';
 
 //Importam els components per utilitzar la interficie component
 import { Component } from 'react';
 
 //Importar un component de Bootstrap.
-import {Card,Row, CardImg, CardText, CardBody, CardTitle, CardSubtitle, Button} from 'reactstrap';
+import {Card,Row, CardImg, CardText, CardBody, CardTitle, Button} from 'reactstrap';
 import {Link} from "react-router-dom";
+//Imports Traduccions
+import { withTranslation } from 'react-i18next';
 
 
 class Propietat extends Component {
@@ -41,7 +42,7 @@ class Propietat extends Component {
       
         <div>
       
-            <h5 className='d-sm-none mb-3 d-md-block'>Caracteristiques: </h5>
+            <h5 className='d-sm-none mb-3 d-md-block'>{this.props.t('cercarcases.caract')} </h5>
             
             <CardText className='d-sm-none d-md-block'>
             {this.props.caracteristica.map(function(caracteristica,key) {
@@ -52,8 +53,8 @@ class Propietat extends Component {
               )
             })}
           </CardText>
-          <h5>Preu per nit: {this.props.preu}€</h5>
-          <h5 xs="12">Places: {this.props.places}</h5>
+          <h5>{this.props.t('cercarcases.perupernit')} {this.props.preu}€</h5>
+          <h5 xs="12">{this.props.t('cercarcases.plaçes')} {this.props.places}</h5>
           <div xs="12">
           
           </div>
@@ -66,7 +67,7 @@ class Propietat extends Component {
           outline
           size="lg"
           >
-            Lloga
+            {this.props.t('cercarcases.boto')}
           </Button></Link>
       </div>
     </CardBody>
@@ -77,4 +78,4 @@ class Propietat extends Component {
   }
 }
 
-export default Propietat;
+export default withTranslation()(Propietat);

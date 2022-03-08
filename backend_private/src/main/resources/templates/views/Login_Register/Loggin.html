@@ -13,7 +13,7 @@
 <main class="container">
     <div class="row">
         <div class="col-4"></div>
-        <form class="col-4 mt-2 border border-dark shadow-lg bg-body rounded p-5" th:object="${usuari}" th:action="@{/autenticate/autenticate}" method="post" onsubmit="return validacioLogin()">
+        <form class="col-4 mt-5 border border-dark shadow-lg bg-body rounded p-5" th:object="${usuari}" th:action="@{/autenticate/autenticate}" method="post" onsubmit="return validacioLogin()">
             <div class="row">
                 <div class="col-12">
                     <h3 class="text-center mt-3">Inicia Sessió</h3>
@@ -34,8 +34,8 @@
            </div>
             <div class="row">
                 <div class="col-12 mt-4 mb-4 text-center">
-                    <input type="submit" class="btn btn-primary" value="Loggin" id="boto-submit-login" />
-                    <a th:href="@{/autenticate/register}"><input type="button" class="btn btn-primary" value="Register" /></a>
+                    <input type="submit" class="btn btn-outline-dark" value="Loggin" id="boto-submit-login" />
+                    <a th:href="@{/autenticate/register}"><input type="button" class="btn btn-outline-dark" value="Register" /></a>
                 </div>
             </div>
         </form>

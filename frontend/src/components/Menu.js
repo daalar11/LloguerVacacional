@@ -70,12 +70,6 @@ class Menu extends Component {
               </NavItem>
               <hr></hr>
 
-              {/* NavItem Contact */}
-              <NavItem className="itemnav hover-effect-nav mt-1 text-end">
-                <Link className="text-decoration-none text-dark" to="/contact">{this.props.t('header.contact')}</Link>
-              </NavItem>
-              <hr></hr>
-
               {/* NavItem Login */}
               <NavItem className="itemnav hover-effect-nav text-end">
                 <Link className="text-decoration-none text-dark" to="/login">
@@ -126,12 +120,6 @@ class Menu extends Component {
             {/* NavItem MisReservas */}
             <NavItem className="itemnav hover-effect-nav text-end">
                 <Link className="text-decoration-none text-dark" to="/misreservas">{this.props.t('header.misreservas')}</Link>
-            </NavItem>
-            <hr></hr>
-
-            {/* NavItem Contact */}
-            <NavItem className="itemnav hover-effect-nav text-end">
-              <Link className="text-decoration-none text-dark" to="/contact">{this.props.t('header.contact')}</Link>
             </NavItem>
             <hr></hr>
 

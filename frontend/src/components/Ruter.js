@@ -14,7 +14,6 @@ import Home from "../views/Home";
 import Cercarpropietat from "../views/Cercarpropietat";
 import Viewpropietat from "../views/Viewpropietat";
 import Login from "../views/Login";
-import Contact from "../views/Contact";
 import Register from "../views/Register";
 import Reservar from "../views/Reservar";
 import MisReservas from "../views/MisReservas";
@@ -48,7 +47,6 @@ class Ruter extends Component {
             <Route path="/cercarpropietat" element={<Cercarpropietat />} />
             <Route path="/viewpropietat" element={<Viewpropietat />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/contact" element={<Contact />} />
             <Route path="/register" element={<Register />} />
             <Route path="/reservar" element={<Reservar />} />
             <Route path="/misreservas" element={<MisReservas />} />

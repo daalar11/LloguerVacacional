@@ -129,7 +129,7 @@
                             <input class="form-check-input" type="checkbox" id="activa" th:field="*{activa}">
                         </div>
                         <div class="col-1 mt-5 form-group">
-                            <input type="submit" class="btn btn-primary" value="Guardar" id="boto-submit-tarifa" />
+                            <input type="submit" class="btn btn-outline-success" value="Guardar" id="boto-submit-tarifa" />
                         </div>
                     </div>
                     <div class="col-6">
@@ -144,7 +144,7 @@
                             <div id="validacioDataFi" class="form-text"></div>
                         </div>
                         <div class="col-1 mt-5 form-group">
-                            <a class="btn btn-lg btn-outline-danger" th:href="@{'/views/tarifes/delete/' + ${idTARIFA}}" th:text="'Eliminar Tarifa'" title="Eliminar"></a>
+                            <a class="btn btn-lg btn-danger" th:href="@{'/views/tarifes/delete/' + ${idTARIFA}}" th:text="'Eliminar Tarifa'" title="Eliminar"></a>
                         </div>
                     </div>
                 </div>

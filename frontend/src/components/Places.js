@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import {Col,Row,Input,Label} from 'reactstrap';
 import Propietat from "./Propietat";
+//Imports Traduccions
+import { withTranslation } from 'react-i18next';
 
 class Places extends Component {
     constructor(props){
@@ -17,7 +19,7 @@ class Places extends Component {
       <div className='px-4'>
 
           <Row>
-          <Label for="places">Nº de places: </Label>
+          <Label for="places">{this.props.t('viewpropietat.plases')}</Label>
           </Row>
           <Row>
           <Input id="places"
@@ -33,4 +35,4 @@ class Places extends Component {
   }
 }
  
-export default Places;
+export default withTranslation()(Places);

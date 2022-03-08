@@ -16,7 +16,7 @@
     <div class="col-2">
 
     </div>
-    <form th:object="${propietari}" th:action="@{/autenticate/save}" class="col-8 mt-2 p-5 border border-dark shadow-lg bg-body rounded" method="post" onsubmit="return validacioRegister()">
+    <form th:object="${propietari}" th:action="@{/autenticate/save}" class="col-8 mt-5 p-5 border border-dark shadow-lg bg-body rounded" method="post" onsubmit="return validacioRegister()">
       <div class="row">
         <div class="col-12">
           <h3 class="text-center mt-3">Registre de propietaris</h3>
@@ -68,8 +68,8 @@
       </div>
       <div class="row mt-4">
         <div class="col-12 mb-4 text-center">
-          <input type="submit" class="btn btn-primary" value="Guardar" id="boto-submit-register" />
-          <br><a class="mt-4" th:href="@{/}">Ja tens un usuari propietari? Inicia sessió!</a>
+          <input type="submit" class="btn btn-outline-dark mb-4" value="Guardar" id="boto-submit-register" />
+          <br><a th:href="@{/}">Ja tens un usuari propietari? Inicia sessió!</a>
         </div>
       </div>
     </form>

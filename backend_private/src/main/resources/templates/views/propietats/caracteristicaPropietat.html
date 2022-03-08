@@ -369,12 +369,12 @@
                   </div>
 
                   <div class="col-1 mt-2 form-group">
-                    <input type="submit" id="boto-submit-propietat" class="btn btn-primary" value="Guardar" />
+                    <input type="submit" id="boto-submit-propietat" class="btn btn-success" value="Guardar" />
                   </div>
                   <div class="col-1 form-group">
 
                     <a class="nav-link" th:href="@{/views/propietats/}">
-                      <input type="button" class="btn btn-danger" value="Cancelar">
+                      <input type="button" class="btn btn-warning" value="Cancelar">
                     </a>
                   </div>
 
@@ -414,10 +414,23 @@
                   <td th:text="${cl.llit_simple}"> </td>
                   <td>
                     <!-- Pasam l'id de propietat i d'habitacio per poder editar -->
-                    <a class="btn btn-success" th:href="@{'/views/habitacions/edit/'+${cl.propietat.idPROPIETAT}+'/'+${cl.idHABITACIONS}} " th:text="'Editar Habitació'" title="Editar"></a>
+                    <a th:href="@{'/views/habitacions/edit/'+${cl.propietat.idPROPIETAT}+'/'+${cl.idHABITACIONS}} " title="Editar">
+                      <button type="button" class="btn btn-success">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-hammer" viewBox="0 0 16 16">
+                          <path d="M9.972 2.508a.5.5 0 0 0-.16-.556l-.178-.129a5.009 5.009 0 0 0-2.076-.783C6.215.862 4.504 1.229 2.84 3.133H1.786a.5.5 0 0 0-.354.147L.146 4.567a.5.5 0 0 0 0 .706l2.571 2.579a.5.5 0 0 0 .708 0l1.286-1.29a.5.5 0 0 0 .146-.353V5.57l8.387 8.873A.5.5 0 0 0 14 14.5l1.5-1.5a.5.5 0 0 0 .017-.689l-9.129-8.63c.747-.456 1.772-.839 3.112-.839a.5.5 0 0 0 .472-.334z"></path>
+                        </svg>
+                      </button>
+                    </a>
                   </td>
                   <td>
-                    <a class="btn btn-danger" th:href="@{'/views/habitacions/delete/' + ${cl.idHABITACIONS}}" th:text="'Eliminar habitació'" title="Eliminar"></a>
+                    <a th:href="@{'/views/habitacions/delete/' + ${cl.idHABITACIONS}}" title="Eliminar">
+                      <button type="button" class="btn btn-danger">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                          <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"></path>
+                          <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"></path>
+                        </svg>
+                      </button>
+                    </a>
                   </td>
 
                 </tr>
@@ -427,7 +440,7 @@
 
             </div>
           </div>
-          <a th:each="hab:${propietat}" class="btn btn-primary" th:href="@{'/views/habitacions/afegir/'+ ${hab.idPROPIETAT}} " th:text="'Nova Habitacio'" title="Crear nou registre"></a>
+          <a th:each="hab:${propietat}" class="btn btn-outline-success" th:href="@{'/views/habitacions/afegir/'+ ${hab.idPROPIETAT}} " th:text="'Nova Habitacio'" title="Crear nou registre"></a>
         </div>
 
         <!-- Tab Panel Caracteristiques -->
@@ -456,7 +469,7 @@
                 </div>
 
                   <div class="col-1 mt-2 form-group">
-                    <input type="submit" id="boto-submit-caracteristiques" class="btn btn-warning" value="Guardar" />
+                    <input type="submit" id="boto-submit-caracteristiques" class="btn btn-success" value="Guardar" />
                   </div>
                 </form>
 
@@ -483,7 +496,7 @@
                   <th scope="col">Data Inici</th>
                   <th scope="col">Data Fi</th>
                   <th scope="col">Activa</th>
-                  <th scope="col"></th>
+                  <th scope="col">Editar</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -494,7 +507,13 @@
                   <td th:text="${ta.dataFinal}"> </td>
                   <td th:text="${ta.activa}"></td>
                   <td>
-                    <a class="btn btn-success" th:href="@{'/views/tarifes/edit/'+${ta.propietat.idPROPIETAT} +'/'+${ta.idTARIFA}} " th:text="'Configuracio'" title="Editar"></a>
+                    <a th:href="@{'/views/tarifes/edit/'+${ta.propietat.idPROPIETAT} +'/'+${ta.idTARIFA}} " title="Editar">
+                      <button type="button" class="btn btn-success">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-hammer" viewBox="0 0 16 16">
+                          <path d="M9.972 2.508a.5.5 0 0 0-.16-.556l-.178-.129a5.009 5.009 0 0 0-2.076-.783C6.215.862 4.504 1.229 2.84 3.133H1.786a.5.5 0 0 0-.354.147L.146 4.567a.5.5 0 0 0 0 .706l2.571 2.579a.5.5 0 0 0 .708 0l1.286-1.29a.5.5 0 0 0 .146-.353V5.57l8.387 8.873A.5.5 0 0 0 14 14.5l1.5-1.5a.5.5 0 0 0 .017-.689l-9.129-8.63c.747-.456 1.772-.839 3.112-.839a.5.5 0 0 0 .472-.334z"></path>
+                        </svg>
+                      </button>
+                    </a>
                   </td>
 
                 </tr>
@@ -503,7 +522,7 @@
               </table>
             </div>
           </div>
-          <a th:each="tar:${propietat}" class="btn btn-primary mt-3" th:href="@{'/views/tarifes/afegir/'+ ${tar.idPROPIETAT}} " th:text="'Nova Tarifa'" title="Crear nou registre"></a>
+          <a th:each="tar:${propietat}" class="btn btn-outline-success mt-3" th:href="@{'/views/tarifes/afegir/'+ ${tar.idPROPIETAT}} " th:text="'Nova Tarifa'" title="Crear nou registre"></a>
 
         </div><!-- Fi panel tarifes -->
 
@@ -531,13 +550,24 @@
                   <th th:text="${ta.idBLOQUEIG}"></th>
                   <td th:text="${ta.dataInici}"></td>
                   <td th:text="${ta.dataFinal}"> </td>
-
-
                   <td>
-                    <a class="btn btn-success" th:href="@{'/views/bloqueig/edit/'+${ta.propietat.idPROPIETAT} +'/'+${ta.idBLOQUEIG}} " th:text="'Editar'" title="Editar"></a>
+                    <a th:href="@{'/views/bloqueig/edit/'+${ta.propietat.idPROPIETAT} +'/'+${ta.idBLOQUEIG}} " title="Editar">
+                      <button type="button" class="btn btn-success">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-hammer" viewBox="0 0 16 16">
+                          <path d="M9.972 2.508a.5.5 0 0 0-.16-.556l-.178-.129a5.009 5.009 0 0 0-2.076-.783C6.215.862 4.504 1.229 2.84 3.133H1.786a.5.5 0 0 0-.354.147L.146 4.567a.5.5 0 0 0 0 .706l2.571 2.579a.5.5 0 0 0 .708 0l1.286-1.29a.5.5 0 0 0 .146-.353V5.57l8.387 8.873A.5.5 0 0 0 14 14.5l1.5-1.5a.5.5 0 0 0 .017-.689l-9.129-8.63c.747-.456 1.772-.839 3.112-.839a.5.5 0 0 0 .472-.334z"></path>
+                        </svg>
+                      </button>
+                    </a>
                   </td>
                   <td>
-                    <a class="btn btn-danger" th:href="@{'/views/bloqueig/delete/' + ${ta.idBLOQUEIG}}" th:text="'Eliminar'" title="Eliminar"></a>
+                    <a th:href="@{'/views/bloqueig/delete/' + ${ta.idBLOQUEIG}}" title="Eliminar">
+                      <button type="button" class="btn btn-danger">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                          <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"></path>
+                          <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"></path>
+                        </svg>
+                      </button>
+                    </a>
                   </td>
 
                 </tr>
@@ -546,7 +576,7 @@
               </table>
             </div>
           </div>
-          <a th:each="tar:${propietat}" class="btn btn-primary mt-3" th:href="@{'/views/bloqueig/afegir/'+ ${tar.idPROPIETAT}} " th:text="'Nou Bloqueig'" title="Crear nou registre"></a>
+          <a th:each="tar:${propietat}" class="btn btn-outline-success mt-3" th:href="@{'/views/bloqueig/afegir/'+ ${tar.idPROPIETAT}} " th:text="'Nou Bloqueig'" title="Crear nou registre"></a>
 
 
         </div>
@@ -564,8 +594,8 @@
                 <thead>
                 <tr>
                   <th scope="col">ID Politica</th>
-                  <th scope="col">nº Dies d'antelació</th>
-                  <th scope="col">Percentatge de dotbers perdut</th>
+                  <th scope="col">Nº Dies d'antelació</th>
+                  <th scope="col">% Diners perdut</th>
                   <th scope="col">Activa?</th>
                   <th scope="col">Editar</th>
                   <th scope="col">Eliminar</th>
@@ -578,10 +608,23 @@
                   <td th:text="${pol.perdut}"></td>
                   <td th:text="${pol.activa}"> </td>
                   <td>
-                    <a class="btn btn-warning" th:href="@{'/views/propietats/politiques/edit/'+${pol.propietat.idPROPIETAT}+'/'+${pol.idPolitica}} " th:text="'Editar Politica'" title="Editar"></a>
+                    <a th:href="@{'/views/propietats/politiques/edit/'+${pol.propietat.idPROPIETAT}+'/'+${pol.idPolitica}} " title="Editar">
+                      <button type="button" class="btn btn-success">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-hammer" viewBox="0 0 16 16">
+                          <path d="M9.972 2.508a.5.5 0 0 0-.16-.556l-.178-.129a5.009 5.009 0 0 0-2.076-.783C6.215.862 4.504 1.229 2.84 3.133H1.786a.5.5 0 0 0-.354.147L.146 4.567a.5.5 0 0 0 0 .706l2.571 2.579a.5.5 0 0 0 .708 0l1.286-1.29a.5.5 0 0 0 .146-.353V5.57l8.387 8.873A.5.5 0 0 0 14 14.5l1.5-1.5a.5.5 0 0 0 .017-.689l-9.129-8.63c.747-.456 1.772-.839 3.112-.839a.5.5 0 0 0 .472-.334z"></path>
+                        </svg>
+                      </button>
+                    </a>
                   </td>
                   <td>
-                    <a class="btn btn-danger" th:href="@{'/views/propietats/politiques/delete/'+${pol.propietat.idPROPIETAT}+'/'+ ${pol.idPolitica}}" th:text="'Eliminar Politica'" title="Eliminar"></a>
+                    <a th:href="@{'/views/propietats/politiques/delete/'+${pol.propietat.idPROPIETAT}+'/'+ ${pol.idPolitica}}" title="Eliminar">
+                      <button type="button" class="btn btn-danger">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                          <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"></path>
+                          <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"></path>
+                        </svg>
+                      </button>
+                    </a>
                   </td>
 
                 </tr>
@@ -591,7 +634,7 @@
               </table>
             </div>
           </div>
-          <a class="btn btn-warning" th:object="${propietat}" th:href="@{'/views/propietats/politiques/afegir/'+*{idPROPIETAT}}">Afegir Politica</a>
+          <a class="btn btn-outline-success" th:object="${propietat}" th:href="@{'/views/propietats/politiques/afegir/'+*{idPROPIETAT}}">Afegir Politica</a>
         </div>
 
         <!-- Tab-Reserves -->
@@ -621,18 +664,16 @@
                   <td th:text="${ta.dataReserva}"></td>
                   <td th:text="${ta.dArribada}"></td>
                   <td th:text="${ta.dSortida}"></td>
-                  <td th:text="${ta.preuFinal}"></td>
+                  <td th:text="${#numbers.formatCurrency(ta.preuFinal)}"></td>
                   <td th:text="${ta.cancelada}"></td>
                   <td>
-                    <a class="btn btn-success" th:href="@{'/views/reserves/edit/'+${ta.propietat.idPROPIETAT} +'/'+${ta.idReserva}} " th:text="'Cancelar Reserva'" title="Cancelar"></a>
+                    <a class="btn btn-outline-danger" th:href="@{'/views/reserves/edit/'+${ta.propietat.idPROPIETAT} +'/'+${ta.idReserva}} " th:text="'Cancelar Reserva'" title="Cancelar"></a>
                   </td>
                 </tr>
-
                 </tbody>
               </table>
             </div>
           </div>
-
         </div>
 
         <!-- Tab-Fotos -->
@@ -670,7 +711,7 @@
 
 
                 <div class="col-1 mt-2 form-group">
-                  <input type="submit" id="boto-submit-foto-portada" class="btn btn-primary" value="Pujar Portada" />
+                  <input type="submit" id="boto-submit-foto-portada" class="btn btn-outline-success" value="Pujar Portada" />
                 </div>
 
               </div>
@@ -695,7 +736,7 @@
                 <!-- Per cada foto secundaria a la carpeta img fara un article.-->
                 <th:block  th:each="i: ${#numbers.sequence(1, numeroFotosSecundaries)}">
 
-                  <article class="col-4 hover-foto">
+                  <article class="col-4">
                     <img th:src="@{${'/Media/' + idPropietat + '-media/img/' + idPropietat + '-' + i +'.jpg'}}"
                          alt="Foto Portada" class="img-fluid w-100 ">
                   </article>
@@ -723,7 +764,7 @@
                   </div>
 
                   <div class="col-1 mt-2 form-group">
-                    <input type="submit" id="boto-submit-fotos" class="btn btn-primary" value="Foto Nova" />
+                    <input type="submit" id="boto-submit-fotos" class="btn btn-outline-success" value="Foto Nova" />
                   </div>
 
                 </div>
