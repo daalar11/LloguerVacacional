@@ -45,7 +45,7 @@ class FotosController extends Controller
 
         for ($i = 1; $i<$numeroFotosSecundaries+1;$i++){
 
-            $path = 'http://localhost:8000/propietat/' . $idPropietat . '/fotos/secundaries/' . $idPropietat . '-' . $i . '.jpg';
+            $path = 'https://api.lloguerdavid.me/propietat/' . $idPropietat . '/fotos/secundaries/' . $idPropietat . '-' . $i . '.jpg';
 
             $foto = array(
                 "src" => $path,
