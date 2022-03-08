@@ -102,7 +102,7 @@ class Menu extends Component {
         <Navbar expand="md" fixed="top" light className="navb d-flex d-row justify-content-center border-bottom">
           
         {/* NavItem Home */}
-        <NavItem className="mt-2 me-3 hover-effect-nav list-unstyled p-1">
+        <NavItem className="mt-2 me-3 list-unstyled p-1">
           <Link className="mt-2 ms-2 text-decoration-none text-dark" to="/"><img src={Logo} width="120" height="30" /></Link>
         </NavItem>
 
