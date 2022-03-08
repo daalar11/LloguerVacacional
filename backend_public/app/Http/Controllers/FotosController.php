@@ -72,7 +72,7 @@ class FotosController extends Controller
         print_r($path);
         $response = Response::make($file, 200);
         $response->header("Content-Type", $type);
-
+        ob_end_clean();
         return $response;
 
     }
@@ -88,7 +88,7 @@ class FotosController extends Controller
 
         for ($i = 1; $i<$numeroCases+1;$i++){
 
-            $path = 'http://localhost:8000/propietat/' . $i . '/fotos/portada';
+            $path = 'https://api.lloguerdavid.me/propietat/' . $i . '/fotos/portada';
 
             $foto = array(
                 "src" => $path,
