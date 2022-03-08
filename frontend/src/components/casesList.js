@@ -2,9 +2,8 @@ import { createPath } from "history";
 import React, { Component } from "react";
 import {Col,Row} from 'reactstrap';
 import Propietat from "./Propietat";
-import ReactPaginate from 'react-paginate';
 import './cssPaginacio.css'; 
-import axios from 'axios';
+
 class CasesList extends Component {
      constructor(props){
         super(props);
@@ -27,7 +26,7 @@ class CasesList extends Component {
       }
     
     applyFilters(propietat){
-           let caracteristiques=[]
+           //let caracteristiques=[]
            let caracteristicaPropietat=[];
            let x=0; 
            for(const carac in propietat.caracteristica){
