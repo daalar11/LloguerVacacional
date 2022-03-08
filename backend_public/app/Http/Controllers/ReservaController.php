@@ -63,7 +63,7 @@ class ReservaController extends Controller
             ->where('d_arribada',$dInici)
             ->where('pagada',0)
             ->delete();
-        return redirect("http://localhost:3000/misreservas");
+        return redirect("https://www.lloguerdavid.me/misreservas");
     }
 
 }

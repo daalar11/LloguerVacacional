@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'paths' => ['*', 'sanctum/csrf-cookie'],
+    'paths' => ['https://api.lloguerdavid.me/*'],
 
     'allowed_methods' => ['*'],
 
