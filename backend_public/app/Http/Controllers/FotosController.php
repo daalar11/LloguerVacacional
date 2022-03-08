@@ -61,7 +61,7 @@ class FotosController extends Controller
     public function listPortadesByIdPropietat($idPropietat)
     {
         $path = realpath("/Media/" . $idPropietat . "-media/" . $idPropietat . "-portada.jpg");
-        print_r($path);
+
 
         //Si la foto que cerca no exiteix
         if(!File::exists($path)) {
@@ -70,7 +70,7 @@ class FotosController extends Controller
 
         $file = File::get($path);
         $type = File::mimeType($path);
-        print_r($path);
+
         $response = Response::make($file, 200);
         $response->header("Content-Type", $type);
         ob_end_clean();
