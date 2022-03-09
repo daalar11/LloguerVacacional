@@ -116,7 +116,7 @@ class Home extends Component {
             </Row>
             <Row >
             <a className="d-flex justify-content-center" href="http://localhost:8080/">
-                <button  className="col-xl-4 mb-3 ms-5 boto-comença-llogar">{this.props.t('home.botopropietari')}</button>
+                <button aria-label="cerca casa" className="col-xl-4 mb-3 ms-5 boto-comença-llogar">{this.props.t('home.botopropietari')}</button>
               </a>
             </Row>
           </Col>
@@ -133,7 +133,7 @@ class Home extends Component {
             </Row>
             <Row >
               <a className="d-flex justify-content-center" href="http://localhost:8080/">
-                <button  className="col-xl-4  mb-3 boto-comença-llogar">{this.props.t('home.botopropietari')}</button>
+                <button aria-label="feste propietari"  className="col-xl-4  mb-3 boto-comença-llogar">{this.props.t('home.botopropietari')}</button>
               </a>
             </Row>
           </Col>
