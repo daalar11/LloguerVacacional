@@ -62,7 +62,7 @@ class Home extends Component {
 
         <Breadcrumb>
           <BreadcrumbItem active>
-            Home
+          {this.props.t('breadcrumb.home')}
           </BreadcrumbItem>
         </Breadcrumb>
         <br></br>

@@ -5,8 +5,10 @@ import {Row, Breadcrumb, BreadcrumbItem,Col,Table, Button} from 'reactstrap';
 
 import {Link} from "react-router-dom";
 
-
 import axios from 'axios';
+
+import { withTranslation } from 'react-i18next';
+
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -89,10 +91,10 @@ class Home extends Component {
         <Col className="col-12">
           <Breadcrumb>
             <BreadcrumbItem>
-              <Link to="/">Home</Link>
+              <Link to="/">{this.props.t('breadcrumb.home')}</Link>
             </BreadcrumbItem>
             <BreadcrumbItem active>
-              Mis Reservas
+            {this.props.t('breadcrumb.reservar')}
             </BreadcrumbItem>
           </Breadcrumb>
         </Col>
@@ -132,4 +134,4 @@ class Home extends Component {
   }
 }
  
-export default Home;
+export default withTranslation()(Home);

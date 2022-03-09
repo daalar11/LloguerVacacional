@@ -89,7 +89,7 @@ class CapsaReserva extends Component {
     );
     } else {
         return (
-             <Col xs="3" className='mt-1'>
+             <Col xs="3" className='mt-5'>
 
            
 

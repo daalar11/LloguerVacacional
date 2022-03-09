@@ -9,6 +9,9 @@ import CapsaComentaris from "../components/CapsaComentaris";
 import {Row, Col, Breadcrumb, BreadcrumbItem} from 'reactstrap';
 import axios from 'axios';
 import {Link} from "react-router-dom";
+
+//Imports Traduccions
+import { withTranslation } from 'react-i18next';
  
 class Viewpropietat extends Component {
 
@@ -103,13 +106,13 @@ class Viewpropietat extends Component {
 
             <Breadcrumb>
               <BreadcrumbItem>
-                <Link to="/">Home</Link>
+                <Link to="/">{this.props.t('breadcrumb.home')}</Link>
               </BreadcrumbItem>
               <BreadcrumbItem>
-                <Link to="/cercarpropietat">Cercar Propietat</Link>
+                <Link to="/cercarpropietat">{this.props.t('breadcrumb.cercar')}</Link>
               </BreadcrumbItem>
               <BreadcrumbItem active>
-                Propietat 
+              {this.props.t('breadcrumb.vistacasa')} 
               </BreadcrumbItem>
             </Breadcrumb>
             
@@ -154,4 +157,4 @@ class Viewpropietat extends Component {
   }
 }
  
-export default Viewpropietat;
+export default withTranslation()(Viewpropietat);

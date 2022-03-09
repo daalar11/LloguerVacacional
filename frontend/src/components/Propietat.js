@@ -25,13 +25,13 @@ class Propietat extends Component {
       
   <Card className='tamanyCard text-start mb-2'>
     <div className='row'>
-    <div className='col-xl-5 col-sm-8 col-xs-8'>
+    <div className='col-xl-5 col-sm-6 col-xs-6'>
     <CardImg
       src={this.props.src}
       height='100%'
       />
     </div>
-    <CardBody className='col-xl-7  col-sm-4 d-flex flex-column justify-content-between'
+    <CardBody className='col-xl-7  col-sm-6 d-flex flex-column justify-content-between'
     height='100%'>
       <Row className='d-flex flex-row justify-content-between'>
           <CardTitle xl="4" xs="12"tag="h2" className='mb-3'>

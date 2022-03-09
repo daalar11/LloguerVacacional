@@ -135,10 +135,10 @@ class Cercarpropietat extends Component {
 
         <Breadcrumb>
           <BreadcrumbItem>
-            <Link to="/">Home</Link>
+            <Link to="/">{this.props.t('breadcrumb.home')}</Link>
           </BreadcrumbItem>
           <BreadcrumbItem active>
-            Cercar Propietat
+          {this.props.t('breadcrumb.cercar')}
           </BreadcrumbItem>
         </Breadcrumb>
 

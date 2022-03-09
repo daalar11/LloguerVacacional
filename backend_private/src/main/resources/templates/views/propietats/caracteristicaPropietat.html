@@ -736,7 +736,7 @@
                 <!-- Per cada foto secundaria a la carpeta img fara un article.-->
                 <th:block  th:each="i: ${#numbers.sequence(1, numeroFotosSecundaries)}">
 
-                  <article class="col-4">
+                  <article class="col-4 mb-3">
                     <img th:src="@{${'/Media/' + idPropietat + '-media/img/' + idPropietat + '-' + i +'.jpg'}}"
                          alt="Foto Portada" class="img-fluid w-100 ">
                   </article>
