@@ -128,6 +128,8 @@ class DayPicker extends React.Component {
           placeholder={this.props.t('viewpropietat.arribada')}
           formatDate={this.formatDate}
           format={FORMAT}
+          locale="hu"
+       calendarStartDay={1}
           dayPickerProps={{
             selectedDays: [from, { from, to }],
             disabledDays: this.state.disabledParsed,
@@ -146,6 +148,8 @@ class DayPicker extends React.Component {
             placeholder={this.props.t('viewpropietat.sortida')}
             formatDate={this.formatDate}
             format={FORMAT}
+            locale="hu"
+       calendarStartDay={1}
             dayPickerProps={{
               selectedDays: [from, { from, to }],
               disabledDays: this.state.disabledParsed,
