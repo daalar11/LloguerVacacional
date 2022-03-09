@@ -75,7 +75,7 @@ class Cercarpropietat extends Component {
   carregarCaracteristica = () => {
 
     //var url="api.lloguerdavid.me";
-   var url = "http://localhost:8000";
+    var url = "http://localhost:8000";
     //var url = "https://api.lloguerdavid.me";
     var request = "/caracteristica";
 
