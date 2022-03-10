@@ -21,8 +21,8 @@ class Home extends Component {
 
   getFotos = () => {
 
-    var url = "http://127.0.0.1:8000";
-    //var url = "https://api.lloguerdavid.me";
+    //var url = "http://127.0.0.1:8000";
+    var url = "https://api.lloguerdavid.me";
     var request = "/propietat/fotos/info/portades";
     
     axios.get(url + request)

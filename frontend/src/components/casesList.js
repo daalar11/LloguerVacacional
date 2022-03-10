@@ -132,7 +132,7 @@ class CasesList extends Component {
         caracteristica={todo.caracteristica}
         preu={todo.preu_base}
         id={todo.idpropietat}
-        src={'http://localhost:8000/propietat/'+todo.idpropietat+'/fotos/portada'}
+        src={'https://api.lloguerdavid.me/propietat/'+todo.idpropietat+'/fotos/portada'}
         />
         <hr></hr>
         </>;
